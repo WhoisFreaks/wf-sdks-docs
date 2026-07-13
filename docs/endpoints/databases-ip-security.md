@@ -1,0 +1,185 @@
+# Databases - IP Security
+
+IP security database snapshots
+
+2 endpoint(s). All requests require your API key — see [Authentication](../authentication.md).
+
+## IP Security Snapshot
+
+`GET /v3.3/download/snapshot/ip/security`
+
+IP Security Snapshot. Returns the file/snapshot described by this operation.
+
+**Parameters**
+
+| Parameter | In | Required | Type | Description |
+|-----------|----|----------|------|-------------|
+| `apiKey` | query | yes | string | Your WHOISFreaks API key |
+| `date` | query | yes | string |  |
+
+**Usage**
+
+<details><summary>Python</summary>
+
+```python
+"""Runnable example: IP Security Snapshot (GET /v3.3/download/snapshot/ip/security).
+Returns raw bytes (a compressed/binary file) -- write to disk, do not print."""
+from datetime import date, timedelta
+from whoisfreaks import Configuration, ApiClient
+from whoisfreaks.api.databases_ip_security_api import DatabasesIPSecurityApi
+
+# Parameters for dbIpSecurity (GET /v3.3/download/snapshot/ip/security):
+#   - apiKey (string, required): Your WHOISFreaks API key
+#   - date (string, required)
+config = Configuration()
+api = DatabasesIPSecurityApi(ApiClient(config))
+
+data = api.db_ip_security(api_key="YOUR_API_KEY", var_date=str(date.today() - timedelta(days=1)))   # bytes
+with open("dbIpSecurity.gz", "wb") as f:
+    f.write(data)
+print(f"saved {len(data)} bytes to dbIpSecurity.gz")
+
+```
+
+</details>
+
+<details><summary>TypeScript</summary>
+
+```typescript
+// Runnable example: IP Security Snapshot (GET /v3.3/download/snapshot/ip/security)
+// Parameters for dbIpSecurity (GET /v3.3/download/snapshot/ip/security):
+//   - apiKey (string, required): Your WHOISFreaks API key
+//   - date (string, required)
+import { Configuration, DatabasesIPSecurityApi } from "whoisfreaks";
+
+const api = new DatabasesIPSecurityApi(new Configuration());
+
+async function main() {
+  const resp = await api.dbIpSecurityRaw({ apiKey: "YOUR_API_KEY", date: new Date(Date.now()-86400000).toISOString().slice(0,10) });
+  console.log("status:", resp.raw.status);
+  console.log(await resp.value());
+}
+main().catch(console.error);
+
+```
+
+</details>
+
+<details><summary>Go</summary>
+
+```go
+// Runnable example: IP Security Snapshot (GET /v3.3/download/snapshot/ip/security)
+// Parameters for dbIpSecurity (GET /v3.3/download/snapshot/ip/security):
+//   - apiKey (string, required): Your WHOISFreaks API key
+//   - date (string, required)
+package main
+
+import (
+    "context"
+    "fmt"
+    "time"
+    wf "github.com/WhoisFreaks/whoisfreaks-go"
+)
+
+func main() {
+    cfg := wf.NewConfiguration()
+    client := wf.NewAPIClient(cfg)
+    ctx := context.WithValue(context.Background(), wf.ContextAPIKeys,
+        map[string]wf.APIKey{"ApiKeyAuth": {Key: "YOUR_API_KEY"}})
+    result, httpRes, err := client.DatabasesIPSecurityAPI.DbIpSecurity(ctx).Date(time.Now().AddDate(0,0,-1).Format("2006-01-02")).Execute()
+    if err != nil { panic(err) }
+    fmt.Println("status:", httpRes.StatusCode)
+    fmt.Println(result)
+}
+
+```
+
+</details>
+
+---
+
+## IP Security Snapshot Status
+
+`GET /v3.3/status/snapshot/ip/security`
+
+IP Security Snapshot Status. Returns the file/snapshot described by this operation.
+
+**Parameters**
+
+| Parameter | In | Required | Type | Description |
+|-----------|----|----------|------|-------------|
+| `apiKey` | query | yes | string | Your WHOISFreaks API key |
+
+**Usage**
+
+<details><summary>Python</summary>
+
+```python
+"""Runnable example: IP Security Snapshot Status (GET /v3.3/status/snapshot/ip/security)."""
+from whoisfreaks import Configuration, ApiClient
+from whoisfreaks.api.databases_ip_security_api import DatabasesIPSecurityApi
+
+# Parameters for dbIpSecurityStatus (GET /v3.3/status/snapshot/ip/security):
+#   - apiKey (string, required): Your WHOISFreaks API key
+config = Configuration()
+api = DatabasesIPSecurityApi(ApiClient(config))
+
+resp = api.db_ip_security_status_with_http_info(api_key="YOUR_API_KEY")
+print("status:", resp.status_code)
+print(resp.data)
+
+```
+
+</details>
+
+<details><summary>TypeScript</summary>
+
+```typescript
+// Runnable example: IP Security Snapshot Status (GET /v3.3/status/snapshot/ip/security)
+// Parameters for dbIpSecurityStatus (GET /v3.3/status/snapshot/ip/security):
+//   - apiKey (string, required): Your WHOISFreaks API key
+import { Configuration, DatabasesIPSecurityApi } from "whoisfreaks";
+
+const api = new DatabasesIPSecurityApi(new Configuration());
+
+async function main() {
+  const resp = await api.dbIpSecurityStatusRaw({ apiKey: "YOUR_API_KEY" });
+  console.log("status:", resp.raw.status);
+  console.log(await resp.value());
+}
+main().catch(console.error);
+
+```
+
+</details>
+
+<details><summary>Go</summary>
+
+```go
+// Runnable example: IP Security Snapshot Status (GET /v3.3/status/snapshot/ip/security)
+// Parameters for dbIpSecurityStatus (GET /v3.3/status/snapshot/ip/security):
+//   - apiKey (string, required): Your WHOISFreaks API key
+package main
+
+import (
+    "context"
+    "fmt"
+    wf "github.com/WhoisFreaks/whoisfreaks-go"
+)
+
+func main() {
+    cfg := wf.NewConfiguration()
+    client := wf.NewAPIClient(cfg)
+    ctx := context.WithValue(context.Background(), wf.ContextAPIKeys,
+        map[string]wf.APIKey{"ApiKeyAuth": {Key: "YOUR_API_KEY"}})
+    result, httpRes, err := client.DatabasesIPSecurityAPI.DbIpSecurityStatus(ctx).Execute()
+    if err != nil { panic(err) }
+    fmt.Println("status:", httpRes.StatusCode)
+    fmt.Println(result)
+}
+
+```
+
+</details>
+
+---
