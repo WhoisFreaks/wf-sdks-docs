@@ -11,16 +11,13 @@
 //   - exact (boolean, optional)
 //   - page (integer, optional)
 //   - format (string (one of: json, xml), optional)
-// whoisfreaks-js is CommonJS — import default then destructure
+// whoisfreaks-js is CommonJS (no Configuration class; apiKey is positional)
 import pkg from "whoisfreaks-js";
-const { Configuration, WHOISApi } = pkg;
-// (CommonJS alternative: const { Configuration, WHOISApi } = require("whoisfreaks-js");)
+const { ApiClient, WHOISApi } = pkg;
+// or:  const { ApiClient, WHOISApi } = require("whoisfreaks-js");
 
-const api = new WHOISApi(new Configuration());
+const api = new WHOISApi();   // uses ApiClient.instance
 
-async function main() {
-  const resp = await api.whoisHistoricalOrReverseRaw({ apiKey: "YOUR_API_KEY", whois: "historical", domainName: "example.com", exact: true, keyword: undefined, email: undefined, owner: undefined, company: undefined, mode: undefined, page: undefined, format: undefined });
-  console.log("status:", resp.raw.status);
-  console.log(await resp.value());
-}
-main().catch(console.error);
+api.whoisHistoricalOrReverse("YOUR_API_KEY", "historical", "example.com", true)
+  .then(data => console.log(data))
+  .catch(err => console.error(err));

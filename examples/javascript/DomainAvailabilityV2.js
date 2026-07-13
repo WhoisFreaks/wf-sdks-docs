@@ -5,16 +5,13 @@
 //   - sug (boolean, optional): Whether to return TLD suggestions alongside the queried domain.
 //   - count (integer, optional): Number of TLD suggestions to return when sug=true. Maximum is 100.
 //   - format (string (one of: json, xml), optional)
-// whoisfreaks-js is CommonJS — import default then destructure
+// whoisfreaks-js is CommonJS (no Configuration class; apiKey is positional)
 import pkg from "whoisfreaks-js";
-const { Configuration, DomainAvailabilityApi } = pkg;
-// (CommonJS alternative: const { Configuration, DomainAvailabilityApi } = require("whoisfreaks-js");)
+const { ApiClient, DomainAvailabilityApi } = pkg;
+// or:  const { ApiClient, DomainAvailabilityApi } = require("whoisfreaks-js");
 
-const api = new DomainAvailabilityApi(new Configuration());
+const api = new DomainAvailabilityApi();   // uses ApiClient.instance
 
-async function main() {
-  const resp = await api.domainAvailabilityV2Raw({ apiKey: "YOUR_API_KEY", domain: "example.com", sug: undefined, count: undefined, format: undefined });
-  console.log("status:", resp.raw.status);
-  console.log(await resp.value());
-}
-main().catch(console.error);
+api.domainAvailabilityV2("YOUR_API_KEY", "example.com")
+  .then(data => console.log(data))
+  .catch(err => console.error(err));

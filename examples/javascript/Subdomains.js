@@ -7,16 +7,13 @@
 //   - status (string (one of: active, inactive), optional)
 //   - page (integer, optional)
 //   - format (string (one of: json, xml), optional)
-// whoisfreaks-js is CommonJS — import default then destructure
+// whoisfreaks-js is CommonJS (no Configuration class; apiKey is positional)
 import pkg from "whoisfreaks-js";
-const { Configuration, SubdomainsApi } = pkg;
-// (CommonJS alternative: const { Configuration, SubdomainsApi } = require("whoisfreaks-js");)
+const { ApiClient, SubdomainsApi } = pkg;
+// or:  const { ApiClient, SubdomainsApi } = require("whoisfreaks-js");
 
-const api = new SubdomainsApi(new Configuration());
+const api = new SubdomainsApi();   // uses ApiClient.instance
 
-async function main() {
-  const resp = await api.subdomainsRaw({ apiKey: "YOUR_API_KEY", domain: "example.com", after: "2000-01-01", before: new Date().toISOString().slice(0,10), status: undefined, page: undefined, format: undefined });
-  console.log("status:", resp.raw.status);
-  console.log(await resp.value());
-}
-main().catch(console.error);
+api.subdomains("YOUR_API_KEY", "example.com", "2000-01-01", new Date().toISOString().slice(0,10))
+  .then(data => console.log(data))
+  .catch(err => console.error(err));

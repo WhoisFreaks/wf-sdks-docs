@@ -2,16 +2,13 @@
 // Parameters for ipReputation (GET /v1.0/security):
 //   - apiKey (string, required): Your WHOISFreaks API key
 //   - ip (string, required)
-// whoisfreaks-js is CommonJS — import default then destructure
+// whoisfreaks-js is CommonJS (no Configuration class; apiKey is positional)
 import pkg from "whoisfreaks-js";
-const { Configuration, IPReputationApi } = pkg;
-// (CommonJS alternative: const { Configuration, IPReputationApi } = require("whoisfreaks-js");)
+const { ApiClient, IPReputationApi } = pkg;
+// or:  const { ApiClient, IPReputationApi } = require("whoisfreaks-js");
 
-const api = new IPReputationApi(new Configuration());
+const api = new IPReputationApi();   // uses ApiClient.instance
 
-async function main() {
-  const resp = await api.ipReputationRaw({ apiKey: "YOUR_API_KEY", ip: "8.8.8.8" });
-  console.log("status:", resp.raw.status);
-  console.log(await resp.value());
-}
-main().catch(console.error);
+api.ipReputation("YOUR_API_KEY", "8.8.8.8")
+  .then(data => console.log(data))
+  .catch(err => console.error(err));

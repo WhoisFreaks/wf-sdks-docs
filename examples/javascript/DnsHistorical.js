@@ -5,16 +5,13 @@
 //   - type (string, required)
 //   - page (integer, optional)
 //   - format (string (one of: json, xml), optional)
-// whoisfreaks-js is CommonJS — import default then destructure
+// whoisfreaks-js is CommonJS (no Configuration class; apiKey is positional)
 import pkg from "whoisfreaks-js";
-const { Configuration, DNSApi } = pkg;
-// (CommonJS alternative: const { Configuration, DNSApi } = require("whoisfreaks-js");)
+const { ApiClient, DNSApi } = pkg;
+// or:  const { ApiClient, DNSApi } = require("whoisfreaks-js");
 
-const api = new DNSApi(new Configuration());
+const api = new DNSApi();   // uses ApiClient.instance
 
-async function main() {
-  const resp = await api.dnsHistoricalRaw({ apiKey: "YOUR_API_KEY", domainName: "example.com", type: "value", page: undefined, format: undefined });
-  console.log("status:", resp.raw.status);
-  console.log(await resp.value());
-}
-main().catch(console.error);
+api.dnsHistorical("YOUR_API_KEY", "example.com", "value")
+  .then(data => console.log(data))
+  .catch(err => console.error(err));

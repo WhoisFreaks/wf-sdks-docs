@@ -3,16 +3,13 @@
 //   - apiKey (string, required): Your WHOISFreaks API key
 //   - asn (string, required)
 //   - format (string (one of: json, xml), optional)
-// whoisfreaks-js is CommonJS — import default then destructure
+// whoisfreaks-js is CommonJS (no Configuration class; apiKey is positional)
 import pkg from "whoisfreaks-js";
-const { Configuration, ASNWHOISApi } = pkg;
-// (CommonJS alternative: const { Configuration, ASNWHOISApi } = require("whoisfreaks-js");)
+const { ApiClient, ASNWHOISApi } = pkg;
+// or:  const { ApiClient, ASNWHOISApi } = require("whoisfreaks-js");
 
-const api = new ASNWHOISApi(new Configuration());
+const api = new ASNWHOISApi();   // uses ApiClient.instance
 
-async function main() {
-  const resp = await api.asnWhoisRaw({ apiKey: "YOUR_API_KEY", asn: "AS15169", format: undefined });
-  console.log("status:", resp.raw.status);
-  console.log(await resp.value());
-}
-main().catch(console.error);
+api.asnWhois("YOUR_API_KEY", "AS15169")
+  .then(data => console.log(data))
+  .catch(err => console.error(err));

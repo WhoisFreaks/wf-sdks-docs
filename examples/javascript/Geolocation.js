@@ -2,16 +2,13 @@
 // Parameters for geolocation (GET /v1.0/geolocation):
 //   - apiKey (string, required): Your WHOISFreaks API key
 //   - ip (string, required)
-// whoisfreaks-js is CommonJS — import default then destructure
+// whoisfreaks-js is CommonJS (no Configuration class; apiKey is positional)
 import pkg from "whoisfreaks-js";
-const { Configuration, GeolocationApi } = pkg;
-// (CommonJS alternative: const { Configuration, GeolocationApi } = require("whoisfreaks-js");)
+const { ApiClient, GeolocationApi } = pkg;
+// or:  const { ApiClient, GeolocationApi } = require("whoisfreaks-js");
 
-const api = new GeolocationApi(new Configuration());
+const api = new GeolocationApi();   // uses ApiClient.instance
 
-async function main() {
-  const resp = await api.geolocationRaw({ apiKey: "YOUR_API_KEY", ip: "8.8.8.8" });
-  console.log("status:", resp.raw.status);
-  console.log(await resp.value());
-}
-main().catch(console.error);
+api.geolocation("YOUR_API_KEY", "8.8.8.8")
+  .then(data => console.log(data))
+  .catch(err => console.error(err));

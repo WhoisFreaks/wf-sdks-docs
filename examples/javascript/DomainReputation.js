@@ -3,16 +3,13 @@
 //   - apiKey (string, required): Your WHOISFreaks API key
 //   - domainName (string, required): The domain name to assess
 //   - format (string (one of: json, xml), optional)
-// whoisfreaks-js is CommonJS — import default then destructure
+// whoisfreaks-js is CommonJS (no Configuration class; apiKey is positional)
 import pkg from "whoisfreaks-js";
-const { Configuration, DomainReputationApi } = pkg;
-// (CommonJS alternative: const { Configuration, DomainReputationApi } = require("whoisfreaks-js");)
+const { ApiClient, DomainReputationApi } = pkg;
+// or:  const { ApiClient, DomainReputationApi } = require("whoisfreaks-js");
 
-const api = new DomainReputationApi(new Configuration());
+const api = new DomainReputationApi();   // uses ApiClient.instance
 
-async function main() {
-  const resp = await api.domainReputationRaw({ apiKey: "YOUR_API_KEY", domainName: "example.com", format: undefined });
-  console.log("status:", resp.raw.status);
-  console.log(await resp.value());
-}
-main().catch(console.error);
+api.domainReputation("YOUR_API_KEY", "example.com")
+  .then(data => console.log(data))
+  .catch(err => console.error(err));

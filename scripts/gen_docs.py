@@ -123,19 +123,17 @@ def getting_started(lang):
                   "console.log(await resp.value());", "```", "", "Run it:", "",
                   "```bash", f"npx ts-node main.{ext}", "```"]
         else:
-            # JS package is CommonJS — default import + destructure (or require)
+            # JS package uses the `javascript` generator: no Configuration class,
+            # apiKey passed positionally, methods return Promises.
             S += [f"Create `main.{ext}`:", "", f"```{ext}",
-                  "// whoisfreaks-js is CommonJS: import the default, then destructure",
+                  "// whoisfreaks-js is CommonJS (no Configuration class; apiKey is positional)",
                   f'import pkg from "{pkg}";',
-                  "const { Configuration, WHOISApi } = pkg;",
-                  f'// or:  const {{ Configuration, WHOISApi }} = require("{pkg}");', "",
-                  "const api = new WHOISApi(new Configuration());", "",
-                  "async function main() {",
-                  "  const resp = await api.whoisLiveRaw({ apiKey: \"YOUR_API_KEY\", domainName: \"example.com\" });",
-                  '  console.log("status:", resp.raw.status);',
-                  "  console.log(await resp.value());",
-                  "}",
-                  "main().catch(console.error);", "```", "", "Run it:", "",
+                  "const { ApiClient, WHOISApi } = pkg;",
+                  f'// or:  const {{ ApiClient, WHOISApi }} = require("{pkg}");', "",
+                  "const api = new WHOISApi();   // uses ApiClient.instance", "",
+                  'api.whoisLive("YOUR_API_KEY", "example.com")',
+                  "  .then(data => console.log(data))",
+                  "  .catch(err => console.error(err));", "```", "", "Run it:", "",
                   "```bash", f"node main.{ext}", "```"]
     elif lang == "csharp":
         S += [
@@ -737,20 +735,39 @@ def runnable_example(lang, op):
                     f'  console.log("status:", resp.raw.status);\n'
                     f"  console.log(await resp.value());\n"
                     f"}}\nmain().catch(console.error);\n")
-        # JavaScript package (whoisfreaks-js) is CommonJS: import the default and
-        # destructure (ESM named imports fail with 'Named export not found').
+        # JavaScript package (whoisfreaks-js) uses the `javascript` generator:
+        # no Configuration class; apiKey is passed positionally; methods return
+        # Promises. Config/auth lives on ApiClient (ApiClient.instance by default).
+        # Build positional args: apiKey, required params, then an opts object for optionals.
+        pos = []
+        opts = []
+        for k, v, p in args:
+            if is_body(k):
+                pos.append("{}")
+            elif v is None:
+                cv = "undefined"
+                opts.append(f"{k}: undefined")
+            else:
+                cv, _ = lang_literal("javascript", v, p)
+                # first positional args are the required ones (apiKey/domain/etc.)
+                if p.get("required") or k in ("apiKey", "domainName", "ipAddress", "asn") \
+                   or k in ("date","after","before") or (p.get("type")=="boolean" and k.lower() in ("whois","exact")):
+                    pos.append(cv)
+                else:
+                    opts.append(f"{k}: {cv}")
+        pos_str = ", ".join(pos)
+        real_opts = [o for o in opts if not o.endswith(": undefined")]
+        opts_str = (", { " + ", ".join(real_opts) + " }") if real_opts else ""
         return (f'// Runnable example: {op["summary"]} ({op["method"]} {op["path"]})\n'
                 f"{pcmt_all}\n"
-                f'// whoisfreaks-js is CommonJS \u2014 import default then destructure\n'
+                f'// whoisfreaks-js is CommonJS (no Configuration class; apiKey is positional)\n'
                 f'import pkg from "whoisfreaks-js";\n'
-                f"const {{ Configuration, {cls} }} = pkg;\n"
-                f'// (CommonJS alternative: const {{ Configuration, {cls} }} = require("whoisfreaks-js");)\n\n'
-                f'const api = new {cls}(new Configuration());\n\n'
-                f"async function main() {{\n"
-                f"  const resp = await api.{m}Raw({{ {objs} }});\n"
-                f'  console.log("status:", resp.raw.status);\n'
-                f"  console.log(await resp.value());\n"
-                f"}}\nmain().catch(console.error);\n")
+                f"const {{ ApiClient, {cls} }} = pkg;\n"
+                f'// or:  const {{ ApiClient, {cls} }} = require("whoisfreaks-js");\n\n'
+                f"const api = new {cls}();   // uses ApiClient.instance\n\n"
+                f"api.{m}({pos_str}{opts_str})\n"
+                f"  .then(data => console.log(data))\n"
+                f"  .catch(err => console.error(err));\n")
 
     if lang == "java":
         pos=", ".join(f"new {bm}()" if is_body(k) else lit(v,p) for k,v,p in args)

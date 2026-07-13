@@ -4,16 +4,13 @@
 //   - domain (string, optional): Required for TLD-mode bulk check (base domain).
 //   - format (string (one of: json, xml), optional)
 //   - body: BulkDomainAvailabilityRequest (required) -- request body object
-// whoisfreaks-js is CommonJS — import default then destructure
+// whoisfreaks-js is CommonJS (no Configuration class; apiKey is positional)
 import pkg from "whoisfreaks-js";
-const { Configuration, DomainAvailabilityApi } = pkg;
-// (CommonJS alternative: const { Configuration, DomainAvailabilityApi } = require("whoisfreaks-js");)
+const { ApiClient, DomainAvailabilityApi } = pkg;
+// or:  const { ApiClient, DomainAvailabilityApi } = require("whoisfreaks-js");
 
-const api = new DomainAvailabilityApi(new Configuration());
+const api = new DomainAvailabilityApi();   // uses ApiClient.instance
 
-async function main() {
-  const resp = await api.bulkDomainAvailabilityV2Raw({ apiKey: "YOUR_API_KEY", bulkDomainAvailabilityRequest: {}, domain: undefined, format: undefined });
-  console.log("status:", resp.raw.status);
-  console.log(await resp.value());
-}
-main().catch(console.error);
+api.bulkDomainAvailabilityV2("YOUR_API_KEY", {})
+  .then(data => console.log(data))
+  .catch(err => console.error(err));

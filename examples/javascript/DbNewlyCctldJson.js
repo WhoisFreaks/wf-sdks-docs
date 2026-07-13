@@ -3,16 +3,13 @@
 //   - apiKey (string, required): Your WHOISFreaks API key
 //   - date (string, optional): yyyy-MM-dd; omit for latest
 //   - tlds (string, optional)
-// whoisfreaks-js is CommonJS — import default then destructure
+// whoisfreaks-js is CommonJS (no Configuration class; apiKey is positional)
 import pkg from "whoisfreaks-js";
-const { Configuration, DatabasesNewlyRegisteredApi } = pkg;
-// (CommonJS alternative: const { Configuration, DatabasesNewlyRegisteredApi } = require("whoisfreaks-js");)
+const { ApiClient, DatabasesNewlyRegisteredApi } = pkg;
+// or:  const { ApiClient, DatabasesNewlyRegisteredApi } = require("whoisfreaks-js");
 
-const api = new DatabasesNewlyRegisteredApi(new Configuration());
+const api = new DatabasesNewlyRegisteredApi();   // uses ApiClient.instance
 
-async function main() {
-  const resp = await api.dbNewlyCctldJsonRaw({ apiKey: "YOUR_API_KEY", date: new Date(Date.now()-86400000).toISOString().slice(0,10), tlds: undefined });
-  console.log("status:", resp.raw.status);
-  console.log(await resp.value());
-}
-main().catch(console.error);
+api.dbNewlyCctldJson("YOUR_API_KEY", new Date(Date.now()-86400000).toISOString().slice(0,10))
+  .then(data => console.log(data))
+  .catch(err => console.error(err));

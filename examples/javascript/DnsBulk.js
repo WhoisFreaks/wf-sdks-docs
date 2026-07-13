@@ -4,16 +4,13 @@
 //   - type (string, required)
 //   - format (string (one of: json, xml), optional)
 //   - body: DnsBulkRequest (required) -- request body object
-// whoisfreaks-js is CommonJS — import default then destructure
+// whoisfreaks-js is CommonJS (no Configuration class; apiKey is positional)
 import pkg from "whoisfreaks-js";
-const { Configuration, DNSApi } = pkg;
-// (CommonJS alternative: const { Configuration, DNSApi } = require("whoisfreaks-js");)
+const { ApiClient, DNSApi } = pkg;
+// or:  const { ApiClient, DNSApi } = require("whoisfreaks-js");
 
-const api = new DNSApi(new Configuration());
+const api = new DNSApi();   // uses ApiClient.instance
 
-async function main() {
-  const resp = await api.dnsBulkRaw({ apiKey: "YOUR_API_KEY", type: "value", dnsBulkRequest: {}, format: undefined });
-  console.log("status:", resp.raw.status);
-  console.log(await resp.value());
-}
-main().catch(console.error);
+api.dnsBulk("YOUR_API_KEY", "value", {})
+  .then(data => console.log(data))
+  .catch(err => console.error(err));

@@ -3,16 +3,13 @@
 //   - apiKey (string, required): Your WHOISFreaks API key
 //   - domainName (string, required)
 //   - format (string (one of: json, xml), optional)
-// whoisfreaks-js is CommonJS — import default then destructure
+// whoisfreaks-js is CommonJS (no Configuration class; apiKey is positional)
 import pkg from "whoisfreaks-js";
-const { Configuration, WHOISApi } = pkg;
-// (CommonJS alternative: const { Configuration, WHOISApi } = require("whoisfreaks-js");)
+const { ApiClient, WHOISApi } = pkg;
+// or:  const { ApiClient, WHOISApi } = require("whoisfreaks-js");
 
-const api = new WHOISApi(new Configuration());
+const api = new WHOISApi();   // uses ApiClient.instance
 
-async function main() {
-  const resp = await api.whoisLiveRaw({ apiKey: "YOUR_API_KEY", domainName: "example.com", format: undefined });
-  console.log("status:", resp.raw.status);
-  console.log(await resp.value());
-}
-main().catch(console.error);
+api.whoisLive("YOUR_API_KEY", "example.com")
+  .then(data => console.log(data))
+  .catch(err => console.error(err));
