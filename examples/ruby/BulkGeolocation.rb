@@ -5,6 +5,6 @@
 require 'whoisfreaks'
 
 api = WhoisFreaks::GeolocationApi.new
-data, status, _headers = api.bulk_geolocation_with_http_info(api_key: "YOUR_API_KEY", bulk_geolocation_request: WhoisFreaks::BulkGeolocationRequest.new)
+data, status, _headers = api.bulk_geolocation_with_http_info("YOUR_API_KEY", WhoisFreaks::BulkGeolocationRequest.new)
 puts "status: #{status}"
 puts data

@@ -185,9 +185,8 @@ def getting_started(lang):
             "func main() {",
             "    cfg := wf.NewConfiguration()",
             "    client := wf.NewAPIClient(cfg)",
-            "    ctx := context.WithValue(context.Background(), wf.ContextAPIKeys,",
-            "        map[string]wf.APIKey{\"ApiKeyAuth\": {Key: \"YOUR_API_KEY\"}})",
-            "    result, httpRes, err := client.WHOISAPI.WhoisLive(ctx).DomainName(\"example.com\").Execute()",
+            "    // apiKey is a builder method on the request",
+            "    result, httpRes, err := client.WHOISAPI.WhoisLive(context.Background()).ApiKey(\"YOUR_API_KEY\").DomainName(\"example.com\").Execute()",
             "    if err != nil { panic(err) }",
             "    fmt.Println(\"status:\", httpRes.StatusCode)",
             "    fmt.Println(result)",
@@ -313,9 +312,11 @@ def getting_started(lang):
             "```swift",
             "import WhoisFreaks",
             "",
-            "WHOISAPI.whoisLive(apiKey: \"YOUR_API_KEY\", domainName: \"example.com\", format: nil) { data, error in",
-            "    if let error = error { print(error); return }",
-            "    if let data = data { print(data) }",
+            "do {",
+            "    let result = try await WHOISAPI.whoisLive(apiKey: \"YOUR_API_KEY\", domainName: \"example.com\")",
+            "    print(result)",
+            "} catch {",
+            "    print(error)",
             "}",
             "```",
             "",
@@ -336,14 +337,12 @@ def method_name(op_id, lang):
     lower = [x.lower() for x in w]
     if lang in ("python", "ruby"):
         return "_".join(lower)
-    if lang in ("javascript", "typescript"):
+    # camelCase (lowercase first word): js, ts, php, java, kotlin, swift
+    if lang in ("javascript", "typescript", "php", "java", "kotlin", "swift"):
         return lower[0] + "".join(x.capitalize() for x in lower[1:])
-    if lang in ("go", "csharp", "swift", "kotlin"):
+    # PascalCase (capitalize first word too): go, csharp
+    if lang in ("go", "csharp"):
         return "".join(x.capitalize() for x in lower)
-    if lang == "php":
-        return lower[0] + "".join(x.capitalize() for x in lower[1:])
-    if lang == "java":
-        return lower[0] + "".join(x.capitalize() for x in lower[1:])
     return op_id
 
 # ---- collect operations, grouped by tag -------------------------------------
@@ -815,20 +814,29 @@ def runnable_example(lang, op):
                 f"    }}\n}}\n")
 
     if lang == "ruby":
-        parts=[]
+        pos=[]; opts=[]
         for k,v,p in args:
             if is_body(k):
-                parts.append(f"{py_snake(k.split(':')[1])}: WhoisFreaks::{bm}.new")
+                pos.append(f"WhoisFreaks::{bm}.new")
             elif v is None:
                 continue
             else:
-                cv,_=lang_literal('ruby',v,p); parts.append(f'{py_snake(k)}: {cv}')
+                cv,_=lang_literal('ruby',v,p)
+                # required params are positional; optional ones go in the opts hash
+                if p.get("required") or k in ("apiKey","domainName","ipAddress","asn") \
+                   or k in ("date","after","before") or (p.get("type")=="boolean" and k.lower() in ("whois","exact")):
+                    pos.append(cv)
+                else:
+                    opts.append(f"{py_snake(k)}: {cv}")
+        call = ", ".join(pos)
+        if opts:
+            call += ", { " + ", ".join(opts) + " }"
         return (f"# Runnable example: {op['summary']} ({op['method']} {op['path']})\n"
                 f"{pcmt_all}\n"
                 + ("require 'date'\n" if uses_yesterday else "")
                 + f"require 'whoisfreaks'\n\n"
                 f"api = WhoisFreaks::{cls}.new\n"
-                f"data, status, _headers = api.{m}_with_http_info({', '.join(parts)})\n"
+                f"data, status, _headers = api.{m}_with_http_info({call})\n"
                 f'puts "status: #{{status}}"\n'
                 f"puts data\n")
 
@@ -850,9 +858,8 @@ def runnable_example(lang, op):
                 f"func main() {{\n"
                 f"    cfg := wf.NewConfiguration()\n"
                 f"    client := wf.NewAPIClient(cfg)\n"
-                f'    ctx := context.WithValue(context.Background(), wf.ContextAPIKeys,\n'
-                f'        map[string]wf.APIKey{{"ApiKeyAuth": {{Key: "YOUR_API_KEY"}}}})\n'
-                f"    result, httpRes, err := client.{go_accessor(op['tag'])}.{m}(ctx){builder}.Execute()\n"
+                f"    // apiKey is a builder method on the request, not a config/context value\n"
+                f'    result, httpRes, err := client.{go_accessor(op["tag"])}.{m}(context.Background()).ApiKey("YOUR_API_KEY"){builder}.Execute()\n'
                 f"    if err != nil {{ panic(err) }}\n"
                 f'    fmt.Println("status:", httpRes.StatusCode)\n'
                 f"    fmt.Println(result)\n"
@@ -879,12 +886,15 @@ def runnable_example(lang, op):
             else:
                 parts.append(f"{k}: {lit(v,p)}")
         found_imp = "import Foundation\n" if uses_yesterday else ""
+        # The Swift SDK uses async/await (async throws), not completion handlers.
         return (f"// Runnable example: {op['summary']} ({op['method']} {op['path']})\n"
                 f"{pcmt_all}\n"
                 f"{found_imp}import WhoisFreaks\n\n"
-                f"{cls}.{m}({', '.join(parts)}) {{ data, error in\n"
-                f"    if let error = error {{ print(error); return }}\n"
-                f"    if let data = data {{ print(data) }}\n"
+                f"do {{\n"
+                f"    let result = try await {cls}.{m}({', '.join(parts)})\n"
+                f"    print(result)\n"
+                f"}} catch {{\n"
+                f"    print(error)\n"
                 f"}}\n")
 
     return "// unsupported\n"

@@ -5,7 +5,9 @@
 //   - format (string (one of: json, xml), optional)
 import WhoisFreaks
 
-ASNWHOISAPI.AsnWhois(apiKey: "YOUR_API_KEY", asn: "AS15169", format: nil) { data, error in
-    if let error = error { print(error); return }
-    if let data = data { print(data) }
+do {
+    let result = try await ASNWHOISAPI.asnWhois(apiKey: "YOUR_API_KEY", asn: "AS15169", format: nil)
+    print(result)
+} catch {
+    print(error)
 }

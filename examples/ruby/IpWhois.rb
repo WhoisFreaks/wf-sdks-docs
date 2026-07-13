@@ -6,6 +6,6 @@
 require 'whoisfreaks'
 
 api = WhoisFreaks::IPWHOISApi.new
-data, status, _headers = api.ip_whois_with_http_info(api_key: "YOUR_API_KEY", ip: "8.8.8.8")
+data, status, _headers = api.ip_whois_with_http_info("YOUR_API_KEY", "8.8.8.8")
 puts "status: #{status}"
 puts data

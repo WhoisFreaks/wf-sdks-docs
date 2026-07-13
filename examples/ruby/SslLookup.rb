@@ -8,6 +8,6 @@
 require 'whoisfreaks'
 
 api = WhoisFreaks::SSLApi.new
-data, status, _headers = api.ssl_lookup_with_http_info(api_key: "YOUR_API_KEY", domain_name: "example.com")
+data, status, _headers = api.ssl_lookup_with_http_info("YOUR_API_KEY", "example.com")
 puts "status: #{status}"
 puts data

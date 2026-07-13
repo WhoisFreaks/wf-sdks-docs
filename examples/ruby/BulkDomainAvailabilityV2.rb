@@ -7,6 +7,6 @@
 require 'whoisfreaks'
 
 api = WhoisFreaks::DomainAvailabilityApi.new
-data, status, _headers = api.bulk_domain_availability_v2_with_http_info(api_key: "YOUR_API_KEY", bulk_domain_availability_request: WhoisFreaks::BulkDomainAvailabilityRequest.new)
+data, status, _headers = api.bulk_domain_availability_v2_with_http_info("YOUR_API_KEY", WhoisFreaks::BulkDomainAvailabilityRequest.new)
 puts "status: #{status}"
 puts data

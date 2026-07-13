@@ -7,6 +7,6 @@
 require 'whoisfreaks'
 
 api = WhoisFreaks::TyposquattingApi.new
-data, status, _headers = api.typosquatting_with_http_info(api_key: "YOUR_API_KEY")
+data, status, _headers = api.typosquatting_with_http_info("YOUR_API_KEY")
 puts "status: #{status}"
 puts data

@@ -50,8 +50,8 @@ import com.whoisfreaks.api.WHOISApi
 
 fun main() {
     val api = WHOISApi(basePath = "https://api.whoisfreaks.com")
-    val result = api.WhoisLive("YOUR_API_KEY", "example.com", null)
-    println(result)  // status via api.WhoisLiveWithHttpInfo(...).statusCode
+    val result = api.whoisLive("YOUR_API_KEY", "example.com", null)
+    println(result)  // status via api.whoisLiveWithHttpInfo(...).statusCode
 }
 
 ```
@@ -74,8 +74,8 @@ import com.whoisfreaks.api.WHOISApi
 
 fun main() {
     val api = WHOISApi(basePath = "https://api.whoisfreaks.com")
-    val result = api.WhoisLive("YOUR_API_KEY", "example.com", null)
-    println(result)  // status via api.WhoisLiveWithHttpInfo(...).statusCode
+    val result = api.whoisLive("YOUR_API_KEY", "example.com", null)
+    println(result)  // status via api.whoisLiveWithHttpInfo(...).statusCode
 }
 
 ```
@@ -96,8 +96,8 @@ import com.whoisfreaks.api.DNSApi
 
 fun main() {
     val api = DNSApi(basePath = "https://api.whoisfreaks.com")
-    val result = api.DnsLive("YOUR_API_KEY", "example.com", "8.8.8.8", "value", null)
-    println(result)  // status via api.DnsLiveWithHttpInfo(...).statusCode
+    val result = api.dnsLive("YOUR_API_KEY", "example.com", "8.8.8.8", "value", null)
+    println(result)  // status via api.dnsLiveWithHttpInfo(...).statusCode
 }
 
 ```
@@ -118,8 +118,8 @@ import com.whoisfreaks.api.DomainAvailabilityApi
 
 fun main() {
     val api = DomainAvailabilityApi(basePath = "https://api.whoisfreaks.com")
-    val result = api.DomainAvailabilityV2("YOUR_API_KEY", "example.com", null, null, null)
-    println(result)  // status via api.DomainAvailabilityV2WithHttpInfo(...).statusCode
+    val result = api.domainAvailabilityV2("YOUR_API_KEY", "example.com", null, null, null)
+    println(result)  // status via api.domainAvailabilityV2WithHttpInfo(...).statusCode
 }
 
 ```
@@ -139,8 +139,8 @@ import com.whoisfreaks.api.TyposquattingApi
 
 fun main() {
     val api = TyposquattingApi(basePath = "https://api.whoisfreaks.com")
-    val result = api.Typosquatting("YOUR_API_KEY", null, null, null)
-    println(result)  // status via api.TyposquattingWithHttpInfo(...).statusCode
+    val result = api.typosquatting("YOUR_API_KEY", null, null, null)
+    println(result)  // status via api.typosquattingWithHttpInfo(...).statusCode
 }
 
 ```
@@ -161,8 +161,8 @@ import com.whoisfreaks.api.SSLApi
 
 fun main() {
     val api = SSLApi(basePath = "https://api.whoisfreaks.com")
-    val result = api.SslLookup("YOUR_API_KEY", "example.com", null, null, null)
-    println(result)  // status via api.SslLookupWithHttpInfo(...).statusCode
+    val result = api.sslLookup("YOUR_API_KEY", "example.com", null, null, null)
+    println(result)  // status via api.sslLookupWithHttpInfo(...).statusCode
 }
 
 ```
@@ -180,8 +180,8 @@ import com.whoisfreaks.api.GeolocationApi
 
 fun main() {
     val api = GeolocationApi(basePath = "https://api.whoisfreaks.com")
-    val result = api.Geolocation("YOUR_API_KEY", "8.8.8.8")
-    println(result)  // status via api.GeolocationWithHttpInfo(...).statusCode
+    val result = api.geolocation("YOUR_API_KEY", "8.8.8.8")
+    println(result)  // status via api.geolocationWithHttpInfo(...).statusCode
 }
 
 ```
@@ -204,8 +204,8 @@ import com.whoisfreaks.api.SubdomainsApi
 
 fun main() {
     val api = SubdomainsApi(basePath = "https://api.whoisfreaks.com")
-    val result = api.Subdomains("YOUR_API_KEY", "example.com", "2000-01-01", java.time.LocalDate.now().toString(), null, null, null)
-    println(result)  // status via api.SubdomainsWithHttpInfo(...).statusCode
+    val result = api.subdomains("YOUR_API_KEY", "example.com", "2000-01-01", java.time.LocalDate.now().toString(), null, null, null)
+    println(result)  // status via api.subdomainsWithHttpInfo(...).statusCode
 }
 
 ```
@@ -223,8 +223,8 @@ import com.whoisfreaks.api.IPReputationApi
 
 fun main() {
     val api = IPReputationApi(basePath = "https://api.whoisfreaks.com")
-    val result = api.IpReputation("YOUR_API_KEY", "8.8.8.8")
-    println(result)  // status via api.IpReputationWithHttpInfo(...).statusCode
+    val result = api.ipReputation("YOUR_API_KEY", "8.8.8.8")
+    println(result)  // status via api.ipReputationWithHttpInfo(...).statusCode
 }
 
 ```
@@ -243,8 +243,8 @@ import com.whoisfreaks.api.DomainReputationApi
 
 fun main() {
     val api = DomainReputationApi(basePath = "https://api.whoisfreaks.com")
-    val result = api.DomainReputation("YOUR_API_KEY", "example.com", null)
-    println(result)  // status via api.DomainReputationWithHttpInfo(...).statusCode
+    val result = api.domainReputation("YOUR_API_KEY", "example.com", null)
+    println(result)  // status via api.domainReputationWithHttpInfo(...).statusCode
 }
 
 ```
@@ -263,8 +263,8 @@ import com.whoisfreaks.api.ASNWHOISApi
 
 fun main() {
     val api = ASNWHOISApi(basePath = "https://api.whoisfreaks.com")
-    val result = api.AsnWhois("YOUR_API_KEY", "AS15169", null)
-    println(result)  // status via api.AsnWhoisWithHttpInfo(...).statusCode
+    val result = api.asnWhois("YOUR_API_KEY", "AS15169", null)
+    println(result)  // status via api.asnWhoisWithHttpInfo(...).statusCode
 }
 
 ```
@@ -283,8 +283,8 @@ import com.whoisfreaks.api.IPWHOISApi
 
 fun main() {
     val api = IPWHOISApi(basePath = "https://api.whoisfreaks.com")
-    val result = api.IpWhois("YOUR_API_KEY", "8.8.8.8", null)
-    println(result)  // status via api.IpWhoisWithHttpInfo(...).statusCode
+    val result = api.ipWhois("YOUR_API_KEY", "8.8.8.8", null)
+    println(result)  // status via api.ipWhoisWithHttpInfo(...).statusCode
 }
 
 ```
@@ -301,8 +301,8 @@ import com.whoisfreaks.api.AccountApi
 
 fun main() {
     val api = AccountApi(basePath = "https://api.whoisfreaks.com")
-    val result = api.RotateApiKey("YOUR_API_KEY")
-    println(result)  // status via api.RotateApiKeyWithHttpInfo(...).statusCode
+    val result = api.rotateApiKey("YOUR_API_KEY")
+    println(result)  // status via api.rotateApiKeyWithHttpInfo(...).statusCode
 }
 
 ```
@@ -322,8 +322,8 @@ import com.whoisfreaks.api.DatabasesNewlyRegisteredApi
 
 fun main() {
     val api = DatabasesNewlyRegisteredApi(basePath = "https://api.whoisfreaks.com")
-    val result = api.DbNewlyGtld("YOUR_API_KEY", false, java.time.LocalDate.now().minusDays(1).toString(), null)
-    println(result)  // status via api.DbNewlyGtldWithHttpInfo(...).statusCode
+    val result = api.dbNewlyGtld("YOUR_API_KEY", false, java.time.LocalDate.now().minusDays(1).toString(), null)
+    println(result)  // status via api.dbNewlyGtldWithHttpInfo(...).statusCode
 }
 
 ```
@@ -342,8 +342,8 @@ import com.whoisfreaks.api.DatabasesExpiringDroppedApi
 
 fun main() {
     val api = DatabasesExpiringDroppedApi(basePath = "https://api.whoisfreaks.com")
-    val result = api.DbExpired("YOUR_API_KEY", false, java.time.LocalDate.now().minusDays(1).toString())
-    println(result)  // status via api.DbExpiredWithHttpInfo(...).statusCode
+    val result = api.dbExpired("YOUR_API_KEY", false, java.time.LocalDate.now().minusDays(1).toString())
+    println(result)  // status via api.dbExpiredWithHttpInfo(...).statusCode
 }
 
 ```
@@ -361,8 +361,8 @@ import com.whoisfreaks.api.DatabasesWHOISApi
 
 fun main() {
     val api = DatabasesWHOISApi(basePath = "https://api.whoisfreaks.com")
-    val result = api.DbWhoisDaily("YOUR_API_KEY", java.time.LocalDate.now().minusDays(1).toString())
-    println(result)  // status via api.DbWhoisDailyWithHttpInfo(...).statusCode
+    val result = api.dbWhoisDaily("YOUR_API_KEY", java.time.LocalDate.now().minusDays(1).toString())
+    println(result)  // status via api.dbWhoisDailyWithHttpInfo(...).statusCode
 }
 
 ```
@@ -380,8 +380,8 @@ import com.whoisfreaks.api.DatabasesDNSApi
 
 fun main() {
     val api = DatabasesDNSApi(basePath = "https://api.whoisfreaks.com")
-    val result = api.DbDnsDaily("YOUR_API_KEY", java.time.LocalDate.now().minusDays(1).toString())
-    println(result)  // status via api.DbDnsDailyWithHttpInfo(...).statusCode
+    val result = api.dbDnsDaily("YOUR_API_KEY", java.time.LocalDate.now().minusDays(1).toString())
+    println(result)  // status via api.dbDnsDailyWithHttpInfo(...).statusCode
 }
 
 ```
@@ -399,8 +399,8 @@ import com.whoisfreaks.api.DatabasesSubdomainsApi
 
 fun main() {
     val api = DatabasesSubdomainsApi(basePath = "https://api.whoisfreaks.com")
-    val result = api.DbSubdomainsDaily("YOUR_API_KEY", java.time.LocalDate.now().minusDays(1).toString())
-    println(result)  // status via api.DbSubdomainsDailyWithHttpInfo(...).statusCode
+    val result = api.dbSubdomainsDaily("YOUR_API_KEY", java.time.LocalDate.now().minusDays(1).toString())
+    println(result)  // status via api.dbSubdomainsDailyWithHttpInfo(...).statusCode
 }
 
 ```
@@ -417,8 +417,8 @@ import com.whoisfreaks.api.DatabasesIPGeolocationApi
 
 fun main() {
     val api = DatabasesIPGeolocationApi(basePath = "https://api.whoisfreaks.com")
-    val result = api.DbIpCountryStatus("YOUR_API_KEY")
-    println(result)  // status via api.DbIpCountryStatusWithHttpInfo(...).statusCode
+    val result = api.dbIpCountryStatus("YOUR_API_KEY")
+    println(result)  // status via api.dbIpCountryStatusWithHttpInfo(...).statusCode
 }
 
 ```
@@ -436,8 +436,8 @@ import com.whoisfreaks.api.DatabasesASNWHOISApi
 
 fun main() {
     val api = DatabasesASNWHOISApi(basePath = "https://api.whoisfreaks.com")
-    val result = api.DbAsnWhois("YOUR_API_KEY", java.time.LocalDate.now().minusDays(1).toString())
-    println(result)  // status via api.DbAsnWhoisWithHttpInfo(...).statusCode
+    val result = api.dbAsnWhois("YOUR_API_KEY", java.time.LocalDate.now().minusDays(1).toString())
+    println(result)  // status via api.dbAsnWhoisWithHttpInfo(...).statusCode
 }
 
 ```
@@ -455,8 +455,8 @@ import com.whoisfreaks.api.DatabasesIPWHOISApi
 
 fun main() {
     val api = DatabasesIPWHOISApi(basePath = "https://api.whoisfreaks.com")
-    val result = api.DbIpWhois("YOUR_API_KEY", java.time.LocalDate.now().minusDays(1).toString())
-    println(result)  // status via api.DbIpWhoisWithHttpInfo(...).statusCode
+    val result = api.dbIpWhois("YOUR_API_KEY", java.time.LocalDate.now().minusDays(1).toString())
+    println(result)  // status via api.dbIpWhoisWithHttpInfo(...).statusCode
 }
 
 ```
@@ -474,8 +474,8 @@ import com.whoisfreaks.api.DatabasesIPSecurityApi
 
 fun main() {
     val api = DatabasesIPSecurityApi(basePath = "https://api.whoisfreaks.com")
-    val result = api.DbIpSecurity("YOUR_API_KEY", java.time.LocalDate.now().minusDays(1).toString())
-    println(result)  // status via api.DbIpSecurityWithHttpInfo(...).statusCode
+    val result = api.dbIpSecurity("YOUR_API_KEY", java.time.LocalDate.now().minusDays(1).toString())
+    println(result)  // status via api.dbIpSecurityWithHttpInfo(...).statusCode
 }
 
 ```

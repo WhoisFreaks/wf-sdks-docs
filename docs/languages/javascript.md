@@ -27,11 +27,11 @@ import pkg from "whoisfreaks-js";
 const { ApiClient, WHOISApi } = pkg;
 // or:  const { ApiClient, WHOISApi } = require("whoisfreaks-js");
 
-const api = new WHOISApi(); // uses ApiClient.instance
+const api = new WHOISApi();   // uses ApiClient.instance
 
 api.whoisLive("YOUR_API_KEY", "example.com")
-    .then((data) => console.log(data))
-    .catch((err) => console.error(err));
+  .then(data => console.log(data))
+  .catch(err => console.error(err));
 ```
 
 Run it:
@@ -55,11 +55,12 @@ import pkg from "whoisfreaks-js";
 const { ApiClient, WHOISApi } = pkg;
 // or:  const { ApiClient, WHOISApi } = require("whoisfreaks-js");
 
-const api = new WHOISApi(); // uses ApiClient.instance
+const api = new WHOISApi();   // uses ApiClient.instance
 
 api.whoisLive("YOUR_API_KEY", "example.com")
-    .then((data) => console.log(data))
-    .catch((err) => console.error(err));
+  .then(data => console.log(data))
+  .catch(err => console.error(err));
+
 ```
 
 ## Endpoints
@@ -81,11 +82,12 @@ import pkg from "whoisfreaks-js";
 const { ApiClient, WHOISApi } = pkg;
 // or:  const { ApiClient, WHOISApi } = require("whoisfreaks-js");
 
-const api = new WHOISApi(); // uses ApiClient.instance
+const api = new WHOISApi();   // uses ApiClient.instance
 
 api.whoisLive("YOUR_API_KEY", "example.com")
-    .then((data) => console.log(data))
-    .catch((err) => console.error(err));
+  .then(data => console.log(data))
+  .catch(err => console.error(err));
+
 ```
 
 ### DNS: Live DNS Lookup
@@ -105,11 +107,12 @@ import pkg from "whoisfreaks-js";
 const { ApiClient, DNSApi } = pkg;
 // or:  const { ApiClient, DNSApi } = require("whoisfreaks-js");
 
-const api = new DNSApi(); // uses ApiClient.instance
+const api = new DNSApi();   // uses ApiClient.instance
 
 api.dnsLive("YOUR_API_KEY", "example.com", "8.8.8.8", "value")
-    .then((data) => console.log(data))
-    .catch((err) => console.error(err));
+  .then(data => console.log(data))
+  .catch(err => console.error(err));
+
 ```
 
 ### Domain Availability: Domain Availability Check with Suggestions
@@ -129,11 +132,12 @@ import pkg from "whoisfreaks-js";
 const { ApiClient, DomainAvailabilityApi } = pkg;
 // or:  const { ApiClient, DomainAvailabilityApi } = require("whoisfreaks-js");
 
-const api = new DomainAvailabilityApi(); // uses ApiClient.instance
+const api = new DomainAvailabilityApi();   // uses ApiClient.instance
 
 api.domainAvailabilityV2("YOUR_API_KEY", "example.com")
-    .then((data) => console.log(data))
-    .catch((err) => console.error(err));
+  .then(data => console.log(data))
+  .catch(err => console.error(err));
+
 ```
 
 ### Typosquatting: Typosquatting Lookup
@@ -152,11 +156,12 @@ import pkg from "whoisfreaks-js";
 const { ApiClient, TyposquattingApi } = pkg;
 // or:  const { ApiClient, TyposquattingApi } = require("whoisfreaks-js");
 
-const api = new TyposquattingApi(); // uses ApiClient.instance
+const api = new TyposquattingApi();   // uses ApiClient.instance
 
 api.typosquatting("YOUR_API_KEY")
-    .then((data) => console.log(data))
-    .catch((err) => console.error(err));
+  .then(data => console.log(data))
+  .catch(err => console.error(err));
+
 ```
 
 ### SSL: SSL Certificate Lookup
@@ -176,11 +181,12 @@ import pkg from "whoisfreaks-js";
 const { ApiClient, SSLApi } = pkg;
 // or:  const { ApiClient, SSLApi } = require("whoisfreaks-js");
 
-const api = new SSLApi(); // uses ApiClient.instance
+const api = new SSLApi();   // uses ApiClient.instance
 
 api.sslLookup("YOUR_API_KEY", "example.com")
-    .then((data) => console.log(data))
-    .catch((err) => console.error(err));
+  .then(data => console.log(data))
+  .catch(err => console.error(err));
+
 ```
 
 ### Geolocation: IP Geolocation Lookup
@@ -197,11 +203,12 @@ import pkg from "whoisfreaks-js";
 const { ApiClient, GeolocationApi } = pkg;
 // or:  const { ApiClient, GeolocationApi } = require("whoisfreaks-js");
 
-const api = new GeolocationApi(); // uses ApiClient.instance
+const api = new GeolocationApi();   // uses ApiClient.instance
 
 api.geolocation("YOUR_API_KEY", "8.8.8.8")
-    .then((data) => console.log(data))
-    .catch((err) => console.error(err));
+  .then(data => console.log(data))
+  .catch(err => console.error(err));
+
 ```
 
 ### Subdomains: Subdomains Lookup
@@ -223,11 +230,12 @@ import pkg from "whoisfreaks-js";
 const { ApiClient, SubdomainsApi } = pkg;
 // or:  const { ApiClient, SubdomainsApi } = require("whoisfreaks-js");
 
-const api = new SubdomainsApi(); // uses ApiClient.instance
+const api = new SubdomainsApi();   // uses ApiClient.instance
 
-api.subdomains("YOUR_API_KEY", "example.com", "2000-01-01", new Date().toISOString().slice(0, 10))
-    .then((data) => console.log(data))
-    .catch((err) => console.error(err));
+api.subdomains("YOUR_API_KEY", "example.com", "2000-01-01", new Date().toISOString().slice(0,10))
+  .then(data => console.log(data))
+  .catch(err => console.error(err));
+
 ```
 
 ### IP Reputation: IP Reputation Lookup
@@ -244,11 +252,12 @@ import pkg from "whoisfreaks-js";
 const { ApiClient, IPReputationApi } = pkg;
 // or:  const { ApiClient, IPReputationApi } = require("whoisfreaks-js");
 
-const api = new IPReputationApi(); // uses ApiClient.instance
+const api = new IPReputationApi();   // uses ApiClient.instance
 
 api.ipReputation("YOUR_API_KEY", "8.8.8.8")
-    .then((data) => console.log(data))
-    .catch((err) => console.error(err));
+  .then(data => console.log(data))
+  .catch(err => console.error(err));
+
 ```
 
 ### Domain Reputation: Domain Reputation Lookup
@@ -266,11 +275,12 @@ import pkg from "whoisfreaks-js";
 const { ApiClient, DomainReputationApi } = pkg;
 // or:  const { ApiClient, DomainReputationApi } = require("whoisfreaks-js");
 
-const api = new DomainReputationApi(); // uses ApiClient.instance
+const api = new DomainReputationApi();   // uses ApiClient.instance
 
 api.domainReputation("YOUR_API_KEY", "example.com")
-    .then((data) => console.log(data))
-    .catch((err) => console.error(err));
+  .then(data => console.log(data))
+  .catch(err => console.error(err));
+
 ```
 
 ### ASN WHOIS: ASN WHOIS Lookup
@@ -288,11 +298,12 @@ import pkg from "whoisfreaks-js";
 const { ApiClient, ASNWHOISApi } = pkg;
 // or:  const { ApiClient, ASNWHOISApi } = require("whoisfreaks-js");
 
-const api = new ASNWHOISApi(); // uses ApiClient.instance
+const api = new ASNWHOISApi();   // uses ApiClient.instance
 
 api.asnWhois("YOUR_API_KEY", "AS15169")
-    .then((data) => console.log(data))
-    .catch((err) => console.error(err));
+  .then(data => console.log(data))
+  .catch(err => console.error(err));
+
 ```
 
 ### IP WHOIS: IP WHOIS Lookup
@@ -310,11 +321,12 @@ import pkg from "whoisfreaks-js";
 const { ApiClient, IPWHOISApi } = pkg;
 // or:  const { ApiClient, IPWHOISApi } = require("whoisfreaks-js");
 
-const api = new IPWHOISApi(); // uses ApiClient.instance
+const api = new IPWHOISApi();   // uses ApiClient.instance
 
 api.ipWhois("YOUR_API_KEY", "8.8.8.8")
-    .then((data) => console.log(data))
-    .catch((err) => console.error(err));
+  .then(data => console.log(data))
+  .catch(err => console.error(err));
+
 ```
 
 ### Account: Rotate API Key
@@ -330,11 +342,12 @@ import pkg from "whoisfreaks-js";
 const { ApiClient, AccountApi } = pkg;
 // or:  const { ApiClient, AccountApi } = require("whoisfreaks-js");
 
-const api = new AccountApi(); // uses ApiClient.instance
+const api = new AccountApi();   // uses ApiClient.instance
 
 api.rotateApiKey("YOUR_API_KEY")
-    .then((data) => console.log(data))
-    .catch((err) => console.error(err));
+  .then(data => console.log(data))
+  .catch(err => console.error(err));
+
 ```
 
 ### Databases - Newly Registered: Newly Registered gTLD (CSV)
@@ -353,11 +366,12 @@ import pkg from "whoisfreaks-js";
 const { ApiClient, DatabasesNewlyRegisteredApi } = pkg;
 // or:  const { ApiClient, DatabasesNewlyRegisteredApi } = require("whoisfreaks-js");
 
-const api = new DatabasesNewlyRegisteredApi(); // uses ApiClient.instance
+const api = new DatabasesNewlyRegisteredApi();   // uses ApiClient.instance
 
-api.dbNewlyGtld("YOUR_API_KEY", false, new Date(Date.now() - 86400000).toISOString().slice(0, 10))
-    .then((data) => console.log(data))
-    .catch((err) => console.error(err));
+api.dbNewlyGtld("YOUR_API_KEY", false, new Date(Date.now()-86400000).toISOString().slice(0,10))
+  .then(data => console.log(data))
+  .catch(err => console.error(err));
+
 ```
 
 ### Databases - Expiring & Dropped: Expiring Domains
@@ -375,11 +389,12 @@ import pkg from "whoisfreaks-js";
 const { ApiClient, DatabasesExpiringDroppedApi } = pkg;
 // or:  const { ApiClient, DatabasesExpiringDroppedApi } = require("whoisfreaks-js");
 
-const api = new DatabasesExpiringDroppedApi(); // uses ApiClient.instance
+const api = new DatabasesExpiringDroppedApi();   // uses ApiClient.instance
 
-api.dbExpired("YOUR_API_KEY", false, new Date(Date.now() - 86400000).toISOString().slice(0, 10))
-    .then((data) => console.log(data))
-    .catch((err) => console.error(err));
+api.dbExpired("YOUR_API_KEY", false, new Date(Date.now()-86400000).toISOString().slice(0,10))
+  .then(data => console.log(data))
+  .catch(err => console.error(err));
+
 ```
 
 ### Databases - WHOIS: WHOIS Database Daily
@@ -396,11 +411,12 @@ import pkg from "whoisfreaks-js";
 const { ApiClient, DatabasesWHOISApi } = pkg;
 // or:  const { ApiClient, DatabasesWHOISApi } = require("whoisfreaks-js");
 
-const api = new DatabasesWHOISApi(); // uses ApiClient.instance
+const api = new DatabasesWHOISApi();   // uses ApiClient.instance
 
-api.dbWhoisDaily("YOUR_API_KEY", new Date(Date.now() - 86400000).toISOString().slice(0, 10))
-    .then((data) => console.log(data))
-    .catch((err) => console.error(err));
+api.dbWhoisDaily("YOUR_API_KEY", new Date(Date.now()-86400000).toISOString().slice(0,10))
+  .then(data => console.log(data))
+  .catch(err => console.error(err));
+
 ```
 
 ### Databases - DNS: DNS Database Daily
@@ -417,11 +433,12 @@ import pkg from "whoisfreaks-js";
 const { ApiClient, DatabasesDNSApi } = pkg;
 // or:  const { ApiClient, DatabasesDNSApi } = require("whoisfreaks-js");
 
-const api = new DatabasesDNSApi(); // uses ApiClient.instance
+const api = new DatabasesDNSApi();   // uses ApiClient.instance
 
-api.dbDnsDaily("YOUR_API_KEY", new Date(Date.now() - 86400000).toISOString().slice(0, 10))
-    .then((data) => console.log(data))
-    .catch((err) => console.error(err));
+api.dbDnsDaily("YOUR_API_KEY", new Date(Date.now()-86400000).toISOString().slice(0,10))
+  .then(data => console.log(data))
+  .catch(err => console.error(err));
+
 ```
 
 ### Databases - Subdomains: Subdomains Daily
@@ -438,11 +455,12 @@ import pkg from "whoisfreaks-js";
 const { ApiClient, DatabasesSubdomainsApi } = pkg;
 // or:  const { ApiClient, DatabasesSubdomainsApi } = require("whoisfreaks-js");
 
-const api = new DatabasesSubdomainsApi(); // uses ApiClient.instance
+const api = new DatabasesSubdomainsApi();   // uses ApiClient.instance
 
-api.dbSubdomainsDaily("YOUR_API_KEY", new Date(Date.now() - 86400000).toISOString().slice(0, 10))
-    .then((data) => console.log(data))
-    .catch((err) => console.error(err));
+api.dbSubdomainsDaily("YOUR_API_KEY", new Date(Date.now()-86400000).toISOString().slice(0,10))
+  .then(data => console.log(data))
+  .catch(err => console.error(err));
+
 ```
 
 ### Databases - IP Geolocation: IP to Country Snapshot Status
@@ -458,11 +476,12 @@ import pkg from "whoisfreaks-js";
 const { ApiClient, DatabasesIPGeolocationApi } = pkg;
 // or:  const { ApiClient, DatabasesIPGeolocationApi } = require("whoisfreaks-js");
 
-const api = new DatabasesIPGeolocationApi(); // uses ApiClient.instance
+const api = new DatabasesIPGeolocationApi();   // uses ApiClient.instance
 
 api.dbIpCountryStatus("YOUR_API_KEY")
-    .then((data) => console.log(data))
-    .catch((err) => console.error(err));
+  .then(data => console.log(data))
+  .catch(err => console.error(err));
+
 ```
 
 ### Databases - ASN WHOIS: ASN WHOIS Snapshot
@@ -479,11 +498,12 @@ import pkg from "whoisfreaks-js";
 const { ApiClient, DatabasesASNWHOISApi } = pkg;
 // or:  const { ApiClient, DatabasesASNWHOISApi } = require("whoisfreaks-js");
 
-const api = new DatabasesASNWHOISApi(); // uses ApiClient.instance
+const api = new DatabasesASNWHOISApi();   // uses ApiClient.instance
 
-api.dbAsnWhois("YOUR_API_KEY", new Date(Date.now() - 86400000).toISOString().slice(0, 10))
-    .then((data) => console.log(data))
-    .catch((err) => console.error(err));
+api.dbAsnWhois("YOUR_API_KEY", new Date(Date.now()-86400000).toISOString().slice(0,10))
+  .then(data => console.log(data))
+  .catch(err => console.error(err));
+
 ```
 
 ### Databases - IP WHOIS: IP WHOIS Snapshot
@@ -500,11 +520,12 @@ import pkg from "whoisfreaks-js";
 const { ApiClient, DatabasesIPWHOISApi } = pkg;
 // or:  const { ApiClient, DatabasesIPWHOISApi } = require("whoisfreaks-js");
 
-const api = new DatabasesIPWHOISApi(); // uses ApiClient.instance
+const api = new DatabasesIPWHOISApi();   // uses ApiClient.instance
 
-api.dbIpWhois("YOUR_API_KEY", new Date(Date.now() - 86400000).toISOString().slice(0, 10))
-    .then((data) => console.log(data))
-    .catch((err) => console.error(err));
+api.dbIpWhois("YOUR_API_KEY", new Date(Date.now()-86400000).toISOString().slice(0,10))
+  .then(data => console.log(data))
+  .catch(err => console.error(err));
+
 ```
 
 ### Databases - IP Security: IP Security Snapshot
@@ -521,9 +542,10 @@ import pkg from "whoisfreaks-js";
 const { ApiClient, DatabasesIPSecurityApi } = pkg;
 // or:  const { ApiClient, DatabasesIPSecurityApi } = require("whoisfreaks-js");
 
-const api = new DatabasesIPSecurityApi(); // uses ApiClient.instance
+const api = new DatabasesIPSecurityApi();   // uses ApiClient.instance
 
-api.dbIpSecurity("YOUR_API_KEY", new Date(Date.now() - 86400000).toISOString().slice(0, 10))
-    .then((data) => console.log(data))
-    .catch((err) => console.error(err));
+api.dbIpSecurity("YOUR_API_KEY", new Date(Date.now()-86400000).toISOString().slice(0,10))
+  .then(data => console.log(data))
+  .catch(err => console.error(err));
+
 ```

@@ -6,6 +6,6 @@
 require 'whoisfreaks'
 
 api = WhoisFreaks::ASNWHOISApi.new
-data, status, _headers = api.asn_whois_with_http_info(api_key: "YOUR_API_KEY", asn: "AS15169")
+data, status, _headers = api.asn_whois_with_http_info("YOUR_API_KEY", "AS15169")
 puts "status: #{status}"
 puts data

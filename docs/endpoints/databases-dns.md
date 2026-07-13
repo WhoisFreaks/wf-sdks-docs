@@ -84,9 +84,8 @@ import (
 func main() {
     cfg := wf.NewConfiguration()
     client := wf.NewAPIClient(cfg)
-    ctx := context.WithValue(context.Background(), wf.ContextAPIKeys,
-        map[string]wf.APIKey{"ApiKeyAuth": {Key: "YOUR_API_KEY"}})
-    result, httpRes, err := client.DatabasesDNSAPI.DbDnsDaily(ctx).Date(time.Now().AddDate(0,0,-1).Format("2006-01-02")).Execute()
+    // apiKey is a builder method on the request, not a config/context value
+    result, httpRes, err := client.DatabasesDNSAPI.DbDnsDaily(context.Background()).ApiKey("YOUR_API_KEY").Date(time.Now().AddDate(0,0,-1).Format("2006-01-02")).Execute()
     if err != nil { panic(err) }
     fmt.Println("status:", httpRes.StatusCode)
     fmt.Println(result)
@@ -178,9 +177,8 @@ import (
 func main() {
     cfg := wf.NewConfiguration()
     client := wf.NewAPIClient(cfg)
-    ctx := context.WithValue(context.Background(), wf.ContextAPIKeys,
-        map[string]wf.APIKey{"ApiKeyAuth": {Key: "YOUR_API_KEY"}})
-    result, httpRes, err := client.DatabasesDNSAPI.DbDnsWeekly(ctx).Date(time.Now().AddDate(0,0,-1).Format("2006-01-02")).Execute()
+    // apiKey is a builder method on the request, not a config/context value
+    result, httpRes, err := client.DatabasesDNSAPI.DbDnsWeekly(context.Background()).ApiKey("YOUR_API_KEY").Date(time.Now().AddDate(0,0,-1).Format("2006-01-02")).Execute()
     if err != nil { panic(err) }
     fmt.Println("status:", httpRes.StatusCode)
     fmt.Println(result)
@@ -272,9 +270,8 @@ import (
 func main() {
     cfg := wf.NewConfiguration()
     client := wf.NewAPIClient(cfg)
-    ctx := context.WithValue(context.Background(), wf.ContextAPIKeys,
-        map[string]wf.APIKey{"ApiKeyAuth": {Key: "YOUR_API_KEY"}})
-    result, httpRes, err := client.DatabasesDNSAPI.DbDnsMonthly(ctx).Date(time.Now().AddDate(0,0,-1).Format("2006-01-02")).Execute()
+    // apiKey is a builder method on the request, not a config/context value
+    result, httpRes, err := client.DatabasesDNSAPI.DbDnsMonthly(context.Background()).ApiKey("YOUR_API_KEY").Date(time.Now().AddDate(0,0,-1).Format("2006-01-02")).Execute()
     if err != nil { panic(err) }
     fmt.Println("status:", httpRes.StatusCode)
     fmt.Println(result)

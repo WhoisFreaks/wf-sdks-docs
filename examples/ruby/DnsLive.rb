@@ -8,6 +8,6 @@
 require 'whoisfreaks'
 
 api = WhoisFreaks::DNSApi.new
-data, status, _headers = api.dns_live_with_http_info(api_key: "YOUR_API_KEY", domain_name: "example.com", ip_address: "8.8.8.8", type: "value")
+data, status, _headers = api.dns_live_with_http_info("YOUR_API_KEY", "example.com", "8.8.8.8", "value")
 puts "status: #{status}"
 puts data

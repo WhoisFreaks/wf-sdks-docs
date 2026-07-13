@@ -29,9 +29,11 @@ Add the dependency to `Package.swift`:
 ```swift
 import WhoisFreaks
 
-WHOISAPI.whoisLive(apiKey: "YOUR_API_KEY", domainName: "example.com", format: nil) { data, error in
-    if let error = error { print(error); return }
-    if let data = data { print(data) }
+do {
+    let result = try await WHOISAPI.whoisLive(apiKey: "YOUR_API_KEY", domainName: "example.com")
+    print(result)
+} catch {
+    print(error)
 }
 ```
 
@@ -53,9 +55,11 @@ See [Authentication](../authentication.md) for how to obtain a key. Minimal setu
 //   - format (string (one of: json, xml), optional)
 import WhoisFreaks
 
-WHOISAPI.WhoisLive(apiKey: "YOUR_API_KEY", domainName: "example.com", format: nil) { data, error in
-    if let error = error { print(error); return }
-    if let data = data { print(data) }
+do {
+    let result = try await WHOISAPI.whoisLive(apiKey: "YOUR_API_KEY", domainName: "example.com", format: nil)
+    print(result)
+} catch {
+    print(error)
 }
 
 ```
@@ -76,9 +80,11 @@ All 53 endpoints are available. A few common examples follow; see the [full endp
 //   - format (string (one of: json, xml), optional)
 import WhoisFreaks
 
-WHOISAPI.WhoisLive(apiKey: "YOUR_API_KEY", domainName: "example.com", format: nil) { data, error in
-    if let error = error { print(error); return }
-    if let data = data { print(data) }
+do {
+    let result = try await WHOISAPI.whoisLive(apiKey: "YOUR_API_KEY", domainName: "example.com", format: nil)
+    print(result)
+} catch {
+    print(error)
 }
 
 ```
@@ -97,9 +103,11 @@ WHOISAPI.WhoisLive(apiKey: "YOUR_API_KEY", domainName: "example.com", format: ni
 //   - format (string (one of: json, xml), optional)
 import WhoisFreaks
 
-DNSAPI.DnsLive(apiKey: "YOUR_API_KEY", domainName: "example.com", ipAddress: "8.8.8.8", type: "value", format: nil) { data, error in
-    if let error = error { print(error); return }
-    if let data = data { print(data) }
+do {
+    let result = try await DNSAPI.dnsLive(apiKey: "YOUR_API_KEY", domainName: "example.com", ipAddress: "8.8.8.8", type: "value", format: nil)
+    print(result)
+} catch {
+    print(error)
 }
 
 ```
@@ -118,9 +126,11 @@ DNSAPI.DnsLive(apiKey: "YOUR_API_KEY", domainName: "example.com", ipAddress: "8.
 //   - format (string (one of: json, xml), optional)
 import WhoisFreaks
 
-DomainAvailabilityAPI.DomainAvailabilityV2(apiKey: "YOUR_API_KEY", domain: "example.com", sug: nil, count: nil, format: nil) { data, error in
-    if let error = error { print(error); return }
-    if let data = data { print(data) }
+do {
+    let result = try await DomainAvailabilityAPI.domainAvailabilityV2(apiKey: "YOUR_API_KEY", domain: "example.com", sug: nil, count: nil, format: nil)
+    print(result)
+} catch {
+    print(error)
 }
 
 ```
@@ -138,9 +148,11 @@ DomainAvailabilityAPI.DomainAvailabilityV2(apiKey: "YOUR_API_KEY", domain: "exam
 //   - pageToken (string, optional)
 import WhoisFreaks
 
-TyposquattingAPI.Typosquatting(apiKey: "YOUR_API_KEY", keyword: nil, pattern: nil, pageToken: nil) { data, error in
-    if let error = error { print(error); return }
-    if let data = data { print(data) }
+do {
+    let result = try await TyposquattingAPI.typosquatting(apiKey: "YOUR_API_KEY", keyword: nil, pattern: nil, pageToken: nil)
+    print(result)
+} catch {
+    print(error)
 }
 
 ```
@@ -159,9 +171,11 @@ TyposquattingAPI.Typosquatting(apiKey: "YOUR_API_KEY", keyword: nil, pattern: ni
 //   - format (string (one of: json, xml), optional)
 import WhoisFreaks
 
-SSLAPI.SslLookup(apiKey: "YOUR_API_KEY", domainName: "example.com", chain: nil, sslRaw: nil, format: nil) { data, error in
-    if let error = error { print(error); return }
-    if let data = data { print(data) }
+do {
+    let result = try await SSLAPI.sslLookup(apiKey: "YOUR_API_KEY", domainName: "example.com", chain: nil, sslRaw: nil, format: nil)
+    print(result)
+} catch {
+    print(error)
 }
 
 ```
@@ -177,9 +191,11 @@ SSLAPI.SslLookup(apiKey: "YOUR_API_KEY", domainName: "example.com", chain: nil, 
 //   - ip (string, required)
 import WhoisFreaks
 
-GeolocationAPI.Geolocation(apiKey: "YOUR_API_KEY", ip: "8.8.8.8") { data, error in
-    if let error = error { print(error); return }
-    if let data = data { print(data) }
+do {
+    let result = try await GeolocationAPI.geolocation(apiKey: "YOUR_API_KEY", ip: "8.8.8.8")
+    print(result)
+} catch {
+    print(error)
 }
 
 ```
@@ -201,9 +217,11 @@ GeolocationAPI.Geolocation(apiKey: "YOUR_API_KEY", ip: "8.8.8.8") { data, error 
 import Foundation
 import WhoisFreaks
 
-SubdomainsAPI.Subdomains(apiKey: "YOUR_API_KEY", domain: "example.com", after: "2000-01-01", before: String(ISO8601DateFormatter().string(from: Date()).prefix(10)), status: nil, page: nil, format: nil) { data, error in
-    if let error = error { print(error); return }
-    if let data = data { print(data) }
+do {
+    let result = try await SubdomainsAPI.subdomains(apiKey: "YOUR_API_KEY", domain: "example.com", after: "2000-01-01", before: String(ISO8601DateFormatter().string(from: Date()).prefix(10)), status: nil, page: nil, format: nil)
+    print(result)
+} catch {
+    print(error)
 }
 
 ```
@@ -219,9 +237,11 @@ SubdomainsAPI.Subdomains(apiKey: "YOUR_API_KEY", domain: "example.com", after: "
 //   - ip (string, required)
 import WhoisFreaks
 
-IPReputationAPI.IpReputation(apiKey: "YOUR_API_KEY", ip: "8.8.8.8") { data, error in
-    if let error = error { print(error); return }
-    if let data = data { print(data) }
+do {
+    let result = try await IPReputationAPI.ipReputation(apiKey: "YOUR_API_KEY", ip: "8.8.8.8")
+    print(result)
+} catch {
+    print(error)
 }
 
 ```
@@ -238,9 +258,11 @@ IPReputationAPI.IpReputation(apiKey: "YOUR_API_KEY", ip: "8.8.8.8") { data, erro
 //   - format (string (one of: json, xml), optional)
 import WhoisFreaks
 
-DomainReputationAPI.DomainReputation(apiKey: "YOUR_API_KEY", domainName: "example.com", format: nil) { data, error in
-    if let error = error { print(error); return }
-    if let data = data { print(data) }
+do {
+    let result = try await DomainReputationAPI.domainReputation(apiKey: "YOUR_API_KEY", domainName: "example.com", format: nil)
+    print(result)
+} catch {
+    print(error)
 }
 
 ```
@@ -257,9 +279,11 @@ DomainReputationAPI.DomainReputation(apiKey: "YOUR_API_KEY", domainName: "exampl
 //   - format (string (one of: json, xml), optional)
 import WhoisFreaks
 
-ASNWHOISAPI.AsnWhois(apiKey: "YOUR_API_KEY", asn: "AS15169", format: nil) { data, error in
-    if let error = error { print(error); return }
-    if let data = data { print(data) }
+do {
+    let result = try await ASNWHOISAPI.asnWhois(apiKey: "YOUR_API_KEY", asn: "AS15169", format: nil)
+    print(result)
+} catch {
+    print(error)
 }
 
 ```
@@ -276,9 +300,11 @@ ASNWHOISAPI.AsnWhois(apiKey: "YOUR_API_KEY", asn: "AS15169", format: nil) { data
 //   - format (string (one of: json, xml), optional)
 import WhoisFreaks
 
-IPWHOISAPI.IpWhois(apiKey: "YOUR_API_KEY", ip: "8.8.8.8", format: nil) { data, error in
-    if let error = error { print(error); return }
-    if let data = data { print(data) }
+do {
+    let result = try await IPWHOISAPI.ipWhois(apiKey: "YOUR_API_KEY", ip: "8.8.8.8", format: nil)
+    print(result)
+} catch {
+    print(error)
 }
 
 ```
@@ -293,9 +319,11 @@ IPWHOISAPI.IpWhois(apiKey: "YOUR_API_KEY", ip: "8.8.8.8", format: nil) { data, e
 //   - apiKey (string, required): Your WHOISFreaks API key
 import WhoisFreaks
 
-AccountAPI.RotateApiKey(apiKey: "YOUR_API_KEY") { data, error in
-    if let error = error { print(error); return }
-    if let data = data { print(data) }
+do {
+    let result = try await AccountAPI.rotateApiKey(apiKey: "YOUR_API_KEY")
+    print(result)
+} catch {
+    print(error)
 }
 
 ```
@@ -314,9 +342,11 @@ AccountAPI.RotateApiKey(apiKey: "YOUR_API_KEY") { data, error in
 import Foundation
 import WhoisFreaks
 
-DatabasesNewlyRegisteredAPI.DbNewlyGtld(apiKey: "YOUR_API_KEY", whois: false, date: String(ISO8601DateFormatter().string(from: Calendar.current.date(byAdding: .day, value: -1, to: Date())!).prefix(10)), tlds: nil) { data, error in
-    if let error = error { print(error); return }
-    if let data = data { print(data) }
+do {
+    let result = try await DatabasesNewlyRegisteredAPI.dbNewlyGtld(apiKey: "YOUR_API_KEY", whois: false, date: String(ISO8601DateFormatter().string(from: Calendar.current.date(byAdding: .day, value: -1, to: Date())!).prefix(10)), tlds: nil)
+    print(result)
+} catch {
+    print(error)
 }
 
 ```
@@ -334,9 +364,11 @@ DatabasesNewlyRegisteredAPI.DbNewlyGtld(apiKey: "YOUR_API_KEY", whois: false, da
 import Foundation
 import WhoisFreaks
 
-DatabasesExpiringDroppedAPI.DbExpired(apiKey: "YOUR_API_KEY", whois: false, date: String(ISO8601DateFormatter().string(from: Calendar.current.date(byAdding: .day, value: -1, to: Date())!).prefix(10))) { data, error in
-    if let error = error { print(error); return }
-    if let data = data { print(data) }
+do {
+    let result = try await DatabasesExpiringDroppedAPI.dbExpired(apiKey: "YOUR_API_KEY", whois: false, date: String(ISO8601DateFormatter().string(from: Calendar.current.date(byAdding: .day, value: -1, to: Date())!).prefix(10)))
+    print(result)
+} catch {
+    print(error)
 }
 
 ```
@@ -353,9 +385,11 @@ DatabasesExpiringDroppedAPI.DbExpired(apiKey: "YOUR_API_KEY", whois: false, date
 import Foundation
 import WhoisFreaks
 
-DatabasesWHOISAPI.DbWhoisDaily(apiKey: "YOUR_API_KEY", date: String(ISO8601DateFormatter().string(from: Calendar.current.date(byAdding: .day, value: -1, to: Date())!).prefix(10))) { data, error in
-    if let error = error { print(error); return }
-    if let data = data { print(data) }
+do {
+    let result = try await DatabasesWHOISAPI.dbWhoisDaily(apiKey: "YOUR_API_KEY", date: String(ISO8601DateFormatter().string(from: Calendar.current.date(byAdding: .day, value: -1, to: Date())!).prefix(10)))
+    print(result)
+} catch {
+    print(error)
 }
 
 ```
@@ -372,9 +406,11 @@ DatabasesWHOISAPI.DbWhoisDaily(apiKey: "YOUR_API_KEY", date: String(ISO8601DateF
 import Foundation
 import WhoisFreaks
 
-DatabasesDNSAPI.DbDnsDaily(apiKey: "YOUR_API_KEY", date: String(ISO8601DateFormatter().string(from: Calendar.current.date(byAdding: .day, value: -1, to: Date())!).prefix(10))) { data, error in
-    if let error = error { print(error); return }
-    if let data = data { print(data) }
+do {
+    let result = try await DatabasesDNSAPI.dbDnsDaily(apiKey: "YOUR_API_KEY", date: String(ISO8601DateFormatter().string(from: Calendar.current.date(byAdding: .day, value: -1, to: Date())!).prefix(10)))
+    print(result)
+} catch {
+    print(error)
 }
 
 ```
@@ -391,9 +427,11 @@ DatabasesDNSAPI.DbDnsDaily(apiKey: "YOUR_API_KEY", date: String(ISO8601DateForma
 import Foundation
 import WhoisFreaks
 
-DatabasesSubdomainsAPI.DbSubdomainsDaily(apiKey: "YOUR_API_KEY", date: String(ISO8601DateFormatter().string(from: Calendar.current.date(byAdding: .day, value: -1, to: Date())!).prefix(10))) { data, error in
-    if let error = error { print(error); return }
-    if let data = data { print(data) }
+do {
+    let result = try await DatabasesSubdomainsAPI.dbSubdomainsDaily(apiKey: "YOUR_API_KEY", date: String(ISO8601DateFormatter().string(from: Calendar.current.date(byAdding: .day, value: -1, to: Date())!).prefix(10)))
+    print(result)
+} catch {
+    print(error)
 }
 
 ```
@@ -408,9 +446,11 @@ DatabasesSubdomainsAPI.DbSubdomainsDaily(apiKey: "YOUR_API_KEY", date: String(IS
 //   - apiKey (string, required): Your WHOISFreaks API key
 import WhoisFreaks
 
-DatabasesIPGeolocationAPI.DbIpCountryStatus(apiKey: "YOUR_API_KEY") { data, error in
-    if let error = error { print(error); return }
-    if let data = data { print(data) }
+do {
+    let result = try await DatabasesIPGeolocationAPI.dbIpCountryStatus(apiKey: "YOUR_API_KEY")
+    print(result)
+} catch {
+    print(error)
 }
 
 ```
@@ -427,9 +467,11 @@ DatabasesIPGeolocationAPI.DbIpCountryStatus(apiKey: "YOUR_API_KEY") { data, erro
 import Foundation
 import WhoisFreaks
 
-DatabasesASNWHOISAPI.DbAsnWhois(apiKey: "YOUR_API_KEY", date: String(ISO8601DateFormatter().string(from: Calendar.current.date(byAdding: .day, value: -1, to: Date())!).prefix(10))) { data, error in
-    if let error = error { print(error); return }
-    if let data = data { print(data) }
+do {
+    let result = try await DatabasesASNWHOISAPI.dbAsnWhois(apiKey: "YOUR_API_KEY", date: String(ISO8601DateFormatter().string(from: Calendar.current.date(byAdding: .day, value: -1, to: Date())!).prefix(10)))
+    print(result)
+} catch {
+    print(error)
 }
 
 ```
@@ -446,9 +488,11 @@ DatabasesASNWHOISAPI.DbAsnWhois(apiKey: "YOUR_API_KEY", date: String(ISO8601Date
 import Foundation
 import WhoisFreaks
 
-DatabasesIPWHOISAPI.DbIpWhois(apiKey: "YOUR_API_KEY", date: String(ISO8601DateFormatter().string(from: Calendar.current.date(byAdding: .day, value: -1, to: Date())!).prefix(10))) { data, error in
-    if let error = error { print(error); return }
-    if let data = data { print(data) }
+do {
+    let result = try await DatabasesIPWHOISAPI.dbIpWhois(apiKey: "YOUR_API_KEY", date: String(ISO8601DateFormatter().string(from: Calendar.current.date(byAdding: .day, value: -1, to: Date())!).prefix(10)))
+    print(result)
+} catch {
+    print(error)
 }
 
 ```
@@ -465,9 +509,11 @@ DatabasesIPWHOISAPI.DbIpWhois(apiKey: "YOUR_API_KEY", date: String(ISO8601DateFo
 import Foundation
 import WhoisFreaks
 
-DatabasesIPSecurityAPI.DbIpSecurity(apiKey: "YOUR_API_KEY", date: String(ISO8601DateFormatter().string(from: Calendar.current.date(byAdding: .day, value: -1, to: Date())!).prefix(10))) { data, error in
-    if let error = error { print(error); return }
-    if let data = data { print(data) }
+do {
+    let result = try await DatabasesIPSecurityAPI.dbIpSecurity(apiKey: "YOUR_API_KEY", date: String(ISO8601DateFormatter().string(from: Calendar.current.date(byAdding: .day, value: -1, to: Date())!).prefix(10)))
+    print(result)
+} catch {
+    print(error)
 }
 
 ```

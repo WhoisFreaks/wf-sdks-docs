@@ -6,7 +6,9 @@
 //   - pageToken (string, optional)
 import WhoisFreaks
 
-TyposquattingAPI.Typosquatting(apiKey: "YOUR_API_KEY", keyword: nil, pattern: nil, pageToken: nil) { data, error in
-    if let error = error { print(error); return }
-    if let data = data { print(data) }
+do {
+    let result = try await TyposquattingAPI.typosquatting(apiKey: "YOUR_API_KEY", keyword: nil, pattern: nil, pageToken: nil)
+    print(result)
+} catch {
+    print(error)
 }

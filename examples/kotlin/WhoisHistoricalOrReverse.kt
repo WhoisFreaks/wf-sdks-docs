@@ -15,6 +15,6 @@ import com.whoisfreaks.api.WHOISApi
 
 fun main() {
     val api = WHOISApi(basePath = "https://api.whoisfreaks.com")
-    val result = api.WhoisHistoricalOrReverse("YOUR_API_KEY", "historical", "example.com", true, null, null, null, null, null, null, null)
-    println(result)  // status via api.WhoisHistoricalOrReverseWithHttpInfo(...).statusCode
+    val result = api.whoisHistoricalOrReverse("YOUR_API_KEY", "historical", "example.com", true, null, null, null, null, null, null, null)
+    println(result)  // status via api.whoisHistoricalOrReverseWithHttpInfo(...).statusCode
 }

@@ -22,9 +22,8 @@ import (
 func main() {
     cfg := wf.NewConfiguration()
     client := wf.NewAPIClient(cfg)
-    ctx := context.WithValue(context.Background(), wf.ContextAPIKeys,
-        map[string]wf.APIKey{"ApiKeyAuth": {Key: "YOUR_API_KEY"}})
-    result, httpRes, err := client.WHOISAPI.WhoisHistoricalOrReverse(ctx).Whois("historical").DomainName("example.com").Exact(true).Execute()
+    // apiKey is a builder method on the request, not a config/context value
+    result, httpRes, err := client.WHOISAPI.WhoisHistoricalOrReverse(context.Background()).ApiKey("YOUR_API_KEY").Whois("historical").DomainName("example.com").Exact(true).Execute()
     if err != nil { panic(err) }
     fmt.Println("status:", httpRes.StatusCode)
     fmt.Println(result)

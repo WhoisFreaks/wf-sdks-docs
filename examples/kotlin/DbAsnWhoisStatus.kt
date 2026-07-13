@@ -5,6 +5,6 @@ import com.whoisfreaks.api.DatabasesASNWHOISApi
 
 fun main() {
     val api = DatabasesASNWHOISApi(basePath = "https://api.whoisfreaks.com")
-    val result = api.DbAsnWhoisStatus("YOUR_API_KEY")
-    println(result)  // status via api.DbAsnWhoisStatusWithHttpInfo(...).statusCode
+    val result = api.dbAsnWhoisStatus("YOUR_API_KEY")
+    println(result)  // status via api.dbAsnWhoisStatusWithHttpInfo(...).statusCode
 }

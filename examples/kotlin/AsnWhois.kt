@@ -7,6 +7,6 @@ import com.whoisfreaks.api.ASNWHOISApi
 
 fun main() {
     val api = ASNWHOISApi(basePath = "https://api.whoisfreaks.com")
-    val result = api.AsnWhois("YOUR_API_KEY", "AS15169", null)
-    println(result)  // status via api.AsnWhoisWithHttpInfo(...).statusCode
+    val result = api.asnWhois("YOUR_API_KEY", "AS15169", null)
+    println(result)  // status via api.asnWhoisWithHttpInfo(...).statusCode
 }

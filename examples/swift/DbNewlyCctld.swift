@@ -7,7 +7,9 @@
 import Foundation
 import WhoisFreaks
 
-DatabasesNewlyRegisteredAPI.DbNewlyCctld(apiKey: "YOUR_API_KEY", whois: false, date: String(ISO8601DateFormatter().string(from: Calendar.current.date(byAdding: .day, value: -1, to: Date())!).prefix(10)), tlds: nil) { data, error in
-    if let error = error { print(error); return }
-    if let data = data { print(data) }
+do {
+    let result = try await DatabasesNewlyRegisteredAPI.dbNewlyCctld(apiKey: "YOUR_API_KEY", whois: false, date: String(ISO8601DateFormatter().string(from: Calendar.current.date(byAdding: .day, value: -1, to: Date())!).prefix(10)), tlds: nil)
+    print(result)
+} catch {
+    print(error)
 }

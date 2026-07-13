@@ -7,6 +7,6 @@ import com.whoisfreaks.api.WHOISApi
 
 fun main() {
     val api = WHOISApi(basePath = "https://api.whoisfreaks.com")
-    val result = api.WhoisLive("YOUR_API_KEY", "example.com", null)
-    println(result)  // status via api.WhoisLiveWithHttpInfo(...).statusCode
+    val result = api.whoisLive("YOUR_API_KEY", "example.com", null)
+    println(result)  // status via api.whoisLiveWithHttpInfo(...).statusCode
 }

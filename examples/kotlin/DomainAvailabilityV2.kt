@@ -9,6 +9,6 @@ import com.whoisfreaks.api.DomainAvailabilityApi
 
 fun main() {
     val api = DomainAvailabilityApi(basePath = "https://api.whoisfreaks.com")
-    val result = api.DomainAvailabilityV2("YOUR_API_KEY", "example.com", null, null, null)
-    println(result)  // status via api.DomainAvailabilityV2WithHttpInfo(...).statusCode
+    val result = api.domainAvailabilityV2("YOUR_API_KEY", "example.com", null, null, null)
+    println(result)  // status via api.domainAvailabilityV2WithHttpInfo(...).statusCode
 }

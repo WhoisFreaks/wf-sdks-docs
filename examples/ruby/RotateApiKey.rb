@@ -4,6 +4,6 @@
 require 'whoisfreaks'
 
 api = WhoisFreaks::AccountApi.new
-data, status, _headers = api.rotate_api_key_with_http_info(api_key: "YOUR_API_KEY")
+data, status, _headers = api.rotate_api_key_with_http_info("YOUR_API_KEY")
 puts "status: #{status}"
 puts data

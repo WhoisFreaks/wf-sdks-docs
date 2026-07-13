@@ -48,7 +48,7 @@ See [Authentication](../authentication.md) for how to obtain a key. Minimal setu
 require 'whoisfreaks'
 
 api = WhoisFreaks::WHOISApi.new
-data, status, _headers = api.whois_live_with_http_info(api_key: "YOUR_API_KEY", domain_name: "example.com")
+data, status, _headers = api.whois_live_with_http_info("YOUR_API_KEY", "example.com")
 puts "status: #{status}"
 puts data
 
@@ -71,7 +71,7 @@ All 53 endpoints are available. A few common examples follow; see the [full endp
 require 'whoisfreaks'
 
 api = WhoisFreaks::WHOISApi.new
-data, status, _headers = api.whois_live_with_http_info(api_key: "YOUR_API_KEY", domain_name: "example.com")
+data, status, _headers = api.whois_live_with_http_info("YOUR_API_KEY", "example.com")
 puts "status: #{status}"
 puts data
 
@@ -92,7 +92,7 @@ puts data
 require 'whoisfreaks'
 
 api = WhoisFreaks::DNSApi.new
-data, status, _headers = api.dns_live_with_http_info(api_key: "YOUR_API_KEY", domain_name: "example.com", ip_address: "8.8.8.8", type: "value")
+data, status, _headers = api.dns_live_with_http_info("YOUR_API_KEY", "example.com", "8.8.8.8", "value")
 puts "status: #{status}"
 puts data
 
@@ -113,7 +113,7 @@ puts data
 require 'whoisfreaks'
 
 api = WhoisFreaks::DomainAvailabilityApi.new
-data, status, _headers = api.domain_availability_v2_with_http_info(api_key: "YOUR_API_KEY", domain: "example.com")
+data, status, _headers = api.domain_availability_v2_with_http_info("YOUR_API_KEY", "example.com")
 puts "status: #{status}"
 puts data
 
@@ -133,7 +133,7 @@ puts data
 require 'whoisfreaks'
 
 api = WhoisFreaks::TyposquattingApi.new
-data, status, _headers = api.typosquatting_with_http_info(api_key: "YOUR_API_KEY")
+data, status, _headers = api.typosquatting_with_http_info("YOUR_API_KEY")
 puts "status: #{status}"
 puts data
 
@@ -154,7 +154,7 @@ puts data
 require 'whoisfreaks'
 
 api = WhoisFreaks::SSLApi.new
-data, status, _headers = api.ssl_lookup_with_http_info(api_key: "YOUR_API_KEY", domain_name: "example.com")
+data, status, _headers = api.ssl_lookup_with_http_info("YOUR_API_KEY", "example.com")
 puts "status: #{status}"
 puts data
 
@@ -172,7 +172,7 @@ puts data
 require 'whoisfreaks'
 
 api = WhoisFreaks::GeolocationApi.new
-data, status, _headers = api.geolocation_with_http_info(api_key: "YOUR_API_KEY", ip: "8.8.8.8")
+data, status, _headers = api.geolocation_with_http_info("YOUR_API_KEY", "8.8.8.8")
 puts "status: #{status}"
 puts data
 
@@ -196,7 +196,7 @@ require 'date'
 require 'whoisfreaks'
 
 api = WhoisFreaks::SubdomainsApi.new
-data, status, _headers = api.subdomains_with_http_info(api_key: "YOUR_API_KEY", domain: "example.com", after: "2000-01-01", before: Date.today.to_s)
+data, status, _headers = api.subdomains_with_http_info("YOUR_API_KEY", "example.com", "2000-01-01", Date.today.to_s)
 puts "status: #{status}"
 puts data
 
@@ -214,7 +214,7 @@ puts data
 require 'whoisfreaks'
 
 api = WhoisFreaks::IPReputationApi.new
-data, status, _headers = api.ip_reputation_with_http_info(api_key: "YOUR_API_KEY", ip: "8.8.8.8")
+data, status, _headers = api.ip_reputation_with_http_info("YOUR_API_KEY", "8.8.8.8")
 puts "status: #{status}"
 puts data
 
@@ -233,7 +233,7 @@ puts data
 require 'whoisfreaks'
 
 api = WhoisFreaks::DomainReputationApi.new
-data, status, _headers = api.domain_reputation_with_http_info(api_key: "YOUR_API_KEY", domain_name: "example.com")
+data, status, _headers = api.domain_reputation_with_http_info("YOUR_API_KEY", "example.com")
 puts "status: #{status}"
 puts data
 
@@ -252,7 +252,7 @@ puts data
 require 'whoisfreaks'
 
 api = WhoisFreaks::ASNWHOISApi.new
-data, status, _headers = api.asn_whois_with_http_info(api_key: "YOUR_API_KEY", asn: "AS15169")
+data, status, _headers = api.asn_whois_with_http_info("YOUR_API_KEY", "AS15169")
 puts "status: #{status}"
 puts data
 
@@ -271,7 +271,7 @@ puts data
 require 'whoisfreaks'
 
 api = WhoisFreaks::IPWHOISApi.new
-data, status, _headers = api.ip_whois_with_http_info(api_key: "YOUR_API_KEY", ip: "8.8.8.8")
+data, status, _headers = api.ip_whois_with_http_info("YOUR_API_KEY", "8.8.8.8")
 puts "status: #{status}"
 puts data
 
@@ -288,7 +288,7 @@ puts data
 require 'whoisfreaks'
 
 api = WhoisFreaks::AccountApi.new
-data, status, _headers = api.rotate_api_key_with_http_info(api_key: "YOUR_API_KEY")
+data, status, _headers = api.rotate_api_key_with_http_info("YOUR_API_KEY")
 puts "status: #{status}"
 puts data
 
@@ -309,7 +309,7 @@ require 'date'
 require 'whoisfreaks'
 
 api = WhoisFreaks::DatabasesNewlyRegisteredApi.new
-data, status, _headers = api.db_newly_gtld_with_http_info(api_key: "YOUR_API_KEY", whois: false, date: (Date.today - 1).to_s)
+data, status, _headers = api.db_newly_gtld_with_http_info("YOUR_API_KEY", false, (Date.today - 1).to_s)
 puts "status: #{status}"
 puts data
 
@@ -329,7 +329,7 @@ require 'date'
 require 'whoisfreaks'
 
 api = WhoisFreaks::DatabasesExpiringDroppedApi.new
-data, status, _headers = api.db_expired_with_http_info(api_key: "YOUR_API_KEY", whois: false, date: (Date.today - 1).to_s)
+data, status, _headers = api.db_expired_with_http_info("YOUR_API_KEY", false, (Date.today - 1).to_s)
 puts "status: #{status}"
 puts data
 
@@ -348,7 +348,7 @@ require 'date'
 require 'whoisfreaks'
 
 api = WhoisFreaks::DatabasesWHOISApi.new
-data, status, _headers = api.db_whois_daily_with_http_info(api_key: "YOUR_API_KEY", date: (Date.today - 1).to_s)
+data, status, _headers = api.db_whois_daily_with_http_info("YOUR_API_KEY", (Date.today - 1).to_s)
 puts "status: #{status}"
 puts data
 
@@ -367,7 +367,7 @@ require 'date'
 require 'whoisfreaks'
 
 api = WhoisFreaks::DatabasesDNSApi.new
-data, status, _headers = api.db_dns_daily_with_http_info(api_key: "YOUR_API_KEY", date: (Date.today - 1).to_s)
+data, status, _headers = api.db_dns_daily_with_http_info("YOUR_API_KEY", (Date.today - 1).to_s)
 puts "status: #{status}"
 puts data
 
@@ -386,7 +386,7 @@ require 'date'
 require 'whoisfreaks'
 
 api = WhoisFreaks::DatabasesSubdomainsApi.new
-data, status, _headers = api.db_subdomains_daily_with_http_info(api_key: "YOUR_API_KEY", date: (Date.today - 1).to_s)
+data, status, _headers = api.db_subdomains_daily_with_http_info("YOUR_API_KEY", (Date.today - 1).to_s)
 puts "status: #{status}"
 puts data
 
@@ -403,7 +403,7 @@ puts data
 require 'whoisfreaks'
 
 api = WhoisFreaks::DatabasesIPGeolocationApi.new
-data, status, _headers = api.db_ip_country_status_with_http_info(api_key: "YOUR_API_KEY")
+data, status, _headers = api.db_ip_country_status_with_http_info("YOUR_API_KEY")
 puts "status: #{status}"
 puts data
 
@@ -422,7 +422,7 @@ require 'date'
 require 'whoisfreaks'
 
 api = WhoisFreaks::DatabasesASNWHOISApi.new
-data, status, _headers = api.db_asn_whois_with_http_info(api_key: "YOUR_API_KEY", date: (Date.today - 1).to_s)
+data, status, _headers = api.db_asn_whois_with_http_info("YOUR_API_KEY", (Date.today - 1).to_s)
 puts "status: #{status}"
 puts data
 
@@ -441,7 +441,7 @@ require 'date'
 require 'whoisfreaks'
 
 api = WhoisFreaks::DatabasesIPWHOISApi.new
-data, status, _headers = api.db_ip_whois_with_http_info(api_key: "YOUR_API_KEY", date: (Date.today - 1).to_s)
+data, status, _headers = api.db_ip_whois_with_http_info("YOUR_API_KEY", (Date.today - 1).to_s)
 puts "status: #{status}"
 puts data
 
@@ -460,7 +460,7 @@ require 'date'
 require 'whoisfreaks'
 
 api = WhoisFreaks::DatabasesIPSecurityApi.new
-data, status, _headers = api.db_ip_security_with_http_info(api_key: "YOUR_API_KEY", date: (Date.today - 1).to_s)
+data, status, _headers = api.db_ip_security_with_http_info("YOUR_API_KEY", (Date.today - 1).to_s)
 puts "status: #{status}"
 puts data
 

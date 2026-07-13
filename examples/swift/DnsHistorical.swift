@@ -7,7 +7,9 @@
 //   - format (string (one of: json, xml), optional)
 import WhoisFreaks
 
-DNSAPI.DnsHistorical(apiKey: "YOUR_API_KEY", domainName: "example.com", type: "value", page: nil, format: nil) { data, error in
-    if let error = error { print(error); return }
-    if let data = data { print(data) }
+do {
+    let result = try await DNSAPI.dnsHistorical(apiKey: "YOUR_API_KEY", domainName: "example.com", type: "value", page: nil, format: nil)
+    print(result)
+} catch {
+    print(error)
 }

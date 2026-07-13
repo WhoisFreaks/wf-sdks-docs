@@ -48,19 +48,16 @@ print(resp.data)
 //   - apiKey (string, required): Your WHOISFreaks API key
 //   - domainName (string, required)
 //   - format (string (one of: json, xml), optional)
-// whoisfreaks-js is CommonJS — import default then destructure
+// whoisfreaks-js is CommonJS (no Configuration class; apiKey is positional)
 import pkg from "whoisfreaks-js";
-const { Configuration, WHOISApi } = pkg;
-// (CommonJS alternative: const { Configuration, WHOISApi } = require("whoisfreaks-js");)
+const { ApiClient, WHOISApi } = pkg;
+// or:  const { ApiClient, WHOISApi } = require("whoisfreaks-js");
 
-const api = new WHOISApi(new Configuration());
+const api = new WHOISApi();   // uses ApiClient.instance
 
-async function main() {
-  const resp = await api.whoisLiveRaw({ apiKey: "YOUR_API_KEY", domainName: "example.com", format: undefined });
-  console.log("status:", resp.raw.status);
-  console.log(await resp.value());
-}
-main().catch(console.error);
+api.whoisLive("YOUR_API_KEY", "example.com")
+  .then(data => console.log(data))
+  .catch(err => console.error(err));
 
 ```
 
@@ -122,8 +119,8 @@ import com.whoisfreaks.api.WHOISApi
 
 fun main() {
     val api = WHOISApi(basePath = "https://api.whoisfreaks.com")
-    val result = api.WhoisLive("YOUR_API_KEY", "example.com", null)
-    println(result)  // status via api.WhoisLiveWithHttpInfo(...).statusCode
+    val result = api.whoisLive("YOUR_API_KEY", "example.com", null)
+    println(result)  // status via api.whoisLiveWithHttpInfo(...).statusCode
 }
 
 ```
@@ -163,7 +160,7 @@ class WhoisLive {
 require 'whoisfreaks'
 
 api = WhoisFreaks::WHOISApi.new
-data, status, _headers = api.whois_live_with_http_info(api_key: "YOUR_API_KEY", domain_name: "example.com")
+data, status, _headers = api.whois_live_with_http_info("YOUR_API_KEY", "example.com")
 puts "status: #{status}"
 puts data
 
@@ -188,9 +185,8 @@ import (
 func main() {
     cfg := wf.NewConfiguration()
     client := wf.NewAPIClient(cfg)
-    ctx := context.WithValue(context.Background(), wf.ContextAPIKeys,
-        map[string]wf.APIKey{"ApiKeyAuth": {Key: "YOUR_API_KEY"}})
-    result, httpRes, err := client.WHOISAPI.WhoisLive(ctx).DomainName("example.com").Execute()
+    // apiKey is a builder method on the request, not a config/context value
+    result, httpRes, err := client.WHOISAPI.WhoisLive(context.Background()).ApiKey("YOUR_API_KEY").DomainName("example.com").Execute()
     if err != nil { panic(err) }
     fmt.Println("status:", httpRes.StatusCode)
     fmt.Println(result)
@@ -208,9 +204,11 @@ func main() {
 //   - format (string (one of: json, xml), optional)
 import WhoisFreaks
 
-WHOISAPI.WhoisLive(apiKey: "YOUR_API_KEY", domainName: "example.com", format: nil) { data, error in
-    if let error = error { print(error); return }
-    if let data = data { print(data) }
+do {
+    let result = try await WHOISAPI.whoisLive(apiKey: "YOUR_API_KEY", domainName: "example.com", format: nil)
+    print(result)
+} catch {
+    print(error)
 }
 
 ```

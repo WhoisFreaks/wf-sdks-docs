@@ -7,6 +7,6 @@ import com.whoisfreaks.api.DomainReputationApi
 
 fun main() {
     val api = DomainReputationApi(basePath = "https://api.whoisfreaks.com")
-    val result = api.DomainReputation("YOUR_API_KEY", "example.com", null)
-    println(result)  // status via api.DomainReputationWithHttpInfo(...).statusCode
+    val result = api.domainReputation("YOUR_API_KEY", "example.com", null)
+    println(result)  // status via api.domainReputationWithHttpInfo(...).statusCode
 }

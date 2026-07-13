@@ -14,6 +14,6 @@
 require 'whoisfreaks'
 
 api = WhoisFreaks::WHOISApi.new
-data, status, _headers = api.whois_historical_or_reverse_with_http_info(api_key: "YOUR_API_KEY", whois: "historical", domain_name: "example.com", exact: true)
+data, status, _headers = api.whois_historical_or_reverse_with_http_info("YOUR_API_KEY", "historical", "example.com", true)
 puts "status: #{status}"
 puts data

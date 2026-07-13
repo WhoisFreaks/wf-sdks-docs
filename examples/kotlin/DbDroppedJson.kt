@@ -7,6 +7,6 @@ import com.whoisfreaks.api.DatabasesExpiringDroppedApi
 
 fun main() {
     val api = DatabasesExpiringDroppedApi(basePath = "https://api.whoisfreaks.com")
-    val result = api.DbDroppedJson("YOUR_API_KEY", java.time.LocalDate.now().minusDays(1).toString(), null)
-    println(result)  // status via api.DbDroppedJsonWithHttpInfo(...).statusCode
+    val result = api.dbDroppedJson("YOUR_API_KEY", java.time.LocalDate.now().minusDays(1).toString(), null)
+    println(result)  // status via api.dbDroppedJsonWithHttpInfo(...).statusCode
 }

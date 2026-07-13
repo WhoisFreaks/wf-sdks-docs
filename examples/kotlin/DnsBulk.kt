@@ -9,6 +9,6 @@ import com.whoisfreaks.models.DnsBulkRequest
 
 fun main() {
     val api = DNSApi(basePath = "https://api.whoisfreaks.com")
-    val result = api.DnsBulk("YOUR_API_KEY", "value", DnsBulkRequest(), null)
-    println(result)  // status via api.DnsBulkWithHttpInfo(...).statusCode
+    val result = api.dnsBulk("YOUR_API_KEY", "value", DnsBulkRequest(), null)
+    println(result)  // status via api.dnsBulkWithHttpInfo(...).statusCode
 }

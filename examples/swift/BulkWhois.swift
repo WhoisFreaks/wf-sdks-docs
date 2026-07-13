@@ -5,7 +5,9 @@
 //   - body: BulkWhoisRequest (required) -- request body object
 import WhoisFreaks
 
-WHOISAPI.BulkWhois(apiKey: "YOUR_API_KEY", bulkWhoisRequest: BulkWhoisRequest(), format: nil) { data, error in
-    if let error = error { print(error); return }
-    if let data = data { print(data) }
+do {
+    let result = try await WHOISAPI.bulkWhois(apiKey: "YOUR_API_KEY", bulkWhoisRequest: BulkWhoisRequest(), format: nil)
+    print(result)
+} catch {
+    print(error)
 }

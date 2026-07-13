@@ -6,6 +6,6 @@ import com.whoisfreaks.api.DatabasesWHOISApi
 
 fun main() {
     val api = DatabasesWHOISApi(basePath = "https://api.whoisfreaks.com")
-    val result = api.DbWhoisMonthly("YOUR_API_KEY", java.time.LocalDate.now().minusDays(1).toString())
-    println(result)  // status via api.DbWhoisMonthlyWithHttpInfo(...).statusCode
+    val result = api.dbWhoisMonthly("YOUR_API_KEY", java.time.LocalDate.now().minusDays(1).toString())
+    println(result)  // status via api.dbWhoisMonthlyWithHttpInfo(...).statusCode
 }

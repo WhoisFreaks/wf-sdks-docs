@@ -9,6 +9,6 @@ import com.whoisfreaks.api.SSLApi
 
 fun main() {
     val api = SSLApi(basePath = "https://api.whoisfreaks.com")
-    val result = api.SslLookup("YOUR_API_KEY", "example.com", null, null, null)
-    println(result)  // status via api.SslLookupWithHttpInfo(...).statusCode
+    val result = api.sslLookup("YOUR_API_KEY", "example.com", null, null, null)
+    println(result)  // status via api.sslLookupWithHttpInfo(...).statusCode
 }

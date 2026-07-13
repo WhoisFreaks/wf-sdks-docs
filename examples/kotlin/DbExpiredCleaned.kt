@@ -6,6 +6,6 @@ import com.whoisfreaks.api.DatabasesExpiringDroppedApi
 
 fun main() {
     val api = DatabasesExpiringDroppedApi(basePath = "https://api.whoisfreaks.com")
-    val result = api.DbExpiredCleaned("YOUR_API_KEY", java.time.LocalDate.now().minusDays(1).toString())
-    println(result)  // status via api.DbExpiredCleanedWithHttpInfo(...).statusCode
+    val result = api.dbExpiredCleaned("YOUR_API_KEY", java.time.LocalDate.now().minusDays(1).toString())
+    println(result)  // status via api.dbExpiredCleanedWithHttpInfo(...).statusCode
 }

@@ -5,6 +5,6 @@ import com.whoisfreaks.api.AccountApi
 
 fun main() {
     val api = AccountApi(basePath = "https://api.whoisfreaks.com")
-    val result = api.RotateApiKey("YOUR_API_KEY")
-    println(result)  // status via api.RotateApiKeyWithHttpInfo(...).statusCode
+    val result = api.rotateApiKey("YOUR_API_KEY")
+    println(result)  // status via api.rotateApiKeyWithHttpInfo(...).statusCode
 }

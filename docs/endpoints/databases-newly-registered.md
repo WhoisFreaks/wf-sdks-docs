@@ -92,9 +92,8 @@ import (
 func main() {
     cfg := wf.NewConfiguration()
     client := wf.NewAPIClient(cfg)
-    ctx := context.WithValue(context.Background(), wf.ContextAPIKeys,
-        map[string]wf.APIKey{"ApiKeyAuth": {Key: "YOUR_API_KEY"}})
-    result, httpRes, err := client.DatabasesNewlyRegisteredAPI.DbNewlyGtld(ctx).Whois(false).Date(time.Now().AddDate(0,0,-1).Format("2006-01-02")).Execute()
+    // apiKey is a builder method on the request, not a config/context value
+    result, httpRes, err := client.DatabasesNewlyRegisteredAPI.DbNewlyGtld(context.Background()).ApiKey("YOUR_API_KEY").Whois(false).Date(time.Now().AddDate(0,0,-1).Format("2006-01-02")).Execute()
     if err != nil { panic(err) }
     fmt.Println("status:", httpRes.StatusCode)
     fmt.Println(result)
@@ -194,9 +193,8 @@ import (
 func main() {
     cfg := wf.NewConfiguration()
     client := wf.NewAPIClient(cfg)
-    ctx := context.WithValue(context.Background(), wf.ContextAPIKeys,
-        map[string]wf.APIKey{"ApiKeyAuth": {Key: "YOUR_API_KEY"}})
-    result, httpRes, err := client.DatabasesNewlyRegisteredAPI.DbNewlyCctld(ctx).Whois(false).Date(time.Now().AddDate(0,0,-1).Format("2006-01-02")).Execute()
+    // apiKey is a builder method on the request, not a config/context value
+    result, httpRes, err := client.DatabasesNewlyRegisteredAPI.DbNewlyCctld(context.Background()).ApiKey("YOUR_API_KEY").Whois(false).Date(time.Now().AddDate(0,0,-1).Format("2006-01-02")).Execute()
     if err != nil { panic(err) }
     fmt.Println("status:", httpRes.StatusCode)
     fmt.Println(result)
@@ -288,9 +286,8 @@ import (
 func main() {
     cfg := wf.NewConfiguration()
     client := wf.NewAPIClient(cfg)
-    ctx := context.WithValue(context.Background(), wf.ContextAPIKeys,
-        map[string]wf.APIKey{"ApiKeyAuth": {Key: "YOUR_API_KEY"}})
-    result, httpRes, err := client.DatabasesNewlyRegisteredAPI.DbNewlyGtldCleaned(ctx).Date(time.Now().AddDate(0,0,-1).Format("2006-01-02")).Execute()
+    // apiKey is a builder method on the request, not a config/context value
+    result, httpRes, err := client.DatabasesNewlyRegisteredAPI.DbNewlyGtldCleaned(context.Background()).ApiKey("YOUR_API_KEY").Date(time.Now().AddDate(0,0,-1).Format("2006-01-02")).Execute()
     if err != nil { panic(err) }
     fmt.Println("status:", httpRes.StatusCode)
     fmt.Println(result)
@@ -382,9 +379,8 @@ import (
 func main() {
     cfg := wf.NewConfiguration()
     client := wf.NewAPIClient(cfg)
-    ctx := context.WithValue(context.Background(), wf.ContextAPIKeys,
-        map[string]wf.APIKey{"ApiKeyAuth": {Key: "YOUR_API_KEY"}})
-    result, httpRes, err := client.DatabasesNewlyRegisteredAPI.DbNewlyCctldCleaned(ctx).Date(time.Now().AddDate(0,0,-1).Format("2006-01-02")).Execute()
+    // apiKey is a builder method on the request, not a config/context value
+    result, httpRes, err := client.DatabasesNewlyRegisteredAPI.DbNewlyCctldCleaned(context.Background()).ApiKey("YOUR_API_KEY").Date(time.Now().AddDate(0,0,-1).Format("2006-01-02")).Execute()
     if err != nil { panic(err) }
     fmt.Println("status:", httpRes.StatusCode)
     fmt.Println(result)
@@ -478,9 +474,8 @@ import (
 func main() {
     cfg := wf.NewConfiguration()
     client := wf.NewAPIClient(cfg)
-    ctx := context.WithValue(context.Background(), wf.ContextAPIKeys,
-        map[string]wf.APIKey{"ApiKeyAuth": {Key: "YOUR_API_KEY"}})
-    result, httpRes, err := client.DatabasesNewlyRegisteredAPI.DbNewlyGtldJson(ctx).Date(time.Now().AddDate(0,0,-1).Format("2006-01-02")).Execute()
+    // apiKey is a builder method on the request, not a config/context value
+    result, httpRes, err := client.DatabasesNewlyRegisteredAPI.DbNewlyGtldJson(context.Background()).ApiKey("YOUR_API_KEY").Date(time.Now().AddDate(0,0,-1).Format("2006-01-02")).Execute()
     if err != nil { panic(err) }
     fmt.Println("status:", httpRes.StatusCode)
     fmt.Println(result)
@@ -574,9 +569,8 @@ import (
 func main() {
     cfg := wf.NewConfiguration()
     client := wf.NewAPIClient(cfg)
-    ctx := context.WithValue(context.Background(), wf.ContextAPIKeys,
-        map[string]wf.APIKey{"ApiKeyAuth": {Key: "YOUR_API_KEY"}})
-    result, httpRes, err := client.DatabasesNewlyRegisteredAPI.DbNewlyCctldJson(ctx).Date(time.Now().AddDate(0,0,-1).Format("2006-01-02")).Execute()
+    // apiKey is a builder method on the request, not a config/context value
+    result, httpRes, err := client.DatabasesNewlyRegisteredAPI.DbNewlyCctldJson(context.Background()).ApiKey("YOUR_API_KEY").Date(time.Now().AddDate(0,0,-1).Format("2006-01-02")).Execute()
     if err != nil { panic(err) }
     fmt.Println("status:", httpRes.StatusCode)
     fmt.Println(result)
@@ -668,9 +662,8 @@ import (
 func main() {
     cfg := wf.NewConfiguration()
     client := wf.NewAPIClient(cfg)
-    ctx := context.WithValue(context.Background(), wf.ContextAPIKeys,
-        map[string]wf.APIKey{"ApiKeyAuth": {Key: "YOUR_API_KEY"}})
-    result, httpRes, err := client.DatabasesNewlyRegisteredAPI.DbNewlyDns(ctx).Date(time.Now().AddDate(0,0,-1).Format("2006-01-02")).Execute()
+    // apiKey is a builder method on the request, not a config/context value
+    result, httpRes, err := client.DatabasesNewlyRegisteredAPI.DbNewlyDns(context.Background()).ApiKey("YOUR_API_KEY").Date(time.Now().AddDate(0,0,-1).Format("2006-01-02")).Execute()
     if err != nil { panic(err) }
     fmt.Println("status:", httpRes.StatusCode)
     fmt.Println(result)

@@ -4,7 +4,9 @@
 //   - ip (string, required)
 import WhoisFreaks
 
-IPReputationAPI.IpReputation(apiKey: "YOUR_API_KEY", ip: "8.8.8.8") { data, error in
-    if let error = error { print(error); return }
-    if let data = data { print(data) }
+do {
+    let result = try await IPReputationAPI.ipReputation(apiKey: "YOUR_API_KEY", ip: "8.8.8.8")
+    print(result)
+} catch {
+    print(error)
 }

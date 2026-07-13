@@ -6,6 +6,6 @@ import com.whoisfreaks.api.GeolocationApi
 
 fun main() {
     val api = GeolocationApi(basePath = "https://api.whoisfreaks.com")
-    val result = api.Geolocation("YOUR_API_KEY", "8.8.8.8")
-    println(result)  // status via api.GeolocationWithHttpInfo(...).statusCode
+    val result = api.geolocation("YOUR_API_KEY", "8.8.8.8")
+    println(result)  // status via api.geolocationWithHttpInfo(...).statusCode
 }

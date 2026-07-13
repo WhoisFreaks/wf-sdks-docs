@@ -6,7 +6,9 @@
 //   - body: BulkDomainAvailabilityRequest (required) -- request body object
 import WhoisFreaks
 
-DomainAvailabilityAPI.BulkDomainAvailabilityV2(apiKey: "YOUR_API_KEY", bulkDomainAvailabilityRequest: BulkDomainAvailabilityRequest(), domain: nil, format: nil) { data, error in
-    if let error = error { print(error); return }
-    if let data = data { print(data) }
+do {
+    let result = try await DomainAvailabilityAPI.bulkDomainAvailabilityV2(apiKey: "YOUR_API_KEY", bulkDomainAvailabilityRequest: BulkDomainAvailabilityRequest(), domain: nil, format: nil)
+    print(result)
+} catch {
+    print(error)
 }

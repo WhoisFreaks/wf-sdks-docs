@@ -6,6 +6,6 @@ import com.whoisfreaks.api.DatabasesDNSApi
 
 fun main() {
     val api = DatabasesDNSApi(basePath = "https://api.whoisfreaks.com")
-    val result = api.DbDnsMonthly("YOUR_API_KEY", java.time.LocalDate.now().minusDays(1).toString())
-    println(result)  // status via api.DbDnsMonthlyWithHttpInfo(...).statusCode
+    val result = api.dbDnsMonthly("YOUR_API_KEY", java.time.LocalDate.now().minusDays(1).toString())
+    println(result)  // status via api.dbDnsMonthlyWithHttpInfo(...).statusCode
 }

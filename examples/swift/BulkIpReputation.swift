@@ -4,7 +4,9 @@
 //   - body: BulkGeolocationRequest (required) -- request body object
 import WhoisFreaks
 
-IPReputationAPI.BulkIpReputation(apiKey: "YOUR_API_KEY", bulkGeolocationRequest: BulkGeolocationRequest()) { data, error in
-    if let error = error { print(error); return }
-    if let data = data { print(data) }
+do {
+    let result = try await IPReputationAPI.bulkIpReputation(apiKey: "YOUR_API_KEY", bulkGeolocationRequest: BulkGeolocationRequest())
+    print(result)
+} catch {
+    print(error)
 }

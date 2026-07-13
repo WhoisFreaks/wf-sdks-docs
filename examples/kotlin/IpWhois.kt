@@ -7,6 +7,6 @@ import com.whoisfreaks.api.IPWHOISApi
 
 fun main() {
     val api = IPWHOISApi(basePath = "https://api.whoisfreaks.com")
-    val result = api.IpWhois("YOUR_API_KEY", "8.8.8.8", null)
-    println(result)  // status via api.IpWhoisWithHttpInfo(...).statusCode
+    val result = api.ipWhois("YOUR_API_KEY", "8.8.8.8", null)
+    println(result)  // status via api.ipWhoisWithHttpInfo(...).statusCode
 }

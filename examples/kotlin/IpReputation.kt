@@ -6,6 +6,6 @@ import com.whoisfreaks.api.IPReputationApi
 
 fun main() {
     val api = IPReputationApi(basePath = "https://api.whoisfreaks.com")
-    val result = api.IpReputation("YOUR_API_KEY", "8.8.8.8")
-    println(result)  // status via api.IpReputationWithHttpInfo(...).statusCode
+    val result = api.ipReputation("YOUR_API_KEY", "8.8.8.8")
+    println(result)  // status via api.ipReputationWithHttpInfo(...).statusCode
 }

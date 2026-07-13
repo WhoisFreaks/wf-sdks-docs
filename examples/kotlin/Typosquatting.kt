@@ -8,6 +8,6 @@ import com.whoisfreaks.api.TyposquattingApi
 
 fun main() {
     val api = TyposquattingApi(basePath = "https://api.whoisfreaks.com")
-    val result = api.Typosquatting("YOUR_API_KEY", null, null, null)
-    println(result)  // status via api.TyposquattingWithHttpInfo(...).statusCode
+    val result = api.typosquatting("YOUR_API_KEY", null, null, null)
+    println(result)  // status via api.typosquattingWithHttpInfo(...).statusCode
 }

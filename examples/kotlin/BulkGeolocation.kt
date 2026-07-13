@@ -7,6 +7,6 @@ import com.whoisfreaks.models.BulkGeolocationRequest
 
 fun main() {
     val api = GeolocationApi(basePath = "https://api.whoisfreaks.com")
-    val result = api.BulkGeolocation("YOUR_API_KEY", BulkGeolocationRequest())
-    println(result)  // status via api.BulkGeolocationWithHttpInfo(...).statusCode
+    val result = api.bulkGeolocation("YOUR_API_KEY", BulkGeolocationRequest())
+    println(result)  // status via api.bulkGeolocationWithHttpInfo(...).statusCode
 }

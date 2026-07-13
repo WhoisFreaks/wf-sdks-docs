@@ -35,9 +35,8 @@ import (
 func main() {
     cfg := wf.NewConfiguration()
     client := wf.NewAPIClient(cfg)
-    ctx := context.WithValue(context.Background(), wf.ContextAPIKeys,
-        map[string]wf.APIKey{"ApiKeyAuth": {Key: "YOUR_API_KEY"}})
-    result, httpRes, err := client.WHOISAPI.WhoisLive(ctx).DomainName("example.com").Execute()
+    // apiKey is a builder method on the request
+    result, httpRes, err := client.WHOISAPI.WhoisLive(context.Background()).ApiKey("YOUR_API_KEY").DomainName("example.com").Execute()
     if err != nil { panic(err) }
     fmt.Println("status:", httpRes.StatusCode)
     fmt.Println(result)
@@ -72,9 +71,8 @@ import (
 func main() {
     cfg := wf.NewConfiguration()
     client := wf.NewAPIClient(cfg)
-    ctx := context.WithValue(context.Background(), wf.ContextAPIKeys,
-        map[string]wf.APIKey{"ApiKeyAuth": {Key: "YOUR_API_KEY"}})
-    result, httpRes, err := client.WHOISAPI.WhoisLive(ctx).DomainName("example.com").Execute()
+    // apiKey is a builder method on the request, not a config/context value
+    result, httpRes, err := client.WHOISAPI.WhoisLive(context.Background()).ApiKey("YOUR_API_KEY").DomainName("example.com").Execute()
     if err != nil { panic(err) }
     fmt.Println("status:", httpRes.StatusCode)
     fmt.Println(result)
@@ -107,9 +105,8 @@ import (
 func main() {
     cfg := wf.NewConfiguration()
     client := wf.NewAPIClient(cfg)
-    ctx := context.WithValue(context.Background(), wf.ContextAPIKeys,
-        map[string]wf.APIKey{"ApiKeyAuth": {Key: "YOUR_API_KEY"}})
-    result, httpRes, err := client.WHOISAPI.WhoisLive(ctx).DomainName("example.com").Execute()
+    // apiKey is a builder method on the request, not a config/context value
+    result, httpRes, err := client.WHOISAPI.WhoisLive(context.Background()).ApiKey("YOUR_API_KEY").DomainName("example.com").Execute()
     if err != nil { panic(err) }
     fmt.Println("status:", httpRes.StatusCode)
     fmt.Println(result)
@@ -140,9 +137,8 @@ import (
 func main() {
     cfg := wf.NewConfiguration()
     client := wf.NewAPIClient(cfg)
-    ctx := context.WithValue(context.Background(), wf.ContextAPIKeys,
-        map[string]wf.APIKey{"ApiKeyAuth": {Key: "YOUR_API_KEY"}})
-    result, httpRes, err := client.DNSAPI.DnsLive(ctx).DomainName("example.com").IpAddress("8.8.8.8").Type("value").Execute()
+    // apiKey is a builder method on the request, not a config/context value
+    result, httpRes, err := client.DNSAPI.DnsLive(context.Background()).ApiKey("YOUR_API_KEY").DomainName("example.com").IpAddress("8.8.8.8").Type("value").Execute()
     if err != nil { panic(err) }
     fmt.Println("status:", httpRes.StatusCode)
     fmt.Println(result)
@@ -173,9 +169,8 @@ import (
 func main() {
     cfg := wf.NewConfiguration()
     client := wf.NewAPIClient(cfg)
-    ctx := context.WithValue(context.Background(), wf.ContextAPIKeys,
-        map[string]wf.APIKey{"ApiKeyAuth": {Key: "YOUR_API_KEY"}})
-    result, httpRes, err := client.DomainAvailabilityAPI.DomainAvailabilityV2(ctx).Domain("example.com").Execute()
+    // apiKey is a builder method on the request, not a config/context value
+    result, httpRes, err := client.DomainAvailabilityAPI.DomainAvailabilityV2(context.Background()).ApiKey("YOUR_API_KEY").Domain("example.com").Execute()
     if err != nil { panic(err) }
     fmt.Println("status:", httpRes.StatusCode)
     fmt.Println(result)
@@ -205,9 +200,8 @@ import (
 func main() {
     cfg := wf.NewConfiguration()
     client := wf.NewAPIClient(cfg)
-    ctx := context.WithValue(context.Background(), wf.ContextAPIKeys,
-        map[string]wf.APIKey{"ApiKeyAuth": {Key: "YOUR_API_KEY"}})
-    result, httpRes, err := client.TyposquattingAPI.Typosquatting(ctx).Execute()
+    // apiKey is a builder method on the request, not a config/context value
+    result, httpRes, err := client.TyposquattingAPI.Typosquatting(context.Background()).ApiKey("YOUR_API_KEY").Execute()
     if err != nil { panic(err) }
     fmt.Println("status:", httpRes.StatusCode)
     fmt.Println(result)
@@ -238,9 +232,8 @@ import (
 func main() {
     cfg := wf.NewConfiguration()
     client := wf.NewAPIClient(cfg)
-    ctx := context.WithValue(context.Background(), wf.ContextAPIKeys,
-        map[string]wf.APIKey{"ApiKeyAuth": {Key: "YOUR_API_KEY"}})
-    result, httpRes, err := client.SSLAPI.SslLookup(ctx).DomainName("example.com").Execute()
+    // apiKey is a builder method on the request, not a config/context value
+    result, httpRes, err := client.SSLAPI.SslLookup(context.Background()).ApiKey("YOUR_API_KEY").DomainName("example.com").Execute()
     if err != nil { panic(err) }
     fmt.Println("status:", httpRes.StatusCode)
     fmt.Println(result)
@@ -268,9 +261,8 @@ import (
 func main() {
     cfg := wf.NewConfiguration()
     client := wf.NewAPIClient(cfg)
-    ctx := context.WithValue(context.Background(), wf.ContextAPIKeys,
-        map[string]wf.APIKey{"ApiKeyAuth": {Key: "YOUR_API_KEY"}})
-    result, httpRes, err := client.GeolocationAPI.Geolocation(ctx).Ip("8.8.8.8").Execute()
+    // apiKey is a builder method on the request, not a config/context value
+    result, httpRes, err := client.GeolocationAPI.Geolocation(context.Background()).ApiKey("YOUR_API_KEY").Ip("8.8.8.8").Execute()
     if err != nil { panic(err) }
     fmt.Println("status:", httpRes.StatusCode)
     fmt.Println(result)
@@ -304,9 +296,8 @@ import (
 func main() {
     cfg := wf.NewConfiguration()
     client := wf.NewAPIClient(cfg)
-    ctx := context.WithValue(context.Background(), wf.ContextAPIKeys,
-        map[string]wf.APIKey{"ApiKeyAuth": {Key: "YOUR_API_KEY"}})
-    result, httpRes, err := client.SubdomainsAPI.Subdomains(ctx).Domain("example.com").After("2000-01-01").Before(time.Now().Format("2006-01-02")).Execute()
+    // apiKey is a builder method on the request, not a config/context value
+    result, httpRes, err := client.SubdomainsAPI.Subdomains(context.Background()).ApiKey("YOUR_API_KEY").Domain("example.com").After("2000-01-01").Before(time.Now().Format("2006-01-02")).Execute()
     if err != nil { panic(err) }
     fmt.Println("status:", httpRes.StatusCode)
     fmt.Println(result)
@@ -334,9 +325,8 @@ import (
 func main() {
     cfg := wf.NewConfiguration()
     client := wf.NewAPIClient(cfg)
-    ctx := context.WithValue(context.Background(), wf.ContextAPIKeys,
-        map[string]wf.APIKey{"ApiKeyAuth": {Key: "YOUR_API_KEY"}})
-    result, httpRes, err := client.IPReputationAPI.IpReputation(ctx).Ip("8.8.8.8").Execute()
+    // apiKey is a builder method on the request, not a config/context value
+    result, httpRes, err := client.IPReputationAPI.IpReputation(context.Background()).ApiKey("YOUR_API_KEY").Ip("8.8.8.8").Execute()
     if err != nil { panic(err) }
     fmt.Println("status:", httpRes.StatusCode)
     fmt.Println(result)
@@ -365,9 +355,8 @@ import (
 func main() {
     cfg := wf.NewConfiguration()
     client := wf.NewAPIClient(cfg)
-    ctx := context.WithValue(context.Background(), wf.ContextAPIKeys,
-        map[string]wf.APIKey{"ApiKeyAuth": {Key: "YOUR_API_KEY"}})
-    result, httpRes, err := client.DomainReputationAPI.DomainReputation(ctx).DomainName("example.com").Execute()
+    // apiKey is a builder method on the request, not a config/context value
+    result, httpRes, err := client.DomainReputationAPI.DomainReputation(context.Background()).ApiKey("YOUR_API_KEY").DomainName("example.com").Execute()
     if err != nil { panic(err) }
     fmt.Println("status:", httpRes.StatusCode)
     fmt.Println(result)
@@ -396,9 +385,8 @@ import (
 func main() {
     cfg := wf.NewConfiguration()
     client := wf.NewAPIClient(cfg)
-    ctx := context.WithValue(context.Background(), wf.ContextAPIKeys,
-        map[string]wf.APIKey{"ApiKeyAuth": {Key: "YOUR_API_KEY"}})
-    result, httpRes, err := client.ASNWHOISAPI.AsnWhois(ctx).Asn("AS15169").Execute()
+    // apiKey is a builder method on the request, not a config/context value
+    result, httpRes, err := client.ASNWHOISAPI.AsnWhois(context.Background()).ApiKey("YOUR_API_KEY").Asn("AS15169").Execute()
     if err != nil { panic(err) }
     fmt.Println("status:", httpRes.StatusCode)
     fmt.Println(result)
@@ -427,9 +415,8 @@ import (
 func main() {
     cfg := wf.NewConfiguration()
     client := wf.NewAPIClient(cfg)
-    ctx := context.WithValue(context.Background(), wf.ContextAPIKeys,
-        map[string]wf.APIKey{"ApiKeyAuth": {Key: "YOUR_API_KEY"}})
-    result, httpRes, err := client.IPWHOISAPI.IpWhois(ctx).Ip("8.8.8.8").Execute()
+    // apiKey is a builder method on the request, not a config/context value
+    result, httpRes, err := client.IPWHOISAPI.IpWhois(context.Background()).ApiKey("YOUR_API_KEY").Ip("8.8.8.8").Execute()
     if err != nil { panic(err) }
     fmt.Println("status:", httpRes.StatusCode)
     fmt.Println(result)
@@ -456,9 +443,8 @@ import (
 func main() {
     cfg := wf.NewConfiguration()
     client := wf.NewAPIClient(cfg)
-    ctx := context.WithValue(context.Background(), wf.ContextAPIKeys,
-        map[string]wf.APIKey{"ApiKeyAuth": {Key: "YOUR_API_KEY"}})
-    result, httpRes, err := client.AccountAPI.RotateApiKey(ctx).Execute()
+    // apiKey is a builder method on the request, not a config/context value
+    result, httpRes, err := client.AccountAPI.RotateApiKey(context.Background()).ApiKey("YOUR_API_KEY").Execute()
     if err != nil { panic(err) }
     fmt.Println("status:", httpRes.StatusCode)
     fmt.Println(result)
@@ -489,9 +475,8 @@ import (
 func main() {
     cfg := wf.NewConfiguration()
     client := wf.NewAPIClient(cfg)
-    ctx := context.WithValue(context.Background(), wf.ContextAPIKeys,
-        map[string]wf.APIKey{"ApiKeyAuth": {Key: "YOUR_API_KEY"}})
-    result, httpRes, err := client.DatabasesNewlyRegisteredAPI.DbNewlyGtld(ctx).Whois(false).Date(time.Now().AddDate(0,0,-1).Format("2006-01-02")).Execute()
+    // apiKey is a builder method on the request, not a config/context value
+    result, httpRes, err := client.DatabasesNewlyRegisteredAPI.DbNewlyGtld(context.Background()).ApiKey("YOUR_API_KEY").Whois(false).Date(time.Now().AddDate(0,0,-1).Format("2006-01-02")).Execute()
     if err != nil { panic(err) }
     fmt.Println("status:", httpRes.StatusCode)
     fmt.Println(result)
@@ -521,9 +506,8 @@ import (
 func main() {
     cfg := wf.NewConfiguration()
     client := wf.NewAPIClient(cfg)
-    ctx := context.WithValue(context.Background(), wf.ContextAPIKeys,
-        map[string]wf.APIKey{"ApiKeyAuth": {Key: "YOUR_API_KEY"}})
-    result, httpRes, err := client.DatabasesExpiringDroppedAPI.DbExpired(ctx).Whois(false).Date(time.Now().AddDate(0,0,-1).Format("2006-01-02")).Execute()
+    // apiKey is a builder method on the request, not a config/context value
+    result, httpRes, err := client.DatabasesExpiringDroppedAPI.DbExpired(context.Background()).ApiKey("YOUR_API_KEY").Whois(false).Date(time.Now().AddDate(0,0,-1).Format("2006-01-02")).Execute()
     if err != nil { panic(err) }
     fmt.Println("status:", httpRes.StatusCode)
     fmt.Println(result)
@@ -552,9 +536,8 @@ import (
 func main() {
     cfg := wf.NewConfiguration()
     client := wf.NewAPIClient(cfg)
-    ctx := context.WithValue(context.Background(), wf.ContextAPIKeys,
-        map[string]wf.APIKey{"ApiKeyAuth": {Key: "YOUR_API_KEY"}})
-    result, httpRes, err := client.DatabasesWHOISAPI.DbWhoisDaily(ctx).Date(time.Now().AddDate(0,0,-1).Format("2006-01-02")).Execute()
+    // apiKey is a builder method on the request, not a config/context value
+    result, httpRes, err := client.DatabasesWHOISAPI.DbWhoisDaily(context.Background()).ApiKey("YOUR_API_KEY").Date(time.Now().AddDate(0,0,-1).Format("2006-01-02")).Execute()
     if err != nil { panic(err) }
     fmt.Println("status:", httpRes.StatusCode)
     fmt.Println(result)
@@ -583,9 +566,8 @@ import (
 func main() {
     cfg := wf.NewConfiguration()
     client := wf.NewAPIClient(cfg)
-    ctx := context.WithValue(context.Background(), wf.ContextAPIKeys,
-        map[string]wf.APIKey{"ApiKeyAuth": {Key: "YOUR_API_KEY"}})
-    result, httpRes, err := client.DatabasesDNSAPI.DbDnsDaily(ctx).Date(time.Now().AddDate(0,0,-1).Format("2006-01-02")).Execute()
+    // apiKey is a builder method on the request, not a config/context value
+    result, httpRes, err := client.DatabasesDNSAPI.DbDnsDaily(context.Background()).ApiKey("YOUR_API_KEY").Date(time.Now().AddDate(0,0,-1).Format("2006-01-02")).Execute()
     if err != nil { panic(err) }
     fmt.Println("status:", httpRes.StatusCode)
     fmt.Println(result)
@@ -614,9 +596,8 @@ import (
 func main() {
     cfg := wf.NewConfiguration()
     client := wf.NewAPIClient(cfg)
-    ctx := context.WithValue(context.Background(), wf.ContextAPIKeys,
-        map[string]wf.APIKey{"ApiKeyAuth": {Key: "YOUR_API_KEY"}})
-    result, httpRes, err := client.DatabasesSubdomainsAPI.DbSubdomainsDaily(ctx).Date(time.Now().AddDate(0,0,-1).Format("2006-01-02")).Execute()
+    // apiKey is a builder method on the request, not a config/context value
+    result, httpRes, err := client.DatabasesSubdomainsAPI.DbSubdomainsDaily(context.Background()).ApiKey("YOUR_API_KEY").Date(time.Now().AddDate(0,0,-1).Format("2006-01-02")).Execute()
     if err != nil { panic(err) }
     fmt.Println("status:", httpRes.StatusCode)
     fmt.Println(result)
@@ -643,9 +624,8 @@ import (
 func main() {
     cfg := wf.NewConfiguration()
     client := wf.NewAPIClient(cfg)
-    ctx := context.WithValue(context.Background(), wf.ContextAPIKeys,
-        map[string]wf.APIKey{"ApiKeyAuth": {Key: "YOUR_API_KEY"}})
-    result, httpRes, err := client.DatabasesIPGeolocationAPI.DbIpCountryStatus(ctx).Execute()
+    // apiKey is a builder method on the request, not a config/context value
+    result, httpRes, err := client.DatabasesIPGeolocationAPI.DbIpCountryStatus(context.Background()).ApiKey("YOUR_API_KEY").Execute()
     if err != nil { panic(err) }
     fmt.Println("status:", httpRes.StatusCode)
     fmt.Println(result)
@@ -674,9 +654,8 @@ import (
 func main() {
     cfg := wf.NewConfiguration()
     client := wf.NewAPIClient(cfg)
-    ctx := context.WithValue(context.Background(), wf.ContextAPIKeys,
-        map[string]wf.APIKey{"ApiKeyAuth": {Key: "YOUR_API_KEY"}})
-    result, httpRes, err := client.DatabasesASNWHOISAPI.DbAsnWhois(ctx).Date(time.Now().AddDate(0,0,-1).Format("2006-01-02")).Execute()
+    // apiKey is a builder method on the request, not a config/context value
+    result, httpRes, err := client.DatabasesASNWHOISAPI.DbAsnWhois(context.Background()).ApiKey("YOUR_API_KEY").Date(time.Now().AddDate(0,0,-1).Format("2006-01-02")).Execute()
     if err != nil { panic(err) }
     fmt.Println("status:", httpRes.StatusCode)
     fmt.Println(result)
@@ -705,9 +684,8 @@ import (
 func main() {
     cfg := wf.NewConfiguration()
     client := wf.NewAPIClient(cfg)
-    ctx := context.WithValue(context.Background(), wf.ContextAPIKeys,
-        map[string]wf.APIKey{"ApiKeyAuth": {Key: "YOUR_API_KEY"}})
-    result, httpRes, err := client.DatabasesIPWHOISAPI.DbIpWhois(ctx).Date(time.Now().AddDate(0,0,-1).Format("2006-01-02")).Execute()
+    // apiKey is a builder method on the request, not a config/context value
+    result, httpRes, err := client.DatabasesIPWHOISAPI.DbIpWhois(context.Background()).ApiKey("YOUR_API_KEY").Date(time.Now().AddDate(0,0,-1).Format("2006-01-02")).Execute()
     if err != nil { panic(err) }
     fmt.Println("status:", httpRes.StatusCode)
     fmt.Println(result)
@@ -736,9 +714,8 @@ import (
 func main() {
     cfg := wf.NewConfiguration()
     client := wf.NewAPIClient(cfg)
-    ctx := context.WithValue(context.Background(), wf.ContextAPIKeys,
-        map[string]wf.APIKey{"ApiKeyAuth": {Key: "YOUR_API_KEY"}})
-    result, httpRes, err := client.DatabasesIPSecurityAPI.DbIpSecurity(ctx).Date(time.Now().AddDate(0,0,-1).Format("2006-01-02")).Execute()
+    // apiKey is a builder method on the request, not a config/context value
+    result, httpRes, err := client.DatabasesIPSecurityAPI.DbIpSecurity(context.Background()).ApiKey("YOUR_API_KEY").Date(time.Now().AddDate(0,0,-1).Format("2006-01-02")).Execute()
     if err != nil { panic(err) }
     fmt.Println("status:", httpRes.StatusCode)
     fmt.Println(result)

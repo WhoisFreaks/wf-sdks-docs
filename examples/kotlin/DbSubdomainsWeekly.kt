@@ -6,6 +6,6 @@ import com.whoisfreaks.api.DatabasesSubdomainsApi
 
 fun main() {
     val api = DatabasesSubdomainsApi(basePath = "https://api.whoisfreaks.com")
-    val result = api.DbSubdomainsWeekly("YOUR_API_KEY", java.time.LocalDate.now().minusDays(1).toString())
-    println(result)  // status via api.DbSubdomainsWeeklyWithHttpInfo(...).statusCode
+    val result = api.dbSubdomainsWeekly("YOUR_API_KEY", java.time.LocalDate.now().minusDays(1).toString())
+    println(result)  // status via api.dbSubdomainsWeeklyWithHttpInfo(...).statusCode
 }

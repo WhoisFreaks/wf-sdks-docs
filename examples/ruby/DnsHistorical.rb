@@ -8,6 +8,6 @@
 require 'whoisfreaks'
 
 api = WhoisFreaks::DNSApi.new
-data, status, _headers = api.dns_historical_with_http_info(api_key: "YOUR_API_KEY", domain_name: "example.com", type: "value")
+data, status, _headers = api.dns_historical_with_http_info("YOUR_API_KEY", "example.com", "value")
 puts "status: #{status}"
 puts data

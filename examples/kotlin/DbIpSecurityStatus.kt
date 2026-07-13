@@ -5,6 +5,6 @@ import com.whoisfreaks.api.DatabasesIPSecurityApi
 
 fun main() {
     val api = DatabasesIPSecurityApi(basePath = "https://api.whoisfreaks.com")
-    val result = api.DbIpSecurityStatus("YOUR_API_KEY")
-    println(result)  // status via api.DbIpSecurityStatusWithHttpInfo(...).statusCode
+    val result = api.dbIpSecurityStatus("YOUR_API_KEY")
+    println(result)  // status via api.dbIpSecurityStatusWithHttpInfo(...).statusCode
 }

@@ -9,6 +9,6 @@ import com.whoisfreaks.api.DNSApi
 
 fun main() {
     val api = DNSApi(basePath = "https://api.whoisfreaks.com")
-    val result = api.DnsHistorical("YOUR_API_KEY", "example.com", "value", null, null)
-    println(result)  // status via api.DnsHistoricalWithHttpInfo(...).statusCode
+    val result = api.dnsHistorical("YOUR_API_KEY", "example.com", "value", null, null)
+    println(result)  // status via api.dnsHistoricalWithHttpInfo(...).statusCode
 }

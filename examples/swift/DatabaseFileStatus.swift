@@ -3,7 +3,9 @@
 //   (no parameters besides apiKey)
 import WhoisFreaks
 
-AccountAPI.DatabaseFileStatus() { data, error in
-    if let error = error { print(error); return }
-    if let data = data { print(data) }
+do {
+    let result = try await AccountAPI.databaseFileStatus()
+    print(result)
+} catch {
+    print(error)
 }

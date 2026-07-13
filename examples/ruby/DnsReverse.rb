@@ -9,6 +9,6 @@
 require 'whoisfreaks'
 
 api = WhoisFreaks::DNSApi.new
-data, status, _headers = api.dns_reverse_with_http_info(api_key: "YOUR_API_KEY", value: "value", type: "a", exact: true)
+data, status, _headers = api.dns_reverse_with_http_info("YOUR_API_KEY", "value", "a", true)
 puts "status: #{status}"
 puts data

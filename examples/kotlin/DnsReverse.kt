@@ -10,6 +10,6 @@ import com.whoisfreaks.api.DNSApi
 
 fun main() {
     val api = DNSApi(basePath = "https://api.whoisfreaks.com")
-    val result = api.DnsReverse("YOUR_API_KEY", "value", "a", true, null, null)
-    println(result)  // status via api.DnsReverseWithHttpInfo(...).statusCode
+    val result = api.dnsReverse("YOUR_API_KEY", "value", "a", true, null, null)
+    println(result)  // status via api.dnsReverseWithHttpInfo(...).statusCode
 }

@@ -11,6 +11,6 @@ require 'date'
 require 'whoisfreaks'
 
 api = WhoisFreaks::SubdomainsApi.new
-data, status, _headers = api.subdomains_with_http_info(api_key: "YOUR_API_KEY", domain: "example.com", after: "2000-01-01", before: Date.today.to_s)
+data, status, _headers = api.subdomains_with_http_info("YOUR_API_KEY", "example.com", "2000-01-01", Date.today.to_s)
 puts "status: #{status}"
 puts data

@@ -5,7 +5,9 @@
 //   - format (string (one of: json, xml), optional)
 import WhoisFreaks
 
-WHOISAPI.WhoisLive(apiKey: "YOUR_API_KEY", domainName: "example.com", format: nil) { data, error in
-    if let error = error { print(error); return }
-    if let data = data { print(data) }
+do {
+    let result = try await WHOISAPI.whoisLive(apiKey: "YOUR_API_KEY", domainName: "example.com", format: nil)
+    print(result)
+} catch {
+    print(error)
 }

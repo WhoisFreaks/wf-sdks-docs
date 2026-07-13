@@ -9,6 +9,6 @@ import com.whoisfreaks.models.BulkDomainAvailabilityRequest
 
 fun main() {
     val api = DomainAvailabilityApi(basePath = "https://api.whoisfreaks.com")
-    val result = api.BulkDomainAvailabilityV2("YOUR_API_KEY", BulkDomainAvailabilityRequest(), null, null)
-    println(result)  // status via api.BulkDomainAvailabilityV2WithHttpInfo(...).statusCode
+    val result = api.bulkDomainAvailabilityV2("YOUR_API_KEY", BulkDomainAvailabilityRequest(), null, null)
+    println(result)  // status via api.bulkDomainAvailabilityV2WithHttpInfo(...).statusCode
 }

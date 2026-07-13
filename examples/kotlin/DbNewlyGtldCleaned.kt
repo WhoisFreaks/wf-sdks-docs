@@ -6,6 +6,6 @@ import com.whoisfreaks.api.DatabasesNewlyRegisteredApi
 
 fun main() {
     val api = DatabasesNewlyRegisteredApi(basePath = "https://api.whoisfreaks.com")
-    val result = api.DbNewlyGtldCleaned("YOUR_API_KEY", java.time.LocalDate.now().minusDays(1).toString())
-    println(result)  // status via api.DbNewlyGtldCleanedWithHttpInfo(...).statusCode
+    val result = api.dbNewlyGtldCleaned("YOUR_API_KEY", java.time.LocalDate.now().minusDays(1).toString())
+    println(result)  // status via api.dbNewlyGtldCleanedWithHttpInfo(...).statusCode
 }

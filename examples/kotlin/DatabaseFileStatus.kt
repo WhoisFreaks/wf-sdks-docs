@@ -5,6 +5,6 @@ import com.whoisfreaks.api.AccountApi
 
 fun main() {
     val api = AccountApi(basePath = "https://api.whoisfreaks.com")
-    val result = api.DatabaseFileStatus()
-    println(result)  // status via api.DatabaseFileStatusWithHttpInfo(...).statusCode
+    val result = api.databaseFileStatus()
+    println(result)  // status via api.databaseFileStatusWithHttpInfo(...).statusCode
 }

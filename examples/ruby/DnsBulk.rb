@@ -7,6 +7,6 @@
 require 'whoisfreaks'
 
 api = WhoisFreaks::DNSApi.new
-data, status, _headers = api.dns_bulk_with_http_info(api_key: "YOUR_API_KEY", type: "value", dns_bulk_request: WhoisFreaks::DnsBulkRequest.new)
+data, status, _headers = api.dns_bulk_with_http_info("YOUR_API_KEY", "value", WhoisFreaks::DnsBulkRequest.new)
 puts "status: #{status}"
 puts data

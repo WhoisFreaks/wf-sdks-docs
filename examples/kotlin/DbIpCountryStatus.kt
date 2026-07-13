@@ -5,6 +5,6 @@ import com.whoisfreaks.api.DatabasesIPGeolocationApi
 
 fun main() {
     val api = DatabasesIPGeolocationApi(basePath = "https://api.whoisfreaks.com")
-    val result = api.DbIpCountryStatus("YOUR_API_KEY")
-    println(result)  // status via api.DbIpCountryStatusWithHttpInfo(...).statusCode
+    val result = api.dbIpCountryStatus("YOUR_API_KEY")
+    println(result)  // status via api.dbIpCountryStatusWithHttpInfo(...).statusCode
 }

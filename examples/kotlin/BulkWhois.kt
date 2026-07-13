@@ -8,6 +8,6 @@ import com.whoisfreaks.models.BulkWhoisRequest
 
 fun main() {
     val api = WHOISApi(basePath = "https://api.whoisfreaks.com")
-    val result = api.BulkWhois("YOUR_API_KEY", BulkWhoisRequest(), null)
-    println(result)  // status via api.BulkWhoisWithHttpInfo(...).statusCode
+    val result = api.bulkWhois("YOUR_API_KEY", BulkWhoisRequest(), null)
+    println(result)  // status via api.bulkWhoisWithHttpInfo(...).statusCode
 }

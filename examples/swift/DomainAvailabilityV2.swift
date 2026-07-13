@@ -7,7 +7,9 @@
 //   - format (string (one of: json, xml), optional)
 import WhoisFreaks
 
-DomainAvailabilityAPI.DomainAvailabilityV2(apiKey: "YOUR_API_KEY", domain: "example.com", sug: nil, count: nil, format: nil) { data, error in
-    if let error = error { print(error); return }
-    if let data = data { print(data) }
+do {
+    let result = try await DomainAvailabilityAPI.domainAvailabilityV2(apiKey: "YOUR_API_KEY", domain: "example.com", sug: nil, count: nil, format: nil)
+    print(result)
+} catch {
+    print(error)
 }

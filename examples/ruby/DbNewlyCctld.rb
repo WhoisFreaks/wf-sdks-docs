@@ -8,6 +8,6 @@ require 'date'
 require 'whoisfreaks'
 
 api = WhoisFreaks::DatabasesNewlyRegisteredApi.new
-data, status, _headers = api.db_newly_cctld_with_http_info(api_key: "YOUR_API_KEY", whois: false, date: (Date.today - 1).to_s)
+data, status, _headers = api.db_newly_cctld_with_http_info("YOUR_API_KEY", false, (Date.today - 1).to_s)
 puts "status: #{status}"
 puts data
