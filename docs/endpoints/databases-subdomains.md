@@ -77,6 +77,7 @@ package main
 import (
     "context"
     "fmt"
+    "os"
     "time"
     wf "github.com/WhoisFreaks/whoisfreaks-go"
 )
@@ -84,11 +85,11 @@ import (
 func main() {
     cfg := wf.NewConfiguration()
     client := wf.NewAPIClient(cfg)
-    // apiKey is a builder method on the request, not a config/context value
-    result, httpRes, err := client.DatabasesSubdomainsAPI.DbSubdomainsDaily(context.Background()).ApiKey("YOUR_API_KEY").Date(time.Now().AddDate(0,0,-1).Format("2006-01-02")).Execute()
+    // returns raw bytes (compressed/binary file) -- write to disk
+    data, _, err := client.DatabasesSubdomainsAPI.DbSubdomainsDaily(context.Background()).ApiKey("YOUR_API_KEY").Date(time.Now().AddDate(0,0,-1).Format("2006-01-02")).Execute()
     if err != nil { panic(err) }
-    fmt.Println("status:", httpRes.StatusCode)
-    fmt.Println(result)
+    if err := os.WriteFile("dbSubdomainsDaily.gz", data, 0644); err != nil { panic(err) }
+    fmt.Printf("saved %d bytes to dbSubdomainsDaily.gz\n", len(data))
 }
 
 ```
@@ -170,6 +171,7 @@ package main
 import (
     "context"
     "fmt"
+    "os"
     "time"
     wf "github.com/WhoisFreaks/whoisfreaks-go"
 )
@@ -177,11 +179,11 @@ import (
 func main() {
     cfg := wf.NewConfiguration()
     client := wf.NewAPIClient(cfg)
-    // apiKey is a builder method on the request, not a config/context value
-    result, httpRes, err := client.DatabasesSubdomainsAPI.DbSubdomainsWeekly(context.Background()).ApiKey("YOUR_API_KEY").Date(time.Now().AddDate(0,0,-1).Format("2006-01-02")).Execute()
+    // returns raw bytes (compressed/binary file) -- write to disk
+    data, _, err := client.DatabasesSubdomainsAPI.DbSubdomainsWeekly(context.Background()).ApiKey("YOUR_API_KEY").Date(time.Now().AddDate(0,0,-1).Format("2006-01-02")).Execute()
     if err != nil { panic(err) }
-    fmt.Println("status:", httpRes.StatusCode)
-    fmt.Println(result)
+    if err := os.WriteFile("dbSubdomainsWeekly.gz", data, 0644); err != nil { panic(err) }
+    fmt.Printf("saved %d bytes to dbSubdomainsWeekly.gz\n", len(data))
 }
 
 ```
@@ -263,6 +265,7 @@ package main
 import (
     "context"
     "fmt"
+    "os"
     "time"
     wf "github.com/WhoisFreaks/whoisfreaks-go"
 )
@@ -270,11 +273,11 @@ import (
 func main() {
     cfg := wf.NewConfiguration()
     client := wf.NewAPIClient(cfg)
-    // apiKey is a builder method on the request, not a config/context value
-    result, httpRes, err := client.DatabasesSubdomainsAPI.DbSubdomainsMonthly(context.Background()).ApiKey("YOUR_API_KEY").Date(time.Now().AddDate(0,0,-1).Format("2006-01-02")).Execute()
+    // returns raw bytes (compressed/binary file) -- write to disk
+    data, _, err := client.DatabasesSubdomainsAPI.DbSubdomainsMonthly(context.Background()).ApiKey("YOUR_API_KEY").Date(time.Now().AddDate(0,0,-1).Format("2006-01-02")).Execute()
     if err != nil { panic(err) }
-    fmt.Println("status:", httpRes.StatusCode)
-    fmt.Println(result)
+    if err := os.WriteFile("dbSubdomainsMonthly.gz", data, 0644); err != nil { panic(err) }
+    fmt.Printf("saved %d bytes to dbSubdomainsMonthly.gz\n", len(data))
 }
 
 ```

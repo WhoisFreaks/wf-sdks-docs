@@ -7,6 +7,7 @@ package main
 
 import (
     "context"
+    "encoding/json"
     "fmt"
     "time"
     wf "github.com/WhoisFreaks/whoisfreaks-go"
@@ -19,5 +20,6 @@ func main() {
     result, httpRes, err := client.DatabasesExpiringDroppedAPI.DbDroppedJson(context.Background()).ApiKey("YOUR_API_KEY").Date(time.Now().AddDate(0,0,-1).Format("2006-01-02")).Execute()
     if err != nil { panic(err) }
     fmt.Println("status:", httpRes.StatusCode)
-    fmt.Println(result)
+    b, _ := json.MarshalIndent(result, "", "  ")
+    fmt.Println(string(b))
 }

@@ -6,6 +6,7 @@ package main
 
 import (
     "context"
+    "encoding/json"
     "fmt"
     wf "github.com/WhoisFreaks/whoisfreaks-go"
 )
@@ -17,5 +18,6 @@ func main() {
     result, httpRes, err := client.GeolocationAPI.Geolocation(context.Background()).ApiKey("YOUR_API_KEY").Ip("8.8.8.8").Execute()
     if err != nil { panic(err) }
     fmt.Println("status:", httpRes.StatusCode)
-    fmt.Println(result)
+    b, _ := json.MarshalIndent(result, "", "  ")
+    fmt.Println(string(b))
 }

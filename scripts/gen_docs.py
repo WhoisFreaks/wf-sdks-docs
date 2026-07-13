@@ -178,6 +178,7 @@ def getting_started(lang):
             "",
             "import (",
             "    \"context\"",
+            "    \"encoding/json\"",
             "    \"fmt\"",
             f"    wf \"{mod}\"",
             ")",
@@ -189,7 +190,8 @@ def getting_started(lang):
             "    result, httpRes, err := client.WHOISAPI.WhoisLive(context.Background()).ApiKey(\"YOUR_API_KEY\").DomainName(\"example.com\").Execute()",
             "    if err != nil { panic(err) }",
             "    fmt.Println(\"status:\", httpRes.StatusCode)",
-            "    fmt.Println(result)",
+            "    b, _ := json.MarshalIndent(result, \"\", \"  \")",
+            "    fmt.Println(string(b))",
             "}",
             "```",
             "",
@@ -851,18 +853,36 @@ def runnable_example(lang, op):
             else:
                 cv,_=lang_literal("go",v,p); builder+=f'.{k[0].upper()+k[1:]}({cv})'
         _time_imp = '    "time"\n' if uses_yesterday else ''
+        call = (f'client.{go_accessor(op["tag"])}.{m}(context.Background())'
+                f'.ApiKey("YOUR_API_KEY"){builder}.Execute()')
+        if op.get("is_binary"):
+            fname = (op["op_id"] or "download") + ".gz"
+            return (f"// Runnable example: {op['summary']} ({op['method']} {op['path']})\n"
+                    f"{pcmt_all}\n"
+                    f"package main\n\n"
+                    f'import (\n    "context"\n    "fmt"\n    "os"\n{_time_imp}    wf "github.com/{OWNER}/whoisfreaks-go"\n)\n\n'
+                    f"func main() {{\n"
+                    f"    cfg := wf.NewConfiguration()\n"
+                    f"    client := wf.NewAPIClient(cfg)\n"
+                    f"    // returns raw bytes (compressed/binary file) -- write to disk\n"
+                    f"    data, _, err := {call}\n"
+                    f"    if err != nil {{ panic(err) }}\n"
+                    f'    if err := os.WriteFile("{fname}", data, 0644); err != nil {{ panic(err) }}\n'
+                    f'    fmt.Printf("saved %d bytes to {fname}\\n", len(data))\n'
+                    f"}}\n")
         return (f"// Runnable example: {op['summary']} ({op['method']} {op['path']})\n"
                 f"{pcmt_all}\n"
                 f"package main\n\n"
-                f'import (\n    "context"\n    "fmt"\n{_time_imp}    wf "github.com/{OWNER}/whoisfreaks-go"\n)\n\n'
+                f'import (\n    "context"\n    "encoding/json"\n    "fmt"\n{_time_imp}    wf "github.com/{OWNER}/whoisfreaks-go"\n)\n\n'
                 f"func main() {{\n"
                 f"    cfg := wf.NewConfiguration()\n"
                 f"    client := wf.NewAPIClient(cfg)\n"
                 f"    // apiKey is a builder method on the request, not a config/context value\n"
-                f'    result, httpRes, err := client.{go_accessor(op["tag"])}.{m}(context.Background()).ApiKey("YOUR_API_KEY"){builder}.Execute()\n'
+                f"    result, httpRes, err := {call}\n"
                 f"    if err != nil {{ panic(err) }}\n"
                 f'    fmt.Println("status:", httpRes.StatusCode)\n'
-                f"    fmt.Println(result)\n"
+                f'    b, _ := json.MarshalIndent(result, "", "  ")\n'
+                f"    fmt.Println(string(b))\n"
                 f"}}\n")
 
     if lang == "php":

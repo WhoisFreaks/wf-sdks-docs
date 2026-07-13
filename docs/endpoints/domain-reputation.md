@@ -77,6 +77,7 @@ package main
 
 import (
     "context"
+    "encoding/json"
     "fmt"
     wf "github.com/WhoisFreaks/whoisfreaks-go"
 )
@@ -88,7 +89,8 @@ func main() {
     result, httpRes, err := client.DomainReputationAPI.DomainReputation(context.Background()).ApiKey("YOUR_API_KEY").DomainName("example.com").Execute()
     if err != nil { panic(err) }
     fmt.Println("status:", httpRes.StatusCode)
-    fmt.Println(result)
+    b, _ := json.MarshalIndent(result, "", "  ")
+    fmt.Println(string(b))
 }
 
 ```

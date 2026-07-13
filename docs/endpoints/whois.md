@@ -77,6 +77,7 @@ package main
 
 import (
     "context"
+    "encoding/json"
     "fmt"
     wf "github.com/WhoisFreaks/whoisfreaks-go"
 )
@@ -88,7 +89,8 @@ func main() {
     result, httpRes, err := client.WHOISAPI.WhoisLive(context.Background()).ApiKey("YOUR_API_KEY").DomainName("example.com").Execute()
     if err != nil { panic(err) }
     fmt.Println("status:", httpRes.StatusCode)
-    fmt.Println(result)
+    b, _ := json.MarshalIndent(result, "", "  ")
+    fmt.Println(string(b))
 }
 
 ```
@@ -202,6 +204,7 @@ package main
 
 import (
     "context"
+    "encoding/json"
     "fmt"
     wf "github.com/WhoisFreaks/whoisfreaks-go"
 )
@@ -213,7 +216,8 @@ func main() {
     result, httpRes, err := client.WHOISAPI.WhoisHistoricalOrReverse(context.Background()).ApiKey("YOUR_API_KEY").Whois("historical").DomainName("example.com").Exact(true).Execute()
     if err != nil { panic(err) }
     fmt.Println("status:", httpRes.StatusCode)
-    fmt.Println(result)
+    b, _ := json.MarshalIndent(result, "", "  ")
+    fmt.Println(string(b))
 }
 
 ```
@@ -296,6 +300,7 @@ package main
 
 import (
     "context"
+    "encoding/json"
     "fmt"
     wf "github.com/WhoisFreaks/whoisfreaks-go"
 )
@@ -307,7 +312,8 @@ func main() {
     result, httpRes, err := client.WHOISAPI.BulkWhois(context.Background()).ApiKey("YOUR_API_KEY").BulkWhoisRequest(*wf.NewBulkWhoisRequest()).Execute()
     if err != nil { panic(err) }
     fmt.Println("status:", httpRes.StatusCode)
-    fmt.Println(result)
+    b, _ := json.MarshalIndent(result, "", "  ")
+    fmt.Println(string(b))
 }
 
 ```

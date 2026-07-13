@@ -28,6 +28,7 @@ package main
 
 import (
     "context"
+    "encoding/json"
     "fmt"
     wf "github.com/WhoisFreaks/whoisfreaks-go"
 )
@@ -39,7 +40,8 @@ func main() {
     result, httpRes, err := client.WHOISAPI.WhoisLive(context.Background()).ApiKey("YOUR_API_KEY").DomainName("example.com").Execute()
     if err != nil { panic(err) }
     fmt.Println("status:", httpRes.StatusCode)
-    fmt.Println(result)
+    b, _ := json.MarshalIndent(result, "", "  ")
+    fmt.Println(string(b))
 }
 ```
 
@@ -64,6 +66,7 @@ package main
 
 import (
     "context"
+    "encoding/json"
     "fmt"
     wf "github.com/WhoisFreaks/whoisfreaks-go"
 )
@@ -75,7 +78,8 @@ func main() {
     result, httpRes, err := client.WHOISAPI.WhoisLive(context.Background()).ApiKey("YOUR_API_KEY").DomainName("example.com").Execute()
     if err != nil { panic(err) }
     fmt.Println("status:", httpRes.StatusCode)
-    fmt.Println(result)
+    b, _ := json.MarshalIndent(result, "", "  ")
+    fmt.Println(string(b))
 }
 
 ```
@@ -98,6 +102,7 @@ package main
 
 import (
     "context"
+    "encoding/json"
     "fmt"
     wf "github.com/WhoisFreaks/whoisfreaks-go"
 )
@@ -109,7 +114,8 @@ func main() {
     result, httpRes, err := client.WHOISAPI.WhoisLive(context.Background()).ApiKey("YOUR_API_KEY").DomainName("example.com").Execute()
     if err != nil { panic(err) }
     fmt.Println("status:", httpRes.StatusCode)
-    fmt.Println(result)
+    b, _ := json.MarshalIndent(result, "", "  ")
+    fmt.Println(string(b))
 }
 
 ```
@@ -130,6 +136,7 @@ package main
 
 import (
     "context"
+    "encoding/json"
     "fmt"
     wf "github.com/WhoisFreaks/whoisfreaks-go"
 )
@@ -141,7 +148,8 @@ func main() {
     result, httpRes, err := client.DNSAPI.DnsLive(context.Background()).ApiKey("YOUR_API_KEY").DomainName("example.com").IpAddress("8.8.8.8").Type("value").Execute()
     if err != nil { panic(err) }
     fmt.Println("status:", httpRes.StatusCode)
-    fmt.Println(result)
+    b, _ := json.MarshalIndent(result, "", "  ")
+    fmt.Println(string(b))
 }
 
 ```
@@ -162,6 +170,7 @@ package main
 
 import (
     "context"
+    "encoding/json"
     "fmt"
     wf "github.com/WhoisFreaks/whoisfreaks-go"
 )
@@ -173,7 +182,8 @@ func main() {
     result, httpRes, err := client.DomainAvailabilityAPI.DomainAvailabilityV2(context.Background()).ApiKey("YOUR_API_KEY").Domain("example.com").Execute()
     if err != nil { panic(err) }
     fmt.Println("status:", httpRes.StatusCode)
-    fmt.Println(result)
+    b, _ := json.MarshalIndent(result, "", "  ")
+    fmt.Println(string(b))
 }
 
 ```
@@ -193,6 +203,7 @@ package main
 
 import (
     "context"
+    "encoding/json"
     "fmt"
     wf "github.com/WhoisFreaks/whoisfreaks-go"
 )
@@ -204,7 +215,8 @@ func main() {
     result, httpRes, err := client.TyposquattingAPI.Typosquatting(context.Background()).ApiKey("YOUR_API_KEY").Execute()
     if err != nil { panic(err) }
     fmt.Println("status:", httpRes.StatusCode)
-    fmt.Println(result)
+    b, _ := json.MarshalIndent(result, "", "  ")
+    fmt.Println(string(b))
 }
 
 ```
@@ -225,6 +237,7 @@ package main
 
 import (
     "context"
+    "encoding/json"
     "fmt"
     wf "github.com/WhoisFreaks/whoisfreaks-go"
 )
@@ -236,7 +249,8 @@ func main() {
     result, httpRes, err := client.SSLAPI.SslLookup(context.Background()).ApiKey("YOUR_API_KEY").DomainName("example.com").Execute()
     if err != nil { panic(err) }
     fmt.Println("status:", httpRes.StatusCode)
-    fmt.Println(result)
+    b, _ := json.MarshalIndent(result, "", "  ")
+    fmt.Println(string(b))
 }
 
 ```
@@ -254,6 +268,7 @@ package main
 
 import (
     "context"
+    "encoding/json"
     "fmt"
     wf "github.com/WhoisFreaks/whoisfreaks-go"
 )
@@ -265,7 +280,8 @@ func main() {
     result, httpRes, err := client.GeolocationAPI.Geolocation(context.Background()).ApiKey("YOUR_API_KEY").Ip("8.8.8.8").Execute()
     if err != nil { panic(err) }
     fmt.Println("status:", httpRes.StatusCode)
-    fmt.Println(result)
+    b, _ := json.MarshalIndent(result, "", "  ")
+    fmt.Println(string(b))
 }
 
 ```
@@ -288,6 +304,7 @@ package main
 
 import (
     "context"
+    "encoding/json"
     "fmt"
     "time"
     wf "github.com/WhoisFreaks/whoisfreaks-go"
@@ -300,7 +317,8 @@ func main() {
     result, httpRes, err := client.SubdomainsAPI.Subdomains(context.Background()).ApiKey("YOUR_API_KEY").Domain("example.com").After("2000-01-01").Before(time.Now().Format("2006-01-02")).Execute()
     if err != nil { panic(err) }
     fmt.Println("status:", httpRes.StatusCode)
-    fmt.Println(result)
+    b, _ := json.MarshalIndent(result, "", "  ")
+    fmt.Println(string(b))
 }
 
 ```
@@ -318,6 +336,7 @@ package main
 
 import (
     "context"
+    "encoding/json"
     "fmt"
     wf "github.com/WhoisFreaks/whoisfreaks-go"
 )
@@ -329,7 +348,8 @@ func main() {
     result, httpRes, err := client.IPReputationAPI.IpReputation(context.Background()).ApiKey("YOUR_API_KEY").Ip("8.8.8.8").Execute()
     if err != nil { panic(err) }
     fmt.Println("status:", httpRes.StatusCode)
-    fmt.Println(result)
+    b, _ := json.MarshalIndent(result, "", "  ")
+    fmt.Println(string(b))
 }
 
 ```
@@ -348,6 +368,7 @@ package main
 
 import (
     "context"
+    "encoding/json"
     "fmt"
     wf "github.com/WhoisFreaks/whoisfreaks-go"
 )
@@ -359,7 +380,8 @@ func main() {
     result, httpRes, err := client.DomainReputationAPI.DomainReputation(context.Background()).ApiKey("YOUR_API_KEY").DomainName("example.com").Execute()
     if err != nil { panic(err) }
     fmt.Println("status:", httpRes.StatusCode)
-    fmt.Println(result)
+    b, _ := json.MarshalIndent(result, "", "  ")
+    fmt.Println(string(b))
 }
 
 ```
@@ -378,6 +400,7 @@ package main
 
 import (
     "context"
+    "encoding/json"
     "fmt"
     wf "github.com/WhoisFreaks/whoisfreaks-go"
 )
@@ -389,7 +412,8 @@ func main() {
     result, httpRes, err := client.ASNWHOISAPI.AsnWhois(context.Background()).ApiKey("YOUR_API_KEY").Asn("AS15169").Execute()
     if err != nil { panic(err) }
     fmt.Println("status:", httpRes.StatusCode)
-    fmt.Println(result)
+    b, _ := json.MarshalIndent(result, "", "  ")
+    fmt.Println(string(b))
 }
 
 ```
@@ -408,6 +432,7 @@ package main
 
 import (
     "context"
+    "encoding/json"
     "fmt"
     wf "github.com/WhoisFreaks/whoisfreaks-go"
 )
@@ -419,7 +444,8 @@ func main() {
     result, httpRes, err := client.IPWHOISAPI.IpWhois(context.Background()).ApiKey("YOUR_API_KEY").Ip("8.8.8.8").Execute()
     if err != nil { panic(err) }
     fmt.Println("status:", httpRes.StatusCode)
-    fmt.Println(result)
+    b, _ := json.MarshalIndent(result, "", "  ")
+    fmt.Println(string(b))
 }
 
 ```
@@ -436,6 +462,7 @@ package main
 
 import (
     "context"
+    "encoding/json"
     "fmt"
     wf "github.com/WhoisFreaks/whoisfreaks-go"
 )
@@ -447,7 +474,8 @@ func main() {
     result, httpRes, err := client.AccountAPI.RotateApiKey(context.Background()).ApiKey("YOUR_API_KEY").Execute()
     if err != nil { panic(err) }
     fmt.Println("status:", httpRes.StatusCode)
-    fmt.Println(result)
+    b, _ := json.MarshalIndent(result, "", "  ")
+    fmt.Println(string(b))
 }
 
 ```
@@ -468,6 +496,7 @@ package main
 import (
     "context"
     "fmt"
+    "os"
     "time"
     wf "github.com/WhoisFreaks/whoisfreaks-go"
 )
@@ -475,11 +504,11 @@ import (
 func main() {
     cfg := wf.NewConfiguration()
     client := wf.NewAPIClient(cfg)
-    // apiKey is a builder method on the request, not a config/context value
-    result, httpRes, err := client.DatabasesNewlyRegisteredAPI.DbNewlyGtld(context.Background()).ApiKey("YOUR_API_KEY").Whois(false).Date(time.Now().AddDate(0,0,-1).Format("2006-01-02")).Execute()
+    // returns raw bytes (compressed/binary file) -- write to disk
+    data, _, err := client.DatabasesNewlyRegisteredAPI.DbNewlyGtld(context.Background()).ApiKey("YOUR_API_KEY").Whois(false).Date(time.Now().AddDate(0,0,-1).Format("2006-01-02")).Execute()
     if err != nil { panic(err) }
-    fmt.Println("status:", httpRes.StatusCode)
-    fmt.Println(result)
+    if err := os.WriteFile("dbNewlyGtld.gz", data, 0644); err != nil { panic(err) }
+    fmt.Printf("saved %d bytes to dbNewlyGtld.gz\n", len(data))
 }
 
 ```
@@ -499,6 +528,7 @@ package main
 import (
     "context"
     "fmt"
+    "os"
     "time"
     wf "github.com/WhoisFreaks/whoisfreaks-go"
 )
@@ -506,11 +536,11 @@ import (
 func main() {
     cfg := wf.NewConfiguration()
     client := wf.NewAPIClient(cfg)
-    // apiKey is a builder method on the request, not a config/context value
-    result, httpRes, err := client.DatabasesExpiringDroppedAPI.DbExpired(context.Background()).ApiKey("YOUR_API_KEY").Whois(false).Date(time.Now().AddDate(0,0,-1).Format("2006-01-02")).Execute()
+    // returns raw bytes (compressed/binary file) -- write to disk
+    data, _, err := client.DatabasesExpiringDroppedAPI.DbExpired(context.Background()).ApiKey("YOUR_API_KEY").Whois(false).Date(time.Now().AddDate(0,0,-1).Format("2006-01-02")).Execute()
     if err != nil { panic(err) }
-    fmt.Println("status:", httpRes.StatusCode)
-    fmt.Println(result)
+    if err := os.WriteFile("dbExpired.gz", data, 0644); err != nil { panic(err) }
+    fmt.Printf("saved %d bytes to dbExpired.gz\n", len(data))
 }
 
 ```
@@ -529,6 +559,7 @@ package main
 import (
     "context"
     "fmt"
+    "os"
     "time"
     wf "github.com/WhoisFreaks/whoisfreaks-go"
 )
@@ -536,11 +567,11 @@ import (
 func main() {
     cfg := wf.NewConfiguration()
     client := wf.NewAPIClient(cfg)
-    // apiKey is a builder method on the request, not a config/context value
-    result, httpRes, err := client.DatabasesWHOISAPI.DbWhoisDaily(context.Background()).ApiKey("YOUR_API_KEY").Date(time.Now().AddDate(0,0,-1).Format("2006-01-02")).Execute()
+    // returns raw bytes (compressed/binary file) -- write to disk
+    data, _, err := client.DatabasesWHOISAPI.DbWhoisDaily(context.Background()).ApiKey("YOUR_API_KEY").Date(time.Now().AddDate(0,0,-1).Format("2006-01-02")).Execute()
     if err != nil { panic(err) }
-    fmt.Println("status:", httpRes.StatusCode)
-    fmt.Println(result)
+    if err := os.WriteFile("dbWhoisDaily.gz", data, 0644); err != nil { panic(err) }
+    fmt.Printf("saved %d bytes to dbWhoisDaily.gz\n", len(data))
 }
 
 ```
@@ -559,6 +590,7 @@ package main
 import (
     "context"
     "fmt"
+    "os"
     "time"
     wf "github.com/WhoisFreaks/whoisfreaks-go"
 )
@@ -566,11 +598,11 @@ import (
 func main() {
     cfg := wf.NewConfiguration()
     client := wf.NewAPIClient(cfg)
-    // apiKey is a builder method on the request, not a config/context value
-    result, httpRes, err := client.DatabasesDNSAPI.DbDnsDaily(context.Background()).ApiKey("YOUR_API_KEY").Date(time.Now().AddDate(0,0,-1).Format("2006-01-02")).Execute()
+    // returns raw bytes (compressed/binary file) -- write to disk
+    data, _, err := client.DatabasesDNSAPI.DbDnsDaily(context.Background()).ApiKey("YOUR_API_KEY").Date(time.Now().AddDate(0,0,-1).Format("2006-01-02")).Execute()
     if err != nil { panic(err) }
-    fmt.Println("status:", httpRes.StatusCode)
-    fmt.Println(result)
+    if err := os.WriteFile("dbDnsDaily.gz", data, 0644); err != nil { panic(err) }
+    fmt.Printf("saved %d bytes to dbDnsDaily.gz\n", len(data))
 }
 
 ```
@@ -589,6 +621,7 @@ package main
 import (
     "context"
     "fmt"
+    "os"
     "time"
     wf "github.com/WhoisFreaks/whoisfreaks-go"
 )
@@ -596,11 +629,11 @@ import (
 func main() {
     cfg := wf.NewConfiguration()
     client := wf.NewAPIClient(cfg)
-    // apiKey is a builder method on the request, not a config/context value
-    result, httpRes, err := client.DatabasesSubdomainsAPI.DbSubdomainsDaily(context.Background()).ApiKey("YOUR_API_KEY").Date(time.Now().AddDate(0,0,-1).Format("2006-01-02")).Execute()
+    // returns raw bytes (compressed/binary file) -- write to disk
+    data, _, err := client.DatabasesSubdomainsAPI.DbSubdomainsDaily(context.Background()).ApiKey("YOUR_API_KEY").Date(time.Now().AddDate(0,0,-1).Format("2006-01-02")).Execute()
     if err != nil { panic(err) }
-    fmt.Println("status:", httpRes.StatusCode)
-    fmt.Println(result)
+    if err := os.WriteFile("dbSubdomainsDaily.gz", data, 0644); err != nil { panic(err) }
+    fmt.Printf("saved %d bytes to dbSubdomainsDaily.gz\n", len(data))
 }
 
 ```
@@ -617,6 +650,7 @@ package main
 
 import (
     "context"
+    "encoding/json"
     "fmt"
     wf "github.com/WhoisFreaks/whoisfreaks-go"
 )
@@ -628,7 +662,8 @@ func main() {
     result, httpRes, err := client.DatabasesIPGeolocationAPI.DbIpCountryStatus(context.Background()).ApiKey("YOUR_API_KEY").Execute()
     if err != nil { panic(err) }
     fmt.Println("status:", httpRes.StatusCode)
-    fmt.Println(result)
+    b, _ := json.MarshalIndent(result, "", "  ")
+    fmt.Println(string(b))
 }
 
 ```
@@ -647,6 +682,7 @@ package main
 import (
     "context"
     "fmt"
+    "os"
     "time"
     wf "github.com/WhoisFreaks/whoisfreaks-go"
 )
@@ -654,11 +690,11 @@ import (
 func main() {
     cfg := wf.NewConfiguration()
     client := wf.NewAPIClient(cfg)
-    // apiKey is a builder method on the request, not a config/context value
-    result, httpRes, err := client.DatabasesASNWHOISAPI.DbAsnWhois(context.Background()).ApiKey("YOUR_API_KEY").Date(time.Now().AddDate(0,0,-1).Format("2006-01-02")).Execute()
+    // returns raw bytes (compressed/binary file) -- write to disk
+    data, _, err := client.DatabasesASNWHOISAPI.DbAsnWhois(context.Background()).ApiKey("YOUR_API_KEY").Date(time.Now().AddDate(0,0,-1).Format("2006-01-02")).Execute()
     if err != nil { panic(err) }
-    fmt.Println("status:", httpRes.StatusCode)
-    fmt.Println(result)
+    if err := os.WriteFile("dbAsnWhois.gz", data, 0644); err != nil { panic(err) }
+    fmt.Printf("saved %d bytes to dbAsnWhois.gz\n", len(data))
 }
 
 ```
@@ -677,6 +713,7 @@ package main
 import (
     "context"
     "fmt"
+    "os"
     "time"
     wf "github.com/WhoisFreaks/whoisfreaks-go"
 )
@@ -684,11 +721,11 @@ import (
 func main() {
     cfg := wf.NewConfiguration()
     client := wf.NewAPIClient(cfg)
-    // apiKey is a builder method on the request, not a config/context value
-    result, httpRes, err := client.DatabasesIPWHOISAPI.DbIpWhois(context.Background()).ApiKey("YOUR_API_KEY").Date(time.Now().AddDate(0,0,-1).Format("2006-01-02")).Execute()
+    // returns raw bytes (compressed/binary file) -- write to disk
+    data, _, err := client.DatabasesIPWHOISAPI.DbIpWhois(context.Background()).ApiKey("YOUR_API_KEY").Date(time.Now().AddDate(0,0,-1).Format("2006-01-02")).Execute()
     if err != nil { panic(err) }
-    fmt.Println("status:", httpRes.StatusCode)
-    fmt.Println(result)
+    if err := os.WriteFile("dbIpWhois.gz", data, 0644); err != nil { panic(err) }
+    fmt.Printf("saved %d bytes to dbIpWhois.gz\n", len(data))
 }
 
 ```
@@ -707,6 +744,7 @@ package main
 import (
     "context"
     "fmt"
+    "os"
     "time"
     wf "github.com/WhoisFreaks/whoisfreaks-go"
 )
@@ -714,11 +752,11 @@ import (
 func main() {
     cfg := wf.NewConfiguration()
     client := wf.NewAPIClient(cfg)
-    // apiKey is a builder method on the request, not a config/context value
-    result, httpRes, err := client.DatabasesIPSecurityAPI.DbIpSecurity(context.Background()).ApiKey("YOUR_API_KEY").Date(time.Now().AddDate(0,0,-1).Format("2006-01-02")).Execute()
+    // returns raw bytes (compressed/binary file) -- write to disk
+    data, _, err := client.DatabasesIPSecurityAPI.DbIpSecurity(context.Background()).ApiKey("YOUR_API_KEY").Date(time.Now().AddDate(0,0,-1).Format("2006-01-02")).Execute()
     if err != nil { panic(err) }
-    fmt.Println("status:", httpRes.StatusCode)
-    fmt.Println(result)
+    if err := os.WriteFile("dbIpSecurity.gz", data, 0644); err != nil { panic(err) }
+    fmt.Printf("saved %d bytes to dbIpSecurity.gz\n", len(data))
 }
 
 ```

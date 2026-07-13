@@ -11,6 +11,7 @@ package main
 
 import (
     "context"
+    "encoding/json"
     "fmt"
     "time"
     wf "github.com/WhoisFreaks/whoisfreaks-go"
@@ -23,5 +24,6 @@ func main() {
     result, httpRes, err := client.SubdomainsAPI.Subdomains(context.Background()).ApiKey("YOUR_API_KEY").Domain("example.com").After("2000-01-01").Before(time.Now().Format("2006-01-02")).Execute()
     if err != nil { panic(err) }
     fmt.Println("status:", httpRes.StatusCode)
-    fmt.Println(result)
+    b, _ := json.MarshalIndent(result, "", "  ")
+    fmt.Println(string(b))
 }

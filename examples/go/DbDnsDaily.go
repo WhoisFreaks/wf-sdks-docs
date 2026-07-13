@@ -7,6 +7,7 @@ package main
 import (
     "context"
     "fmt"
+    "os"
     "time"
     wf "github.com/WhoisFreaks/whoisfreaks-go"
 )
@@ -14,9 +15,9 @@ import (
 func main() {
     cfg := wf.NewConfiguration()
     client := wf.NewAPIClient(cfg)
-    // apiKey is a builder method on the request, not a config/context value
-    result, httpRes, err := client.DatabasesDNSAPI.DbDnsDaily(context.Background()).ApiKey("YOUR_API_KEY").Date(time.Now().AddDate(0,0,-1).Format("2006-01-02")).Execute()
+    // returns raw bytes (compressed/binary file) -- write to disk
+    data, _, err := client.DatabasesDNSAPI.DbDnsDaily(context.Background()).ApiKey("YOUR_API_KEY").Date(time.Now().AddDate(0,0,-1).Format("2006-01-02")).Execute()
     if err != nil { panic(err) }
-    fmt.Println("status:", httpRes.StatusCode)
-    fmt.Println(result)
+    if err := os.WriteFile("dbDnsDaily.gz", data, 0644); err != nil { panic(err) }
+    fmt.Printf("saved %d bytes to dbDnsDaily.gz\n", len(data))
 }

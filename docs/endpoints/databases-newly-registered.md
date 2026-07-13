@@ -85,6 +85,7 @@ package main
 import (
     "context"
     "fmt"
+    "os"
     "time"
     wf "github.com/WhoisFreaks/whoisfreaks-go"
 )
@@ -92,11 +93,11 @@ import (
 func main() {
     cfg := wf.NewConfiguration()
     client := wf.NewAPIClient(cfg)
-    // apiKey is a builder method on the request, not a config/context value
-    result, httpRes, err := client.DatabasesNewlyRegisteredAPI.DbNewlyGtld(context.Background()).ApiKey("YOUR_API_KEY").Whois(false).Date(time.Now().AddDate(0,0,-1).Format("2006-01-02")).Execute()
+    // returns raw bytes (compressed/binary file) -- write to disk
+    data, _, err := client.DatabasesNewlyRegisteredAPI.DbNewlyGtld(context.Background()).ApiKey("YOUR_API_KEY").Whois(false).Date(time.Now().AddDate(0,0,-1).Format("2006-01-02")).Execute()
     if err != nil { panic(err) }
-    fmt.Println("status:", httpRes.StatusCode)
-    fmt.Println(result)
+    if err := os.WriteFile("dbNewlyGtld.gz", data, 0644); err != nil { panic(err) }
+    fmt.Printf("saved %d bytes to dbNewlyGtld.gz\n", len(data))
 }
 
 ```
@@ -186,6 +187,7 @@ package main
 import (
     "context"
     "fmt"
+    "os"
     "time"
     wf "github.com/WhoisFreaks/whoisfreaks-go"
 )
@@ -193,11 +195,11 @@ import (
 func main() {
     cfg := wf.NewConfiguration()
     client := wf.NewAPIClient(cfg)
-    // apiKey is a builder method on the request, not a config/context value
-    result, httpRes, err := client.DatabasesNewlyRegisteredAPI.DbNewlyCctld(context.Background()).ApiKey("YOUR_API_KEY").Whois(false).Date(time.Now().AddDate(0,0,-1).Format("2006-01-02")).Execute()
+    // returns raw bytes (compressed/binary file) -- write to disk
+    data, _, err := client.DatabasesNewlyRegisteredAPI.DbNewlyCctld(context.Background()).ApiKey("YOUR_API_KEY").Whois(false).Date(time.Now().AddDate(0,0,-1).Format("2006-01-02")).Execute()
     if err != nil { panic(err) }
-    fmt.Println("status:", httpRes.StatusCode)
-    fmt.Println(result)
+    if err := os.WriteFile("dbNewlyCctld.gz", data, 0644); err != nil { panic(err) }
+    fmt.Printf("saved %d bytes to dbNewlyCctld.gz\n", len(data))
 }
 
 ```
@@ -279,6 +281,7 @@ package main
 import (
     "context"
     "fmt"
+    "os"
     "time"
     wf "github.com/WhoisFreaks/whoisfreaks-go"
 )
@@ -286,11 +289,11 @@ import (
 func main() {
     cfg := wf.NewConfiguration()
     client := wf.NewAPIClient(cfg)
-    // apiKey is a builder method on the request, not a config/context value
-    result, httpRes, err := client.DatabasesNewlyRegisteredAPI.DbNewlyGtldCleaned(context.Background()).ApiKey("YOUR_API_KEY").Date(time.Now().AddDate(0,0,-1).Format("2006-01-02")).Execute()
+    // returns raw bytes (compressed/binary file) -- write to disk
+    data, _, err := client.DatabasesNewlyRegisteredAPI.DbNewlyGtldCleaned(context.Background()).ApiKey("YOUR_API_KEY").Date(time.Now().AddDate(0,0,-1).Format("2006-01-02")).Execute()
     if err != nil { panic(err) }
-    fmt.Println("status:", httpRes.StatusCode)
-    fmt.Println(result)
+    if err := os.WriteFile("dbNewlyGtldCleaned.gz", data, 0644); err != nil { panic(err) }
+    fmt.Printf("saved %d bytes to dbNewlyGtldCleaned.gz\n", len(data))
 }
 
 ```
@@ -372,6 +375,7 @@ package main
 import (
     "context"
     "fmt"
+    "os"
     "time"
     wf "github.com/WhoisFreaks/whoisfreaks-go"
 )
@@ -379,11 +383,11 @@ import (
 func main() {
     cfg := wf.NewConfiguration()
     client := wf.NewAPIClient(cfg)
-    // apiKey is a builder method on the request, not a config/context value
-    result, httpRes, err := client.DatabasesNewlyRegisteredAPI.DbNewlyCctldCleaned(context.Background()).ApiKey("YOUR_API_KEY").Date(time.Now().AddDate(0,0,-1).Format("2006-01-02")).Execute()
+    // returns raw bytes (compressed/binary file) -- write to disk
+    data, _, err := client.DatabasesNewlyRegisteredAPI.DbNewlyCctldCleaned(context.Background()).ApiKey("YOUR_API_KEY").Date(time.Now().AddDate(0,0,-1).Format("2006-01-02")).Execute()
     if err != nil { panic(err) }
-    fmt.Println("status:", httpRes.StatusCode)
-    fmt.Println(result)
+    if err := os.WriteFile("dbNewlyCctldCleaned.gz", data, 0644); err != nil { panic(err) }
+    fmt.Printf("saved %d bytes to dbNewlyCctldCleaned.gz\n", len(data))
 }
 
 ```
@@ -466,6 +470,7 @@ package main
 
 import (
     "context"
+    "encoding/json"
     "fmt"
     "time"
     wf "github.com/WhoisFreaks/whoisfreaks-go"
@@ -478,7 +483,8 @@ func main() {
     result, httpRes, err := client.DatabasesNewlyRegisteredAPI.DbNewlyGtldJson(context.Background()).ApiKey("YOUR_API_KEY").Date(time.Now().AddDate(0,0,-1).Format("2006-01-02")).Execute()
     if err != nil { panic(err) }
     fmt.Println("status:", httpRes.StatusCode)
-    fmt.Println(result)
+    b, _ := json.MarshalIndent(result, "", "  ")
+    fmt.Println(string(b))
 }
 
 ```
@@ -561,6 +567,7 @@ package main
 
 import (
     "context"
+    "encoding/json"
     "fmt"
     "time"
     wf "github.com/WhoisFreaks/whoisfreaks-go"
@@ -573,7 +580,8 @@ func main() {
     result, httpRes, err := client.DatabasesNewlyRegisteredAPI.DbNewlyCctldJson(context.Background()).ApiKey("YOUR_API_KEY").Date(time.Now().AddDate(0,0,-1).Format("2006-01-02")).Execute()
     if err != nil { panic(err) }
     fmt.Println("status:", httpRes.StatusCode)
-    fmt.Println(result)
+    b, _ := json.MarshalIndent(result, "", "  ")
+    fmt.Println(string(b))
 }
 
 ```
@@ -655,6 +663,7 @@ package main
 import (
     "context"
     "fmt"
+    "os"
     "time"
     wf "github.com/WhoisFreaks/whoisfreaks-go"
 )
@@ -662,11 +671,11 @@ import (
 func main() {
     cfg := wf.NewConfiguration()
     client := wf.NewAPIClient(cfg)
-    // apiKey is a builder method on the request, not a config/context value
-    result, httpRes, err := client.DatabasesNewlyRegisteredAPI.DbNewlyDns(context.Background()).ApiKey("YOUR_API_KEY").Date(time.Now().AddDate(0,0,-1).Format("2006-01-02")).Execute()
+    // returns raw bytes (compressed/binary file) -- write to disk
+    data, _, err := client.DatabasesNewlyRegisteredAPI.DbNewlyDns(context.Background()).ApiKey("YOUR_API_KEY").Date(time.Now().AddDate(0,0,-1).Format("2006-01-02")).Execute()
     if err != nil { panic(err) }
-    fmt.Println("status:", httpRes.StatusCode)
-    fmt.Println(result)
+    if err := os.WriteFile("dbNewlyDns.gz", data, 0644); err != nil { panic(err) }
+    fmt.Printf("saved %d bytes to dbNewlyDns.gz\n", len(data))
 }
 
 ```
