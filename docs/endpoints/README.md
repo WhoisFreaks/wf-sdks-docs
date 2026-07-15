@@ -1,8 +1,8 @@
 # Endpoint Reference
 
-The WhoisFreaks API exposes **53 endpoints** across **21 categories**. Every endpoint is available in all 10 SDKs. Browse by category:
+The WhoisFreaks API exposes **55 endpoints** across **21 categories**. Every endpoint is available in all 10 SDKs. Browse by category:
 
-- [WHOIS](whois.md) — 3 endpoint(s)
+- [WHOIS](whois.md) — 5 endpoint(s)
 - [DNS](dns.md) — 4 endpoint(s)
 - [Domain Availability](domain-availability.md) — 2 endpoint(s)
 - [Typosquatting](typosquatting.md) — 1 endpoint(s)
@@ -31,6 +31,8 @@ The WhoisFreaks API exposes **53 endpoints** across **21 categories**. Every end
 | WHOIS | GET | `/v2.0/whois/live` | `whoisLive` |
 | WHOIS | GET | `/v1.0/whois` | `whoisHistoricalOrReverse` |
 | WHOIS | POST | `/v2.0/bulkwhois/live` | `bulkWhois` |
+| WHOIS | GET | `/v2.0/whois/history` | `whoisHistory` |
+| WHOIS | GET | `/v2.0/whois/reverse` | `whoisReverse` |
 | DNS | GET | `/v2.0/dns/live` | `dnsLive` |
 | DNS | GET | `/v2.0/dns/historical` | `dnsHistorical` |
 | DNS | GET | `/v2.1/dns/reverse` | `dnsReverse` |

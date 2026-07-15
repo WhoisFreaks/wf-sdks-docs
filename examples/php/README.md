@@ -6,6 +6,8 @@ Install: see the [PHP guide](../../docs/languages/php.md). Set `YOUR_API_KEY` an
 - [`WhoisLive.php`](WhoisLive.php) — Live WHOIS Lookup (`GET /v2.0/whois/live`)
 - [`WhoisHistoricalOrReverse.php`](WhoisHistoricalOrReverse.php) — WHOIS Historical or Reverse Lookup (`GET /v1.0/whois`)
 - [`BulkWhois.php`](BulkWhois.php) — Bulk WHOIS Lookup (`POST /v2.0/bulkwhois/live`)
+- [`WhoisHistory.php`](WhoisHistory.php) — Historical WHOIS records for a domain (`GET /v2.0/whois/history`)
+- [`WhoisReverse.php`](WhoisReverse.php) — Reverse WHOIS lookup by keyword (`GET /v2.0/whois/reverse`)
 
 ## DNS
 - [`DnsLive.php`](DnsLive.php) — Live DNS Lookup (`GET /v2.0/dns/live`)

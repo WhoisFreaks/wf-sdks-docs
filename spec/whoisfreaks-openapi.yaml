@@ -1522,6 +1522,86 @@ paths:
         4XX:
           $ref: '#/components/responses/ErrorResponse'
       description: IP Security Snapshot Status. Returns the file/snapshot described by this operation.
+  /v2.0/whois/history:
+    get:
+      tags:
+      - WHOIS
+      operationId: whoisHistory
+      summary: Historical WHOIS records for a domain
+      parameters:
+      - name: apiKey
+        in: query
+        required: true
+        schema:
+          type: string
+        description: Your WHOISFreaks API key
+      - name: domainName
+        in: query
+        required: true
+        schema:
+          type: string
+        description: Domain to fetch historical WHOIS records for
+      - name: page
+        in: query
+        required: false
+        schema:
+          type: integer
+        description: Page number
+      - name: format
+        in: query
+        required: false
+        schema:
+          type: string
+          enum:
+          - json
+          - xml
+      responses:
+        '200':
+          description: Historical WHOIS records
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WhoisHistoricalResponse'
+  /v2.0/whois/reverse:
+    get:
+      tags:
+      - WHOIS
+      operationId: whoisReverse
+      summary: Reverse WHOIS lookup by keyword
+      parameters:
+      - name: apiKey
+        in: query
+        required: true
+        schema:
+          type: string
+        description: Your WHOISFreaks API key
+      - name: keyword
+        in: query
+        required: true
+        schema:
+          type: string
+        description: Keyword to search across WHOIS records
+      - name: page
+        in: query
+        required: false
+        schema:
+          type: integer
+        description: Page number
+      - name: format
+        in: query
+        required: false
+        schema:
+          type: string
+          enum:
+          - json
+          - xml
+      responses:
+        '200':
+          description: Reverse WHOIS results (paginated)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReverseWhoisResponse'
 components:
   securitySchemes:
     ApiKeyAuth:
@@ -1770,6 +1850,14 @@ components:
           type: string
         query_time:
           type: string
+        whois_server:
+          type: string
+        domain_registered:
+          type: string
+        secure_dns:
+          type: boolean
+        domain_handle:
+          type: string
         create_date:
           type: string
         update_date:
@@ -1788,6 +1876,10 @@ components:
           $ref: '#/components/schemas/PersonalInformation'
         billing_contact:
           $ref: '#/components/schemas/PersonalInformation'
+        eligibility_info:
+          $ref: '#/components/schemas/EligibilityInfo'
+        abuse_contact:
+          $ref: '#/components/schemas/RegistrarInformation'
         name_servers:
           type: array
           items:
@@ -1798,6 +1890,8 @@ components:
             type: string
         whois_raw_domain:
           type: string
+        registry_data:
+          $ref: '#/components/schemas/RegistryData'
       additionalProperties: true
     WhoisHistoricalResponse:
       type: object
@@ -1816,17 +1910,19 @@ components:
     ReverseWhoisResponse:
       type: object
       properties:
-        total_Result:
+        Total_Result:
           type: integer
-        total_Pages:
+        Total_Pages:
           type: integer
-        current_Page:
+        Current_Page:
           type: integer
         whois_domains_historical:
           type: array
           items:
             $ref: '#/components/schemas/WhoisHistoricalItem'
       additionalProperties: true
+      description: Reverse WHOIS response. Pagination keys are capitalized (Total_Result/Total_Pages/Current_Page)
+        as returned by the API.
     BulkWhoisItem:
       type: object
       properties:
@@ -3327,8 +3423,7 @@ components:
           type: string
         path:
           type: string
-        status:
-          type: integer
+        status: {}
         error:
           type: string
         message:
@@ -3336,6 +3431,8 @@ components:
         code:
           type: integer
       additionalProperties: true
+      description: Error response. `status` may be an integer (e.g. 401), boolean, or string depending
+        on the endpoint, so it is intentionally untyped to avoid deserialization failures.
     BulkDomainAvailabilityRequest:
       type: object
       properties:

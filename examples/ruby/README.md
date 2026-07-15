@@ -6,6 +6,8 @@ Install: see the [Ruby guide](../../docs/languages/ruby.md). Set `YOUR_API_KEY` 
 - [`WhoisLive.rb`](WhoisLive.rb) — Live WHOIS Lookup (`GET /v2.0/whois/live`)
 - [`WhoisHistoricalOrReverse.rb`](WhoisHistoricalOrReverse.rb) — WHOIS Historical or Reverse Lookup (`GET /v1.0/whois`)
 - [`BulkWhois.rb`](BulkWhois.rb) — Bulk WHOIS Lookup (`POST /v2.0/bulkwhois/live`)
+- [`WhoisHistory.rb`](WhoisHistory.rb) — Historical WHOIS records for a domain (`GET /v2.0/whois/history`)
+- [`WhoisReverse.rb`](WhoisReverse.rb) — Reverse WHOIS lookup by keyword (`GET /v2.0/whois/reverse`)
 
 ## DNS
 - [`DnsLive.rb`](DnsLive.rb) — Live DNS Lookup (`GET /v2.0/dns/live`)

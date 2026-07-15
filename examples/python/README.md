@@ -6,6 +6,8 @@ Install: see the [Python guide](../../docs/languages/python.md). Set `YOUR_API_K
 - [`WhoisLive.py`](WhoisLive.py) — Live WHOIS Lookup (`GET /v2.0/whois/live`)
 - [`WhoisHistoricalOrReverse.py`](WhoisHistoricalOrReverse.py) — WHOIS Historical or Reverse Lookup (`GET /v1.0/whois`)
 - [`BulkWhois.py`](BulkWhois.py) — Bulk WHOIS Lookup (`POST /v2.0/bulkwhois/live`)
+- [`WhoisHistory.py`](WhoisHistory.py) — Historical WHOIS records for a domain (`GET /v2.0/whois/history`)
+- [`WhoisReverse.py`](WhoisReverse.py) — Reverse WHOIS lookup by keyword (`GET /v2.0/whois/reverse`)
 
 ## DNS
 - [`DnsLive.py`](DnsLive.py) — Live DNS Lookup (`GET /v2.0/dns/live`)

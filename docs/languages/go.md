@@ -86,7 +86,7 @@ func main() {
 
 ## Endpoints
 
-All 53 endpoints are available. A few common examples follow; see the [full endpoint reference](../endpoints/README.md) for every operation, its parameters, and response shape.
+All 55 endpoints are available. A few common examples follow; see the [full endpoint reference](../endpoints/README.md) for every operation, its parameters, and response shape.
 
 ### WHOIS: Live WHOIS Lookup
 

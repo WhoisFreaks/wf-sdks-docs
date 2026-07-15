@@ -6,6 +6,8 @@ Install: see the [C# / .NET guide](../../docs/languages/csharp.md). Set `YOUR_AP
 - [`WhoisLive.cs`](WhoisLive.cs) — Live WHOIS Lookup (`GET /v2.0/whois/live`)
 - [`WhoisHistoricalOrReverse.cs`](WhoisHistoricalOrReverse.cs) — WHOIS Historical or Reverse Lookup (`GET /v1.0/whois`)
 - [`BulkWhois.cs`](BulkWhois.cs) — Bulk WHOIS Lookup (`POST /v2.0/bulkwhois/live`)
+- [`WhoisHistory.cs`](WhoisHistory.cs) — Historical WHOIS records for a domain (`GET /v2.0/whois/history`)
+- [`WhoisReverse.cs`](WhoisReverse.cs) — Reverse WHOIS lookup by keyword (`GET /v2.0/whois/reverse`)
 
 ## DNS
 - [`DnsLive.cs`](DnsLive.cs) — Live DNS Lookup (`GET /v2.0/dns/live`)

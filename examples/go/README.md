@@ -6,6 +6,8 @@ Install: see the [Go guide](../../docs/languages/go.md). Set `YOUR_API_KEY` and 
 - [`WhoisLive.go`](WhoisLive.go) — Live WHOIS Lookup (`GET /v2.0/whois/live`)
 - [`WhoisHistoricalOrReverse.go`](WhoisHistoricalOrReverse.go) — WHOIS Historical or Reverse Lookup (`GET /v1.0/whois`)
 - [`BulkWhois.go`](BulkWhois.go) — Bulk WHOIS Lookup (`POST /v2.0/bulkwhois/live`)
+- [`WhoisHistory.go`](WhoisHistory.go) — Historical WHOIS records for a domain (`GET /v2.0/whois/history`)
+- [`WhoisReverse.go`](WhoisReverse.go) — Reverse WHOIS lookup by keyword (`GET /v2.0/whois/reverse`)
 
 ## DNS
 - [`DnsLive.go`](DnsLive.go) — Live DNS Lookup (`GET /v2.0/dns/live`)

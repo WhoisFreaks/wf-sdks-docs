@@ -1,7 +1,7 @@
 # WhoisFreaks SDK Documentation
 
 Official documentation for the **WhoisFreaks** SDKs — one API, 10
-languages, 53 endpoints. Every SDK is generated from the same
+languages, 55 endpoints. Every SDK is generated from the same
 [OpenAPI specification](https://whoisfreaks.com/documentation) and published to
 its language's standard registry.
 
@@ -11,7 +11,7 @@ its language's standard registry.
 
 - [Authentication](docs/authentication.md) — get and configure your API key
 - [Language guides](#language-guides) — install + usage for each SDK
-- [Endpoint reference](docs/endpoints/README.md) — all 53 endpoints, grouped by category
+- [Endpoint reference](docs/endpoints/README.md) — all 55 endpoints, grouped by category
 - [Runnable examples](examples/README.md) — copy-paste, ready-to-run example for every endpoint in every language
 
 ## Language guides
@@ -56,7 +56,7 @@ The equivalent for every other language is in its [language guide](#language-gui
 
 | Category | Endpoints |
 |----------|-----------|
-| [WHOIS](docs/endpoints/whois.md) | 3 |
+| [WHOIS](docs/endpoints/whois.md) | 5 |
 | [DNS](docs/endpoints/dns.md) | 4 |
 | [Domain Availability](docs/endpoints/domain-availability.md) | 2 |
 | [Typosquatting](docs/endpoints/typosquatting.md) | 1 |

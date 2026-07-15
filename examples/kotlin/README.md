@@ -6,6 +6,8 @@ Install: see the [Kotlin guide](../../docs/languages/kotlin.md). Set `YOUR_API_K
 - [`WhoisLive.kt`](WhoisLive.kt) — Live WHOIS Lookup (`GET /v2.0/whois/live`)
 - [`WhoisHistoricalOrReverse.kt`](WhoisHistoricalOrReverse.kt) — WHOIS Historical or Reverse Lookup (`GET /v1.0/whois`)
 - [`BulkWhois.kt`](BulkWhois.kt) — Bulk WHOIS Lookup (`POST /v2.0/bulkwhois/live`)
+- [`WhoisHistory.kt`](WhoisHistory.kt) — Historical WHOIS records for a domain (`GET /v2.0/whois/history`)
+- [`WhoisReverse.kt`](WhoisReverse.kt) — Reverse WHOIS lookup by keyword (`GET /v2.0/whois/reverse`)
 
 ## DNS
 - [`DnsLive.kt`](DnsLive.kt) — Live DNS Lookup (`GET /v2.0/dns/live`)
