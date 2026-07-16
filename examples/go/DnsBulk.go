@@ -1,6 +1,5 @@
 // Runnable example: Bulk DNS Lookup (POST /v2.0/dns/bulk/live)
 // Parameters for dnsBulk (POST /v2.0/dns/bulk/live):
-//   - apiKey (string, required): Your WHOISFreaks API key
 //   - type (string, required)
 //   - format (string (one of: json, xml), optional)
 //   - body: DnsBulkRequest (required) -- request body object
@@ -16,10 +15,11 @@ import (
 func main() {
     cfg := wf.NewConfiguration()
     client := wf.NewAPIClient(cfg)
-    // apiKey is a builder method on the request, not a config/context value
-    result, httpRes, err := client.DNSAPI.DnsBulk(context.Background()).ApiKey("YOUR_API_KEY").Type("value").DnsBulkRequest(*wf.NewDnsBulkRequest()).Execute()
+    // apiKey is set once via the request context
+    ctx := context.WithValue(context.Background(), wf.ContextAPIKeys,
+        map[string]wf.APIKey{"ApiKeyAuth": {Key: "YOUR_API_KEY"}})
+    result, _, err := client.DNSAPI.DnsBulk(ctx).Type("value").DnsBulkRequest(*wf.NewDnsBulkRequest()).Execute()
     if err != nil { panic(err) }
-    fmt.Println("status:", httpRes.StatusCode)
     b, _ := json.MarshalIndent(result, "", "  ")
     fmt.Println(string(b))
 }

@@ -1,14 +1,15 @@
 // Runnable example: Historical DNS Lookup (GET /v2.0/dns/historical)
 // Parameters for dnsHistorical (GET /v2.0/dns/historical):
-//   - apiKey (string, required): Your WHOISFreaks API key
 //   - domainName (string, required)
 //   - type (string, required)
 //   - page (integer, optional)
 //   - format (string (one of: json, xml), optional)
-import com.whoisfreaks.api.DNSApi
+import com.whoisfreaks.client.apis.DNSApi
+import com.whoisfreaks.client.infrastructure.ApiClient
 
 fun main() {
-    val api = DNSApi(basePath = "https://api.whoisfreaks.com")
-    val result = api.dnsHistorical("YOUR_API_KEY", "example.com", "value", null, null)
-    println(result)  // status via api.dnsHistoricalWithHttpInfo(...).statusCode
+    ApiClient.apiKey["apiKey"] = "YOUR_API_KEY"  // set once
+    val api = DNSApi()
+    val result = api.dnsHistorical("example.com", "value", null, null)
+    println(result)
 }

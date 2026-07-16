@@ -3,10 +3,10 @@ from whoisfreaks import Configuration, ApiClient
 from whoisfreaks.api.databases_ip_geolocation_api import DatabasesIPGeolocationApi
 
 # Parameters for dbIpCityStatus (GET /v3.3/status/snapshot/ip/city):
-#   - apiKey (string, required): Your WHOISFreaks API key
+#   (no parameters; the API key is set on the client)
 config = Configuration()
+config.api_key["ApiKeyAuth"] = "YOUR_API_KEY"   # set once
 api = DatabasesIPGeolocationApi(ApiClient(config))
 
-resp = api.db_ip_city_status_with_http_info(api_key="YOUR_API_KEY")
-print("status:", resp.status_code)
-print(resp.data)
+result = api.db_ip_city_status()
+print(result)

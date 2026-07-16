@@ -1,12 +1,14 @@
 # Runnable example: Dropped With Backlinks (GET /v3.3/download/domainer/dropped/backlinks)
 # Parameters for dbDroppedBacklinks (GET /v3.3/download/domainer/dropped/backlinks):
-#   - apiKey (string, required): Your WHOISFreaks API key
 #   - whois (boolean, optional)
 #   - date (string, optional): yyyy-MM-dd; omit for latest
 require 'date'
 require 'whoisfreaks'
 
+WhoisFreaks.configure do |config|
+  config.api_key["apiKey"] = "YOUR_API_KEY"   # set once
+end
+
 api = WhoisFreaks::DatabasesExpiringDroppedApi.new
-data, status, _headers = api.db_dropped_backlinks_with_http_info("YOUR_API_KEY", false, (Date.today - 1).to_s)
-puts "status: #{status}"
-puts data
+result = api.db_dropped_backlinks(false, (Date.today - 1).to_s)
+puts result

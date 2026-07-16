@@ -1,6 +1,6 @@
 // Runnable example: IP WHOIS Snapshot Status (GET /v3.3/status/snapshot/ip/whois)
 // Parameters for dbIpWhoisStatus (GET /v3.3/status/snapshot/ip/whois):
-//   - apiKey (string, required): Your WHOISFreaks API key
+//   (no parameters; the API key is set on the client)
 package main
 
 import (
@@ -13,10 +13,11 @@ import (
 func main() {
     cfg := wf.NewConfiguration()
     client := wf.NewAPIClient(cfg)
-    // apiKey is a builder method on the request, not a config/context value
-    result, httpRes, err := client.DatabasesIPWHOISAPI.DbIpWhoisStatus(context.Background()).ApiKey("YOUR_API_KEY").Execute()
+    // apiKey is set once via the request context
+    ctx := context.WithValue(context.Background(), wf.ContextAPIKeys,
+        map[string]wf.APIKey{"ApiKeyAuth": {Key: "YOUR_API_KEY"}})
+    result, _, err := client.DatabasesIPWHOISAPI.DbIpWhoisStatus(ctx).Execute()
     if err != nil { panic(err) }
-    fmt.Println("status:", httpRes.StatusCode)
     b, _ := json.MarshalIndent(result, "", "  ")
     fmt.Println(string(b))
 }

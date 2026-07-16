@@ -1,14 +1,15 @@
 // Runnable example: Live DNS Lookup (GET /v2.0/dns/live)
 // Parameters for dnsLive (GET /v2.0/dns/live):
-//   - apiKey (string, required): Your WHOISFreaks API key
 //   - domainName (string, required)
 //   - ipAddress (string, required): Use for PTR lookups
 //   - type (string, required): all or comma-separated: A,MX,NS,TXT,SOA,SPF,AAAA,CNAME
 //   - format (string (one of: json, xml), optional)
-import com.whoisfreaks.api.DNSApi
+import com.whoisfreaks.client.apis.DNSApi
+import com.whoisfreaks.client.infrastructure.ApiClient
 
 fun main() {
-    val api = DNSApi(basePath = "https://api.whoisfreaks.com")
-    val result = api.dnsLive("YOUR_API_KEY", "example.com", "8.8.8.8", "value", null)
-    println(result)  // status via api.dnsLiveWithHttpInfo(...).statusCode
+    ApiClient.apiKey["apiKey"] = "YOUR_API_KEY"  // set once
+    val api = DNSApi()
+    val result = api.dnsLive("example.com", "8.8.8.8", "value", null)
+    println(result)
 }

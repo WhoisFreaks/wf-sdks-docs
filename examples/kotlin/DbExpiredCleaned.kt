@@ -1,11 +1,12 @@
 // Runnable example: Expiring Cleaned WHOIS (GET /v3.1/download/domainer/expired/cleaned)
 // Parameters for dbExpiredCleaned (GET /v3.1/download/domainer/expired/cleaned):
-//   - apiKey (string, required): Your WHOISFreaks API key
 //   - date (string, optional): yyyy-MM-dd; omit for latest
-import com.whoisfreaks.api.DatabasesExpiringDroppedApi
+import com.whoisfreaks.client.apis.DatabasesExpiringDroppedApi
+import com.whoisfreaks.client.infrastructure.ApiClient
 
 fun main() {
-    val api = DatabasesExpiringDroppedApi(basePath = "https://api.whoisfreaks.com")
-    val result = api.dbExpiredCleaned("YOUR_API_KEY", java.time.LocalDate.now().minusDays(1).toString())
-    println(result)  // status via api.dbExpiredCleanedWithHttpInfo(...).statusCode
+    ApiClient.apiKey["apiKey"] = "YOUR_API_KEY"  // set once
+    val api = DatabasesExpiringDroppedApi()
+    val result = api.dbExpiredCleaned(java.time.LocalDate.now().minusDays(1).toString())
+    println(result)
 }

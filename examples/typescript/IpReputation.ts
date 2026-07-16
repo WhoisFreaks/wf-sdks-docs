@@ -1,14 +1,13 @@
 // Runnable example: IP Reputation Lookup (GET /v1.0/security)
 // Parameters for ipReputation (GET /v1.0/security):
-//   - apiKey (string, required): Your WHOISFreaks API key
 //   - ip (string, required)
 import { Configuration, IPReputationApi } from "whoisfreaks";
 
-const api = new IPReputationApi(new Configuration());
+const config = new Configuration({ apiKey: "YOUR_API_KEY" });  // set once
+const api = new IPReputationApi(config);
 
 async function main() {
-  const resp = await api.ipReputationRaw({ apiKey: "YOUR_API_KEY", ip: "8.8.8.8" });
-  console.log("status:", resp.raw.status);
-  console.log(await resp.value());
+  const result = await api.ipReputation({ ip: "8.8.8.8" });
+  console.log(result);
 }
 main().catch(console.error);

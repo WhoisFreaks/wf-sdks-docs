@@ -1,9 +1,12 @@
 # Runnable example: IP WHOIS Snapshot Status (GET /v3.3/status/snapshot/ip/whois)
 # Parameters for dbIpWhoisStatus (GET /v3.3/status/snapshot/ip/whois):
-#   - apiKey (string, required): Your WHOISFreaks API key
+#   (no parameters; the API key is set on the client)
 require 'whoisfreaks'
 
+WhoisFreaks.configure do |config|
+  config.api_key["apiKey"] = "YOUR_API_KEY"   # set once
+end
+
 api = WhoisFreaks::DatabasesIPWHOISApi.new
-data, status, _headers = api.db_ip_whois_status_with_http_info("YOUR_API_KEY")
-puts "status: #{status}"
-puts data
+result = api.db_ip_whois_status()
+puts result

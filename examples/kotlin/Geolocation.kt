@@ -1,11 +1,12 @@
 // Runnable example: IP Geolocation Lookup (GET /v1.0/geolocation)
 // Parameters for geolocation (GET /v1.0/geolocation):
-//   - apiKey (string, required): Your WHOISFreaks API key
 //   - ip (string, required)
-import com.whoisfreaks.api.GeolocationApi
+import com.whoisfreaks.client.apis.GeolocationApi
+import com.whoisfreaks.client.infrastructure.ApiClient
 
 fun main() {
-    val api = GeolocationApi(basePath = "https://api.whoisfreaks.com")
-    val result = api.geolocation("YOUR_API_KEY", "8.8.8.8")
-    println(result)  // status via api.geolocationWithHttpInfo(...).statusCode
+    ApiClient.apiKey["apiKey"] = "YOUR_API_KEY"  // set once
+    val api = GeolocationApi()
+    val result = api.geolocation("8.8.8.8")
+    println(result)
 }

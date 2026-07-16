@@ -1,15 +1,16 @@
 // Runnable example: ASN WHOIS Lookup (GET /v2.0/asn-whois)
 // Parameters for asnWhois (GET /v2.0/asn-whois):
-//   - apiKey (string, required): Your WHOISFreaks API key
 //   - asn (string, required)
 //   - format (string (one of: json, xml), optional)
-// whoisfreaks-js is CommonJS (no Configuration class; apiKey is positional)
+// whoisfreaks-js is CommonJS; apiKey is set once on the ApiClient
 import pkg from "whoisfreaks-js";
 const { ApiClient, ASNWHOISApi } = pkg;
 // or:  const { ApiClient, ASNWHOISApi } = require("whoisfreaks-js");
 
-const api = new ASNWHOISApi();   // uses ApiClient.instance
+const client = ApiClient.instance;
+client.authentications["ApiKeyAuth"].apiKey = "YOUR_API_KEY";  // set once
+const api = new ASNWHOISApi(client);
 
-api.asnWhois("YOUR_API_KEY", "AS15169")
+api.asnWhois("AS15169")
   .then(data => console.log(data))
   .catch(err => console.error(err));

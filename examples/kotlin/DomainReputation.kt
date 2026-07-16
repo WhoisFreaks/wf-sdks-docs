@@ -1,12 +1,13 @@
 // Runnable example: Domain Reputation Lookup (GET /v1/domain/security)
 // Parameters for domainReputation (GET /v1/domain/security):
-//   - apiKey (string, required): Your WHOISFreaks API key
 //   - domainName (string, required): The domain name to assess
 //   - format (string (one of: json, xml), optional)
-import com.whoisfreaks.api.DomainReputationApi
+import com.whoisfreaks.client.apis.DomainReputationApi
+import com.whoisfreaks.client.infrastructure.ApiClient
 
 fun main() {
-    val api = DomainReputationApi(basePath = "https://api.whoisfreaks.com")
-    val result = api.domainReputation("YOUR_API_KEY", "example.com", null)
-    println(result)  // status via api.domainReputationWithHttpInfo(...).statusCode
+    ApiClient.apiKey["apiKey"] = "YOUR_API_KEY"  // set once
+    val api = DomainReputationApi()
+    val result = api.domainReputation("example.com", null)
+    println(result)
 }

@@ -1,12 +1,14 @@
 # Runnable example: Newly Registered gTLD (JSON) (GET /v3.1/domains/newly/gtld)
 # Parameters for dbNewlyGtldJson (GET /v3.1/domains/newly/gtld):
-#   - apiKey (string, required): Your WHOISFreaks API key
 #   - date (string, optional): yyyy-MM-dd; omit for latest
 #   - tlds (string, optional)
 require 'date'
 require 'whoisfreaks'
 
+WhoisFreaks.configure do |config|
+  config.api_key["apiKey"] = "YOUR_API_KEY"   # set once
+end
+
 api = WhoisFreaks::DatabasesNewlyRegisteredApi.new
-data, status, _headers = api.db_newly_gtld_json_with_http_info("YOUR_API_KEY", (Date.today - 1).to_s)
-puts "status: #{status}"
-puts data
+result = api.db_newly_gtld_json((Date.today - 1).to_s)
+puts result

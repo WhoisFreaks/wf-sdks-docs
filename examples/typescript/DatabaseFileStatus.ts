@@ -1,13 +1,13 @@
 // Runnable example: Database File Status (Public) (GET /v3.3/status)
 // Parameters for databaseFileStatus (GET /v3.3/status):
-//   (no parameters besides apiKey)
+//   (no parameters; the API key is set on the client)
 import { Configuration, AccountApi } from "whoisfreaks";
 
-const api = new AccountApi(new Configuration());
+const config = new Configuration({ apiKey: "YOUR_API_KEY" });  // set once
+const api = new AccountApi(config);
 
 async function main() {
-  const resp = await api.databaseFileStatusRaw({  });
-  console.log("status:", resp.raw.status);
-  console.log(await resp.value());
+  const result = await api.databaseFileStatus({  });
+  console.log(result);
 }
 main().catch(console.error);

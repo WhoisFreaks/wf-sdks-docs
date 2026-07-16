@@ -1,6 +1,5 @@
 // Runnable example: SSL Certificate Lookup (GET /v1.0/ssl/live)
 // Parameters for sslLookup (GET /v1.0/ssl/live):
-//   - apiKey (string, required): Your WHOISFreaks API key
 //   - domainName (string, required)
 //   - chain (boolean, optional)
 //   - sslRaw (boolean, optional)
@@ -12,9 +11,9 @@ using WhoisFreaks.Client;
 class SslLookup {
     static void Main() {
         var config = new Configuration { BasePath = "https://api.whoisfreaks.com" };
+        config.AddApiKey("ApiKeyAuth", "YOUR_API_KEY");  // set once
         var api = new SSLApi(config);
-        var resp = api.SslLookupWithHttpInfo("YOUR_API_KEY", "example.com", null, null, null);
-        Console.WriteLine($"status: {(int)resp.StatusCode}");
-        Console.WriteLine(resp.Data);
+        var result = api.SslLookup("example.com", null, null, null);
+        Console.WriteLine(result);
     }
 }

@@ -1,10 +1,12 @@
 // Runnable example: IP Security Snapshot Status (GET /v3.3/status/snapshot/ip/security)
 // Parameters for dbIpSecurityStatus (GET /v3.3/status/snapshot/ip/security):
-//   - apiKey (string, required): Your WHOISFreaks API key
-import com.whoisfreaks.api.DatabasesIPSecurityApi
+//   (no parameters; the API key is set on the client)
+import com.whoisfreaks.client.apis.DatabasesIPSecurityApi
+import com.whoisfreaks.client.infrastructure.ApiClient
 
 fun main() {
-    val api = DatabasesIPSecurityApi(basePath = "https://api.whoisfreaks.com")
-    val result = api.dbIpSecurityStatus("YOUR_API_KEY")
-    println(result)  // status via api.dbIpSecurityStatusWithHttpInfo(...).statusCode
+    ApiClient.apiKey["apiKey"] = "YOUR_API_KEY"  // set once
+    val api = DatabasesIPSecurityApi()
+    val result = api.dbIpSecurityStatus()
+    println(result)
 }

@@ -1,15 +1,14 @@
 """Runnable example: Bulk IP Reputation (POST /v1.0/security)."""
 from whoisfreaks import Configuration, ApiClient
 from whoisfreaks.api.ip_reputation_api import IPReputationApi
-from whoisfreaks.models.bulk_geolocation_request import BulkGeolocationRequest
+from whoisfreaks.models.bulk_ip_reputation_request import BulkIpReputationRequest
 
 # Parameters for bulkIpReputation (POST /v1.0/security):
-#   - apiKey (string, required): Your WHOISFreaks API key
-#   - body: BulkGeolocationRequest (required) -- request body object
+#   - body: BulkIpReputationRequest (required) -- request body object
 config = Configuration()
+config.api_key["ApiKeyAuth"] = "YOUR_API_KEY"   # set once
 api = IPReputationApi(ApiClient(config))
 
-bulk_geolocation_request = BulkGeolocationRequest()  # populate fields as needed
-resp = api.bulk_ip_reputation_with_http_info(api_key="YOUR_API_KEY", bulk_geolocation_request=bulk_geolocation_request)
-print("status:", resp.status_code)
-print(resp.data)
+bulk_ip_reputation_request = BulkIpReputationRequest()  # populate fields as needed
+result = api.bulk_ip_reputation(bulk_ip_reputation_request=bulk_ip_reputation_request)
+print(result)

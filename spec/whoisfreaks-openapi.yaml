@@ -72,7 +72,6 @@ paths:
       description: Real-time WHOIS lookup from authoritative servers. Cost 1 credit.
       operationId: whoisLive
       parameters:
-      - $ref: '#/components/parameters/ApiKey'
       - name: domainName
         in: query
         schema:
@@ -101,7 +100,6 @@ paths:
       description: Up to 100 domains in one request. 1 credit per successful domain.
       operationId: bulkWhois
       parameters:
-      - $ref: '#/components/parameters/ApiKey'
       - $ref: '#/components/parameters/Format'
       requestBody:
         required: true
@@ -138,7 +136,6 @@ paths:
       description: Real-time DNS record lookup. 1 credit per query.
       operationId: dnsLive
       parameters:
-      - $ref: '#/components/parameters/ApiKey'
       - name: domainName
         in: query
         schema:
@@ -175,7 +172,6 @@ paths:
       description: All historical DNS records. 2 credits per page (100 records/page).
       operationId: dnsHistorical
       parameters:
-      - $ref: '#/components/parameters/ApiKey'
       - name: domainName
         in: query
         schema:
@@ -210,7 +206,6 @@ paths:
       description: Search domains by IP or DNS value. 5 credits per page.
       operationId: dnsReverse
       parameters:
-      - $ref: '#/components/parameters/ApiKey'
       - name: value
         in: query
         schema:
@@ -258,7 +253,6 @@ paths:
       description: Up to 100 domains + 100 IPs in one request.
       operationId: dnsBulk
       parameters:
-      - $ref: '#/components/parameters/ApiKey'
       - name: type
         in: query
         schema:
@@ -300,7 +294,6 @@ paths:
         up to `count` (max 100) TLD suggestions.
       operationId: domainAvailabilityV2
       parameters:
-      - $ref: '#/components/parameters/ApiKey'
       - name: domain
         in: query
         schema:
@@ -344,7 +337,6 @@ paths:
         query param. Max 100 domains per request. 1 credit per domain checked.'
       operationId: bulkDomainAvailabilityV2
       parameters:
-      - $ref: '#/components/parameters/ApiKey'
       - name: domain
         in: query
         schema:
@@ -379,7 +371,6 @@ paths:
       description: Find typo variants of a brand. 5 credits per page.
       operationId: typosquatting
       parameters:
-      - $ref: '#/components/parameters/ApiKey'
       - name: keyword
         in: query
         schema:
@@ -411,7 +402,6 @@ paths:
       description: Real-time SSL cert with optional chain.
       operationId: sslLookup
       parameters:
-      - $ref: '#/components/parameters/ApiKey'
       - name: domainName
         in: query
         schema:
@@ -445,7 +435,6 @@ paths:
       description: Get location, ASN, currency for an IP. 1 credit.
       operationId: geolocation
       parameters:
-      - $ref: '#/components/parameters/ApiKey'
       - name: ip
         in: query
         schema:
@@ -466,8 +455,7 @@ paths:
       summary: Bulk IP Geolocation
       description: Up to 100 IPs.
       operationId: bulkGeolocation
-      parameters:
-      - $ref: '#/components/parameters/ApiKey'
+      parameters: []
       requestBody:
         required: true
         content:
@@ -501,7 +489,6 @@ paths:
       description: All subdomains including nested. 2 credits per query.
       operationId: subdomains
       parameters:
-      - $ref: '#/components/parameters/ApiKey'
       - name: domain
         in: query
         schema:
@@ -547,7 +534,6 @@ paths:
       description: "Threat intel for IP \u2014 VPN, proxy, Tor, bots. 1 credit."
       operationId: ipReputation
       parameters:
-      - $ref: '#/components/parameters/ApiKey'
       - name: ip
         in: query
         schema:
@@ -568,8 +554,7 @@ paths:
       summary: Bulk IP Reputation
       description: Up to 100 IPs.
       operationId: bulkIpReputation
-      parameters:
-      - $ref: '#/components/parameters/ApiKey'
+      parameters: []
       requestBody:
         required: true
         content:
@@ -604,7 +589,6 @@ paths:
         threat intelligence matches, and security signals. 1 credit.
       operationId: domainReputation
       parameters:
-      - $ref: '#/components/parameters/ApiKey'
       - name: domainName
         in: query
         schema:
@@ -636,7 +620,6 @@ paths:
       description: WHOIS for an ASN. 1 credit.
       operationId: asnWhois
       parameters:
-      - $ref: '#/components/parameters/ApiKey'
       - name: asn
         in: query
         schema:
@@ -661,7 +644,6 @@ paths:
       description: WHOIS for an IP address. 1 credit.
       operationId: ipWhois
       parameters:
-      - $ref: '#/components/parameters/ApiKey'
       - name: ip
         in: query
         schema:
@@ -683,8 +665,7 @@ paths:
       - Account
       summary: Rotate API Key
       operationId: rotateApiKey
-      parameters:
-      - $ref: '#/components/parameters/ApiKey'
+      parameters: []
       responses:
         '200':
           description: Key rotated
@@ -705,8 +686,7 @@ paths:
       - Account
       summary: Account Usage
       operationId: accountUsage
-      parameters:
-      - $ref: '#/components/parameters/ApiKey'
+      parameters: []
       responses:
         '200':
           description: Successful response
@@ -744,7 +724,6 @@ paths:
       summary: Newly Registered gTLD (CSV)
       operationId: dbNewlyGtld
       parameters:
-      - $ref: '#/components/parameters/ApiKey'
       - name: whois
         in: query
         schema:
@@ -774,7 +753,6 @@ paths:
       summary: Newly Registered ccTLD (CSV)
       operationId: dbNewlyCctld
       parameters:
-      - $ref: '#/components/parameters/ApiKey'
       - name: whois
         in: query
         schema:
@@ -804,7 +782,6 @@ paths:
       summary: Newly Registered gTLD Cleaned WHOIS (CSV)
       operationId: dbNewlyGtldCleaned
       parameters:
-      - $ref: '#/components/parameters/ApiKey'
       - $ref: '#/components/parameters/DateParam'
       responses:
         '200':
@@ -826,7 +803,6 @@ paths:
       summary: Newly Registered ccTLD Cleaned WHOIS (CSV)
       operationId: dbNewlyCctldCleaned
       parameters:
-      - $ref: '#/components/parameters/ApiKey'
       - $ref: '#/components/parameters/DateParam'
       responses:
         '200':
@@ -848,7 +824,6 @@ paths:
       summary: Newly Registered gTLD (JSON)
       operationId: dbNewlyGtldJson
       parameters:
-      - $ref: '#/components/parameters/ApiKey'
       - $ref: '#/components/parameters/DateParam'
       - name: tlds
         in: query
@@ -874,7 +849,6 @@ paths:
       summary: Newly Registered ccTLD (JSON)
       operationId: dbNewlyCctldJson
       parameters:
-      - $ref: '#/components/parameters/ApiKey'
       - $ref: '#/components/parameters/DateParam'
       - name: tlds
         in: query
@@ -900,7 +874,6 @@ paths:
       summary: Newly Registered With DNS
       operationId: dbNewlyDns
       parameters:
-      - $ref: '#/components/parameters/ApiKey'
       - $ref: '#/components/parameters/DateParam'
       responses:
         '200':
@@ -921,7 +894,6 @@ paths:
       summary: Expiring Domains
       operationId: dbExpired
       parameters:
-      - $ref: '#/components/parameters/ApiKey'
       - name: whois
         in: query
         schema:
@@ -947,7 +919,6 @@ paths:
       summary: Expiring Cleaned WHOIS
       operationId: dbExpiredCleaned
       parameters:
-      - $ref: '#/components/parameters/ApiKey'
       - $ref: '#/components/parameters/DateParam'
       responses:
         '200':
@@ -968,7 +939,6 @@ paths:
       summary: Dropped Domains
       operationId: dbDropped
       parameters:
-      - $ref: '#/components/parameters/ApiKey'
       - name: whois
         in: query
         schema:
@@ -994,7 +964,6 @@ paths:
       summary: Dropped Domains (JSON)
       operationId: dbDroppedJson
       parameters:
-      - $ref: '#/components/parameters/ApiKey'
       - $ref: '#/components/parameters/DateParam'
       - name: tlds
         in: query
@@ -1020,7 +989,6 @@ paths:
       summary: Dropped With Backlinks
       operationId: dbDroppedBacklinks
       parameters:
-      - $ref: '#/components/parameters/ApiKey'
       - name: whois
         in: query
         schema:
@@ -1045,7 +1013,6 @@ paths:
       summary: WHOIS Database Daily
       operationId: dbWhoisDaily
       parameters:
-      - $ref: '#/components/parameters/ApiKey'
       - $ref: '#/components/parameters/DateParam'
       responses:
         '200':
@@ -1066,7 +1033,6 @@ paths:
       summary: WHOIS Database Weekly
       operationId: dbWhoisWeekly
       parameters:
-      - $ref: '#/components/parameters/ApiKey'
       - $ref: '#/components/parameters/DateParam'
       responses:
         '200':
@@ -1087,7 +1053,6 @@ paths:
       summary: WHOIS Database Monthly
       operationId: dbWhoisMonthly
       parameters:
-      - $ref: '#/components/parameters/ApiKey'
       - $ref: '#/components/parameters/DateParam'
       responses:
         '200':
@@ -1108,7 +1073,6 @@ paths:
       summary: DNS Database Daily
       operationId: dbDnsDaily
       parameters:
-      - $ref: '#/components/parameters/ApiKey'
       - $ref: '#/components/parameters/DateParam'
       responses:
         '200':
@@ -1129,7 +1093,6 @@ paths:
       summary: DNS Database Weekly
       operationId: dbDnsWeekly
       parameters:
-      - $ref: '#/components/parameters/ApiKey'
       - $ref: '#/components/parameters/DateParam'
       responses:
         '200':
@@ -1150,7 +1113,6 @@ paths:
       summary: DNS Database Monthly
       operationId: dbDnsMonthly
       parameters:
-      - $ref: '#/components/parameters/ApiKey'
       - $ref: '#/components/parameters/DateParam'
       responses:
         '200':
@@ -1171,7 +1133,6 @@ paths:
       summary: Subdomains Daily
       operationId: dbSubdomainsDaily
       parameters:
-      - $ref: '#/components/parameters/ApiKey'
       - $ref: '#/components/parameters/DateParam'
       responses:
         '200':
@@ -1192,7 +1153,6 @@ paths:
       summary: Subdomains Weekly
       operationId: dbSubdomainsWeekly
       parameters:
-      - $ref: '#/components/parameters/ApiKey'
       - $ref: '#/components/parameters/DateParam'
       responses:
         '200':
@@ -1213,7 +1173,6 @@ paths:
       summary: Subdomains Monthly
       operationId: dbSubdomainsMonthly
       parameters:
-      - $ref: '#/components/parameters/ApiKey'
       - $ref: '#/components/parameters/DateParam'
       responses:
         '200':
@@ -1233,8 +1192,7 @@ paths:
       - Databases - IP Geolocation
       summary: IP to Country Snapshot Status
       operationId: dbIpCountryStatus
-      parameters:
-      - $ref: '#/components/parameters/ApiKey'
+      parameters: []
       responses:
         '200':
           description: Successful response
@@ -1253,7 +1211,6 @@ paths:
       summary: IP to Country Snapshot
       operationId: dbIpCountry
       parameters:
-      - $ref: '#/components/parameters/ApiKey'
       - name: date
         in: query
         schema:
@@ -1278,8 +1235,7 @@ paths:
       - Databases - IP Geolocation
       summary: IP to City Snapshot Status
       operationId: dbIpCityStatus
-      parameters:
-      - $ref: '#/components/parameters/ApiKey'
+      parameters: []
       responses:
         '200':
           description: Successful response
@@ -1298,7 +1254,6 @@ paths:
       summary: IP to City Snapshot
       operationId: dbIpCity
       parameters:
-      - $ref: '#/components/parameters/ApiKey'
       - name: date
         in: query
         schema:
@@ -1324,7 +1279,6 @@ paths:
       summary: ASN WHOIS Snapshot
       operationId: dbAsnWhois
       parameters:
-      - $ref: '#/components/parameters/ApiKey'
       - name: date
         in: query
         schema:
@@ -1349,8 +1303,7 @@ paths:
       - Databases - ASN WHOIS
       summary: ASN WHOIS Snapshot Status
       operationId: dbAsnWhoisStatus
-      parameters:
-      - $ref: '#/components/parameters/ApiKey'
+      parameters: []
       responses:
         '200':
           description: Successful response
@@ -1369,7 +1322,6 @@ paths:
       summary: IP WHOIS Snapshot
       operationId: dbIpWhois
       parameters:
-      - $ref: '#/components/parameters/ApiKey'
       - name: date
         in: query
         schema:
@@ -1394,8 +1346,7 @@ paths:
       - Databases - IP WHOIS
       summary: IP WHOIS Snapshot Status
       operationId: dbIpWhoisStatus
-      parameters:
-      - $ref: '#/components/parameters/ApiKey'
+      parameters: []
       responses:
         '200':
           description: Successful response
@@ -1414,7 +1365,6 @@ paths:
       summary: IP Security Snapshot
       operationId: dbIpSecurity
       parameters:
-      - $ref: '#/components/parameters/ApiKey'
       - name: date
         in: query
         schema:
@@ -1439,8 +1389,7 @@ paths:
       - Databases - IP Security
       summary: IP Security Snapshot Status
       operationId: dbIpSecurityStatus
-      parameters:
-      - $ref: '#/components/parameters/ApiKey'
+      parameters: []
       responses:
         '200':
           description: Successful response
@@ -1458,12 +1407,6 @@ paths:
       operationId: whoisHistory
       summary: Historical WHOIS records for a domain
       parameters:
-      - name: apiKey
-        in: query
-        required: true
-        schema:
-          type: string
-        description: Your WHOISFreaks API key
       - name: domainName
         in: query
         required: true
@@ -1498,12 +1441,6 @@ paths:
       operationId: whoisReverse
       summary: Reverse WHOIS lookup by keyword
       parameters:
-      - name: apiKey
-        in: query
-        required: true
-        schema:
-          type: string
-        description: Your WHOISFreaks API key
       - name: keyword
         in: query
         required: true
@@ -1538,13 +1475,6 @@ components:
       in: query
       name: apiKey
   parameters:
-    ApiKey:
-      name: apiKey
-      in: query
-      required: true
-      schema:
-        type: string
-      description: Your WHOISFreaks API key
     Format:
       name: format
       in: query

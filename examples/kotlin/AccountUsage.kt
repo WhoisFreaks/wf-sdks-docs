@@ -1,10 +1,12 @@
 // Runnable example: Account Usage (GET /v1.0/whoisapi/usage)
 // Parameters for accountUsage (GET /v1.0/whoisapi/usage):
-//   - apiKey (string, required): Your WHOISFreaks API key
-import com.whoisfreaks.api.AccountApi
+//   (no parameters; the API key is set on the client)
+import com.whoisfreaks.client.apis.AccountApi
+import com.whoisfreaks.client.infrastructure.ApiClient
 
 fun main() {
-    val api = AccountApi(basePath = "https://api.whoisfreaks.com")
-    val result = api.accountUsage("YOUR_API_KEY")
-    println(result)  // status via api.accountUsageWithHttpInfo(...).statusCode
+    ApiClient.apiKey["apiKey"] = "YOUR_API_KEY"  // set once
+    val api = AccountApi()
+    val result = api.accountUsage()
+    println(result)
 }

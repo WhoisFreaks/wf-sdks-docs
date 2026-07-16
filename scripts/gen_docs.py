@@ -92,10 +92,12 @@ def getting_started(lang):
             "from whoisfreaks import Configuration, ApiClient",
             "from whoisfreaks.api.whois_api import WHOISApi",
             "",
-            "api = WHOISApi(ApiClient(Configuration()))",
-            'resp = api.whois_live_with_http_info(api_key="YOUR_API_KEY", domain_name="example.com")',
-            'print("status:", resp.status_code)',
-            "print(resp.data)",
+            "config = Configuration()",
+            'config.api_key["ApiKeyAuth"] = "YOUR_API_KEY"   # set once',
+            "api = WHOISApi(ApiClient(config))",
+            "",
+            'result = api.whois_live(domain_name="example.com")',
+            "print(result)",
             "```",
             "",
             "Run it:", "",
@@ -117,21 +119,21 @@ def getting_started(lang):
             S += ["Set `\"type\": \"module\"` in `package.json`, then create "
                   f"`main.{ext}`:", "", f"```{ext}",
                   f'import {{ Configuration, WHOISApi }} from "{pkg}";', "",
-                  "const api = new WHOISApi(new Configuration());", "",
-                  "const resp = await api.whoisLiveRaw({ apiKey: \"YOUR_API_KEY\", domainName: \"example.com\" });",
-                  'console.log("status:", resp.raw.status);',
-                  "console.log(await resp.value());", "```", "", "Run it:", "",
+                  'const config = new Configuration({ apiKey: "YOUR_API_KEY" });  // set once',
+                  "const api = new WHOISApi(config);", "",
+                  'const result = await api.whoisLive({ domainName: "example.com" });',
+                  "console.log(result);", "```", "", "Run it:", "",
                   "```bash", f"npx ts-node main.{ext}", "```"]
         else:
-            # JS package uses the `javascript` generator: no Configuration class,
-            # apiKey passed positionally, methods return Promises.
+            # JS package uses the `javascript` generator: apiKey set once on ApiClient.
             S += [f"Create `main.{ext}`:", "", f"```{ext}",
-                  "// whoisfreaks-js is CommonJS (no Configuration class; apiKey is positional)",
                   f'import pkg from "{pkg}";',
                   "const { ApiClient, WHOISApi } = pkg;",
                   f'// or:  const {{ ApiClient, WHOISApi }} = require("{pkg}");', "",
-                  "const api = new WHOISApi();   // uses ApiClient.instance", "",
-                  'api.whoisLive("YOUR_API_KEY", "example.com")',
+                  "const client = ApiClient.instance;",
+                  'client.authentications["ApiKeyAuth"].apiKey = "YOUR_API_KEY";  // set once',
+                  "const api = new WHOISApi(client);", "",
+                  'api.whoisLive("example.com")',
                   "  .then(data => console.log(data))",
                   "  .catch(err => console.error(err));", "```", "", "Run it:", "",
                   "```bash", f"node main.{ext}", "```"]
@@ -150,11 +152,11 @@ def getting_started(lang):
             "using WhoisFreaks.Client;",
             "",
             "var config = new Configuration { BasePath = \"https://api.whoisfreaks.com\" };",
+            "config.AddApiKey(\"ApiKeyAuth\", \"YOUR_API_KEY\");   // set once",
             "var api = new WHOISApi(config);",
             "",
-            'var resp = api.WhoisLiveWithHttpInfo("YOUR_API_KEY", "example.com", null);',
-            'Console.WriteLine($"status: {(int)resp.StatusCode}");',
-            "Console.WriteLine(resp.Data);",
+            'var result = api.WhoisLive("example.com");',
+            "Console.WriteLine(result);",
             "```",
             "",
             "Run it:", "",
@@ -186,10 +188,11 @@ def getting_started(lang):
             "func main() {",
             "    cfg := wf.NewConfiguration()",
             "    client := wf.NewAPIClient(cfg)",
-            "    // apiKey is a builder method on the request",
-            "    result, httpRes, err := client.WHOISAPI.WhoisLive(context.Background()).ApiKey(\"YOUR_API_KEY\").DomainName(\"example.com\").Execute()",
+            "    // apiKey is set once via the request context",
+            "    ctx := context.WithValue(context.Background(), wf.ContextAPIKeys,",
+            "        map[string]wf.APIKey{\"ApiKeyAuth\": {Key: \"YOUR_API_KEY\"}})",
+            "    result, _, err := client.WHOISAPI.WhoisLive(ctx).DomainName(\"example.com\").Execute()",
             "    if err != nil { panic(err) }",
-            "    fmt.Println(\"status:\", httpRes.StatusCode)",
             "    b, _ := json.MarshalIndent(result, \"\", \"  \")",
             "    fmt.Println(string(b))",
             "}",
@@ -214,16 +217,17 @@ def getting_started(lang):
             "```java",
             "import com.whoisfreaks.client.ApiClient;",
             "import com.whoisfreaks.client.Configuration;",
+            "import com.whoisfreaks.client.auth.ApiKeyAuth;",
             "import com.whoisfreaks.client.api.WhoisApi;",
             "",
             "public class Main {",
             "    public static void main(String[] args) throws Exception {",
             "        ApiClient client = Configuration.getDefaultApiClient();",
             "        client.setBasePath(\"https://api.whoisfreaks.com\");",
+            "        ((ApiKeyAuth) client.getAuthentication(\"ApiKeyAuth\")).setApiKey(\"YOUR_API_KEY\");  // set once",
             "        WhoisApi api = new WhoisApi(client);",
-            "        var resp = api.whoisLiveWithHttpInfo(\"YOUR_API_KEY\", \"example.com\", null);",
-            "        System.out.println(\"status: \" + resp.getStatusCode());",
-            "        System.out.println(resp.getData());",
+            "        var result = api.whoisLive(\"example.com\");",
+            "        System.out.println(result);",
             "    }",
             "}",
             "```",
@@ -243,11 +247,13 @@ def getting_started(lang):
             "",
             "`src/main/kotlin/Main.kt`:", "",
             "```kotlin",
-            "import com.whoisfreaks.api.WhoisApi",
+            "import com.whoisfreaks.client.apis.WhoisApi",
+            "import com.whoisfreaks.client.infrastructure.ApiClient",
             "",
             "fun main() {",
-            "    val api = WhoisApi(basePath = \"https://api.whoisfreaks.com\")",
-            "    val result = api.whoisLive(\"YOUR_API_KEY\", \"example.com\", null)",
+            "    ApiClient.apiKey[\"apiKey\"] = \"YOUR_API_KEY\"  // set once",
+            "    val api = WhoisApi()",
+            "    val result = api.whoisLive(\"example.com\")",
             "    println(result)",
             "}",
             "```",
@@ -265,10 +271,13 @@ def getting_started(lang):
             "```ruby",
             "require 'whoisfreaks'",
             "",
+            "WhoisFreaks.configure do |config|",
+            "  config.api_key[\"apiKey\"] = \"YOUR_API_KEY\"   # set once",
+            "end",
+            "",
             "api = WhoisFreaks::WhoisApi.new",
-            "data, status, _headers = api.whois_live_with_http_info(api_key: \"YOUR_API_KEY\", domain_name: \"example.com\")",
-            "puts \"status: #{status}\"",
-            "puts data",
+            "result = api.whois_live(\"example.com\")",
+            "puts result",
             "```",
             "",
             "Run it:", "",
@@ -287,11 +296,11 @@ def getting_started(lang):
             "<?php",
             "require 'vendor/autoload.php';",
             "",
-            "$config = WhoisFreaks\\Configuration::getDefaultConfiguration();",
+            "$config = WhoisFreaks\\Configuration::getDefaultConfiguration()",
+            "    ->setApiKey(\"apiKey\", \"YOUR_API_KEY\");   // set once",
             "$api = new WhoisFreaks\\Api\\WhoisApi(new GuzzleHttp\\Client(), $config);",
-            "list($data, $status, $headers) = $api->whoisLiveWithHttpInfo(\"YOUR_API_KEY\", \"example.com\", null);",
-            "echo \"status: \" . $status . PHP_EOL;",
-            "print_r($data);",
+            "$result = $api->whoisLive(\"example.com\");",
+            "print_r($result);",
             "```",
             "",
             "Run it:", "",
@@ -314,8 +323,10 @@ def getting_started(lang):
             "```swift",
             "import WhoisFreaks",
             "",
+            "WhoisFreaksAPI.apiKey = \"YOUR_API_KEY\"  // set once",
+            "",
             "do {",
-            "    let result = try await WHOISAPI.whoisLive(apiKey: \"YOUR_API_KEY\", domainName: \"example.com\")",
+            "    let result = try await WHOISAPI.whoisLive(domainName: \"example.com\")",
             "    print(result)",
             "} catch {",
             "    print(error)",
@@ -609,7 +620,7 @@ def params_comment(lang, op):
     if op.get("body_model"):
         lines.append(f"{pre}  - body: {op['body_model']} (required) -- request body object")
     if not any_p and not op.get("body_model"):
-        lines.append(f"{pre}  (no parameters besides apiKey)")
+        lines.append(f"{pre}  (no parameters; the API key is set on the client)")
     return "\n".join(lines)
 
 def _pascal(op_id):
@@ -700,6 +711,7 @@ def runnable_example(lang, op):
                     f"from whoisfreaks.api.{mod} import {cls}\n\n"
                     f"{pcmt}"
                     f"config = Configuration()\n"
+                    f'config.api_key["ApiKeyAuth"] = "YOUR_API_KEY"   # set once\n'
                     f"api = {cls}(ApiClient(config))\n\n"
                     f"data = api.{m}({', '.join(parts)})   # bytes\n"
                     f'with open("{fname}", "wb") as f:\n'
@@ -710,10 +722,10 @@ def runnable_example(lang, op):
                 f"from whoisfreaks.api.{mod} import {cls}\n{imp}\n"
                 f"{pcmt}"
                 f"config = Configuration()\n"
+                f'config.api_key["ApiKeyAuth"] = "YOUR_API_KEY"   # set once\n'
                 f"api = {cls}(ApiClient(config))\n\n"
-                f"{pre}resp = api.{m}_with_http_info({', '.join(parts)})\n"
-                f'print("status:", resp.status_code)\n'
-                f"print(resp.data)\n")
+                f"{pre}result = api.{m}({', '.join(parts)})\n"
+                f"print(result)\n")
 
     if lang in ("javascript","typescript"):
         obj=[]
@@ -726,15 +738,15 @@ def runnable_example(lang, op):
                 cv,_=lang_literal(lang,v,p); obj.append(f'{k}: {cv}')
         objs = ", ".join(obj)
         if lang == "typescript":
-            # TS package is ESM: named imports work.
+            # TS package is ESM: named imports work. apiKey set once in Configuration.
             return (f'// Runnable example: {op["summary"]} ({op["method"]} {op["path"]})\n'
                 f"{pcmt_all}\n"
                     f'import {{ Configuration, {cls} }} from "whoisfreaks";\n\n'
-                    f'const api = new {cls}(new Configuration());\n\n'
+                    f'const config = new Configuration({{ apiKey: "YOUR_API_KEY" }});  // set once\n'
+                    f'const api = new {cls}(config);\n\n'
                     f"async function main() {{\n"
-                    f"  const resp = await api.{m}Raw({{ {objs} }});\n"
-                    f'  console.log("status:", resp.raw.status);\n'
-                    f"  console.log(await resp.value());\n"
+                    f"  const result = await api.{m}({{ {objs} }});\n"
+                    f"  console.log(result);\n"
                     f"}}\nmain().catch(console.error);\n")
         # JavaScript package (whoisfreaks-js) uses the `javascript` generator:
         # no Configuration class; apiKey is passed positionally; methods return
@@ -761,11 +773,13 @@ def runnable_example(lang, op):
         opts_str = (", { " + ", ".join(real_opts) + " }") if real_opts else ""
         return (f'// Runnable example: {op["summary"]} ({op["method"]} {op["path"]})\n'
                 f"{pcmt_all}\n"
-                f'// whoisfreaks-js is CommonJS (no Configuration class; apiKey is positional)\n'
+                f'// whoisfreaks-js is CommonJS; apiKey is set once on the ApiClient\n'
                 f'import pkg from "whoisfreaks-js";\n'
                 f"const {{ ApiClient, {cls} }} = pkg;\n"
                 f'// or:  const {{ ApiClient, {cls} }} = require("whoisfreaks-js");\n\n'
-                f"const api = new {cls}();   // uses ApiClient.instance\n\n"
+                f"const client = ApiClient.instance;\n"
+                f'client.authentications["ApiKeyAuth"].apiKey = "YOUR_API_KEY";  // set once\n'
+                f"const api = new {cls}(client);\n\n"
                 f"api.{m}({pos_str}{opts_str})\n"
                 f"  .then(data => console.log(data))\n"
                 f"  .catch(err => console.error(err));\n")
@@ -777,27 +791,30 @@ def runnable_example(lang, op):
                 f"{pcmt_all}\n"
                 f"import com.whoisfreaks.client.ApiClient;\n"
                 f"import com.whoisfreaks.client.Configuration;\n"
+                f"import com.whoisfreaks.client.auth.ApiKeyAuth;\n"
                 f"import com.whoisfreaks.client.api.{cls};\n{imp}\n"
                 f"public class {P} {{\n"
                 f"    public static void main(String[] args) throws Exception {{\n"
                 f"        ApiClient client = Configuration.getDefaultApiClient();\n"
                 f'        client.setBasePath("https://api.whoisfreaks.com");\n'
+                f'        ((ApiKeyAuth) client.getAuthentication("ApiKeyAuth")).setApiKey("YOUR_API_KEY");  // set once\n'
                 f"        {cls} api = new {cls}(client);\n"
-                f"        var resp = api.{m}WithHttpInfo({pos});\n"
-                f'        System.out.println("status: " + resp.getStatusCode());\n'
-                f"        System.out.println(resp.getData());\n"
+                f"        var result = api.{m}({pos});\n"
+                f"        System.out.println(result);\n"
                 f"    }}\n}}\n")
 
     if lang == "kotlin":
         pos=", ".join(f"{bm}()" if is_body(k) else lit(v,p) for k,v,p in args)
-        imp = f"import com.whoisfreaks.models.{bm}\n" if bm else ""
+        imp = f"import com.whoisfreaks.client.models.{bm}\n" if bm else ""
         return (f"// Runnable example: {op['summary']} ({op['method']} {op['path']})\n"
                 f"{pcmt_all}\n"
-                f"import com.whoisfreaks.api.{cls}\n{imp}\n"
+                f"import com.whoisfreaks.client.apis.{cls}\n"
+                f"import com.whoisfreaks.client.infrastructure.ApiClient\n{imp}\n"
                 f"fun main() {{\n"
-                f'    val api = {cls}(basePath = "https://api.whoisfreaks.com")\n'
+                f'    ApiClient.apiKey["apiKey"] = "YOUR_API_KEY"  // set once\n'
+                f"    val api = {cls}()\n"
                 f"    val result = api.{m}({pos})\n"
-                f"    println(result)  // status via api.{m}WithHttpInfo(...).statusCode\n"
+                f"    println(result)\n"
                 f"}}\n")
 
     if lang == "csharp":
@@ -809,10 +826,10 @@ def runnable_example(lang, op):
                 f"class {P} {{\n"
                 f"    static void Main() {{\n"
                 f'        var config = new Configuration {{ BasePath = "https://api.whoisfreaks.com" }};\n'
+                f'        config.AddApiKey("ApiKeyAuth", "YOUR_API_KEY");  // set once\n'
                 f"        var api = new {cls}(config);\n"
-                f"        var resp = api.{m}WithHttpInfo({pos});\n"
-                f'        Console.WriteLine($"status: {{(int)resp.StatusCode}}");\n'
-                f"        Console.WriteLine(resp.Data);\n"
+                f"        var result = api.{m}({pos});\n"
+                f"        Console.WriteLine(result);\n"
                 f"    }}\n}}\n")
 
     if lang == "ruby":
@@ -837,10 +854,12 @@ def runnable_example(lang, op):
                 f"{pcmt_all}\n"
                 + ("require 'date'\n" if uses_yesterday else "")
                 + f"require 'whoisfreaks'\n\n"
+                f"WhoisFreaks.configure do |config|\n"
+                f'  config.api_key["apiKey"] = "YOUR_API_KEY"   # set once\n'
+                f"end\n\n"
                 f"api = WhoisFreaks::{cls}.new\n"
-                f"data, status, _headers = api.{m}_with_http_info({call})\n"
-                f'puts "status: #{{status}}"\n'
-                f"puts data\n")
+                f"result = api.{m}({call})\n"
+                f"puts result\n")
 
     if lang == "go":
         builder=""
@@ -853,8 +872,11 @@ def runnable_example(lang, op):
             else:
                 cv,_=lang_literal("go",v,p); builder+=f'.{k[0].upper()+k[1:]}({cv})'
         _time_imp = '    "time"\n' if uses_yesterday else ''
-        call = (f'client.{go_accessor(op["tag"])}.{m}(context.Background())'
-                f'.ApiKey("YOUR_API_KEY"){builder}.Execute()')
+        call = (f'client.{go_accessor(op["tag"])}.{m}(ctx)'
+                f'{builder}.Execute()')
+        ctx_setup = ('    // apiKey is set once via the request context\n'
+                     '    ctx := context.WithValue(context.Background(), wf.ContextAPIKeys,\n'
+                     '        map[string]wf.APIKey{"ApiKeyAuth": {Key: "YOUR_API_KEY"}})\n')
         if op.get("is_binary"):
             fname = (op["op_id"] or "download") + ".gz"
             return (f"// Runnable example: {op['summary']} ({op['method']} {op['path']})\n"
@@ -864,6 +886,7 @@ def runnable_example(lang, op):
                     f"func main() {{\n"
                     f"    cfg := wf.NewConfiguration()\n"
                     f"    client := wf.NewAPIClient(cfg)\n"
+                    f"{ctx_setup}"
                     f"    // returns raw bytes (compressed/binary file) -- write to disk\n"
                     f"    data, _, err := {call}\n"
                     f"    if err != nil {{ panic(err) }}\n"
@@ -877,10 +900,9 @@ def runnable_example(lang, op):
                 f"func main() {{\n"
                 f"    cfg := wf.NewConfiguration()\n"
                 f"    client := wf.NewAPIClient(cfg)\n"
-                f"    // apiKey is a builder method on the request, not a config/context value\n"
-                f"    result, httpRes, err := {call}\n"
+                f"{ctx_setup}"
+                f"    result, _, err := {call}\n"
                 f"    if err != nil {{ panic(err) }}\n"
-                f'    fmt.Println("status:", httpRes.StatusCode)\n'
                 f'    b, _ := json.MarshalIndent(result, "", "  ")\n'
                 f"    fmt.Println(string(b))\n"
                 f"}}\n")
@@ -890,11 +912,11 @@ def runnable_example(lang, op):
         return (f"<?php\n// Runnable example: {op['summary']} ({op['method']} {op['path']})\n"
                 f"{pcmt_all}\n"
                 f"require 'vendor/autoload.php';\n\n"
-                f"$config = WhoisFreaks\\Configuration::getDefaultConfiguration();\n"
+                f"$config = WhoisFreaks\\Configuration::getDefaultConfiguration()\n"
+                f'    ->setApiKey("apiKey", "YOUR_API_KEY");  // set once\n'
                 f"$api = new WhoisFreaks\\Api\\{cls}(new GuzzleHttp\\Client(), $config);\n"
-                f"list($data, $statusCode, $headers) = $api->{m}WithHttpInfo({pos});\n"
-                f'echo "status: " . $statusCode . PHP_EOL;\n'
-                f"print_r($data);\n")
+                f"$result = $api->{m}({pos});\n"
+                f"print_r($result);\n")
 
     if lang == "swift":
         parts=[]
@@ -906,10 +928,13 @@ def runnable_example(lang, op):
             else:
                 parts.append(f"{k}: {lit(v,p)}")
         found_imp = "import Foundation\n" if uses_yesterday else ""
-        # The Swift SDK uses async/await (async throws), not completion handlers.
+        # The Swift SDK uses async/await (async throws). The apiKey (query security
+        # scheme) is configured once on the WhoisFreaksAPI client.
         return (f"// Runnable example: {op['summary']} ({op['method']} {op['path']})\n"
                 f"{pcmt_all}\n"
                 f"{found_imp}import WhoisFreaks\n\n"
+                f'// Set your API key once (applied to every request)\n'
+                f'WhoisFreaksAPI.apiKey = "YOUR_API_KEY"\n\n'
                 f"do {{\n"
                 f"    let result = try await {cls}.{m}({', '.join(parts)})\n"
                 f"    print(result)\n"
@@ -1022,14 +1047,80 @@ for lang in LANG_ORDER:
     auth += [f"### {LANGS[lang]['label']}", "", f"```{fence}", code, "```", ""]
 w("docs/authentication.md", "\n".join(auth))
 
+# ---------- SEO metadata + build-from-source per language --------------------
+def _about(lang):
+    label = LANGS[lang]["label"]
+    return (f"The official **WhoisFreaks {label} SDK** — a complete client for "
+            f"WHOIS, DNS, SSL, domain availability, subdomain, IP geolocation, IP "
+            f"reputation, ASN, typosquatting, and domain reputation lookups, plus "
+            f"bulk database downloads. Query real-time and historical domain data, "
+            f"reverse WHOIS, and threat intelligence from {label} with a single API "
+            f"key. Generated from the WhoisFreaks OpenAPI specification and published "
+            f"to {LANGS[lang]['registry']}.")
+
+# Broad, search-optimized keyword set (shared domain-intelligence terms + the
+# language) so each page ranks for both the topic and the language binding.
+_COMMON_TAGS = [
+    "whois api", "whois lookup", "domain api", "dns api", "dns lookup",
+    "reverse whois", "historical whois", "domain availability api",
+    "ssl certificate api", "ip geolocation api", "ip reputation api",
+    "asn lookup", "subdomain finder", "typosquatting api",
+    "domain reputation", "threat intelligence api", "domain data api",
+    "whois sdk", "domain monitoring", "brand protection api",
+]
+def _tags(lang):
+    label = LANGS[lang]["label"].lower()
+    lead = [f"{label} whois api", f"{label} whois sdk", f"whoisfreaks {label}",
+            f"{label} domain lookup", f"{label} dns api"]
+    return lead + _COMMON_TAGS
+
+def build_from_source(lang):
+    """Instructions to clone + build the SDK locally (for users who want to
+    build from source rather than install from the registry)."""
+    repo = "https://github.com/WhoisFreaks/wf-sdks"
+    steps = {
+        "python": ["git clone " + repo, "cd wf-sdks/sdks/python",
+                   "pip install -e .   # editable local install"],
+        "javascript": ["git clone " + repo, "cd wf-sdks/sdks/javascript",
+                       "npm install", "npm run build"],
+        "typescript": ["git clone " + repo, "cd wf-sdks/sdks/typescript",
+                       "npm install", "npm run build"],
+        "java": ["git clone " + repo, "cd wf-sdks/sdks/java",
+                 "mvn clean install   # builds + installs to local ~/.m2"],
+        "kotlin": ["git clone " + repo, "cd wf-sdks/sdks/kotlin",
+                   "./gradlew build   # or: ./gradlew publishToMavenLocal"],
+        "csharp": ["git clone " + repo, "cd wf-sdks/sdks/csharp",
+                   "dotnet build   # or: dotnet pack -c Release"],
+        "ruby": ["git clone " + repo, "cd wf-sdks/sdks/ruby",
+                 "gem build whoisfreaks.gemspec", "gem install ./whoisfreaks-*.gem"],
+        "go": ["git clone " + repo, "cd wf-sdks/sdks/go",
+               "go build ./...   # or import the module path directly"],
+        "php": ["git clone " + repo, "cd wf-sdks/sdks/php", "composer install"],
+        "swift": ["git clone " + repo, "cd wf-sdks/sdks/swift", "swift build"],
+    }
+    fence = {"python":"bash","javascript":"bash","typescript":"bash","java":"bash",
+             "kotlin":"bash","csharp":"bash","ruby":"bash","go":"bash","php":"bash",
+             "swift":"bash"}[lang]
+    lines = steps.get(lang, ["git clone " + repo])
+    return [f"```{fence}"] + lines + ["```"]
+
 # ---------- languages/<lang>.md ----------------------------------------------
 for lang in LANG_ORDER:
     m = LANGS[lang]
     fence_i, inst = install_snippet(lang)
     body = [f"# {m['label']} SDK", "",
+            "## About", "",
+            _about(lang), "",
+            "**Keywords:** " + ", ".join(_tags(lang)), "",
             f"- **Registry:** {m['registry']}",
             f"- **Package:** `{m['pkg']}`", "",
             "## Install", "", f"```{fence_i}", inst, "```", "",
+            "## Build from Source", "",
+            "Prefer to build the SDK yourself instead of installing from "
+            f"{m['registry']}? Clone the monorepo and build the {m['label']} "
+            "package locally:", ""]
+    body += build_from_source(lang)
+    body += ["",
             "## Getting Started", "",
             "A complete walkthrough from an empty directory to a running "
             "program:", ""]

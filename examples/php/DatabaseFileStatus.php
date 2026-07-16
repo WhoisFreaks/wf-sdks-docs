@@ -1,11 +1,11 @@
 <?php
 // Runnable example: Database File Status (Public) (GET /v3.3/status)
 // Parameters for databaseFileStatus (GET /v3.3/status):
-//   (no parameters besides apiKey)
+//   (no parameters; the API key is set on the client)
 require 'vendor/autoload.php';
 
-$config = WhoisFreaks\Configuration::getDefaultConfiguration();
+$config = WhoisFreaks\Configuration::getDefaultConfiguration()
+    ->setApiKey("apiKey", "YOUR_API_KEY");  // set once
 $api = new WhoisFreaks\Api\AccountApi(new GuzzleHttp\Client(), $config);
-list($data, $statusCode, $headers) = $api->databaseFileStatusWithHttpInfo();
-echo "status: " . $statusCode . PHP_EOL;
-print_r($data);
+$result = $api->databaseFileStatus();
+print_r($result);

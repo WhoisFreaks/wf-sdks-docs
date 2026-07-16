@@ -1,11 +1,12 @@
 // Runnable example: WHOIS Database Daily (GET /v3.3/download/dbupdate/daily/domains/whois)
 // Parameters for dbWhoisDaily (GET /v3.3/download/dbupdate/daily/domains/whois):
-//   - apiKey (string, required): Your WHOISFreaks API key
 //   - date (string, optional): yyyy-MM-dd; omit for latest
-import com.whoisfreaks.api.DatabasesWHOISApi
+import com.whoisfreaks.client.apis.DatabasesWHOISApi
+import com.whoisfreaks.client.infrastructure.ApiClient
 
 fun main() {
-    val api = DatabasesWHOISApi(basePath = "https://api.whoisfreaks.com")
-    val result = api.dbWhoisDaily("YOUR_API_KEY", java.time.LocalDate.now().minusDays(1).toString())
-    println(result)  // status via api.dbWhoisDailyWithHttpInfo(...).statusCode
+    ApiClient.apiKey["apiKey"] = "YOUR_API_KEY"  // set once
+    val api = DatabasesWHOISApi()
+    val result = api.dbWhoisDaily(java.time.LocalDate.now().minusDays(1).toString())
+    println(result)
 }

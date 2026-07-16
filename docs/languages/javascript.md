@@ -1,5 +1,11 @@
 # JavaScript SDK
 
+## About
+
+The official **WhoisFreaks JavaScript SDK** — a complete client for WHOIS, DNS, SSL, domain availability, subdomain, IP geolocation, IP reputation, ASN, typosquatting, and domain reputation lookups, plus bulk database downloads. Query real-time and historical domain data, reverse WHOIS, and threat intelligence from JavaScript with a single API key. Generated from the WhoisFreaks OpenAPI specification and published to npm.
+
+**Keywords:** javascript whois api, javascript whois sdk, whoisfreaks javascript, javascript domain lookup, javascript dns api, whois api, whois lookup, domain api, dns api, dns lookup, reverse whois, historical whois, domain availability api, ssl certificate api, ip geolocation api, ip reputation api, asn lookup, subdomain finder, typosquatting api, domain reputation, threat intelligence api, domain data api, whois sdk, domain monitoring, brand protection api
+
 - **Registry:** npm
 - **Package:** `whoisfreaks-js`
 
@@ -7,6 +13,17 @@
 
 ```bash
 npm install whoisfreaks-js
+```
+
+## Build from Source
+
+Prefer to build the SDK yourself instead of installing from npm? Clone the monorepo and build the JavaScript package locally:
+
+```bash
+git clone https://github.com/WhoisFreaks/wf-sdks
+cd wf-sdks/sdks/javascript
+npm install
+npm run build
 ```
 
 ## Getting Started
@@ -22,14 +39,15 @@ npm install whoisfreaks-js
 Create `main.js`:
 
 ```js
-// whoisfreaks-js is CommonJS (no Configuration class; apiKey is positional)
 import pkg from "whoisfreaks-js";
 const { ApiClient, WHOISApi } = pkg;
 // or:  const { ApiClient, WHOISApi } = require("whoisfreaks-js");
 
-const api = new WHOISApi();   // uses ApiClient.instance
+const client = ApiClient.instance;
+client.authentications["ApiKeyAuth"].apiKey = "YOUR_API_KEY";  // set once
+const api = new WHOISApi(client);
 
-api.whoisLive("YOUR_API_KEY", "example.com")
+api.whoisLive("example.com")
   .then(data => console.log(data))
   .catch(err => console.error(err));
 ```
@@ -47,17 +65,18 @@ See [Authentication](../authentication.md) for how to obtain a key. Minimal setu
 ```javascript
 // Runnable example: Live WHOIS Lookup (GET /v2.0/whois/live)
 // Parameters for whoisLive (GET /v2.0/whois/live):
-//   - apiKey (string, required): Your WHOISFreaks API key
 //   - domainName (string, required)
 //   - format (string (one of: json, xml), optional)
-// whoisfreaks-js is CommonJS (no Configuration class; apiKey is positional)
+// whoisfreaks-js is CommonJS; apiKey is set once on the ApiClient
 import pkg from "whoisfreaks-js";
 const { ApiClient, WHOISApi } = pkg;
 // or:  const { ApiClient, WHOISApi } = require("whoisfreaks-js");
 
-const api = new WHOISApi();   // uses ApiClient.instance
+const client = ApiClient.instance;
+client.authentications["ApiKeyAuth"].apiKey = "YOUR_API_KEY";  // set once
+const api = new WHOISApi(client);
 
-api.whoisLive("YOUR_API_KEY", "example.com")
+api.whoisLive("example.com")
   .then(data => console.log(data))
   .catch(err => console.error(err));
 
@@ -76,17 +95,18 @@ All 54 endpoints are shown below, grouped by category. Each includes its method,
 ```javascript
 // Runnable example: Live WHOIS Lookup (GET /v2.0/whois/live)
 // Parameters for whoisLive (GET /v2.0/whois/live):
-//   - apiKey (string, required): Your WHOISFreaks API key
 //   - domainName (string, required)
 //   - format (string (one of: json, xml), optional)
-// whoisfreaks-js is CommonJS (no Configuration class; apiKey is positional)
+// whoisfreaks-js is CommonJS; apiKey is set once on the ApiClient
 import pkg from "whoisfreaks-js";
 const { ApiClient, WHOISApi } = pkg;
 // or:  const { ApiClient, WHOISApi } = require("whoisfreaks-js");
 
-const api = new WHOISApi();   // uses ApiClient.instance
+const client = ApiClient.instance;
+client.authentications["ApiKeyAuth"].apiKey = "YOUR_API_KEY";  // set once
+const api = new WHOISApi(client);
 
-api.whoisLive("YOUR_API_KEY", "example.com")
+api.whoisLive("example.com")
   .then(data => console.log(data))
   .catch(err => console.error(err));
 
@@ -99,17 +119,18 @@ api.whoisLive("YOUR_API_KEY", "example.com")
 ```javascript
 // Runnable example: Bulk WHOIS Lookup (POST /v2.0/bulkwhois/live)
 // Parameters for bulkWhois (POST /v2.0/bulkwhois/live):
-//   - apiKey (string, required): Your WHOISFreaks API key
 //   - format (string (one of: json, xml), optional)
 //   - body: BulkWhoisRequest (required) -- request body object
-// whoisfreaks-js is CommonJS (no Configuration class; apiKey is positional)
+// whoisfreaks-js is CommonJS; apiKey is set once on the ApiClient
 import pkg from "whoisfreaks-js";
 const { ApiClient, WHOISApi } = pkg;
 // or:  const { ApiClient, WHOISApi } = require("whoisfreaks-js");
 
-const api = new WHOISApi();   // uses ApiClient.instance
+const client = ApiClient.instance;
+client.authentications["ApiKeyAuth"].apiKey = "YOUR_API_KEY";  // set once
+const api = new WHOISApi(client);
 
-api.bulkWhois("YOUR_API_KEY", {})
+api.bulkWhois({})
   .then(data => console.log(data))
   .catch(err => console.error(err));
 
@@ -122,18 +143,19 @@ api.bulkWhois("YOUR_API_KEY", {})
 ```javascript
 // Runnable example: Historical WHOIS records for a domain (GET /v2.0/whois/history)
 // Parameters for whoisHistory (GET /v2.0/whois/history):
-//   - apiKey (string, required): Your WHOISFreaks API key
 //   - domainName (string, required): Domain to fetch historical WHOIS records for
 //   - page (integer, optional): Page number
 //   - format (string (one of: json, xml), optional)
-// whoisfreaks-js is CommonJS (no Configuration class; apiKey is positional)
+// whoisfreaks-js is CommonJS; apiKey is set once on the ApiClient
 import pkg from "whoisfreaks-js";
 const { ApiClient, WHOISApi } = pkg;
 // or:  const { ApiClient, WHOISApi } = require("whoisfreaks-js");
 
-const api = new WHOISApi();   // uses ApiClient.instance
+const client = ApiClient.instance;
+client.authentications["ApiKeyAuth"].apiKey = "YOUR_API_KEY";  // set once
+const api = new WHOISApi(client);
 
-api.whoisHistory("YOUR_API_KEY", "example.com")
+api.whoisHistory("example.com")
   .then(data => console.log(data))
   .catch(err => console.error(err));
 
@@ -146,18 +168,19 @@ api.whoisHistory("YOUR_API_KEY", "example.com")
 ```javascript
 // Runnable example: Reverse WHOIS lookup by keyword (GET /v2.0/whois/reverse)
 // Parameters for whoisReverse (GET /v2.0/whois/reverse):
-//   - apiKey (string, required): Your WHOISFreaks API key
 //   - keyword (string, required): Keyword to search across WHOIS records
 //   - page (integer, optional): Page number
 //   - format (string (one of: json, xml), optional)
-// whoisfreaks-js is CommonJS (no Configuration class; apiKey is positional)
+// whoisfreaks-js is CommonJS; apiKey is set once on the ApiClient
 import pkg from "whoisfreaks-js";
 const { ApiClient, WHOISApi } = pkg;
 // or:  const { ApiClient, WHOISApi } = require("whoisfreaks-js");
 
-const api = new WHOISApi();   // uses ApiClient.instance
+const client = ApiClient.instance;
+client.authentications["ApiKeyAuth"].apiKey = "YOUR_API_KEY";  // set once
+const api = new WHOISApi(client);
 
-api.whoisReverse("YOUR_API_KEY", "value")
+api.whoisReverse("value")
   .then(data => console.log(data))
   .catch(err => console.error(err));
 
@@ -172,19 +195,20 @@ api.whoisReverse("YOUR_API_KEY", "value")
 ```javascript
 // Runnable example: Live DNS Lookup (GET /v2.0/dns/live)
 // Parameters for dnsLive (GET /v2.0/dns/live):
-//   - apiKey (string, required): Your WHOISFreaks API key
 //   - domainName (string, required)
 //   - ipAddress (string, required): Use for PTR lookups
 //   - type (string, required): all or comma-separated: A,MX,NS,TXT,SOA,SPF,AAAA,CNAME
 //   - format (string (one of: json, xml), optional)
-// whoisfreaks-js is CommonJS (no Configuration class; apiKey is positional)
+// whoisfreaks-js is CommonJS; apiKey is set once on the ApiClient
 import pkg from "whoisfreaks-js";
 const { ApiClient, DNSApi } = pkg;
 // or:  const { ApiClient, DNSApi } = require("whoisfreaks-js");
 
-const api = new DNSApi();   // uses ApiClient.instance
+const client = ApiClient.instance;
+client.authentications["ApiKeyAuth"].apiKey = "YOUR_API_KEY";  // set once
+const api = new DNSApi(client);
 
-api.dnsLive("YOUR_API_KEY", "example.com", "8.8.8.8", "value")
+api.dnsLive("example.com", "8.8.8.8", "value")
   .then(data => console.log(data))
   .catch(err => console.error(err));
 
@@ -197,19 +221,20 @@ api.dnsLive("YOUR_API_KEY", "example.com", "8.8.8.8", "value")
 ```javascript
 // Runnable example: Historical DNS Lookup (GET /v2.0/dns/historical)
 // Parameters for dnsHistorical (GET /v2.0/dns/historical):
-//   - apiKey (string, required): Your WHOISFreaks API key
 //   - domainName (string, required)
 //   - type (string, required)
 //   - page (integer, optional)
 //   - format (string (one of: json, xml), optional)
-// whoisfreaks-js is CommonJS (no Configuration class; apiKey is positional)
+// whoisfreaks-js is CommonJS; apiKey is set once on the ApiClient
 import pkg from "whoisfreaks-js";
 const { ApiClient, DNSApi } = pkg;
 // or:  const { ApiClient, DNSApi } = require("whoisfreaks-js");
 
-const api = new DNSApi();   // uses ApiClient.instance
+const client = ApiClient.instance;
+client.authentications["ApiKeyAuth"].apiKey = "YOUR_API_KEY";  // set once
+const api = new DNSApi(client);
 
-api.dnsHistorical("YOUR_API_KEY", "example.com", "value")
+api.dnsHistorical("example.com", "value")
   .then(data => console.log(data))
   .catch(err => console.error(err));
 
@@ -222,20 +247,21 @@ api.dnsHistorical("YOUR_API_KEY", "example.com", "value")
 ```javascript
 // Runnable example: Reverse DNS Lookup (GET /v2.1/dns/reverse)
 // Parameters for dnsReverse (GET /v2.1/dns/reverse):
-//   - apiKey (string, required): Your WHOISFreaks API key
 //   - value (string, required): IP, CIDR, or record value
 //   - type (string (one of: a, mx, cname, ns, aaaa, txt, soa), required)
 //   - exact (boolean, optional)
 //   - page (integer, optional)
 //   - format (string (one of: json, xml), optional)
-// whoisfreaks-js is CommonJS (no Configuration class; apiKey is positional)
+// whoisfreaks-js is CommonJS; apiKey is set once on the ApiClient
 import pkg from "whoisfreaks-js";
 const { ApiClient, DNSApi } = pkg;
 // or:  const { ApiClient, DNSApi } = require("whoisfreaks-js");
 
-const api = new DNSApi();   // uses ApiClient.instance
+const client = ApiClient.instance;
+client.authentications["ApiKeyAuth"].apiKey = "YOUR_API_KEY";  // set once
+const api = new DNSApi(client);
 
-api.dnsReverse("YOUR_API_KEY", "value", "a", true)
+api.dnsReverse("value", "a", true)
   .then(data => console.log(data))
   .catch(err => console.error(err));
 
@@ -248,18 +274,19 @@ api.dnsReverse("YOUR_API_KEY", "value", "a", true)
 ```javascript
 // Runnable example: Bulk DNS Lookup (POST /v2.0/dns/bulk/live)
 // Parameters for dnsBulk (POST /v2.0/dns/bulk/live):
-//   - apiKey (string, required): Your WHOISFreaks API key
 //   - type (string, required)
 //   - format (string (one of: json, xml), optional)
 //   - body: DnsBulkRequest (required) -- request body object
-// whoisfreaks-js is CommonJS (no Configuration class; apiKey is positional)
+// whoisfreaks-js is CommonJS; apiKey is set once on the ApiClient
 import pkg from "whoisfreaks-js";
 const { ApiClient, DNSApi } = pkg;
 // or:  const { ApiClient, DNSApi } = require("whoisfreaks-js");
 
-const api = new DNSApi();   // uses ApiClient.instance
+const client = ApiClient.instance;
+client.authentications["ApiKeyAuth"].apiKey = "YOUR_API_KEY";  // set once
+const api = new DNSApi(client);
 
-api.dnsBulk("YOUR_API_KEY", "value", {})
+api.dnsBulk("value", {})
   .then(data => console.log(data))
   .catch(err => console.error(err));
 
@@ -274,19 +301,20 @@ api.dnsBulk("YOUR_API_KEY", "value", {})
 ```javascript
 // Runnable example: Domain Availability Check with Suggestions (GET /v2.0/domain/availability)
 // Parameters for domainAvailabilityV2 (GET /v2.0/domain/availability):
-//   - apiKey (string, required): Your WHOISFreaks API key
 //   - domain (string, required): The domain name to check
 //   - sug (boolean, optional): Whether to return TLD suggestions alongside the queried domain.
 //   - count (integer, optional): Number of TLD suggestions to return when sug=true. Maximum is 100.
 //   - format (string (one of: json, xml), optional)
-// whoisfreaks-js is CommonJS (no Configuration class; apiKey is positional)
+// whoisfreaks-js is CommonJS; apiKey is set once on the ApiClient
 import pkg from "whoisfreaks-js";
 const { ApiClient, DomainAvailabilityApi } = pkg;
 // or:  const { ApiClient, DomainAvailabilityApi } = require("whoisfreaks-js");
 
-const api = new DomainAvailabilityApi();   // uses ApiClient.instance
+const client = ApiClient.instance;
+client.authentications["ApiKeyAuth"].apiKey = "YOUR_API_KEY";  // set once
+const api = new DomainAvailabilityApi(client);
 
-api.domainAvailabilityV2("YOUR_API_KEY", "example.com")
+api.domainAvailabilityV2("example.com")
   .then(data => console.log(data))
   .catch(err => console.error(err));
 
@@ -299,18 +327,19 @@ api.domainAvailabilityV2("YOUR_API_KEY", "example.com")
 ```javascript
 // Runnable example: Bulk Domain Availability Check (POST /v2.0/domain/availability)
 // Parameters for bulkDomainAvailabilityV2 (POST /v2.0/domain/availability):
-//   - apiKey (string, required): Your WHOISFreaks API key
 //   - domain (string, optional): Required for TLD-mode bulk check (base domain).
 //   - format (string (one of: json, xml), optional)
 //   - body: BulkDomainAvailabilityRequest (required) -- request body object
-// whoisfreaks-js is CommonJS (no Configuration class; apiKey is positional)
+// whoisfreaks-js is CommonJS; apiKey is set once on the ApiClient
 import pkg from "whoisfreaks-js";
 const { ApiClient, DomainAvailabilityApi } = pkg;
 // or:  const { ApiClient, DomainAvailabilityApi } = require("whoisfreaks-js");
 
-const api = new DomainAvailabilityApi();   // uses ApiClient.instance
+const client = ApiClient.instance;
+client.authentications["ApiKeyAuth"].apiKey = "YOUR_API_KEY";  // set once
+const api = new DomainAvailabilityApi(client);
 
-api.bulkDomainAvailabilityV2("YOUR_API_KEY", {})
+api.bulkDomainAvailabilityV2({})
   .then(data => console.log(data))
   .catch(err => console.error(err));
 
@@ -325,18 +354,19 @@ api.bulkDomainAvailabilityV2("YOUR_API_KEY", {})
 ```javascript
 // Runnable example: Typosquatting Lookup (GET /v3.0/domain/typos)
 // Parameters for typosquatting (GET /v3.0/domain/typos):
-//   - apiKey (string, required): Your WHOISFreaks API key
 //   - keyword (string, optional)
 //   - pattern (string, optional)
 //   - pageToken (string, optional)
-// whoisfreaks-js is CommonJS (no Configuration class; apiKey is positional)
+// whoisfreaks-js is CommonJS; apiKey is set once on the ApiClient
 import pkg from "whoisfreaks-js";
 const { ApiClient, TyposquattingApi } = pkg;
 // or:  const { ApiClient, TyposquattingApi } = require("whoisfreaks-js");
 
-const api = new TyposquattingApi();   // uses ApiClient.instance
+const client = ApiClient.instance;
+client.authentications["ApiKeyAuth"].apiKey = "YOUR_API_KEY";  // set once
+const api = new TyposquattingApi(client);
 
-api.typosquatting("YOUR_API_KEY")
+api.typosquatting()
   .then(data => console.log(data))
   .catch(err => console.error(err));
 
@@ -351,19 +381,20 @@ api.typosquatting("YOUR_API_KEY")
 ```javascript
 // Runnable example: SSL Certificate Lookup (GET /v1.0/ssl/live)
 // Parameters for sslLookup (GET /v1.0/ssl/live):
-//   - apiKey (string, required): Your WHOISFreaks API key
 //   - domainName (string, required)
 //   - chain (boolean, optional)
 //   - sslRaw (boolean, optional)
 //   - format (string (one of: json, xml), optional)
-// whoisfreaks-js is CommonJS (no Configuration class; apiKey is positional)
+// whoisfreaks-js is CommonJS; apiKey is set once on the ApiClient
 import pkg from "whoisfreaks-js";
 const { ApiClient, SSLApi } = pkg;
 // or:  const { ApiClient, SSLApi } = require("whoisfreaks-js");
 
-const api = new SSLApi();   // uses ApiClient.instance
+const client = ApiClient.instance;
+client.authentications["ApiKeyAuth"].apiKey = "YOUR_API_KEY";  // set once
+const api = new SSLApi(client);
 
-api.sslLookup("YOUR_API_KEY", "example.com")
+api.sslLookup("example.com")
   .then(data => console.log(data))
   .catch(err => console.error(err));
 
@@ -378,16 +409,17 @@ api.sslLookup("YOUR_API_KEY", "example.com")
 ```javascript
 // Runnable example: IP Geolocation Lookup (GET /v1.0/geolocation)
 // Parameters for geolocation (GET /v1.0/geolocation):
-//   - apiKey (string, required): Your WHOISFreaks API key
 //   - ip (string, required)
-// whoisfreaks-js is CommonJS (no Configuration class; apiKey is positional)
+// whoisfreaks-js is CommonJS; apiKey is set once on the ApiClient
 import pkg from "whoisfreaks-js";
 const { ApiClient, GeolocationApi } = pkg;
 // or:  const { ApiClient, GeolocationApi } = require("whoisfreaks-js");
 
-const api = new GeolocationApi();   // uses ApiClient.instance
+const client = ApiClient.instance;
+client.authentications["ApiKeyAuth"].apiKey = "YOUR_API_KEY";  // set once
+const api = new GeolocationApi(client);
 
-api.geolocation("YOUR_API_KEY", "8.8.8.8")
+api.geolocation("8.8.8.8")
   .then(data => console.log(data))
   .catch(err => console.error(err));
 
@@ -400,16 +432,17 @@ api.geolocation("YOUR_API_KEY", "8.8.8.8")
 ```javascript
 // Runnable example: Bulk IP Geolocation (POST /v1.0/geolocation)
 // Parameters for bulkGeolocation (POST /v1.0/geolocation):
-//   - apiKey (string, required): Your WHOISFreaks API key
 //   - body: BulkGeolocationRequest (required) -- request body object
-// whoisfreaks-js is CommonJS (no Configuration class; apiKey is positional)
+// whoisfreaks-js is CommonJS; apiKey is set once on the ApiClient
 import pkg from "whoisfreaks-js";
 const { ApiClient, GeolocationApi } = pkg;
 // or:  const { ApiClient, GeolocationApi } = require("whoisfreaks-js");
 
-const api = new GeolocationApi();   // uses ApiClient.instance
+const client = ApiClient.instance;
+client.authentications["ApiKeyAuth"].apiKey = "YOUR_API_KEY";  // set once
+const api = new GeolocationApi(client);
 
-api.bulkGeolocation("YOUR_API_KEY", {})
+api.bulkGeolocation({})
   .then(data => console.log(data))
   .catch(err => console.error(err));
 
@@ -424,21 +457,22 @@ api.bulkGeolocation("YOUR_API_KEY", {})
 ```javascript
 // Runnable example: Subdomains Lookup (GET /v1.0/subdomains)
 // Parameters for subdomains (GET /v1.0/subdomains):
-//   - apiKey (string, required): Your WHOISFreaks API key
 //   - domain (string, required)
 //   - after (string, optional)
 //   - before (string, optional)
 //   - status (string (one of: active, inactive), optional)
 //   - page (integer, optional)
 //   - format (string (one of: json, xml), optional)
-// whoisfreaks-js is CommonJS (no Configuration class; apiKey is positional)
+// whoisfreaks-js is CommonJS; apiKey is set once on the ApiClient
 import pkg from "whoisfreaks-js";
 const { ApiClient, SubdomainsApi } = pkg;
 // or:  const { ApiClient, SubdomainsApi } = require("whoisfreaks-js");
 
-const api = new SubdomainsApi();   // uses ApiClient.instance
+const client = ApiClient.instance;
+client.authentications["ApiKeyAuth"].apiKey = "YOUR_API_KEY";  // set once
+const api = new SubdomainsApi(client);
 
-api.subdomains("YOUR_API_KEY", "example.com", "2000-01-01", new Date().toISOString().slice(0,10))
+api.subdomains("example.com", "2000-01-01", new Date().toISOString().slice(0,10))
   .then(data => console.log(data))
   .catch(err => console.error(err));
 
@@ -453,16 +487,17 @@ api.subdomains("YOUR_API_KEY", "example.com", "2000-01-01", new Date().toISOStri
 ```javascript
 // Runnable example: IP Reputation Lookup (GET /v1.0/security)
 // Parameters for ipReputation (GET /v1.0/security):
-//   - apiKey (string, required): Your WHOISFreaks API key
 //   - ip (string, required)
-// whoisfreaks-js is CommonJS (no Configuration class; apiKey is positional)
+// whoisfreaks-js is CommonJS; apiKey is set once on the ApiClient
 import pkg from "whoisfreaks-js";
 const { ApiClient, IPReputationApi } = pkg;
 // or:  const { ApiClient, IPReputationApi } = require("whoisfreaks-js");
 
-const api = new IPReputationApi();   // uses ApiClient.instance
+const client = ApiClient.instance;
+client.authentications["ApiKeyAuth"].apiKey = "YOUR_API_KEY";  // set once
+const api = new IPReputationApi(client);
 
-api.ipReputation("YOUR_API_KEY", "8.8.8.8")
+api.ipReputation("8.8.8.8")
   .then(data => console.log(data))
   .catch(err => console.error(err));
 
@@ -475,16 +510,17 @@ api.ipReputation("YOUR_API_KEY", "8.8.8.8")
 ```javascript
 // Runnable example: Bulk IP Reputation (POST /v1.0/security)
 // Parameters for bulkIpReputation (POST /v1.0/security):
-//   - apiKey (string, required): Your WHOISFreaks API key
-//   - body: BulkGeolocationRequest (required) -- request body object
-// whoisfreaks-js is CommonJS (no Configuration class; apiKey is positional)
+//   - body: BulkIpReputationRequest (required) -- request body object
+// whoisfreaks-js is CommonJS; apiKey is set once on the ApiClient
 import pkg from "whoisfreaks-js";
 const { ApiClient, IPReputationApi } = pkg;
 // or:  const { ApiClient, IPReputationApi } = require("whoisfreaks-js");
 
-const api = new IPReputationApi();   // uses ApiClient.instance
+const client = ApiClient.instance;
+client.authentications["ApiKeyAuth"].apiKey = "YOUR_API_KEY";  // set once
+const api = new IPReputationApi(client);
 
-api.bulkIpReputation("YOUR_API_KEY", {})
+api.bulkIpReputation({})
   .then(data => console.log(data))
   .catch(err => console.error(err));
 
@@ -499,17 +535,18 @@ api.bulkIpReputation("YOUR_API_KEY", {})
 ```javascript
 // Runnable example: Domain Reputation Lookup (GET /v1/domain/security)
 // Parameters for domainReputation (GET /v1/domain/security):
-//   - apiKey (string, required): Your WHOISFreaks API key
 //   - domainName (string, required): The domain name to assess
 //   - format (string (one of: json, xml), optional)
-// whoisfreaks-js is CommonJS (no Configuration class; apiKey is positional)
+// whoisfreaks-js is CommonJS; apiKey is set once on the ApiClient
 import pkg from "whoisfreaks-js";
 const { ApiClient, DomainReputationApi } = pkg;
 // or:  const { ApiClient, DomainReputationApi } = require("whoisfreaks-js");
 
-const api = new DomainReputationApi();   // uses ApiClient.instance
+const client = ApiClient.instance;
+client.authentications["ApiKeyAuth"].apiKey = "YOUR_API_KEY";  // set once
+const api = new DomainReputationApi(client);
 
-api.domainReputation("YOUR_API_KEY", "example.com")
+api.domainReputation("example.com")
   .then(data => console.log(data))
   .catch(err => console.error(err));
 
@@ -524,17 +561,18 @@ api.domainReputation("YOUR_API_KEY", "example.com")
 ```javascript
 // Runnable example: ASN WHOIS Lookup (GET /v2.0/asn-whois)
 // Parameters for asnWhois (GET /v2.0/asn-whois):
-//   - apiKey (string, required): Your WHOISFreaks API key
 //   - asn (string, required)
 //   - format (string (one of: json, xml), optional)
-// whoisfreaks-js is CommonJS (no Configuration class; apiKey is positional)
+// whoisfreaks-js is CommonJS; apiKey is set once on the ApiClient
 import pkg from "whoisfreaks-js";
 const { ApiClient, ASNWHOISApi } = pkg;
 // or:  const { ApiClient, ASNWHOISApi } = require("whoisfreaks-js");
 
-const api = new ASNWHOISApi();   // uses ApiClient.instance
+const client = ApiClient.instance;
+client.authentications["ApiKeyAuth"].apiKey = "YOUR_API_KEY";  // set once
+const api = new ASNWHOISApi(client);
 
-api.asnWhois("YOUR_API_KEY", "AS15169")
+api.asnWhois("AS15169")
   .then(data => console.log(data))
   .catch(err => console.error(err));
 
@@ -549,17 +587,18 @@ api.asnWhois("YOUR_API_KEY", "AS15169")
 ```javascript
 // Runnable example: IP WHOIS Lookup (GET /v1.0/ip-whois)
 // Parameters for ipWhois (GET /v1.0/ip-whois):
-//   - apiKey (string, required): Your WHOISFreaks API key
 //   - ip (string, required)
 //   - format (string (one of: json, xml), optional)
-// whoisfreaks-js is CommonJS (no Configuration class; apiKey is positional)
+// whoisfreaks-js is CommonJS; apiKey is set once on the ApiClient
 import pkg from "whoisfreaks-js";
 const { ApiClient, IPWHOISApi } = pkg;
 // or:  const { ApiClient, IPWHOISApi } = require("whoisfreaks-js");
 
-const api = new IPWHOISApi();   // uses ApiClient.instance
+const client = ApiClient.instance;
+client.authentications["ApiKeyAuth"].apiKey = "YOUR_API_KEY";  // set once
+const api = new IPWHOISApi(client);
 
-api.ipWhois("YOUR_API_KEY", "8.8.8.8")
+api.ipWhois("8.8.8.8")
   .then(data => console.log(data))
   .catch(err => console.error(err));
 
@@ -574,15 +613,17 @@ api.ipWhois("YOUR_API_KEY", "8.8.8.8")
 ```javascript
 // Runnable example: Rotate API Key (GET /v1.0/api-key/rotate)
 // Parameters for rotateApiKey (GET /v1.0/api-key/rotate):
-//   - apiKey (string, required): Your WHOISFreaks API key
-// whoisfreaks-js is CommonJS (no Configuration class; apiKey is positional)
+//   (no parameters; the API key is set on the client)
+// whoisfreaks-js is CommonJS; apiKey is set once on the ApiClient
 import pkg from "whoisfreaks-js";
 const { ApiClient, AccountApi } = pkg;
 // or:  const { ApiClient, AccountApi } = require("whoisfreaks-js");
 
-const api = new AccountApi();   // uses ApiClient.instance
+const client = ApiClient.instance;
+client.authentications["ApiKeyAuth"].apiKey = "YOUR_API_KEY";  // set once
+const api = new AccountApi(client);
 
-api.rotateApiKey("YOUR_API_KEY")
+api.rotateApiKey()
   .then(data => console.log(data))
   .catch(err => console.error(err));
 
@@ -595,15 +636,17 @@ api.rotateApiKey("YOUR_API_KEY")
 ```javascript
 // Runnable example: Account Usage (GET /v1.0/whoisapi/usage)
 // Parameters for accountUsage (GET /v1.0/whoisapi/usage):
-//   - apiKey (string, required): Your WHOISFreaks API key
-// whoisfreaks-js is CommonJS (no Configuration class; apiKey is positional)
+//   (no parameters; the API key is set on the client)
+// whoisfreaks-js is CommonJS; apiKey is set once on the ApiClient
 import pkg from "whoisfreaks-js";
 const { ApiClient, AccountApi } = pkg;
 // or:  const { ApiClient, AccountApi } = require("whoisfreaks-js");
 
-const api = new AccountApi();   // uses ApiClient.instance
+const client = ApiClient.instance;
+client.authentications["ApiKeyAuth"].apiKey = "YOUR_API_KEY";  // set once
+const api = new AccountApi(client);
 
-api.accountUsage("YOUR_API_KEY")
+api.accountUsage()
   .then(data => console.log(data))
   .catch(err => console.error(err));
 
@@ -616,13 +659,15 @@ api.accountUsage("YOUR_API_KEY")
 ```javascript
 // Runnable example: Database File Status (Public) (GET /v3.3/status)
 // Parameters for databaseFileStatus (GET /v3.3/status):
-//   (no parameters besides apiKey)
-// whoisfreaks-js is CommonJS (no Configuration class; apiKey is positional)
+//   (no parameters; the API key is set on the client)
+// whoisfreaks-js is CommonJS; apiKey is set once on the ApiClient
 import pkg from "whoisfreaks-js";
 const { ApiClient, AccountApi } = pkg;
 // or:  const { ApiClient, AccountApi } = require("whoisfreaks-js");
 
-const api = new AccountApi();   // uses ApiClient.instance
+const client = ApiClient.instance;
+client.authentications["ApiKeyAuth"].apiKey = "YOUR_API_KEY";  // set once
+const api = new AccountApi(client);
 
 api.databaseFileStatus()
   .then(data => console.log(data))
@@ -639,18 +684,19 @@ api.databaseFileStatus()
 ```javascript
 // Runnable example: Newly Registered gTLD (CSV) (GET /v3.1/download/domainer/gtld)
 // Parameters for dbNewlyGtld (GET /v3.1/download/domainer/gtld):
-//   - apiKey (string, required): Your WHOISFreaks API key
 //   - whois (boolean, required)
 //   - date (string, optional): yyyy-MM-dd; omit for latest
 //   - tlds (string, optional)
-// whoisfreaks-js is CommonJS (no Configuration class; apiKey is positional)
+// whoisfreaks-js is CommonJS; apiKey is set once on the ApiClient
 import pkg from "whoisfreaks-js";
 const { ApiClient, DatabasesNewlyRegisteredApi } = pkg;
 // or:  const { ApiClient, DatabasesNewlyRegisteredApi } = require("whoisfreaks-js");
 
-const api = new DatabasesNewlyRegisteredApi();   // uses ApiClient.instance
+const client = ApiClient.instance;
+client.authentications["ApiKeyAuth"].apiKey = "YOUR_API_KEY";  // set once
+const api = new DatabasesNewlyRegisteredApi(client);
 
-api.dbNewlyGtld("YOUR_API_KEY", false, new Date(Date.now()-86400000).toISOString().slice(0,10))
+api.dbNewlyGtld(false, new Date(Date.now()-86400000).toISOString().slice(0,10))
   .then(data => console.log(data))
   .catch(err => console.error(err));
 
@@ -663,18 +709,19 @@ api.dbNewlyGtld("YOUR_API_KEY", false, new Date(Date.now()-86400000).toISOString
 ```javascript
 // Runnable example: Newly Registered ccTLD (CSV) (GET /v3.1/download/domainer/cctld)
 // Parameters for dbNewlyCctld (GET /v3.1/download/domainer/cctld):
-//   - apiKey (string, required): Your WHOISFreaks API key
 //   - whois (boolean, required)
 //   - date (string, optional): yyyy-MM-dd; omit for latest
 //   - tlds (string, optional)
-// whoisfreaks-js is CommonJS (no Configuration class; apiKey is positional)
+// whoisfreaks-js is CommonJS; apiKey is set once on the ApiClient
 import pkg from "whoisfreaks-js";
 const { ApiClient, DatabasesNewlyRegisteredApi } = pkg;
 // or:  const { ApiClient, DatabasesNewlyRegisteredApi } = require("whoisfreaks-js");
 
-const api = new DatabasesNewlyRegisteredApi();   // uses ApiClient.instance
+const client = ApiClient.instance;
+client.authentications["ApiKeyAuth"].apiKey = "YOUR_API_KEY";  // set once
+const api = new DatabasesNewlyRegisteredApi(client);
 
-api.dbNewlyCctld("YOUR_API_KEY", false, new Date(Date.now()-86400000).toISOString().slice(0,10))
+api.dbNewlyCctld(false, new Date(Date.now()-86400000).toISOString().slice(0,10))
   .then(data => console.log(data))
   .catch(err => console.error(err));
 
@@ -687,16 +734,17 @@ api.dbNewlyCctld("YOUR_API_KEY", false, new Date(Date.now()-86400000).toISOStrin
 ```javascript
 // Runnable example: Newly Registered gTLD Cleaned WHOIS (CSV) (GET /v3.1/download/domainer/gtld/cleaned)
 // Parameters for dbNewlyGtldCleaned (GET /v3.1/download/domainer/gtld/cleaned):
-//   - apiKey (string, required): Your WHOISFreaks API key
 //   - date (string, optional): yyyy-MM-dd; omit for latest
-// whoisfreaks-js is CommonJS (no Configuration class; apiKey is positional)
+// whoisfreaks-js is CommonJS; apiKey is set once on the ApiClient
 import pkg from "whoisfreaks-js";
 const { ApiClient, DatabasesNewlyRegisteredApi } = pkg;
 // or:  const { ApiClient, DatabasesNewlyRegisteredApi } = require("whoisfreaks-js");
 
-const api = new DatabasesNewlyRegisteredApi();   // uses ApiClient.instance
+const client = ApiClient.instance;
+client.authentications["ApiKeyAuth"].apiKey = "YOUR_API_KEY";  // set once
+const api = new DatabasesNewlyRegisteredApi(client);
 
-api.dbNewlyGtldCleaned("YOUR_API_KEY", new Date(Date.now()-86400000).toISOString().slice(0,10))
+api.dbNewlyGtldCleaned(new Date(Date.now()-86400000).toISOString().slice(0,10))
   .then(data => console.log(data))
   .catch(err => console.error(err));
 
@@ -709,16 +757,17 @@ api.dbNewlyGtldCleaned("YOUR_API_KEY", new Date(Date.now()-86400000).toISOString
 ```javascript
 // Runnable example: Newly Registered ccTLD Cleaned WHOIS (CSV) (GET /v3.1/download/domainer/cctld/cleaned)
 // Parameters for dbNewlyCctldCleaned (GET /v3.1/download/domainer/cctld/cleaned):
-//   - apiKey (string, required): Your WHOISFreaks API key
 //   - date (string, optional): yyyy-MM-dd; omit for latest
-// whoisfreaks-js is CommonJS (no Configuration class; apiKey is positional)
+// whoisfreaks-js is CommonJS; apiKey is set once on the ApiClient
 import pkg from "whoisfreaks-js";
 const { ApiClient, DatabasesNewlyRegisteredApi } = pkg;
 // or:  const { ApiClient, DatabasesNewlyRegisteredApi } = require("whoisfreaks-js");
 
-const api = new DatabasesNewlyRegisteredApi();   // uses ApiClient.instance
+const client = ApiClient.instance;
+client.authentications["ApiKeyAuth"].apiKey = "YOUR_API_KEY";  // set once
+const api = new DatabasesNewlyRegisteredApi(client);
 
-api.dbNewlyCctldCleaned("YOUR_API_KEY", new Date(Date.now()-86400000).toISOString().slice(0,10))
+api.dbNewlyCctldCleaned(new Date(Date.now()-86400000).toISOString().slice(0,10))
   .then(data => console.log(data))
   .catch(err => console.error(err));
 
@@ -731,17 +780,18 @@ api.dbNewlyCctldCleaned("YOUR_API_KEY", new Date(Date.now()-86400000).toISOStrin
 ```javascript
 // Runnable example: Newly Registered gTLD (JSON) (GET /v3.1/domains/newly/gtld)
 // Parameters for dbNewlyGtldJson (GET /v3.1/domains/newly/gtld):
-//   - apiKey (string, required): Your WHOISFreaks API key
 //   - date (string, optional): yyyy-MM-dd; omit for latest
 //   - tlds (string, optional)
-// whoisfreaks-js is CommonJS (no Configuration class; apiKey is positional)
+// whoisfreaks-js is CommonJS; apiKey is set once on the ApiClient
 import pkg from "whoisfreaks-js";
 const { ApiClient, DatabasesNewlyRegisteredApi } = pkg;
 // or:  const { ApiClient, DatabasesNewlyRegisteredApi } = require("whoisfreaks-js");
 
-const api = new DatabasesNewlyRegisteredApi();   // uses ApiClient.instance
+const client = ApiClient.instance;
+client.authentications["ApiKeyAuth"].apiKey = "YOUR_API_KEY";  // set once
+const api = new DatabasesNewlyRegisteredApi(client);
 
-api.dbNewlyGtldJson("YOUR_API_KEY", new Date(Date.now()-86400000).toISOString().slice(0,10))
+api.dbNewlyGtldJson(new Date(Date.now()-86400000).toISOString().slice(0,10))
   .then(data => console.log(data))
   .catch(err => console.error(err));
 
@@ -754,17 +804,18 @@ api.dbNewlyGtldJson("YOUR_API_KEY", new Date(Date.now()-86400000).toISOString().
 ```javascript
 // Runnable example: Newly Registered ccTLD (JSON) (GET /v3.1/domains/newly/cctld)
 // Parameters for dbNewlyCctldJson (GET /v3.1/domains/newly/cctld):
-//   - apiKey (string, required): Your WHOISFreaks API key
 //   - date (string, optional): yyyy-MM-dd; omit for latest
 //   - tlds (string, optional)
-// whoisfreaks-js is CommonJS (no Configuration class; apiKey is positional)
+// whoisfreaks-js is CommonJS; apiKey is set once on the ApiClient
 import pkg from "whoisfreaks-js";
 const { ApiClient, DatabasesNewlyRegisteredApi } = pkg;
 // or:  const { ApiClient, DatabasesNewlyRegisteredApi } = require("whoisfreaks-js");
 
-const api = new DatabasesNewlyRegisteredApi();   // uses ApiClient.instance
+const client = ApiClient.instance;
+client.authentications["ApiKeyAuth"].apiKey = "YOUR_API_KEY";  // set once
+const api = new DatabasesNewlyRegisteredApi(client);
 
-api.dbNewlyCctldJson("YOUR_API_KEY", new Date(Date.now()-86400000).toISOString().slice(0,10))
+api.dbNewlyCctldJson(new Date(Date.now()-86400000).toISOString().slice(0,10))
   .then(data => console.log(data))
   .catch(err => console.error(err));
 
@@ -777,16 +828,17 @@ api.dbNewlyCctldJson("YOUR_API_KEY", new Date(Date.now()-86400000).toISOString()
 ```javascript
 // Runnable example: Newly Registered With DNS (GET /v3.1/download/domainer/newly/dns)
 // Parameters for dbNewlyDns (GET /v3.1/download/domainer/newly/dns):
-//   - apiKey (string, required): Your WHOISFreaks API key
 //   - date (string, optional): yyyy-MM-dd; omit for latest
-// whoisfreaks-js is CommonJS (no Configuration class; apiKey is positional)
+// whoisfreaks-js is CommonJS; apiKey is set once on the ApiClient
 import pkg from "whoisfreaks-js";
 const { ApiClient, DatabasesNewlyRegisteredApi } = pkg;
 // or:  const { ApiClient, DatabasesNewlyRegisteredApi } = require("whoisfreaks-js");
 
-const api = new DatabasesNewlyRegisteredApi();   // uses ApiClient.instance
+const client = ApiClient.instance;
+client.authentications["ApiKeyAuth"].apiKey = "YOUR_API_KEY";  // set once
+const api = new DatabasesNewlyRegisteredApi(client);
 
-api.dbNewlyDns("YOUR_API_KEY", new Date(Date.now()-86400000).toISOString().slice(0,10))
+api.dbNewlyDns(new Date(Date.now()-86400000).toISOString().slice(0,10))
   .then(data => console.log(data))
   .catch(err => console.error(err));
 
@@ -801,17 +853,18 @@ api.dbNewlyDns("YOUR_API_KEY", new Date(Date.now()-86400000).toISOString().slice
 ```javascript
 // Runnable example: Expiring Domains (GET /v3.1/download/domainer/expired)
 // Parameters for dbExpired (GET /v3.1/download/domainer/expired):
-//   - apiKey (string, required): Your WHOISFreaks API key
 //   - whois (boolean, required)
 //   - date (string, optional): yyyy-MM-dd; omit for latest
-// whoisfreaks-js is CommonJS (no Configuration class; apiKey is positional)
+// whoisfreaks-js is CommonJS; apiKey is set once on the ApiClient
 import pkg from "whoisfreaks-js";
 const { ApiClient, DatabasesExpiringDroppedApi } = pkg;
 // or:  const { ApiClient, DatabasesExpiringDroppedApi } = require("whoisfreaks-js");
 
-const api = new DatabasesExpiringDroppedApi();   // uses ApiClient.instance
+const client = ApiClient.instance;
+client.authentications["ApiKeyAuth"].apiKey = "YOUR_API_KEY";  // set once
+const api = new DatabasesExpiringDroppedApi(client);
 
-api.dbExpired("YOUR_API_KEY", false, new Date(Date.now()-86400000).toISOString().slice(0,10))
+api.dbExpired(false, new Date(Date.now()-86400000).toISOString().slice(0,10))
   .then(data => console.log(data))
   .catch(err => console.error(err));
 
@@ -824,16 +877,17 @@ api.dbExpired("YOUR_API_KEY", false, new Date(Date.now()-86400000).toISOString()
 ```javascript
 // Runnable example: Expiring Cleaned WHOIS (GET /v3.1/download/domainer/expired/cleaned)
 // Parameters for dbExpiredCleaned (GET /v3.1/download/domainer/expired/cleaned):
-//   - apiKey (string, required): Your WHOISFreaks API key
 //   - date (string, optional): yyyy-MM-dd; omit for latest
-// whoisfreaks-js is CommonJS (no Configuration class; apiKey is positional)
+// whoisfreaks-js is CommonJS; apiKey is set once on the ApiClient
 import pkg from "whoisfreaks-js";
 const { ApiClient, DatabasesExpiringDroppedApi } = pkg;
 // or:  const { ApiClient, DatabasesExpiringDroppedApi } = require("whoisfreaks-js");
 
-const api = new DatabasesExpiringDroppedApi();   // uses ApiClient.instance
+const client = ApiClient.instance;
+client.authentications["ApiKeyAuth"].apiKey = "YOUR_API_KEY";  // set once
+const api = new DatabasesExpiringDroppedApi(client);
 
-api.dbExpiredCleaned("YOUR_API_KEY", new Date(Date.now()-86400000).toISOString().slice(0,10))
+api.dbExpiredCleaned(new Date(Date.now()-86400000).toISOString().slice(0,10))
   .then(data => console.log(data))
   .catch(err => console.error(err));
 
@@ -846,17 +900,18 @@ api.dbExpiredCleaned("YOUR_API_KEY", new Date(Date.now()-86400000).toISOString()
 ```javascript
 // Runnable example: Dropped Domains (GET /v3.1/download/domainer/dropped)
 // Parameters for dbDropped (GET /v3.1/download/domainer/dropped):
-//   - apiKey (string, required): Your WHOISFreaks API key
 //   - whois (boolean, required)
 //   - date (string, optional): yyyy-MM-dd; omit for latest
-// whoisfreaks-js is CommonJS (no Configuration class; apiKey is positional)
+// whoisfreaks-js is CommonJS; apiKey is set once on the ApiClient
 import pkg from "whoisfreaks-js";
 const { ApiClient, DatabasesExpiringDroppedApi } = pkg;
 // or:  const { ApiClient, DatabasesExpiringDroppedApi } = require("whoisfreaks-js");
 
-const api = new DatabasesExpiringDroppedApi();   // uses ApiClient.instance
+const client = ApiClient.instance;
+client.authentications["ApiKeyAuth"].apiKey = "YOUR_API_KEY";  // set once
+const api = new DatabasesExpiringDroppedApi(client);
 
-api.dbDropped("YOUR_API_KEY", false, new Date(Date.now()-86400000).toISOString().slice(0,10))
+api.dbDropped(false, new Date(Date.now()-86400000).toISOString().slice(0,10))
   .then(data => console.log(data))
   .catch(err => console.error(err));
 
@@ -869,17 +924,18 @@ api.dbDropped("YOUR_API_KEY", false, new Date(Date.now()-86400000).toISOString()
 ```javascript
 // Runnable example: Dropped Domains (JSON) (GET /v3.1/domains/dropped)
 // Parameters for dbDroppedJson (GET /v3.1/domains/dropped):
-//   - apiKey (string, required): Your WHOISFreaks API key
 //   - date (string, optional): yyyy-MM-dd; omit for latest
 //   - tlds (string, optional)
-// whoisfreaks-js is CommonJS (no Configuration class; apiKey is positional)
+// whoisfreaks-js is CommonJS; apiKey is set once on the ApiClient
 import pkg from "whoisfreaks-js";
 const { ApiClient, DatabasesExpiringDroppedApi } = pkg;
 // or:  const { ApiClient, DatabasesExpiringDroppedApi } = require("whoisfreaks-js");
 
-const api = new DatabasesExpiringDroppedApi();   // uses ApiClient.instance
+const client = ApiClient.instance;
+client.authentications["ApiKeyAuth"].apiKey = "YOUR_API_KEY";  // set once
+const api = new DatabasesExpiringDroppedApi(client);
 
-api.dbDroppedJson("YOUR_API_KEY", new Date(Date.now()-86400000).toISOString().slice(0,10))
+api.dbDroppedJson(new Date(Date.now()-86400000).toISOString().slice(0,10))
   .then(data => console.log(data))
   .catch(err => console.error(err));
 
@@ -892,17 +948,18 @@ api.dbDroppedJson("YOUR_API_KEY", new Date(Date.now()-86400000).toISOString().sl
 ```javascript
 // Runnable example: Dropped With Backlinks (GET /v3.3/download/domainer/dropped/backlinks)
 // Parameters for dbDroppedBacklinks (GET /v3.3/download/domainer/dropped/backlinks):
-//   - apiKey (string, required): Your WHOISFreaks API key
 //   - whois (boolean, optional)
 //   - date (string, optional): yyyy-MM-dd; omit for latest
-// whoisfreaks-js is CommonJS (no Configuration class; apiKey is positional)
+// whoisfreaks-js is CommonJS; apiKey is set once on the ApiClient
 import pkg from "whoisfreaks-js";
 const { ApiClient, DatabasesExpiringDroppedApi } = pkg;
 // or:  const { ApiClient, DatabasesExpiringDroppedApi } = require("whoisfreaks-js");
 
-const api = new DatabasesExpiringDroppedApi();   // uses ApiClient.instance
+const client = ApiClient.instance;
+client.authentications["ApiKeyAuth"].apiKey = "YOUR_API_KEY";  // set once
+const api = new DatabasesExpiringDroppedApi(client);
 
-api.dbDroppedBacklinks("YOUR_API_KEY", false, new Date(Date.now()-86400000).toISOString().slice(0,10))
+api.dbDroppedBacklinks(false, new Date(Date.now()-86400000).toISOString().slice(0,10))
   .then(data => console.log(data))
   .catch(err => console.error(err));
 
@@ -917,16 +974,17 @@ api.dbDroppedBacklinks("YOUR_API_KEY", false, new Date(Date.now()-86400000).toIS
 ```javascript
 // Runnable example: WHOIS Database Daily (GET /v3.3/download/dbupdate/daily/domains/whois)
 // Parameters for dbWhoisDaily (GET /v3.3/download/dbupdate/daily/domains/whois):
-//   - apiKey (string, required): Your WHOISFreaks API key
 //   - date (string, optional): yyyy-MM-dd; omit for latest
-// whoisfreaks-js is CommonJS (no Configuration class; apiKey is positional)
+// whoisfreaks-js is CommonJS; apiKey is set once on the ApiClient
 import pkg from "whoisfreaks-js";
 const { ApiClient, DatabasesWHOISApi } = pkg;
 // or:  const { ApiClient, DatabasesWHOISApi } = require("whoisfreaks-js");
 
-const api = new DatabasesWHOISApi();   // uses ApiClient.instance
+const client = ApiClient.instance;
+client.authentications["ApiKeyAuth"].apiKey = "YOUR_API_KEY";  // set once
+const api = new DatabasesWHOISApi(client);
 
-api.dbWhoisDaily("YOUR_API_KEY", new Date(Date.now()-86400000).toISOString().slice(0,10))
+api.dbWhoisDaily(new Date(Date.now()-86400000).toISOString().slice(0,10))
   .then(data => console.log(data))
   .catch(err => console.error(err));
 
@@ -939,16 +997,17 @@ api.dbWhoisDaily("YOUR_API_KEY", new Date(Date.now()-86400000).toISOString().sli
 ```javascript
 // Runnable example: WHOIS Database Weekly (GET /v3.3/download/dbupdate/weekly/domains/whois)
 // Parameters for dbWhoisWeekly (GET /v3.3/download/dbupdate/weekly/domains/whois):
-//   - apiKey (string, required): Your WHOISFreaks API key
 //   - date (string, optional): yyyy-MM-dd; omit for latest
-// whoisfreaks-js is CommonJS (no Configuration class; apiKey is positional)
+// whoisfreaks-js is CommonJS; apiKey is set once on the ApiClient
 import pkg from "whoisfreaks-js";
 const { ApiClient, DatabasesWHOISApi } = pkg;
 // or:  const { ApiClient, DatabasesWHOISApi } = require("whoisfreaks-js");
 
-const api = new DatabasesWHOISApi();   // uses ApiClient.instance
+const client = ApiClient.instance;
+client.authentications["ApiKeyAuth"].apiKey = "YOUR_API_KEY";  // set once
+const api = new DatabasesWHOISApi(client);
 
-api.dbWhoisWeekly("YOUR_API_KEY", new Date(Date.now()-86400000).toISOString().slice(0,10))
+api.dbWhoisWeekly(new Date(Date.now()-86400000).toISOString().slice(0,10))
   .then(data => console.log(data))
   .catch(err => console.error(err));
 
@@ -961,16 +1020,17 @@ api.dbWhoisWeekly("YOUR_API_KEY", new Date(Date.now()-86400000).toISOString().sl
 ```javascript
 // Runnable example: WHOIS Database Monthly (GET /v3.3/download/dbupdate/monthly/domains/whois)
 // Parameters for dbWhoisMonthly (GET /v3.3/download/dbupdate/monthly/domains/whois):
-//   - apiKey (string, required): Your WHOISFreaks API key
 //   - date (string, optional): yyyy-MM-dd; omit for latest
-// whoisfreaks-js is CommonJS (no Configuration class; apiKey is positional)
+// whoisfreaks-js is CommonJS; apiKey is set once on the ApiClient
 import pkg from "whoisfreaks-js";
 const { ApiClient, DatabasesWHOISApi } = pkg;
 // or:  const { ApiClient, DatabasesWHOISApi } = require("whoisfreaks-js");
 
-const api = new DatabasesWHOISApi();   // uses ApiClient.instance
+const client = ApiClient.instance;
+client.authentications["ApiKeyAuth"].apiKey = "YOUR_API_KEY";  // set once
+const api = new DatabasesWHOISApi(client);
 
-api.dbWhoisMonthly("YOUR_API_KEY", new Date(Date.now()-86400000).toISOString().slice(0,10))
+api.dbWhoisMonthly(new Date(Date.now()-86400000).toISOString().slice(0,10))
   .then(data => console.log(data))
   .catch(err => console.error(err));
 
@@ -985,16 +1045,17 @@ api.dbWhoisMonthly("YOUR_API_KEY", new Date(Date.now()-86400000).toISOString().s
 ```javascript
 // Runnable example: DNS Database Daily (GET /v3.2/download/dbupdate/daily/dns)
 // Parameters for dbDnsDaily (GET /v3.2/download/dbupdate/daily/dns):
-//   - apiKey (string, required): Your WHOISFreaks API key
 //   - date (string, optional): yyyy-MM-dd; omit for latest
-// whoisfreaks-js is CommonJS (no Configuration class; apiKey is positional)
+// whoisfreaks-js is CommonJS; apiKey is set once on the ApiClient
 import pkg from "whoisfreaks-js";
 const { ApiClient, DatabasesDNSApi } = pkg;
 // or:  const { ApiClient, DatabasesDNSApi } = require("whoisfreaks-js");
 
-const api = new DatabasesDNSApi();   // uses ApiClient.instance
+const client = ApiClient.instance;
+client.authentications["ApiKeyAuth"].apiKey = "YOUR_API_KEY";  // set once
+const api = new DatabasesDNSApi(client);
 
-api.dbDnsDaily("YOUR_API_KEY", new Date(Date.now()-86400000).toISOString().slice(0,10))
+api.dbDnsDaily(new Date(Date.now()-86400000).toISOString().slice(0,10))
   .then(data => console.log(data))
   .catch(err => console.error(err));
 
@@ -1007,16 +1068,17 @@ api.dbDnsDaily("YOUR_API_KEY", new Date(Date.now()-86400000).toISOString().slice
 ```javascript
 // Runnable example: DNS Database Weekly (GET /v3.2/download/dbupdate/weekly/dns)
 // Parameters for dbDnsWeekly (GET /v3.2/download/dbupdate/weekly/dns):
-//   - apiKey (string, required): Your WHOISFreaks API key
 //   - date (string, optional): yyyy-MM-dd; omit for latest
-// whoisfreaks-js is CommonJS (no Configuration class; apiKey is positional)
+// whoisfreaks-js is CommonJS; apiKey is set once on the ApiClient
 import pkg from "whoisfreaks-js";
 const { ApiClient, DatabasesDNSApi } = pkg;
 // or:  const { ApiClient, DatabasesDNSApi } = require("whoisfreaks-js");
 
-const api = new DatabasesDNSApi();   // uses ApiClient.instance
+const client = ApiClient.instance;
+client.authentications["ApiKeyAuth"].apiKey = "YOUR_API_KEY";  // set once
+const api = new DatabasesDNSApi(client);
 
-api.dbDnsWeekly("YOUR_API_KEY", new Date(Date.now()-86400000).toISOString().slice(0,10))
+api.dbDnsWeekly(new Date(Date.now()-86400000).toISOString().slice(0,10))
   .then(data => console.log(data))
   .catch(err => console.error(err));
 
@@ -1029,16 +1091,17 @@ api.dbDnsWeekly("YOUR_API_KEY", new Date(Date.now()-86400000).toISOString().slic
 ```javascript
 // Runnable example: DNS Database Monthly (GET /v3.2/download/dbupdate/monthly/dns)
 // Parameters for dbDnsMonthly (GET /v3.2/download/dbupdate/monthly/dns):
-//   - apiKey (string, required): Your WHOISFreaks API key
 //   - date (string, optional): yyyy-MM-dd; omit for latest
-// whoisfreaks-js is CommonJS (no Configuration class; apiKey is positional)
+// whoisfreaks-js is CommonJS; apiKey is set once on the ApiClient
 import pkg from "whoisfreaks-js";
 const { ApiClient, DatabasesDNSApi } = pkg;
 // or:  const { ApiClient, DatabasesDNSApi } = require("whoisfreaks-js");
 
-const api = new DatabasesDNSApi();   // uses ApiClient.instance
+const client = ApiClient.instance;
+client.authentications["ApiKeyAuth"].apiKey = "YOUR_API_KEY";  // set once
+const api = new DatabasesDNSApi(client);
 
-api.dbDnsMonthly("YOUR_API_KEY", new Date(Date.now()-86400000).toISOString().slice(0,10))
+api.dbDnsMonthly(new Date(Date.now()-86400000).toISOString().slice(0,10))
   .then(data => console.log(data))
   .catch(err => console.error(err));
 
@@ -1053,16 +1116,17 @@ api.dbDnsMonthly("YOUR_API_KEY", new Date(Date.now()-86400000).toISOString().sli
 ```javascript
 // Runnable example: Subdomains Daily (GET /v3.2/download/dbupdate/daily/subdomains)
 // Parameters for dbSubdomainsDaily (GET /v3.2/download/dbupdate/daily/subdomains):
-//   - apiKey (string, required): Your WHOISFreaks API key
 //   - date (string, optional): yyyy-MM-dd; omit for latest
-// whoisfreaks-js is CommonJS (no Configuration class; apiKey is positional)
+// whoisfreaks-js is CommonJS; apiKey is set once on the ApiClient
 import pkg from "whoisfreaks-js";
 const { ApiClient, DatabasesSubdomainsApi } = pkg;
 // or:  const { ApiClient, DatabasesSubdomainsApi } = require("whoisfreaks-js");
 
-const api = new DatabasesSubdomainsApi();   // uses ApiClient.instance
+const client = ApiClient.instance;
+client.authentications["ApiKeyAuth"].apiKey = "YOUR_API_KEY";  // set once
+const api = new DatabasesSubdomainsApi(client);
 
-api.dbSubdomainsDaily("YOUR_API_KEY", new Date(Date.now()-86400000).toISOString().slice(0,10))
+api.dbSubdomainsDaily(new Date(Date.now()-86400000).toISOString().slice(0,10))
   .then(data => console.log(data))
   .catch(err => console.error(err));
 
@@ -1075,16 +1139,17 @@ api.dbSubdomainsDaily("YOUR_API_KEY", new Date(Date.now()-86400000).toISOString(
 ```javascript
 // Runnable example: Subdomains Weekly (GET /v3.2/download/dbupdate/weekly/subdomains)
 // Parameters for dbSubdomainsWeekly (GET /v3.2/download/dbupdate/weekly/subdomains):
-//   - apiKey (string, required): Your WHOISFreaks API key
 //   - date (string, optional): yyyy-MM-dd; omit for latest
-// whoisfreaks-js is CommonJS (no Configuration class; apiKey is positional)
+// whoisfreaks-js is CommonJS; apiKey is set once on the ApiClient
 import pkg from "whoisfreaks-js";
 const { ApiClient, DatabasesSubdomainsApi } = pkg;
 // or:  const { ApiClient, DatabasesSubdomainsApi } = require("whoisfreaks-js");
 
-const api = new DatabasesSubdomainsApi();   // uses ApiClient.instance
+const client = ApiClient.instance;
+client.authentications["ApiKeyAuth"].apiKey = "YOUR_API_KEY";  // set once
+const api = new DatabasesSubdomainsApi(client);
 
-api.dbSubdomainsWeekly("YOUR_API_KEY", new Date(Date.now()-86400000).toISOString().slice(0,10))
+api.dbSubdomainsWeekly(new Date(Date.now()-86400000).toISOString().slice(0,10))
   .then(data => console.log(data))
   .catch(err => console.error(err));
 
@@ -1097,16 +1162,17 @@ api.dbSubdomainsWeekly("YOUR_API_KEY", new Date(Date.now()-86400000).toISOString
 ```javascript
 // Runnable example: Subdomains Monthly (GET /v3.2/download/dbupdate/monthly/subdomains)
 // Parameters for dbSubdomainsMonthly (GET /v3.2/download/dbupdate/monthly/subdomains):
-//   - apiKey (string, required): Your WHOISFreaks API key
 //   - date (string, optional): yyyy-MM-dd; omit for latest
-// whoisfreaks-js is CommonJS (no Configuration class; apiKey is positional)
+// whoisfreaks-js is CommonJS; apiKey is set once on the ApiClient
 import pkg from "whoisfreaks-js";
 const { ApiClient, DatabasesSubdomainsApi } = pkg;
 // or:  const { ApiClient, DatabasesSubdomainsApi } = require("whoisfreaks-js");
 
-const api = new DatabasesSubdomainsApi();   // uses ApiClient.instance
+const client = ApiClient.instance;
+client.authentications["ApiKeyAuth"].apiKey = "YOUR_API_KEY";  // set once
+const api = new DatabasesSubdomainsApi(client);
 
-api.dbSubdomainsMonthly("YOUR_API_KEY", new Date(Date.now()-86400000).toISOString().slice(0,10))
+api.dbSubdomainsMonthly(new Date(Date.now()-86400000).toISOString().slice(0,10))
   .then(data => console.log(data))
   .catch(err => console.error(err));
 
@@ -1121,15 +1187,17 @@ api.dbSubdomainsMonthly("YOUR_API_KEY", new Date(Date.now()-86400000).toISOStrin
 ```javascript
 // Runnable example: IP to Country Snapshot Status (GET /v3.3/status/snapshot/ip/country)
 // Parameters for dbIpCountryStatus (GET /v3.3/status/snapshot/ip/country):
-//   - apiKey (string, required): Your WHOISFreaks API key
-// whoisfreaks-js is CommonJS (no Configuration class; apiKey is positional)
+//   (no parameters; the API key is set on the client)
+// whoisfreaks-js is CommonJS; apiKey is set once on the ApiClient
 import pkg from "whoisfreaks-js";
 const { ApiClient, DatabasesIPGeolocationApi } = pkg;
 // or:  const { ApiClient, DatabasesIPGeolocationApi } = require("whoisfreaks-js");
 
-const api = new DatabasesIPGeolocationApi();   // uses ApiClient.instance
+const client = ApiClient.instance;
+client.authentications["ApiKeyAuth"].apiKey = "YOUR_API_KEY";  // set once
+const api = new DatabasesIPGeolocationApi(client);
 
-api.dbIpCountryStatus("YOUR_API_KEY")
+api.dbIpCountryStatus()
   .then(data => console.log(data))
   .catch(err => console.error(err));
 
@@ -1142,16 +1210,17 @@ api.dbIpCountryStatus("YOUR_API_KEY")
 ```javascript
 // Runnable example: IP to Country Snapshot (GET /v3.3/download/snapshot/ip/country)
 // Parameters for dbIpCountry (GET /v3.3/download/snapshot/ip/country):
-//   - apiKey (string, required): Your WHOISFreaks API key
 //   - date (string, required)
-// whoisfreaks-js is CommonJS (no Configuration class; apiKey is positional)
+// whoisfreaks-js is CommonJS; apiKey is set once on the ApiClient
 import pkg from "whoisfreaks-js";
 const { ApiClient, DatabasesIPGeolocationApi } = pkg;
 // or:  const { ApiClient, DatabasesIPGeolocationApi } = require("whoisfreaks-js");
 
-const api = new DatabasesIPGeolocationApi();   // uses ApiClient.instance
+const client = ApiClient.instance;
+client.authentications["ApiKeyAuth"].apiKey = "YOUR_API_KEY";  // set once
+const api = new DatabasesIPGeolocationApi(client);
 
-api.dbIpCountry("YOUR_API_KEY", new Date(Date.now()-86400000).toISOString().slice(0,10))
+api.dbIpCountry(new Date(Date.now()-86400000).toISOString().slice(0,10))
   .then(data => console.log(data))
   .catch(err => console.error(err));
 
@@ -1164,15 +1233,17 @@ api.dbIpCountry("YOUR_API_KEY", new Date(Date.now()-86400000).toISOString().slic
 ```javascript
 // Runnable example: IP to City Snapshot Status (GET /v3.3/status/snapshot/ip/city)
 // Parameters for dbIpCityStatus (GET /v3.3/status/snapshot/ip/city):
-//   - apiKey (string, required): Your WHOISFreaks API key
-// whoisfreaks-js is CommonJS (no Configuration class; apiKey is positional)
+//   (no parameters; the API key is set on the client)
+// whoisfreaks-js is CommonJS; apiKey is set once on the ApiClient
 import pkg from "whoisfreaks-js";
 const { ApiClient, DatabasesIPGeolocationApi } = pkg;
 // or:  const { ApiClient, DatabasesIPGeolocationApi } = require("whoisfreaks-js");
 
-const api = new DatabasesIPGeolocationApi();   // uses ApiClient.instance
+const client = ApiClient.instance;
+client.authentications["ApiKeyAuth"].apiKey = "YOUR_API_KEY";  // set once
+const api = new DatabasesIPGeolocationApi(client);
 
-api.dbIpCityStatus("YOUR_API_KEY")
+api.dbIpCityStatus()
   .then(data => console.log(data))
   .catch(err => console.error(err));
 
@@ -1185,16 +1256,17 @@ api.dbIpCityStatus("YOUR_API_KEY")
 ```javascript
 // Runnable example: IP to City Snapshot (GET /v3.3/download/snapshot/ip/city)
 // Parameters for dbIpCity (GET /v3.3/download/snapshot/ip/city):
-//   - apiKey (string, required): Your WHOISFreaks API key
 //   - date (string, required)
-// whoisfreaks-js is CommonJS (no Configuration class; apiKey is positional)
+// whoisfreaks-js is CommonJS; apiKey is set once on the ApiClient
 import pkg from "whoisfreaks-js";
 const { ApiClient, DatabasesIPGeolocationApi } = pkg;
 // or:  const { ApiClient, DatabasesIPGeolocationApi } = require("whoisfreaks-js");
 
-const api = new DatabasesIPGeolocationApi();   // uses ApiClient.instance
+const client = ApiClient.instance;
+client.authentications["ApiKeyAuth"].apiKey = "YOUR_API_KEY";  // set once
+const api = new DatabasesIPGeolocationApi(client);
 
-api.dbIpCity("YOUR_API_KEY", new Date(Date.now()-86400000).toISOString().slice(0,10))
+api.dbIpCity(new Date(Date.now()-86400000).toISOString().slice(0,10))
   .then(data => console.log(data))
   .catch(err => console.error(err));
 
@@ -1209,16 +1281,17 @@ api.dbIpCity("YOUR_API_KEY", new Date(Date.now()-86400000).toISOString().slice(0
 ```javascript
 // Runnable example: ASN WHOIS Snapshot (GET /v3.3/download/snapshot/asn/whois)
 // Parameters for dbAsnWhois (GET /v3.3/download/snapshot/asn/whois):
-//   - apiKey (string, required): Your WHOISFreaks API key
 //   - date (string, required)
-// whoisfreaks-js is CommonJS (no Configuration class; apiKey is positional)
+// whoisfreaks-js is CommonJS; apiKey is set once on the ApiClient
 import pkg from "whoisfreaks-js";
 const { ApiClient, DatabasesASNWHOISApi } = pkg;
 // or:  const { ApiClient, DatabasesASNWHOISApi } = require("whoisfreaks-js");
 
-const api = new DatabasesASNWHOISApi();   // uses ApiClient.instance
+const client = ApiClient.instance;
+client.authentications["ApiKeyAuth"].apiKey = "YOUR_API_KEY";  // set once
+const api = new DatabasesASNWHOISApi(client);
 
-api.dbAsnWhois("YOUR_API_KEY", new Date(Date.now()-86400000).toISOString().slice(0,10))
+api.dbAsnWhois(new Date(Date.now()-86400000).toISOString().slice(0,10))
   .then(data => console.log(data))
   .catch(err => console.error(err));
 
@@ -1231,15 +1304,17 @@ api.dbAsnWhois("YOUR_API_KEY", new Date(Date.now()-86400000).toISOString().slice
 ```javascript
 // Runnable example: ASN WHOIS Snapshot Status (GET /v3.3/status/snapshot/asn/whois)
 // Parameters for dbAsnWhoisStatus (GET /v3.3/status/snapshot/asn/whois):
-//   - apiKey (string, required): Your WHOISFreaks API key
-// whoisfreaks-js is CommonJS (no Configuration class; apiKey is positional)
+//   (no parameters; the API key is set on the client)
+// whoisfreaks-js is CommonJS; apiKey is set once on the ApiClient
 import pkg from "whoisfreaks-js";
 const { ApiClient, DatabasesASNWHOISApi } = pkg;
 // or:  const { ApiClient, DatabasesASNWHOISApi } = require("whoisfreaks-js");
 
-const api = new DatabasesASNWHOISApi();   // uses ApiClient.instance
+const client = ApiClient.instance;
+client.authentications["ApiKeyAuth"].apiKey = "YOUR_API_KEY";  // set once
+const api = new DatabasesASNWHOISApi(client);
 
-api.dbAsnWhoisStatus("YOUR_API_KEY")
+api.dbAsnWhoisStatus()
   .then(data => console.log(data))
   .catch(err => console.error(err));
 
@@ -1254,16 +1329,17 @@ api.dbAsnWhoisStatus("YOUR_API_KEY")
 ```javascript
 // Runnable example: IP WHOIS Snapshot (GET /v3.3/download/snapshot/ip/whois)
 // Parameters for dbIpWhois (GET /v3.3/download/snapshot/ip/whois):
-//   - apiKey (string, required): Your WHOISFreaks API key
 //   - date (string, required)
-// whoisfreaks-js is CommonJS (no Configuration class; apiKey is positional)
+// whoisfreaks-js is CommonJS; apiKey is set once on the ApiClient
 import pkg from "whoisfreaks-js";
 const { ApiClient, DatabasesIPWHOISApi } = pkg;
 // or:  const { ApiClient, DatabasesIPWHOISApi } = require("whoisfreaks-js");
 
-const api = new DatabasesIPWHOISApi();   // uses ApiClient.instance
+const client = ApiClient.instance;
+client.authentications["ApiKeyAuth"].apiKey = "YOUR_API_KEY";  // set once
+const api = new DatabasesIPWHOISApi(client);
 
-api.dbIpWhois("YOUR_API_KEY", new Date(Date.now()-86400000).toISOString().slice(0,10))
+api.dbIpWhois(new Date(Date.now()-86400000).toISOString().slice(0,10))
   .then(data => console.log(data))
   .catch(err => console.error(err));
 
@@ -1276,15 +1352,17 @@ api.dbIpWhois("YOUR_API_KEY", new Date(Date.now()-86400000).toISOString().slice(
 ```javascript
 // Runnable example: IP WHOIS Snapshot Status (GET /v3.3/status/snapshot/ip/whois)
 // Parameters for dbIpWhoisStatus (GET /v3.3/status/snapshot/ip/whois):
-//   - apiKey (string, required): Your WHOISFreaks API key
-// whoisfreaks-js is CommonJS (no Configuration class; apiKey is positional)
+//   (no parameters; the API key is set on the client)
+// whoisfreaks-js is CommonJS; apiKey is set once on the ApiClient
 import pkg from "whoisfreaks-js";
 const { ApiClient, DatabasesIPWHOISApi } = pkg;
 // or:  const { ApiClient, DatabasesIPWHOISApi } = require("whoisfreaks-js");
 
-const api = new DatabasesIPWHOISApi();   // uses ApiClient.instance
+const client = ApiClient.instance;
+client.authentications["ApiKeyAuth"].apiKey = "YOUR_API_KEY";  // set once
+const api = new DatabasesIPWHOISApi(client);
 
-api.dbIpWhoisStatus("YOUR_API_KEY")
+api.dbIpWhoisStatus()
   .then(data => console.log(data))
   .catch(err => console.error(err));
 
@@ -1299,16 +1377,17 @@ api.dbIpWhoisStatus("YOUR_API_KEY")
 ```javascript
 // Runnable example: IP Security Snapshot (GET /v3.3/download/snapshot/ip/security)
 // Parameters for dbIpSecurity (GET /v3.3/download/snapshot/ip/security):
-//   - apiKey (string, required): Your WHOISFreaks API key
 //   - date (string, required)
-// whoisfreaks-js is CommonJS (no Configuration class; apiKey is positional)
+// whoisfreaks-js is CommonJS; apiKey is set once on the ApiClient
 import pkg from "whoisfreaks-js";
 const { ApiClient, DatabasesIPSecurityApi } = pkg;
 // or:  const { ApiClient, DatabasesIPSecurityApi } = require("whoisfreaks-js");
 
-const api = new DatabasesIPSecurityApi();   // uses ApiClient.instance
+const client = ApiClient.instance;
+client.authentications["ApiKeyAuth"].apiKey = "YOUR_API_KEY";  // set once
+const api = new DatabasesIPSecurityApi(client);
 
-api.dbIpSecurity("YOUR_API_KEY", new Date(Date.now()-86400000).toISOString().slice(0,10))
+api.dbIpSecurity(new Date(Date.now()-86400000).toISOString().slice(0,10))
   .then(data => console.log(data))
   .catch(err => console.error(err));
 
@@ -1321,15 +1400,17 @@ api.dbIpSecurity("YOUR_API_KEY", new Date(Date.now()-86400000).toISOString().sli
 ```javascript
 // Runnable example: IP Security Snapshot Status (GET /v3.3/status/snapshot/ip/security)
 // Parameters for dbIpSecurityStatus (GET /v3.3/status/snapshot/ip/security):
-//   - apiKey (string, required): Your WHOISFreaks API key
-// whoisfreaks-js is CommonJS (no Configuration class; apiKey is positional)
+//   (no parameters; the API key is set on the client)
+// whoisfreaks-js is CommonJS; apiKey is set once on the ApiClient
 import pkg from "whoisfreaks-js";
 const { ApiClient, DatabasesIPSecurityApi } = pkg;
 // or:  const { ApiClient, DatabasesIPSecurityApi } = require("whoisfreaks-js");
 
-const api = new DatabasesIPSecurityApi();   // uses ApiClient.instance
+const client = ApiClient.instance;
+client.authentications["ApiKeyAuth"].apiKey = "YOUR_API_KEY";  // set once
+const api = new DatabasesIPSecurityApi(client);
 
-api.dbIpSecurityStatus("YOUR_API_KEY")
+api.dbIpSecurityStatus()
   .then(data => console.log(data))
   .catch(err => console.error(err));
 

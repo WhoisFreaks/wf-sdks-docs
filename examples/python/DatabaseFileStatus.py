@@ -3,10 +3,10 @@ from whoisfreaks import Configuration, ApiClient
 from whoisfreaks.api.account_api import AccountApi
 
 # Parameters for databaseFileStatus (GET /v3.3/status):
-#   (no parameters besides apiKey)
+#   (no parameters; the API key is set on the client)
 config = Configuration()
+config.api_key["ApiKeyAuth"] = "YOUR_API_KEY"   # set once
 api = AccountApi(ApiClient(config))
 
-resp = api.database_file_status_with_http_info()
-print("status:", resp.status_code)
-print(resp.data)
+result = api.database_file_status()
+print(result)

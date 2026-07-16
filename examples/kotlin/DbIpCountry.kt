@@ -1,11 +1,12 @@
 // Runnable example: IP to Country Snapshot (GET /v3.3/download/snapshot/ip/country)
 // Parameters for dbIpCountry (GET /v3.3/download/snapshot/ip/country):
-//   - apiKey (string, required): Your WHOISFreaks API key
 //   - date (string, required)
-import com.whoisfreaks.api.DatabasesIPGeolocationApi
+import com.whoisfreaks.client.apis.DatabasesIPGeolocationApi
+import com.whoisfreaks.client.infrastructure.ApiClient
 
 fun main() {
-    val api = DatabasesIPGeolocationApi(basePath = "https://api.whoisfreaks.com")
-    val result = api.dbIpCountry("YOUR_API_KEY", java.time.LocalDate.now().minusDays(1).toString())
-    println(result)  // status via api.dbIpCountryWithHttpInfo(...).statusCode
+    ApiClient.apiKey["apiKey"] = "YOUR_API_KEY"  // set once
+    val api = DatabasesIPGeolocationApi()
+    val result = api.dbIpCountry(java.time.LocalDate.now().minusDays(1).toString())
+    println(result)
 }

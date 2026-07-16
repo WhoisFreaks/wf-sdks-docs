@@ -14,7 +14,6 @@ WHOIS for an ASN. 1 credit.
 
 | Parameter | In | Required | Type | Description |
 |-----------|----|----------|------|-------------|
-| `apiKey` | query | yes | string | Your WHOISFreaks API key |
 | `asn` | query | yes | string |  |
 | `format` | query | no | string |  (one of: json, xml) |
 
@@ -28,15 +27,14 @@ from whoisfreaks import Configuration, ApiClient
 from whoisfreaks.api.asnwhois_api import ASNWHOISApi
 
 # Parameters for asnWhois (GET /v2.0/asn-whois):
-#   - apiKey (string, required): Your WHOISFreaks API key
 #   - asn (string, required)
 #   - format (string (one of: json, xml), optional)
 config = Configuration()
+config.api_key["ApiKeyAuth"] = "YOUR_API_KEY"   # set once
 api = ASNWHOISApi(ApiClient(config))
 
-resp = api.asn_whois_with_http_info(api_key="YOUR_API_KEY", asn="AS15169")
-print("status:", resp.status_code)
-print(resp.data)
+result = api.asn_whois(asn="AS15169")
+print(result)
 
 ```
 
@@ -47,17 +45,16 @@ print(resp.data)
 ```typescript
 // Runnable example: ASN WHOIS Lookup (GET /v2.0/asn-whois)
 // Parameters for asnWhois (GET /v2.0/asn-whois):
-//   - apiKey (string, required): Your WHOISFreaks API key
 //   - asn (string, required)
 //   - format (string (one of: json, xml), optional)
 import { Configuration, ASNWHOISApi } from "whoisfreaks";
 
-const api = new ASNWHOISApi(new Configuration());
+const config = new Configuration({ apiKey: "YOUR_API_KEY" });  // set once
+const api = new ASNWHOISApi(config);
 
 async function main() {
-  const resp = await api.asnWhoisRaw({ apiKey: "YOUR_API_KEY", asn: "AS15169", format: undefined });
-  console.log("status:", resp.raw.status);
-  console.log(await resp.value());
+  const result = await api.asnWhois({ asn: "AS15169", format: undefined });
+  console.log(result);
 }
 main().catch(console.error);
 
@@ -70,7 +67,6 @@ main().catch(console.error);
 ```go
 // Runnable example: ASN WHOIS Lookup (GET /v2.0/asn-whois)
 // Parameters for asnWhois (GET /v2.0/asn-whois):
-//   - apiKey (string, required): Your WHOISFreaks API key
 //   - asn (string, required)
 //   - format (string (one of: json, xml), optional)
 package main
@@ -85,10 +81,11 @@ import (
 func main() {
     cfg := wf.NewConfiguration()
     client := wf.NewAPIClient(cfg)
-    // apiKey is a builder method on the request, not a config/context value
-    result, httpRes, err := client.ASNWHOISAPI.AsnWhois(context.Background()).ApiKey("YOUR_API_KEY").Asn("AS15169").Execute()
+    // apiKey is set once via the request context
+    ctx := context.WithValue(context.Background(), wf.ContextAPIKeys,
+        map[string]wf.APIKey{"ApiKeyAuth": {Key: "YOUR_API_KEY"}})
+    result, _, err := client.ASNWHOISAPI.AsnWhois(ctx).Asn("AS15169").Execute()
     if err != nil { panic(err) }
-    fmt.Println("status:", httpRes.StatusCode)
     b, _ := json.MarshalIndent(result, "", "  ")
     fmt.Println(string(b))
 }

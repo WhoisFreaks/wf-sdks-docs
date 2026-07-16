@@ -1,14 +1,15 @@
 // Runnable example: IP Reputation Lookup (GET /v1.0/security)
 // Parameters for ipReputation (GET /v1.0/security):
-//   - apiKey (string, required): Your WHOISFreaks API key
 //   - ip (string, required)
-// whoisfreaks-js is CommonJS (no Configuration class; apiKey is positional)
+// whoisfreaks-js is CommonJS; apiKey is set once on the ApiClient
 import pkg from "whoisfreaks-js";
 const { ApiClient, IPReputationApi } = pkg;
 // or:  const { ApiClient, IPReputationApi } = require("whoisfreaks-js");
 
-const api = new IPReputationApi();   // uses ApiClient.instance
+const client = ApiClient.instance;
+client.authentications["ApiKeyAuth"].apiKey = "YOUR_API_KEY";  // set once
+const api = new IPReputationApi(client);
 
-api.ipReputation("YOUR_API_KEY", "8.8.8.8")
+api.ipReputation("8.8.8.8")
   .then(data => console.log(data))
   .catch(err => console.error(err));

@@ -1,12 +1,14 @@
 # Runnable example: Dropped Domains (JSON) (GET /v3.1/domains/dropped)
 # Parameters for dbDroppedJson (GET /v3.1/domains/dropped):
-#   - apiKey (string, required): Your WHOISFreaks API key
 #   - date (string, optional): yyyy-MM-dd; omit for latest
 #   - tlds (string, optional)
 require 'date'
 require 'whoisfreaks'
 
+WhoisFreaks.configure do |config|
+  config.api_key["apiKey"] = "YOUR_API_KEY"   # set once
+end
+
 api = WhoisFreaks::DatabasesExpiringDroppedApi.new
-data, status, _headers = api.db_dropped_json_with_http_info("YOUR_API_KEY", (Date.today - 1).to_s)
-puts "status: #{status}"
-puts data
+result = api.db_dropped_json((Date.today - 1).to_s)
+puts result

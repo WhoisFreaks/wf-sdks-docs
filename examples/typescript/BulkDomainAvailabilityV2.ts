@@ -1,16 +1,15 @@
 // Runnable example: Bulk Domain Availability Check (POST /v2.0/domain/availability)
 // Parameters for bulkDomainAvailabilityV2 (POST /v2.0/domain/availability):
-//   - apiKey (string, required): Your WHOISFreaks API key
 //   - domain (string, optional): Required for TLD-mode bulk check (base domain).
 //   - format (string (one of: json, xml), optional)
 //   - body: BulkDomainAvailabilityRequest (required) -- request body object
 import { Configuration, DomainAvailabilityApi } from "whoisfreaks";
 
-const api = new DomainAvailabilityApi(new Configuration());
+const config = new Configuration({ apiKey: "YOUR_API_KEY" });  // set once
+const api = new DomainAvailabilityApi(config);
 
 async function main() {
-  const resp = await api.bulkDomainAvailabilityV2Raw({ apiKey: "YOUR_API_KEY", bulkDomainAvailabilityRequest: {}, domain: undefined, format: undefined });
-  console.log("status:", resp.raw.status);
-  console.log(await resp.value());
+  const result = await api.bulkDomainAvailabilityV2({ bulkDomainAvailabilityRequest: {}, domain: undefined, format: undefined });
+  console.log(result);
 }
 main().catch(console.error);

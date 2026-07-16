@@ -14,7 +14,6 @@ Real-time DNS record lookup. 1 credit per query.
 
 | Parameter | In | Required | Type | Description |
 |-----------|----|----------|------|-------------|
-| `apiKey` | query | yes | string | Your WHOISFreaks API key |
 | `domainName` | query | no | string |  |
 | `ipAddress` | query | no | string | Use for PTR lookups |
 | `type` | query | yes | string | all or comma-separated: A,MX,NS,TXT,SOA,SPF,AAAA,CNAME |
@@ -30,17 +29,16 @@ from whoisfreaks import Configuration, ApiClient
 from whoisfreaks.api.dns_api import DNSApi
 
 # Parameters for dnsLive (GET /v2.0/dns/live):
-#   - apiKey (string, required): Your WHOISFreaks API key
 #   - domainName (string, required)
 #   - ipAddress (string, required): Use for PTR lookups
 #   - type (string, required): all or comma-separated: A,MX,NS,TXT,SOA,SPF,AAAA,CNAME
 #   - format (string (one of: json, xml), optional)
 config = Configuration()
+config.api_key["ApiKeyAuth"] = "YOUR_API_KEY"   # set once
 api = DNSApi(ApiClient(config))
 
-resp = api.dns_live_with_http_info(api_key="YOUR_API_KEY", domain_name="example.com", ip_address="8.8.8.8", var_type="value")
-print("status:", resp.status_code)
-print(resp.data)
+result = api.dns_live(domain_name="example.com", ip_address="8.8.8.8", var_type="value")
+print(result)
 
 ```
 
@@ -51,19 +49,18 @@ print(resp.data)
 ```typescript
 // Runnable example: Live DNS Lookup (GET /v2.0/dns/live)
 // Parameters for dnsLive (GET /v2.0/dns/live):
-//   - apiKey (string, required): Your WHOISFreaks API key
 //   - domainName (string, required)
 //   - ipAddress (string, required): Use for PTR lookups
 //   - type (string, required): all or comma-separated: A,MX,NS,TXT,SOA,SPF,AAAA,CNAME
 //   - format (string (one of: json, xml), optional)
 import { Configuration, DNSApi } from "whoisfreaks";
 
-const api = new DNSApi(new Configuration());
+const config = new Configuration({ apiKey: "YOUR_API_KEY" });  // set once
+const api = new DNSApi(config);
 
 async function main() {
-  const resp = await api.dnsLiveRaw({ apiKey: "YOUR_API_KEY", domainName: "example.com", ipAddress: "8.8.8.8", type: "value", format: undefined });
-  console.log("status:", resp.raw.status);
-  console.log(await resp.value());
+  const result = await api.dnsLive({ domainName: "example.com", ipAddress: "8.8.8.8", type: "value", format: undefined });
+  console.log(result);
 }
 main().catch(console.error);
 
@@ -76,7 +73,6 @@ main().catch(console.error);
 ```go
 // Runnable example: Live DNS Lookup (GET /v2.0/dns/live)
 // Parameters for dnsLive (GET /v2.0/dns/live):
-//   - apiKey (string, required): Your WHOISFreaks API key
 //   - domainName (string, required)
 //   - ipAddress (string, required): Use for PTR lookups
 //   - type (string, required): all or comma-separated: A,MX,NS,TXT,SOA,SPF,AAAA,CNAME
@@ -93,10 +89,11 @@ import (
 func main() {
     cfg := wf.NewConfiguration()
     client := wf.NewAPIClient(cfg)
-    // apiKey is a builder method on the request, not a config/context value
-    result, httpRes, err := client.DNSAPI.DnsLive(context.Background()).ApiKey("YOUR_API_KEY").DomainName("example.com").IpAddress("8.8.8.8").Type("value").Execute()
+    // apiKey is set once via the request context
+    ctx := context.WithValue(context.Background(), wf.ContextAPIKeys,
+        map[string]wf.APIKey{"ApiKeyAuth": {Key: "YOUR_API_KEY"}})
+    result, _, err := client.DNSAPI.DnsLive(ctx).DomainName("example.com").IpAddress("8.8.8.8").Type("value").Execute()
     if err != nil { panic(err) }
-    fmt.Println("status:", httpRes.StatusCode)
     b, _ := json.MarshalIndent(result, "", "  ")
     fmt.Println(string(b))
 }
@@ -117,7 +114,6 @@ All historical DNS records. 2 credits per page (100 records/page).
 
 | Parameter | In | Required | Type | Description |
 |-----------|----|----------|------|-------------|
-| `apiKey` | query | yes | string | Your WHOISFreaks API key |
 | `domainName` | query | yes | string |  |
 | `type` | query | yes | string |  |
 | `page` | query | no | integer |  |
@@ -133,17 +129,16 @@ from whoisfreaks import Configuration, ApiClient
 from whoisfreaks.api.dns_api import DNSApi
 
 # Parameters for dnsHistorical (GET /v2.0/dns/historical):
-#   - apiKey (string, required): Your WHOISFreaks API key
 #   - domainName (string, required)
 #   - type (string, required)
 #   - page (integer, optional)
 #   - format (string (one of: json, xml), optional)
 config = Configuration()
+config.api_key["ApiKeyAuth"] = "YOUR_API_KEY"   # set once
 api = DNSApi(ApiClient(config))
 
-resp = api.dns_historical_with_http_info(api_key="YOUR_API_KEY", domain_name="example.com", var_type="value")
-print("status:", resp.status_code)
-print(resp.data)
+result = api.dns_historical(domain_name="example.com", var_type="value")
+print(result)
 
 ```
 
@@ -154,19 +149,18 @@ print(resp.data)
 ```typescript
 // Runnable example: Historical DNS Lookup (GET /v2.0/dns/historical)
 // Parameters for dnsHistorical (GET /v2.0/dns/historical):
-//   - apiKey (string, required): Your WHOISFreaks API key
 //   - domainName (string, required)
 //   - type (string, required)
 //   - page (integer, optional)
 //   - format (string (one of: json, xml), optional)
 import { Configuration, DNSApi } from "whoisfreaks";
 
-const api = new DNSApi(new Configuration());
+const config = new Configuration({ apiKey: "YOUR_API_KEY" });  // set once
+const api = new DNSApi(config);
 
 async function main() {
-  const resp = await api.dnsHistoricalRaw({ apiKey: "YOUR_API_KEY", domainName: "example.com", type: "value", page: undefined, format: undefined });
-  console.log("status:", resp.raw.status);
-  console.log(await resp.value());
+  const result = await api.dnsHistorical({ domainName: "example.com", type: "value", page: undefined, format: undefined });
+  console.log(result);
 }
 main().catch(console.error);
 
@@ -179,7 +173,6 @@ main().catch(console.error);
 ```go
 // Runnable example: Historical DNS Lookup (GET /v2.0/dns/historical)
 // Parameters for dnsHistorical (GET /v2.0/dns/historical):
-//   - apiKey (string, required): Your WHOISFreaks API key
 //   - domainName (string, required)
 //   - type (string, required)
 //   - page (integer, optional)
@@ -196,10 +189,11 @@ import (
 func main() {
     cfg := wf.NewConfiguration()
     client := wf.NewAPIClient(cfg)
-    // apiKey is a builder method on the request, not a config/context value
-    result, httpRes, err := client.DNSAPI.DnsHistorical(context.Background()).ApiKey("YOUR_API_KEY").DomainName("example.com").Type("value").Execute()
+    // apiKey is set once via the request context
+    ctx := context.WithValue(context.Background(), wf.ContextAPIKeys,
+        map[string]wf.APIKey{"ApiKeyAuth": {Key: "YOUR_API_KEY"}})
+    result, _, err := client.DNSAPI.DnsHistorical(ctx).DomainName("example.com").Type("value").Execute()
     if err != nil { panic(err) }
-    fmt.Println("status:", httpRes.StatusCode)
     b, _ := json.MarshalIndent(result, "", "  ")
     fmt.Println(string(b))
 }
@@ -220,7 +214,6 @@ Search domains by IP or DNS value. 5 credits per page.
 
 | Parameter | In | Required | Type | Description |
 |-----------|----|----------|------|-------------|
-| `apiKey` | query | yes | string | Your WHOISFreaks API key |
 | `value` | query | yes | string | IP, CIDR, or record value |
 | `type` | query | yes | string |  (one of: a, mx, cname, ns, aaaa, txt, soa) |
 | `exact` | query | no | boolean |  |
@@ -237,18 +230,17 @@ from whoisfreaks import Configuration, ApiClient
 from whoisfreaks.api.dns_api import DNSApi
 
 # Parameters for dnsReverse (GET /v2.1/dns/reverse):
-#   - apiKey (string, required): Your WHOISFreaks API key
 #   - value (string, required): IP, CIDR, or record value
 #   - type (string (one of: a, mx, cname, ns, aaaa, txt, soa), required)
 #   - exact (boolean, optional)
 #   - page (integer, optional)
 #   - format (string (one of: json, xml), optional)
 config = Configuration()
+config.api_key["ApiKeyAuth"] = "YOUR_API_KEY"   # set once
 api = DNSApi(ApiClient(config))
 
-resp = api.dns_reverse_with_http_info(api_key="YOUR_API_KEY", value="value", var_type="a", exact=True)
-print("status:", resp.status_code)
-print(resp.data)
+result = api.dns_reverse(value="value", var_type="a", exact=True)
+print(result)
 
 ```
 
@@ -259,7 +251,6 @@ print(resp.data)
 ```typescript
 // Runnable example: Reverse DNS Lookup (GET /v2.1/dns/reverse)
 // Parameters for dnsReverse (GET /v2.1/dns/reverse):
-//   - apiKey (string, required): Your WHOISFreaks API key
 //   - value (string, required): IP, CIDR, or record value
 //   - type (string (one of: a, mx, cname, ns, aaaa, txt, soa), required)
 //   - exact (boolean, optional)
@@ -267,12 +258,12 @@ print(resp.data)
 //   - format (string (one of: json, xml), optional)
 import { Configuration, DNSApi } from "whoisfreaks";
 
-const api = new DNSApi(new Configuration());
+const config = new Configuration({ apiKey: "YOUR_API_KEY" });  // set once
+const api = new DNSApi(config);
 
 async function main() {
-  const resp = await api.dnsReverseRaw({ apiKey: "YOUR_API_KEY", value: "value", type: "a", exact: true, page: undefined, format: undefined });
-  console.log("status:", resp.raw.status);
-  console.log(await resp.value());
+  const result = await api.dnsReverse({ value: "value", type: "a", exact: true, page: undefined, format: undefined });
+  console.log(result);
 }
 main().catch(console.error);
 
@@ -285,7 +276,6 @@ main().catch(console.error);
 ```go
 // Runnable example: Reverse DNS Lookup (GET /v2.1/dns/reverse)
 // Parameters for dnsReverse (GET /v2.1/dns/reverse):
-//   - apiKey (string, required): Your WHOISFreaks API key
 //   - value (string, required): IP, CIDR, or record value
 //   - type (string (one of: a, mx, cname, ns, aaaa, txt, soa), required)
 //   - exact (boolean, optional)
@@ -303,10 +293,11 @@ import (
 func main() {
     cfg := wf.NewConfiguration()
     client := wf.NewAPIClient(cfg)
-    // apiKey is a builder method on the request, not a config/context value
-    result, httpRes, err := client.DNSAPI.DnsReverse(context.Background()).ApiKey("YOUR_API_KEY").Value("value").Type("a").Exact(true).Execute()
+    // apiKey is set once via the request context
+    ctx := context.WithValue(context.Background(), wf.ContextAPIKeys,
+        map[string]wf.APIKey{"ApiKeyAuth": {Key: "YOUR_API_KEY"}})
+    result, _, err := client.DNSAPI.DnsReverse(ctx).Value("value").Type("a").Exact(true).Execute()
     if err != nil { panic(err) }
-    fmt.Println("status:", httpRes.StatusCode)
     b, _ := json.MarshalIndent(result, "", "  ")
     fmt.Println(string(b))
 }
@@ -327,7 +318,6 @@ Up to 100 domains + 100 IPs in one request.
 
 | Parameter | In | Required | Type | Description |
 |-----------|----|----------|------|-------------|
-| `apiKey` | query | yes | string | Your WHOISFreaks API key |
 | `type` | query | yes | string |  |
 | `format` | query | no | string |  (one of: json, xml) |
 
@@ -342,17 +332,16 @@ from whoisfreaks.api.dns_api import DNSApi
 from whoisfreaks.models.dns_bulk_request import DnsBulkRequest
 
 # Parameters for dnsBulk (POST /v2.0/dns/bulk/live):
-#   - apiKey (string, required): Your WHOISFreaks API key
 #   - type (string, required)
 #   - format (string (one of: json, xml), optional)
 #   - body: DnsBulkRequest (required) -- request body object
 config = Configuration()
+config.api_key["ApiKeyAuth"] = "YOUR_API_KEY"   # set once
 api = DNSApi(ApiClient(config))
 
 dns_bulk_request = DnsBulkRequest()  # populate fields as needed
-resp = api.dns_bulk_with_http_info(api_key="YOUR_API_KEY", var_type="value", dns_bulk_request=dns_bulk_request)
-print("status:", resp.status_code)
-print(resp.data)
+result = api.dns_bulk(var_type="value", dns_bulk_request=dns_bulk_request)
+print(result)
 
 ```
 
@@ -363,18 +352,17 @@ print(resp.data)
 ```typescript
 // Runnable example: Bulk DNS Lookup (POST /v2.0/dns/bulk/live)
 // Parameters for dnsBulk (POST /v2.0/dns/bulk/live):
-//   - apiKey (string, required): Your WHOISFreaks API key
 //   - type (string, required)
 //   - format (string (one of: json, xml), optional)
 //   - body: DnsBulkRequest (required) -- request body object
 import { Configuration, DNSApi } from "whoisfreaks";
 
-const api = new DNSApi(new Configuration());
+const config = new Configuration({ apiKey: "YOUR_API_KEY" });  // set once
+const api = new DNSApi(config);
 
 async function main() {
-  const resp = await api.dnsBulkRaw({ apiKey: "YOUR_API_KEY", type: "value", dnsBulkRequest: {}, format: undefined });
-  console.log("status:", resp.raw.status);
-  console.log(await resp.value());
+  const result = await api.dnsBulk({ type: "value", dnsBulkRequest: {}, format: undefined });
+  console.log(result);
 }
 main().catch(console.error);
 
@@ -387,7 +375,6 @@ main().catch(console.error);
 ```go
 // Runnable example: Bulk DNS Lookup (POST /v2.0/dns/bulk/live)
 // Parameters for dnsBulk (POST /v2.0/dns/bulk/live):
-//   - apiKey (string, required): Your WHOISFreaks API key
 //   - type (string, required)
 //   - format (string (one of: json, xml), optional)
 //   - body: DnsBulkRequest (required) -- request body object
@@ -403,10 +390,11 @@ import (
 func main() {
     cfg := wf.NewConfiguration()
     client := wf.NewAPIClient(cfg)
-    // apiKey is a builder method on the request, not a config/context value
-    result, httpRes, err := client.DNSAPI.DnsBulk(context.Background()).ApiKey("YOUR_API_KEY").Type("value").DnsBulkRequest(*wf.NewDnsBulkRequest()).Execute()
+    // apiKey is set once via the request context
+    ctx := context.WithValue(context.Background(), wf.ContextAPIKeys,
+        map[string]wf.APIKey{"ApiKeyAuth": {Key: "YOUR_API_KEY"}})
+    result, _, err := client.DNSAPI.DnsBulk(ctx).Type("value").DnsBulkRequest(*wf.NewDnsBulkRequest()).Execute()
     if err != nil { panic(err) }
-    fmt.Println("status:", httpRes.StatusCode)
     b, _ := json.MarshalIndent(result, "", "  ")
     fmt.Println(string(b))
 }

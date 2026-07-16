@@ -1,14 +1,13 @@
 // Runnable example: Bulk IP Reputation (POST /v1.0/security)
 // Parameters for bulkIpReputation (POST /v1.0/security):
-//   - apiKey (string, required): Your WHOISFreaks API key
-//   - body: BulkGeolocationRequest (required) -- request body object
+//   - body: BulkIpReputationRequest (required) -- request body object
 import { Configuration, IPReputationApi } from "whoisfreaks";
 
-const api = new IPReputationApi(new Configuration());
+const config = new Configuration({ apiKey: "YOUR_API_KEY" });  // set once
+const api = new IPReputationApi(config);
 
 async function main() {
-  const resp = await api.bulkIpReputationRaw({ apiKey: "YOUR_API_KEY", bulkGeolocationRequest: {} });
-  console.log("status:", resp.raw.status);
-  console.log(await resp.value());
+  const result = await api.bulkIpReputation({ bulkIpReputationRequest: {} });
+  console.log(result);
 }
 main().catch(console.error);

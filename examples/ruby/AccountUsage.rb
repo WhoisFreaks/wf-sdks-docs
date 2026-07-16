@@ -1,9 +1,12 @@
 # Runnable example: Account Usage (GET /v1.0/whoisapi/usage)
 # Parameters for accountUsage (GET /v1.0/whoisapi/usage):
-#   - apiKey (string, required): Your WHOISFreaks API key
+#   (no parameters; the API key is set on the client)
 require 'whoisfreaks'
 
+WhoisFreaks.configure do |config|
+  config.api_key["apiKey"] = "YOUR_API_KEY"   # set once
+end
+
 api = WhoisFreaks::AccountApi.new
-data, status, _headers = api.account_usage_with_http_info("YOUR_API_KEY")
-puts "status: #{status}"
-puts data
+result = api.account_usage()
+puts result

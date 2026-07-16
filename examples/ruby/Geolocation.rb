@@ -1,10 +1,12 @@
 # Runnable example: IP Geolocation Lookup (GET /v1.0/geolocation)
 # Parameters for geolocation (GET /v1.0/geolocation):
-#   - apiKey (string, required): Your WHOISFreaks API key
 #   - ip (string, required)
 require 'whoisfreaks'
 
+WhoisFreaks.configure do |config|
+  config.api_key["apiKey"] = "YOUR_API_KEY"   # set once
+end
+
 api = WhoisFreaks::GeolocationApi.new
-data, status, _headers = api.geolocation_with_http_info("YOUR_API_KEY", "8.8.8.8")
-puts "status: #{status}"
-puts data
+result = api.geolocation("8.8.8.8")
+puts result

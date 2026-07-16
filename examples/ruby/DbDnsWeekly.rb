@@ -1,11 +1,13 @@
 # Runnable example: DNS Database Weekly (GET /v3.2/download/dbupdate/weekly/dns)
 # Parameters for dbDnsWeekly (GET /v3.2/download/dbupdate/weekly/dns):
-#   - apiKey (string, required): Your WHOISFreaks API key
 #   - date (string, optional): yyyy-MM-dd; omit for latest
 require 'date'
 require 'whoisfreaks'
 
+WhoisFreaks.configure do |config|
+  config.api_key["apiKey"] = "YOUR_API_KEY"   # set once
+end
+
 api = WhoisFreaks::DatabasesDNSApi.new
-data, status, _headers = api.db_dns_weekly_with_http_info("YOUR_API_KEY", (Date.today - 1).to_s)
-puts "status: #{status}"
-puts data
+result = api.db_dns_weekly((Date.today - 1).to_s)
+puts result

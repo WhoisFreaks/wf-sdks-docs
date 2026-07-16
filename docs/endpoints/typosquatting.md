@@ -14,7 +14,6 @@ Find typo variants of a brand. 5 credits per page.
 
 | Parameter | In | Required | Type | Description |
 |-----------|----|----------|------|-------------|
-| `apiKey` | query | yes | string | Your WHOISFreaks API key |
 | `keyword` | query | no | string |  |
 | `pattern` | query | no | string |  |
 | `pageToken` | query | no | string |  |
@@ -29,16 +28,15 @@ from whoisfreaks import Configuration, ApiClient
 from whoisfreaks.api.typosquatting_api import TyposquattingApi
 
 # Parameters for typosquatting (GET /v3.0/domain/typos):
-#   - apiKey (string, required): Your WHOISFreaks API key
 #   - keyword (string, optional)
 #   - pattern (string, optional)
 #   - pageToken (string, optional)
 config = Configuration()
+config.api_key["ApiKeyAuth"] = "YOUR_API_KEY"   # set once
 api = TyposquattingApi(ApiClient(config))
 
-resp = api.typosquatting_with_http_info(api_key="YOUR_API_KEY")
-print("status:", resp.status_code)
-print(resp.data)
+result = api.typosquatting()
+print(result)
 
 ```
 
@@ -49,18 +47,17 @@ print(resp.data)
 ```typescript
 // Runnable example: Typosquatting Lookup (GET /v3.0/domain/typos)
 // Parameters for typosquatting (GET /v3.0/domain/typos):
-//   - apiKey (string, required): Your WHOISFreaks API key
 //   - keyword (string, optional)
 //   - pattern (string, optional)
 //   - pageToken (string, optional)
 import { Configuration, TyposquattingApi } from "whoisfreaks";
 
-const api = new TyposquattingApi(new Configuration());
+const config = new Configuration({ apiKey: "YOUR_API_KEY" });  // set once
+const api = new TyposquattingApi(config);
 
 async function main() {
-  const resp = await api.typosquattingRaw({ apiKey: "YOUR_API_KEY", keyword: undefined, pattern: undefined, pageToken: undefined });
-  console.log("status:", resp.raw.status);
-  console.log(await resp.value());
+  const result = await api.typosquatting({ keyword: undefined, pattern: undefined, pageToken: undefined });
+  console.log(result);
 }
 main().catch(console.error);
 
@@ -73,7 +70,6 @@ main().catch(console.error);
 ```go
 // Runnable example: Typosquatting Lookup (GET /v3.0/domain/typos)
 // Parameters for typosquatting (GET /v3.0/domain/typos):
-//   - apiKey (string, required): Your WHOISFreaks API key
 //   - keyword (string, optional)
 //   - pattern (string, optional)
 //   - pageToken (string, optional)
@@ -89,10 +85,11 @@ import (
 func main() {
     cfg := wf.NewConfiguration()
     client := wf.NewAPIClient(cfg)
-    // apiKey is a builder method on the request, not a config/context value
-    result, httpRes, err := client.TyposquattingAPI.Typosquatting(context.Background()).ApiKey("YOUR_API_KEY").Execute()
+    // apiKey is set once via the request context
+    ctx := context.WithValue(context.Background(), wf.ContextAPIKeys,
+        map[string]wf.APIKey{"ApiKeyAuth": {Key: "YOUR_API_KEY"}})
+    result, _, err := client.TyposquattingAPI.Typosquatting(ctx).Execute()
     if err != nil { panic(err) }
-    fmt.Println("status:", httpRes.StatusCode)
     b, _ := json.MarshalIndent(result, "", "  ")
     fmt.Println(string(b))
 }

@@ -1,14 +1,15 @@
 // Runnable example: Expiring Cleaned WHOIS (GET /v3.1/download/domainer/expired/cleaned)
 // Parameters for dbExpiredCleaned (GET /v3.1/download/domainer/expired/cleaned):
-//   - apiKey (string, required): Your WHOISFreaks API key
 //   - date (string, optional): yyyy-MM-dd; omit for latest
-// whoisfreaks-js is CommonJS (no Configuration class; apiKey is positional)
+// whoisfreaks-js is CommonJS; apiKey is set once on the ApiClient
 import pkg from "whoisfreaks-js";
 const { ApiClient, DatabasesExpiringDroppedApi } = pkg;
 // or:  const { ApiClient, DatabasesExpiringDroppedApi } = require("whoisfreaks-js");
 
-const api = new DatabasesExpiringDroppedApi();   // uses ApiClient.instance
+const client = ApiClient.instance;
+client.authentications["ApiKeyAuth"].apiKey = "YOUR_API_KEY";  // set once
+const api = new DatabasesExpiringDroppedApi(client);
 
-api.dbExpiredCleaned("YOUR_API_KEY", new Date(Date.now()-86400000).toISOString().slice(0,10))
+api.dbExpiredCleaned(new Date(Date.now()-86400000).toISOString().slice(0,10))
   .then(data => console.log(data))
   .catch(err => console.error(err));

@@ -3,13 +3,12 @@ from whoisfreaks import Configuration, ApiClient
 from whoisfreaks.api.whois_api import WHOISApi
 
 # Parameters for whoisReverse (GET /v2.0/whois/reverse):
-#   - apiKey (string, required): Your WHOISFreaks API key
 #   - keyword (string, required): Keyword to search across WHOIS records
 #   - page (integer, optional): Page number
 #   - format (string (one of: json, xml), optional)
 config = Configuration()
+config.api_key["ApiKeyAuth"] = "YOUR_API_KEY"   # set once
 api = WHOISApi(ApiClient(config))
 
-resp = api.whois_reverse_with_http_info(api_key="YOUR_API_KEY", keyword="value")
-print("status:", resp.status_code)
-print(resp.data)
+result = api.whois_reverse(keyword="value")
+print(result)

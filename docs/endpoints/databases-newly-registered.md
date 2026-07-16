@@ -14,7 +14,6 @@ Newly Registered gTLD (CSV). Returns the file/snapshot described by this operati
 
 | Parameter | In | Required | Type | Description |
 |-----------|----|----------|------|-------------|
-| `apiKey` | query | yes | string | Your WHOISFreaks API key |
 | `whois` | query | yes | boolean |  |
 | `date` | query | no | string | yyyy-MM-dd; omit for latest |
 | `tlds` | query | no | string |  |
@@ -31,14 +30,14 @@ from whoisfreaks import Configuration, ApiClient
 from whoisfreaks.api.databases_newly_registered_api import DatabasesNewlyRegisteredApi
 
 # Parameters for dbNewlyGtld (GET /v3.1/download/domainer/gtld):
-#   - apiKey (string, required): Your WHOISFreaks API key
 #   - whois (boolean, required)
 #   - date (string, optional): yyyy-MM-dd; omit for latest
 #   - tlds (string, optional)
 config = Configuration()
+config.api_key["ApiKeyAuth"] = "YOUR_API_KEY"   # set once
 api = DatabasesNewlyRegisteredApi(ApiClient(config))
 
-data = api.db_newly_gtld(api_key="YOUR_API_KEY", whois=False, var_date=str(date.today() - timedelta(days=1)))   # bytes
+data = api.db_newly_gtld(whois=False, var_date=str(date.today() - timedelta(days=1)))   # bytes
 with open("dbNewlyGtld.gz", "wb") as f:
     f.write(data)
 print(f"saved {len(data)} bytes to dbNewlyGtld.gz")
@@ -52,18 +51,17 @@ print(f"saved {len(data)} bytes to dbNewlyGtld.gz")
 ```typescript
 // Runnable example: Newly Registered gTLD (CSV) (GET /v3.1/download/domainer/gtld)
 // Parameters for dbNewlyGtld (GET /v3.1/download/domainer/gtld):
-//   - apiKey (string, required): Your WHOISFreaks API key
 //   - whois (boolean, required)
 //   - date (string, optional): yyyy-MM-dd; omit for latest
 //   - tlds (string, optional)
 import { Configuration, DatabasesNewlyRegisteredApi } from "whoisfreaks";
 
-const api = new DatabasesNewlyRegisteredApi(new Configuration());
+const config = new Configuration({ apiKey: "YOUR_API_KEY" });  // set once
+const api = new DatabasesNewlyRegisteredApi(config);
 
 async function main() {
-  const resp = await api.dbNewlyGtldRaw({ apiKey: "YOUR_API_KEY", whois: false, date: new Date(Date.now()-86400000).toISOString().slice(0,10), tlds: undefined });
-  console.log("status:", resp.raw.status);
-  console.log(await resp.value());
+  const result = await api.dbNewlyGtld({ whois: false, date: new Date(Date.now()-86400000).toISOString().slice(0,10), tlds: undefined });
+  console.log(result);
 }
 main().catch(console.error);
 
@@ -76,7 +74,6 @@ main().catch(console.error);
 ```go
 // Runnable example: Newly Registered gTLD (CSV) (GET /v3.1/download/domainer/gtld)
 // Parameters for dbNewlyGtld (GET /v3.1/download/domainer/gtld):
-//   - apiKey (string, required): Your WHOISFreaks API key
 //   - whois (boolean, required)
 //   - date (string, optional): yyyy-MM-dd; omit for latest
 //   - tlds (string, optional)
@@ -93,8 +90,11 @@ import (
 func main() {
     cfg := wf.NewConfiguration()
     client := wf.NewAPIClient(cfg)
+    // apiKey is set once via the request context
+    ctx := context.WithValue(context.Background(), wf.ContextAPIKeys,
+        map[string]wf.APIKey{"ApiKeyAuth": {Key: "YOUR_API_KEY"}})
     // returns raw bytes (compressed/binary file) -- write to disk
-    data, _, err := client.DatabasesNewlyRegisteredAPI.DbNewlyGtld(context.Background()).ApiKey("YOUR_API_KEY").Whois(false).Date(time.Now().AddDate(0,0,-1).Format("2006-01-02")).Execute()
+    data, _, err := client.DatabasesNewlyRegisteredAPI.DbNewlyGtld(ctx).Whois(false).Date(time.Now().AddDate(0,0,-1).Format("2006-01-02")).Execute()
     if err != nil { panic(err) }
     if err := os.WriteFile("dbNewlyGtld.gz", data, 0644); err != nil { panic(err) }
     fmt.Printf("saved %d bytes to dbNewlyGtld.gz\n", len(data))
@@ -116,7 +116,6 @@ Newly Registered ccTLD (CSV). Returns the file/snapshot described by this operat
 
 | Parameter | In | Required | Type | Description |
 |-----------|----|----------|------|-------------|
-| `apiKey` | query | yes | string | Your WHOISFreaks API key |
 | `whois` | query | yes | boolean |  |
 | `date` | query | no | string | yyyy-MM-dd; omit for latest |
 | `tlds` | query | no | string |  |
@@ -133,14 +132,14 @@ from whoisfreaks import Configuration, ApiClient
 from whoisfreaks.api.databases_newly_registered_api import DatabasesNewlyRegisteredApi
 
 # Parameters for dbNewlyCctld (GET /v3.1/download/domainer/cctld):
-#   - apiKey (string, required): Your WHOISFreaks API key
 #   - whois (boolean, required)
 #   - date (string, optional): yyyy-MM-dd; omit for latest
 #   - tlds (string, optional)
 config = Configuration()
+config.api_key["ApiKeyAuth"] = "YOUR_API_KEY"   # set once
 api = DatabasesNewlyRegisteredApi(ApiClient(config))
 
-data = api.db_newly_cctld(api_key="YOUR_API_KEY", whois=False, var_date=str(date.today() - timedelta(days=1)))   # bytes
+data = api.db_newly_cctld(whois=False, var_date=str(date.today() - timedelta(days=1)))   # bytes
 with open("dbNewlyCctld.gz", "wb") as f:
     f.write(data)
 print(f"saved {len(data)} bytes to dbNewlyCctld.gz")
@@ -154,18 +153,17 @@ print(f"saved {len(data)} bytes to dbNewlyCctld.gz")
 ```typescript
 // Runnable example: Newly Registered ccTLD (CSV) (GET /v3.1/download/domainer/cctld)
 // Parameters for dbNewlyCctld (GET /v3.1/download/domainer/cctld):
-//   - apiKey (string, required): Your WHOISFreaks API key
 //   - whois (boolean, required)
 //   - date (string, optional): yyyy-MM-dd; omit for latest
 //   - tlds (string, optional)
 import { Configuration, DatabasesNewlyRegisteredApi } from "whoisfreaks";
 
-const api = new DatabasesNewlyRegisteredApi(new Configuration());
+const config = new Configuration({ apiKey: "YOUR_API_KEY" });  // set once
+const api = new DatabasesNewlyRegisteredApi(config);
 
 async function main() {
-  const resp = await api.dbNewlyCctldRaw({ apiKey: "YOUR_API_KEY", whois: false, date: new Date(Date.now()-86400000).toISOString().slice(0,10), tlds: undefined });
-  console.log("status:", resp.raw.status);
-  console.log(await resp.value());
+  const result = await api.dbNewlyCctld({ whois: false, date: new Date(Date.now()-86400000).toISOString().slice(0,10), tlds: undefined });
+  console.log(result);
 }
 main().catch(console.error);
 
@@ -178,7 +176,6 @@ main().catch(console.error);
 ```go
 // Runnable example: Newly Registered ccTLD (CSV) (GET /v3.1/download/domainer/cctld)
 // Parameters for dbNewlyCctld (GET /v3.1/download/domainer/cctld):
-//   - apiKey (string, required): Your WHOISFreaks API key
 //   - whois (boolean, required)
 //   - date (string, optional): yyyy-MM-dd; omit for latest
 //   - tlds (string, optional)
@@ -195,8 +192,11 @@ import (
 func main() {
     cfg := wf.NewConfiguration()
     client := wf.NewAPIClient(cfg)
+    // apiKey is set once via the request context
+    ctx := context.WithValue(context.Background(), wf.ContextAPIKeys,
+        map[string]wf.APIKey{"ApiKeyAuth": {Key: "YOUR_API_KEY"}})
     // returns raw bytes (compressed/binary file) -- write to disk
-    data, _, err := client.DatabasesNewlyRegisteredAPI.DbNewlyCctld(context.Background()).ApiKey("YOUR_API_KEY").Whois(false).Date(time.Now().AddDate(0,0,-1).Format("2006-01-02")).Execute()
+    data, _, err := client.DatabasesNewlyRegisteredAPI.DbNewlyCctld(ctx).Whois(false).Date(time.Now().AddDate(0,0,-1).Format("2006-01-02")).Execute()
     if err != nil { panic(err) }
     if err := os.WriteFile("dbNewlyCctld.gz", data, 0644); err != nil { panic(err) }
     fmt.Printf("saved %d bytes to dbNewlyCctld.gz\n", len(data))
@@ -218,7 +218,6 @@ Newly Registered gTLD Cleaned WHOIS (CSV). Returns the file/snapshot described b
 
 | Parameter | In | Required | Type | Description |
 |-----------|----|----------|------|-------------|
-| `apiKey` | query | yes | string | Your WHOISFreaks API key |
 | `date` | query | no | string | yyyy-MM-dd; omit for latest |
 
 **Usage**
@@ -233,12 +232,12 @@ from whoisfreaks import Configuration, ApiClient
 from whoisfreaks.api.databases_newly_registered_api import DatabasesNewlyRegisteredApi
 
 # Parameters for dbNewlyGtldCleaned (GET /v3.1/download/domainer/gtld/cleaned):
-#   - apiKey (string, required): Your WHOISFreaks API key
 #   - date (string, optional): yyyy-MM-dd; omit for latest
 config = Configuration()
+config.api_key["ApiKeyAuth"] = "YOUR_API_KEY"   # set once
 api = DatabasesNewlyRegisteredApi(ApiClient(config))
 
-data = api.db_newly_gtld_cleaned(api_key="YOUR_API_KEY", var_date=str(date.today() - timedelta(days=1)))   # bytes
+data = api.db_newly_gtld_cleaned(var_date=str(date.today() - timedelta(days=1)))   # bytes
 with open("dbNewlyGtldCleaned.gz", "wb") as f:
     f.write(data)
 print(f"saved {len(data)} bytes to dbNewlyGtldCleaned.gz")
@@ -252,16 +251,15 @@ print(f"saved {len(data)} bytes to dbNewlyGtldCleaned.gz")
 ```typescript
 // Runnable example: Newly Registered gTLD Cleaned WHOIS (CSV) (GET /v3.1/download/domainer/gtld/cleaned)
 // Parameters for dbNewlyGtldCleaned (GET /v3.1/download/domainer/gtld/cleaned):
-//   - apiKey (string, required): Your WHOISFreaks API key
 //   - date (string, optional): yyyy-MM-dd; omit for latest
 import { Configuration, DatabasesNewlyRegisteredApi } from "whoisfreaks";
 
-const api = new DatabasesNewlyRegisteredApi(new Configuration());
+const config = new Configuration({ apiKey: "YOUR_API_KEY" });  // set once
+const api = new DatabasesNewlyRegisteredApi(config);
 
 async function main() {
-  const resp = await api.dbNewlyGtldCleanedRaw({ apiKey: "YOUR_API_KEY", date: new Date(Date.now()-86400000).toISOString().slice(0,10) });
-  console.log("status:", resp.raw.status);
-  console.log(await resp.value());
+  const result = await api.dbNewlyGtldCleaned({ date: new Date(Date.now()-86400000).toISOString().slice(0,10) });
+  console.log(result);
 }
 main().catch(console.error);
 
@@ -274,7 +272,6 @@ main().catch(console.error);
 ```go
 // Runnable example: Newly Registered gTLD Cleaned WHOIS (CSV) (GET /v3.1/download/domainer/gtld/cleaned)
 // Parameters for dbNewlyGtldCleaned (GET /v3.1/download/domainer/gtld/cleaned):
-//   - apiKey (string, required): Your WHOISFreaks API key
 //   - date (string, optional): yyyy-MM-dd; omit for latest
 package main
 
@@ -289,8 +286,11 @@ import (
 func main() {
     cfg := wf.NewConfiguration()
     client := wf.NewAPIClient(cfg)
+    // apiKey is set once via the request context
+    ctx := context.WithValue(context.Background(), wf.ContextAPIKeys,
+        map[string]wf.APIKey{"ApiKeyAuth": {Key: "YOUR_API_KEY"}})
     // returns raw bytes (compressed/binary file) -- write to disk
-    data, _, err := client.DatabasesNewlyRegisteredAPI.DbNewlyGtldCleaned(context.Background()).ApiKey("YOUR_API_KEY").Date(time.Now().AddDate(0,0,-1).Format("2006-01-02")).Execute()
+    data, _, err := client.DatabasesNewlyRegisteredAPI.DbNewlyGtldCleaned(ctx).Date(time.Now().AddDate(0,0,-1).Format("2006-01-02")).Execute()
     if err != nil { panic(err) }
     if err := os.WriteFile("dbNewlyGtldCleaned.gz", data, 0644); err != nil { panic(err) }
     fmt.Printf("saved %d bytes to dbNewlyGtldCleaned.gz\n", len(data))
@@ -312,7 +312,6 @@ Newly Registered ccTLD Cleaned WHOIS (CSV). Returns the file/snapshot described 
 
 | Parameter | In | Required | Type | Description |
 |-----------|----|----------|------|-------------|
-| `apiKey` | query | yes | string | Your WHOISFreaks API key |
 | `date` | query | no | string | yyyy-MM-dd; omit for latest |
 
 **Usage**
@@ -327,12 +326,12 @@ from whoisfreaks import Configuration, ApiClient
 from whoisfreaks.api.databases_newly_registered_api import DatabasesNewlyRegisteredApi
 
 # Parameters for dbNewlyCctldCleaned (GET /v3.1/download/domainer/cctld/cleaned):
-#   - apiKey (string, required): Your WHOISFreaks API key
 #   - date (string, optional): yyyy-MM-dd; omit for latest
 config = Configuration()
+config.api_key["ApiKeyAuth"] = "YOUR_API_KEY"   # set once
 api = DatabasesNewlyRegisteredApi(ApiClient(config))
 
-data = api.db_newly_cctld_cleaned(api_key="YOUR_API_KEY", var_date=str(date.today() - timedelta(days=1)))   # bytes
+data = api.db_newly_cctld_cleaned(var_date=str(date.today() - timedelta(days=1)))   # bytes
 with open("dbNewlyCctldCleaned.gz", "wb") as f:
     f.write(data)
 print(f"saved {len(data)} bytes to dbNewlyCctldCleaned.gz")
@@ -346,16 +345,15 @@ print(f"saved {len(data)} bytes to dbNewlyCctldCleaned.gz")
 ```typescript
 // Runnable example: Newly Registered ccTLD Cleaned WHOIS (CSV) (GET /v3.1/download/domainer/cctld/cleaned)
 // Parameters for dbNewlyCctldCleaned (GET /v3.1/download/domainer/cctld/cleaned):
-//   - apiKey (string, required): Your WHOISFreaks API key
 //   - date (string, optional): yyyy-MM-dd; omit for latest
 import { Configuration, DatabasesNewlyRegisteredApi } from "whoisfreaks";
 
-const api = new DatabasesNewlyRegisteredApi(new Configuration());
+const config = new Configuration({ apiKey: "YOUR_API_KEY" });  // set once
+const api = new DatabasesNewlyRegisteredApi(config);
 
 async function main() {
-  const resp = await api.dbNewlyCctldCleanedRaw({ apiKey: "YOUR_API_KEY", date: new Date(Date.now()-86400000).toISOString().slice(0,10) });
-  console.log("status:", resp.raw.status);
-  console.log(await resp.value());
+  const result = await api.dbNewlyCctldCleaned({ date: new Date(Date.now()-86400000).toISOString().slice(0,10) });
+  console.log(result);
 }
 main().catch(console.error);
 
@@ -368,7 +366,6 @@ main().catch(console.error);
 ```go
 // Runnable example: Newly Registered ccTLD Cleaned WHOIS (CSV) (GET /v3.1/download/domainer/cctld/cleaned)
 // Parameters for dbNewlyCctldCleaned (GET /v3.1/download/domainer/cctld/cleaned):
-//   - apiKey (string, required): Your WHOISFreaks API key
 //   - date (string, optional): yyyy-MM-dd; omit for latest
 package main
 
@@ -383,8 +380,11 @@ import (
 func main() {
     cfg := wf.NewConfiguration()
     client := wf.NewAPIClient(cfg)
+    // apiKey is set once via the request context
+    ctx := context.WithValue(context.Background(), wf.ContextAPIKeys,
+        map[string]wf.APIKey{"ApiKeyAuth": {Key: "YOUR_API_KEY"}})
     // returns raw bytes (compressed/binary file) -- write to disk
-    data, _, err := client.DatabasesNewlyRegisteredAPI.DbNewlyCctldCleaned(context.Background()).ApiKey("YOUR_API_KEY").Date(time.Now().AddDate(0,0,-1).Format("2006-01-02")).Execute()
+    data, _, err := client.DatabasesNewlyRegisteredAPI.DbNewlyCctldCleaned(ctx).Date(time.Now().AddDate(0,0,-1).Format("2006-01-02")).Execute()
     if err != nil { panic(err) }
     if err := os.WriteFile("dbNewlyCctldCleaned.gz", data, 0644); err != nil { panic(err) }
     fmt.Printf("saved %d bytes to dbNewlyCctldCleaned.gz\n", len(data))
@@ -406,7 +406,6 @@ Newly Registered gTLD (JSON). Returns the file/snapshot described by this operat
 
 | Parameter | In | Required | Type | Description |
 |-----------|----|----------|------|-------------|
-| `apiKey` | query | yes | string | Your WHOISFreaks API key |
 | `date` | query | no | string | yyyy-MM-dd; omit for latest |
 | `tlds` | query | no | string |  |
 
@@ -421,15 +420,14 @@ from whoisfreaks import Configuration, ApiClient
 from whoisfreaks.api.databases_newly_registered_api import DatabasesNewlyRegisteredApi
 
 # Parameters for dbNewlyGtldJson (GET /v3.1/domains/newly/gtld):
-#   - apiKey (string, required): Your WHOISFreaks API key
 #   - date (string, optional): yyyy-MM-dd; omit for latest
 #   - tlds (string, optional)
 config = Configuration()
+config.api_key["ApiKeyAuth"] = "YOUR_API_KEY"   # set once
 api = DatabasesNewlyRegisteredApi(ApiClient(config))
 
-resp = api.db_newly_gtld_json_with_http_info(api_key="YOUR_API_KEY", var_date=str(date.today() - timedelta(days=1)))
-print("status:", resp.status_code)
-print(resp.data)
+result = api.db_newly_gtld_json(var_date=str(date.today() - timedelta(days=1)))
+print(result)
 
 ```
 
@@ -440,17 +438,16 @@ print(resp.data)
 ```typescript
 // Runnable example: Newly Registered gTLD (JSON) (GET /v3.1/domains/newly/gtld)
 // Parameters for dbNewlyGtldJson (GET /v3.1/domains/newly/gtld):
-//   - apiKey (string, required): Your WHOISFreaks API key
 //   - date (string, optional): yyyy-MM-dd; omit for latest
 //   - tlds (string, optional)
 import { Configuration, DatabasesNewlyRegisteredApi } from "whoisfreaks";
 
-const api = new DatabasesNewlyRegisteredApi(new Configuration());
+const config = new Configuration({ apiKey: "YOUR_API_KEY" });  // set once
+const api = new DatabasesNewlyRegisteredApi(config);
 
 async function main() {
-  const resp = await api.dbNewlyGtldJsonRaw({ apiKey: "YOUR_API_KEY", date: new Date(Date.now()-86400000).toISOString().slice(0,10), tlds: undefined });
-  console.log("status:", resp.raw.status);
-  console.log(await resp.value());
+  const result = await api.dbNewlyGtldJson({ date: new Date(Date.now()-86400000).toISOString().slice(0,10), tlds: undefined });
+  console.log(result);
 }
 main().catch(console.error);
 
@@ -463,7 +460,6 @@ main().catch(console.error);
 ```go
 // Runnable example: Newly Registered gTLD (JSON) (GET /v3.1/domains/newly/gtld)
 // Parameters for dbNewlyGtldJson (GET /v3.1/domains/newly/gtld):
-//   - apiKey (string, required): Your WHOISFreaks API key
 //   - date (string, optional): yyyy-MM-dd; omit for latest
 //   - tlds (string, optional)
 package main
@@ -479,10 +475,11 @@ import (
 func main() {
     cfg := wf.NewConfiguration()
     client := wf.NewAPIClient(cfg)
-    // apiKey is a builder method on the request, not a config/context value
-    result, httpRes, err := client.DatabasesNewlyRegisteredAPI.DbNewlyGtldJson(context.Background()).ApiKey("YOUR_API_KEY").Date(time.Now().AddDate(0,0,-1).Format("2006-01-02")).Execute()
+    // apiKey is set once via the request context
+    ctx := context.WithValue(context.Background(), wf.ContextAPIKeys,
+        map[string]wf.APIKey{"ApiKeyAuth": {Key: "YOUR_API_KEY"}})
+    result, _, err := client.DatabasesNewlyRegisteredAPI.DbNewlyGtldJson(ctx).Date(time.Now().AddDate(0,0,-1).Format("2006-01-02")).Execute()
     if err != nil { panic(err) }
-    fmt.Println("status:", httpRes.StatusCode)
     b, _ := json.MarshalIndent(result, "", "  ")
     fmt.Println(string(b))
 }
@@ -503,7 +500,6 @@ Newly Registered ccTLD (JSON). Returns the file/snapshot described by this opera
 
 | Parameter | In | Required | Type | Description |
 |-----------|----|----------|------|-------------|
-| `apiKey` | query | yes | string | Your WHOISFreaks API key |
 | `date` | query | no | string | yyyy-MM-dd; omit for latest |
 | `tlds` | query | no | string |  |
 
@@ -518,15 +514,14 @@ from whoisfreaks import Configuration, ApiClient
 from whoisfreaks.api.databases_newly_registered_api import DatabasesNewlyRegisteredApi
 
 # Parameters for dbNewlyCctldJson (GET /v3.1/domains/newly/cctld):
-#   - apiKey (string, required): Your WHOISFreaks API key
 #   - date (string, optional): yyyy-MM-dd; omit for latest
 #   - tlds (string, optional)
 config = Configuration()
+config.api_key["ApiKeyAuth"] = "YOUR_API_KEY"   # set once
 api = DatabasesNewlyRegisteredApi(ApiClient(config))
 
-resp = api.db_newly_cctld_json_with_http_info(api_key="YOUR_API_KEY", var_date=str(date.today() - timedelta(days=1)))
-print("status:", resp.status_code)
-print(resp.data)
+result = api.db_newly_cctld_json(var_date=str(date.today() - timedelta(days=1)))
+print(result)
 
 ```
 
@@ -537,17 +532,16 @@ print(resp.data)
 ```typescript
 // Runnable example: Newly Registered ccTLD (JSON) (GET /v3.1/domains/newly/cctld)
 // Parameters for dbNewlyCctldJson (GET /v3.1/domains/newly/cctld):
-//   - apiKey (string, required): Your WHOISFreaks API key
 //   - date (string, optional): yyyy-MM-dd; omit for latest
 //   - tlds (string, optional)
 import { Configuration, DatabasesNewlyRegisteredApi } from "whoisfreaks";
 
-const api = new DatabasesNewlyRegisteredApi(new Configuration());
+const config = new Configuration({ apiKey: "YOUR_API_KEY" });  // set once
+const api = new DatabasesNewlyRegisteredApi(config);
 
 async function main() {
-  const resp = await api.dbNewlyCctldJsonRaw({ apiKey: "YOUR_API_KEY", date: new Date(Date.now()-86400000).toISOString().slice(0,10), tlds: undefined });
-  console.log("status:", resp.raw.status);
-  console.log(await resp.value());
+  const result = await api.dbNewlyCctldJson({ date: new Date(Date.now()-86400000).toISOString().slice(0,10), tlds: undefined });
+  console.log(result);
 }
 main().catch(console.error);
 
@@ -560,7 +554,6 @@ main().catch(console.error);
 ```go
 // Runnable example: Newly Registered ccTLD (JSON) (GET /v3.1/domains/newly/cctld)
 // Parameters for dbNewlyCctldJson (GET /v3.1/domains/newly/cctld):
-//   - apiKey (string, required): Your WHOISFreaks API key
 //   - date (string, optional): yyyy-MM-dd; omit for latest
 //   - tlds (string, optional)
 package main
@@ -576,10 +569,11 @@ import (
 func main() {
     cfg := wf.NewConfiguration()
     client := wf.NewAPIClient(cfg)
-    // apiKey is a builder method on the request, not a config/context value
-    result, httpRes, err := client.DatabasesNewlyRegisteredAPI.DbNewlyCctldJson(context.Background()).ApiKey("YOUR_API_KEY").Date(time.Now().AddDate(0,0,-1).Format("2006-01-02")).Execute()
+    // apiKey is set once via the request context
+    ctx := context.WithValue(context.Background(), wf.ContextAPIKeys,
+        map[string]wf.APIKey{"ApiKeyAuth": {Key: "YOUR_API_KEY"}})
+    result, _, err := client.DatabasesNewlyRegisteredAPI.DbNewlyCctldJson(ctx).Date(time.Now().AddDate(0,0,-1).Format("2006-01-02")).Execute()
     if err != nil { panic(err) }
-    fmt.Println("status:", httpRes.StatusCode)
     b, _ := json.MarshalIndent(result, "", "  ")
     fmt.Println(string(b))
 }
@@ -600,7 +594,6 @@ Newly Registered With DNS. Returns the file/snapshot described by this operation
 
 | Parameter | In | Required | Type | Description |
 |-----------|----|----------|------|-------------|
-| `apiKey` | query | yes | string | Your WHOISFreaks API key |
 | `date` | query | no | string | yyyy-MM-dd; omit for latest |
 
 **Usage**
@@ -615,12 +608,12 @@ from whoisfreaks import Configuration, ApiClient
 from whoisfreaks.api.databases_newly_registered_api import DatabasesNewlyRegisteredApi
 
 # Parameters for dbNewlyDns (GET /v3.1/download/domainer/newly/dns):
-#   - apiKey (string, required): Your WHOISFreaks API key
 #   - date (string, optional): yyyy-MM-dd; omit for latest
 config = Configuration()
+config.api_key["ApiKeyAuth"] = "YOUR_API_KEY"   # set once
 api = DatabasesNewlyRegisteredApi(ApiClient(config))
 
-data = api.db_newly_dns(api_key="YOUR_API_KEY", var_date=str(date.today() - timedelta(days=1)))   # bytes
+data = api.db_newly_dns(var_date=str(date.today() - timedelta(days=1)))   # bytes
 with open("dbNewlyDns.gz", "wb") as f:
     f.write(data)
 print(f"saved {len(data)} bytes to dbNewlyDns.gz")
@@ -634,16 +627,15 @@ print(f"saved {len(data)} bytes to dbNewlyDns.gz")
 ```typescript
 // Runnable example: Newly Registered With DNS (GET /v3.1/download/domainer/newly/dns)
 // Parameters for dbNewlyDns (GET /v3.1/download/domainer/newly/dns):
-//   - apiKey (string, required): Your WHOISFreaks API key
 //   - date (string, optional): yyyy-MM-dd; omit for latest
 import { Configuration, DatabasesNewlyRegisteredApi } from "whoisfreaks";
 
-const api = new DatabasesNewlyRegisteredApi(new Configuration());
+const config = new Configuration({ apiKey: "YOUR_API_KEY" });  // set once
+const api = new DatabasesNewlyRegisteredApi(config);
 
 async function main() {
-  const resp = await api.dbNewlyDnsRaw({ apiKey: "YOUR_API_KEY", date: new Date(Date.now()-86400000).toISOString().slice(0,10) });
-  console.log("status:", resp.raw.status);
-  console.log(await resp.value());
+  const result = await api.dbNewlyDns({ date: new Date(Date.now()-86400000).toISOString().slice(0,10) });
+  console.log(result);
 }
 main().catch(console.error);
 
@@ -656,7 +648,6 @@ main().catch(console.error);
 ```go
 // Runnable example: Newly Registered With DNS (GET /v3.1/download/domainer/newly/dns)
 // Parameters for dbNewlyDns (GET /v3.1/download/domainer/newly/dns):
-//   - apiKey (string, required): Your WHOISFreaks API key
 //   - date (string, optional): yyyy-MM-dd; omit for latest
 package main
 
@@ -671,8 +662,11 @@ import (
 func main() {
     cfg := wf.NewConfiguration()
     client := wf.NewAPIClient(cfg)
+    // apiKey is set once via the request context
+    ctx := context.WithValue(context.Background(), wf.ContextAPIKeys,
+        map[string]wf.APIKey{"ApiKeyAuth": {Key: "YOUR_API_KEY"}})
     // returns raw bytes (compressed/binary file) -- write to disk
-    data, _, err := client.DatabasesNewlyRegisteredAPI.DbNewlyDns(context.Background()).ApiKey("YOUR_API_KEY").Date(time.Now().AddDate(0,0,-1).Format("2006-01-02")).Execute()
+    data, _, err := client.DatabasesNewlyRegisteredAPI.DbNewlyDns(ctx).Date(time.Now().AddDate(0,0,-1).Format("2006-01-02")).Execute()
     if err != nil { panic(err) }
     if err := os.WriteFile("dbNewlyDns.gz", data, 0644); err != nil { panic(err) }
     fmt.Printf("saved %d bytes to dbNewlyDns.gz\n", len(data))

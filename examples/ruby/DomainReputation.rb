@@ -1,11 +1,13 @@
 # Runnable example: Domain Reputation Lookup (GET /v1/domain/security)
 # Parameters for domainReputation (GET /v1/domain/security):
-#   - apiKey (string, required): Your WHOISFreaks API key
 #   - domainName (string, required): The domain name to assess
 #   - format (string (one of: json, xml), optional)
 require 'whoisfreaks'
 
+WhoisFreaks.configure do |config|
+  config.api_key["apiKey"] = "YOUR_API_KEY"   # set once
+end
+
 api = WhoisFreaks::DomainReputationApi.new
-data, status, _headers = api.domain_reputation_with_http_info("YOUR_API_KEY", "example.com")
-puts "status: #{status}"
-puts data
+result = api.domain_reputation("example.com")
+puts result

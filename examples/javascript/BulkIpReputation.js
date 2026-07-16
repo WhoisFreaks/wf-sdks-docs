@@ -1,14 +1,15 @@
 // Runnable example: Bulk IP Reputation (POST /v1.0/security)
 // Parameters for bulkIpReputation (POST /v1.0/security):
-//   - apiKey (string, required): Your WHOISFreaks API key
-//   - body: BulkGeolocationRequest (required) -- request body object
-// whoisfreaks-js is CommonJS (no Configuration class; apiKey is positional)
+//   - body: BulkIpReputationRequest (required) -- request body object
+// whoisfreaks-js is CommonJS; apiKey is set once on the ApiClient
 import pkg from "whoisfreaks-js";
 const { ApiClient, IPReputationApi } = pkg;
 // or:  const { ApiClient, IPReputationApi } = require("whoisfreaks-js");
 
-const api = new IPReputationApi();   // uses ApiClient.instance
+const client = ApiClient.instance;
+client.authentications["ApiKeyAuth"].apiKey = "YOUR_API_KEY";  // set once
+const api = new IPReputationApi(client);
 
-api.bulkIpReputation("YOUR_API_KEY", {})
+api.bulkIpReputation({})
   .then(data => console.log(data))
   .catch(err => console.error(err));

@@ -1,6 +1,5 @@
 // Runnable example: Subdomains Lookup (GET /v1.0/subdomains)
 // Parameters for subdomains (GET /v1.0/subdomains):
-//   - apiKey (string, required): Your WHOISFreaks API key
 //   - domain (string, required)
 //   - after (string, optional)
 //   - before (string, optional)
@@ -14,9 +13,9 @@ using WhoisFreaks.Client;
 class Subdomains {
     static void Main() {
         var config = new Configuration { BasePath = "https://api.whoisfreaks.com" };
+        config.AddApiKey("ApiKeyAuth", "YOUR_API_KEY");  // set once
         var api = new SubdomainsApi(config);
-        var resp = api.SubdomainsWithHttpInfo("YOUR_API_KEY", "example.com", "2000-01-01", DateTime.UtcNow.ToString("yyyy-MM-dd"), null, null, null);
-        Console.WriteLine($"status: {(int)resp.StatusCode}");
-        Console.WriteLine(resp.Data);
+        var result = api.Subdomains("example.com", "2000-01-01", DateTime.UtcNow.ToString("yyyy-MM-dd"), null, null, null);
+        Console.WriteLine(result);
     }
 }

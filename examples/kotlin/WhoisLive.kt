@@ -1,12 +1,13 @@
 // Runnable example: Live WHOIS Lookup (GET /v2.0/whois/live)
 // Parameters for whoisLive (GET /v2.0/whois/live):
-//   - apiKey (string, required): Your WHOISFreaks API key
 //   - domainName (string, required)
 //   - format (string (one of: json, xml), optional)
-import com.whoisfreaks.api.WHOISApi
+import com.whoisfreaks.client.apis.WHOISApi
+import com.whoisfreaks.client.infrastructure.ApiClient
 
 fun main() {
-    val api = WHOISApi(basePath = "https://api.whoisfreaks.com")
-    val result = api.whoisLive("YOUR_API_KEY", "example.com", null)
-    println(result)  // status via api.whoisLiveWithHttpInfo(...).statusCode
+    ApiClient.apiKey["apiKey"] = "YOUR_API_KEY"  // set once
+    val api = WHOISApi()
+    val result = api.whoisLive("example.com", null)
+    println(result)
 }

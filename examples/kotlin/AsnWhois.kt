@@ -1,12 +1,13 @@
 // Runnable example: ASN WHOIS Lookup (GET /v2.0/asn-whois)
 // Parameters for asnWhois (GET /v2.0/asn-whois):
-//   - apiKey (string, required): Your WHOISFreaks API key
 //   - asn (string, required)
 //   - format (string (one of: json, xml), optional)
-import com.whoisfreaks.api.ASNWHOISApi
+import com.whoisfreaks.client.apis.ASNWHOISApi
+import com.whoisfreaks.client.infrastructure.ApiClient
 
 fun main() {
-    val api = ASNWHOISApi(basePath = "https://api.whoisfreaks.com")
-    val result = api.asnWhois("YOUR_API_KEY", "AS15169", null)
-    println(result)  // status via api.asnWhoisWithHttpInfo(...).statusCode
+    ApiClient.apiKey["apiKey"] = "YOUR_API_KEY"  // set once
+    val api = ASNWHOISApi()
+    val result = api.asnWhois("AS15169", null)
+    println(result)
 }

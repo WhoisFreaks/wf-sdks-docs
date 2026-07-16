@@ -1,11 +1,13 @@
 # Runnable example: IP Security Snapshot (GET /v3.3/download/snapshot/ip/security)
 # Parameters for dbIpSecurity (GET /v3.3/download/snapshot/ip/security):
-#   - apiKey (string, required): Your WHOISFreaks API key
 #   - date (string, required)
 require 'date'
 require 'whoisfreaks'
 
+WhoisFreaks.configure do |config|
+  config.api_key["apiKey"] = "YOUR_API_KEY"   # set once
+end
+
 api = WhoisFreaks::DatabasesIPSecurityApi.new
-data, status, _headers = api.db_ip_security_with_http_info("YOUR_API_KEY", (Date.today - 1).to_s)
-puts "status: #{status}"
-puts data
+result = api.db_ip_security((Date.today - 1).to_s)
+puts result

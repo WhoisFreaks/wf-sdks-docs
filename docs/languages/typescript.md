@@ -1,5 +1,11 @@
 # TypeScript SDK
 
+## About
+
+The official **WhoisFreaks TypeScript SDK** — a complete client for WHOIS, DNS, SSL, domain availability, subdomain, IP geolocation, IP reputation, ASN, typosquatting, and domain reputation lookups, plus bulk database downloads. Query real-time and historical domain data, reverse WHOIS, and threat intelligence from TypeScript with a single API key. Generated from the WhoisFreaks OpenAPI specification and published to npm.
+
+**Keywords:** typescript whois api, typescript whois sdk, whoisfreaks typescript, typescript domain lookup, typescript dns api, whois api, whois lookup, domain api, dns api, dns lookup, reverse whois, historical whois, domain availability api, ssl certificate api, ip geolocation api, ip reputation api, asn lookup, subdomain finder, typosquatting api, domain reputation, threat intelligence api, domain data api, whois sdk, domain monitoring, brand protection api
+
 - **Registry:** npm
 - **Package:** `whoisfreaks`
 
@@ -7,6 +13,17 @@
 
 ```bash
 npm install whoisfreaks
+```
+
+## Build from Source
+
+Prefer to build the SDK yourself instead of installing from npm? Clone the monorepo and build the TypeScript package locally:
+
+```bash
+git clone https://github.com/WhoisFreaks/wf-sdks
+cd wf-sdks/sdks/typescript
+npm install
+npm run build
 ```
 
 ## Getting Started
@@ -25,11 +42,11 @@ Set `"type": "module"` in `package.json`, then create `main.ts`:
 ```ts
 import { Configuration, WHOISApi } from "whoisfreaks";
 
-const api = new WHOISApi(new Configuration());
+const config = new Configuration({ apiKey: "YOUR_API_KEY" });  // set once
+const api = new WHOISApi(config);
 
-const resp = await api.whoisLiveRaw({ apiKey: "YOUR_API_KEY", domainName: "example.com" });
-console.log("status:", resp.raw.status);
-console.log(await resp.value());
+const result = await api.whoisLive({ domainName: "example.com" });
+console.log(result);
 ```
 
 Run it:
@@ -45,17 +62,16 @@ See [Authentication](../authentication.md) for how to obtain a key. Minimal setu
 ```typescript
 // Runnable example: Live WHOIS Lookup (GET /v2.0/whois/live)
 // Parameters for whoisLive (GET /v2.0/whois/live):
-//   - apiKey (string, required): Your WHOISFreaks API key
 //   - domainName (string, required)
 //   - format (string (one of: json, xml), optional)
 import { Configuration, WHOISApi } from "whoisfreaks";
 
-const api = new WHOISApi(new Configuration());
+const config = new Configuration({ apiKey: "YOUR_API_KEY" });  // set once
+const api = new WHOISApi(config);
 
 async function main() {
-  const resp = await api.whoisLiveRaw({ apiKey: "YOUR_API_KEY", domainName: "example.com", format: undefined });
-  console.log("status:", resp.raw.status);
-  console.log(await resp.value());
+  const result = await api.whoisLive({ domainName: "example.com", format: undefined });
+  console.log(result);
 }
 main().catch(console.error);
 
@@ -74,17 +90,16 @@ All 54 endpoints are shown below, grouped by category. Each includes its method,
 ```typescript
 // Runnable example: Live WHOIS Lookup (GET /v2.0/whois/live)
 // Parameters for whoisLive (GET /v2.0/whois/live):
-//   - apiKey (string, required): Your WHOISFreaks API key
 //   - domainName (string, required)
 //   - format (string (one of: json, xml), optional)
 import { Configuration, WHOISApi } from "whoisfreaks";
 
-const api = new WHOISApi(new Configuration());
+const config = new Configuration({ apiKey: "YOUR_API_KEY" });  // set once
+const api = new WHOISApi(config);
 
 async function main() {
-  const resp = await api.whoisLiveRaw({ apiKey: "YOUR_API_KEY", domainName: "example.com", format: undefined });
-  console.log("status:", resp.raw.status);
-  console.log(await resp.value());
+  const result = await api.whoisLive({ domainName: "example.com", format: undefined });
+  console.log(result);
 }
 main().catch(console.error);
 
@@ -97,17 +112,16 @@ main().catch(console.error);
 ```typescript
 // Runnable example: Bulk WHOIS Lookup (POST /v2.0/bulkwhois/live)
 // Parameters for bulkWhois (POST /v2.0/bulkwhois/live):
-//   - apiKey (string, required): Your WHOISFreaks API key
 //   - format (string (one of: json, xml), optional)
 //   - body: BulkWhoisRequest (required) -- request body object
 import { Configuration, WHOISApi } from "whoisfreaks";
 
-const api = new WHOISApi(new Configuration());
+const config = new Configuration({ apiKey: "YOUR_API_KEY" });  // set once
+const api = new WHOISApi(config);
 
 async function main() {
-  const resp = await api.bulkWhoisRaw({ apiKey: "YOUR_API_KEY", bulkWhoisRequest: {}, format: undefined });
-  console.log("status:", resp.raw.status);
-  console.log(await resp.value());
+  const result = await api.bulkWhois({ bulkWhoisRequest: {}, format: undefined });
+  console.log(result);
 }
 main().catch(console.error);
 
@@ -120,18 +134,17 @@ main().catch(console.error);
 ```typescript
 // Runnable example: Historical WHOIS records for a domain (GET /v2.0/whois/history)
 // Parameters for whoisHistory (GET /v2.0/whois/history):
-//   - apiKey (string, required): Your WHOISFreaks API key
 //   - domainName (string, required): Domain to fetch historical WHOIS records for
 //   - page (integer, optional): Page number
 //   - format (string (one of: json, xml), optional)
 import { Configuration, WHOISApi } from "whoisfreaks";
 
-const api = new WHOISApi(new Configuration());
+const config = new Configuration({ apiKey: "YOUR_API_KEY" });  // set once
+const api = new WHOISApi(config);
 
 async function main() {
-  const resp = await api.whoisHistoryRaw({ apiKey: "YOUR_API_KEY", domainName: "example.com", page: undefined, format: undefined });
-  console.log("status:", resp.raw.status);
-  console.log(await resp.value());
+  const result = await api.whoisHistory({ domainName: "example.com", page: undefined, format: undefined });
+  console.log(result);
 }
 main().catch(console.error);
 
@@ -144,18 +157,17 @@ main().catch(console.error);
 ```typescript
 // Runnable example: Reverse WHOIS lookup by keyword (GET /v2.0/whois/reverse)
 // Parameters for whoisReverse (GET /v2.0/whois/reverse):
-//   - apiKey (string, required): Your WHOISFreaks API key
 //   - keyword (string, required): Keyword to search across WHOIS records
 //   - page (integer, optional): Page number
 //   - format (string (one of: json, xml), optional)
 import { Configuration, WHOISApi } from "whoisfreaks";
 
-const api = new WHOISApi(new Configuration());
+const config = new Configuration({ apiKey: "YOUR_API_KEY" });  // set once
+const api = new WHOISApi(config);
 
 async function main() {
-  const resp = await api.whoisReverseRaw({ apiKey: "YOUR_API_KEY", keyword: "value", page: undefined, format: undefined });
-  console.log("status:", resp.raw.status);
-  console.log(await resp.value());
+  const result = await api.whoisReverse({ keyword: "value", page: undefined, format: undefined });
+  console.log(result);
 }
 main().catch(console.error);
 
@@ -170,19 +182,18 @@ main().catch(console.error);
 ```typescript
 // Runnable example: Live DNS Lookup (GET /v2.0/dns/live)
 // Parameters for dnsLive (GET /v2.0/dns/live):
-//   - apiKey (string, required): Your WHOISFreaks API key
 //   - domainName (string, required)
 //   - ipAddress (string, required): Use for PTR lookups
 //   - type (string, required): all or comma-separated: A,MX,NS,TXT,SOA,SPF,AAAA,CNAME
 //   - format (string (one of: json, xml), optional)
 import { Configuration, DNSApi } from "whoisfreaks";
 
-const api = new DNSApi(new Configuration());
+const config = new Configuration({ apiKey: "YOUR_API_KEY" });  // set once
+const api = new DNSApi(config);
 
 async function main() {
-  const resp = await api.dnsLiveRaw({ apiKey: "YOUR_API_KEY", domainName: "example.com", ipAddress: "8.8.8.8", type: "value", format: undefined });
-  console.log("status:", resp.raw.status);
-  console.log(await resp.value());
+  const result = await api.dnsLive({ domainName: "example.com", ipAddress: "8.8.8.8", type: "value", format: undefined });
+  console.log(result);
 }
 main().catch(console.error);
 
@@ -195,19 +206,18 @@ main().catch(console.error);
 ```typescript
 // Runnable example: Historical DNS Lookup (GET /v2.0/dns/historical)
 // Parameters for dnsHistorical (GET /v2.0/dns/historical):
-//   - apiKey (string, required): Your WHOISFreaks API key
 //   - domainName (string, required)
 //   - type (string, required)
 //   - page (integer, optional)
 //   - format (string (one of: json, xml), optional)
 import { Configuration, DNSApi } from "whoisfreaks";
 
-const api = new DNSApi(new Configuration());
+const config = new Configuration({ apiKey: "YOUR_API_KEY" });  // set once
+const api = new DNSApi(config);
 
 async function main() {
-  const resp = await api.dnsHistoricalRaw({ apiKey: "YOUR_API_KEY", domainName: "example.com", type: "value", page: undefined, format: undefined });
-  console.log("status:", resp.raw.status);
-  console.log(await resp.value());
+  const result = await api.dnsHistorical({ domainName: "example.com", type: "value", page: undefined, format: undefined });
+  console.log(result);
 }
 main().catch(console.error);
 
@@ -220,7 +230,6 @@ main().catch(console.error);
 ```typescript
 // Runnable example: Reverse DNS Lookup (GET /v2.1/dns/reverse)
 // Parameters for dnsReverse (GET /v2.1/dns/reverse):
-//   - apiKey (string, required): Your WHOISFreaks API key
 //   - value (string, required): IP, CIDR, or record value
 //   - type (string (one of: a, mx, cname, ns, aaaa, txt, soa), required)
 //   - exact (boolean, optional)
@@ -228,12 +237,12 @@ main().catch(console.error);
 //   - format (string (one of: json, xml), optional)
 import { Configuration, DNSApi } from "whoisfreaks";
 
-const api = new DNSApi(new Configuration());
+const config = new Configuration({ apiKey: "YOUR_API_KEY" });  // set once
+const api = new DNSApi(config);
 
 async function main() {
-  const resp = await api.dnsReverseRaw({ apiKey: "YOUR_API_KEY", value: "value", type: "a", exact: true, page: undefined, format: undefined });
-  console.log("status:", resp.raw.status);
-  console.log(await resp.value());
+  const result = await api.dnsReverse({ value: "value", type: "a", exact: true, page: undefined, format: undefined });
+  console.log(result);
 }
 main().catch(console.error);
 
@@ -246,18 +255,17 @@ main().catch(console.error);
 ```typescript
 // Runnable example: Bulk DNS Lookup (POST /v2.0/dns/bulk/live)
 // Parameters for dnsBulk (POST /v2.0/dns/bulk/live):
-//   - apiKey (string, required): Your WHOISFreaks API key
 //   - type (string, required)
 //   - format (string (one of: json, xml), optional)
 //   - body: DnsBulkRequest (required) -- request body object
 import { Configuration, DNSApi } from "whoisfreaks";
 
-const api = new DNSApi(new Configuration());
+const config = new Configuration({ apiKey: "YOUR_API_KEY" });  // set once
+const api = new DNSApi(config);
 
 async function main() {
-  const resp = await api.dnsBulkRaw({ apiKey: "YOUR_API_KEY", type: "value", dnsBulkRequest: {}, format: undefined });
-  console.log("status:", resp.raw.status);
-  console.log(await resp.value());
+  const result = await api.dnsBulk({ type: "value", dnsBulkRequest: {}, format: undefined });
+  console.log(result);
 }
 main().catch(console.error);
 
@@ -272,19 +280,18 @@ main().catch(console.error);
 ```typescript
 // Runnable example: Domain Availability Check with Suggestions (GET /v2.0/domain/availability)
 // Parameters for domainAvailabilityV2 (GET /v2.0/domain/availability):
-//   - apiKey (string, required): Your WHOISFreaks API key
 //   - domain (string, required): The domain name to check
 //   - sug (boolean, optional): Whether to return TLD suggestions alongside the queried domain.
 //   - count (integer, optional): Number of TLD suggestions to return when sug=true. Maximum is 100.
 //   - format (string (one of: json, xml), optional)
 import { Configuration, DomainAvailabilityApi } from "whoisfreaks";
 
-const api = new DomainAvailabilityApi(new Configuration());
+const config = new Configuration({ apiKey: "YOUR_API_KEY" });  // set once
+const api = new DomainAvailabilityApi(config);
 
 async function main() {
-  const resp = await api.domainAvailabilityV2Raw({ apiKey: "YOUR_API_KEY", domain: "example.com", sug: undefined, count: undefined, format: undefined });
-  console.log("status:", resp.raw.status);
-  console.log(await resp.value());
+  const result = await api.domainAvailabilityV2({ domain: "example.com", sug: undefined, count: undefined, format: undefined });
+  console.log(result);
 }
 main().catch(console.error);
 
@@ -297,18 +304,17 @@ main().catch(console.error);
 ```typescript
 // Runnable example: Bulk Domain Availability Check (POST /v2.0/domain/availability)
 // Parameters for bulkDomainAvailabilityV2 (POST /v2.0/domain/availability):
-//   - apiKey (string, required): Your WHOISFreaks API key
 //   - domain (string, optional): Required for TLD-mode bulk check (base domain).
 //   - format (string (one of: json, xml), optional)
 //   - body: BulkDomainAvailabilityRequest (required) -- request body object
 import { Configuration, DomainAvailabilityApi } from "whoisfreaks";
 
-const api = new DomainAvailabilityApi(new Configuration());
+const config = new Configuration({ apiKey: "YOUR_API_KEY" });  // set once
+const api = new DomainAvailabilityApi(config);
 
 async function main() {
-  const resp = await api.bulkDomainAvailabilityV2Raw({ apiKey: "YOUR_API_KEY", bulkDomainAvailabilityRequest: {}, domain: undefined, format: undefined });
-  console.log("status:", resp.raw.status);
-  console.log(await resp.value());
+  const result = await api.bulkDomainAvailabilityV2({ bulkDomainAvailabilityRequest: {}, domain: undefined, format: undefined });
+  console.log(result);
 }
 main().catch(console.error);
 
@@ -323,18 +329,17 @@ main().catch(console.error);
 ```typescript
 // Runnable example: Typosquatting Lookup (GET /v3.0/domain/typos)
 // Parameters for typosquatting (GET /v3.0/domain/typos):
-//   - apiKey (string, required): Your WHOISFreaks API key
 //   - keyword (string, optional)
 //   - pattern (string, optional)
 //   - pageToken (string, optional)
 import { Configuration, TyposquattingApi } from "whoisfreaks";
 
-const api = new TyposquattingApi(new Configuration());
+const config = new Configuration({ apiKey: "YOUR_API_KEY" });  // set once
+const api = new TyposquattingApi(config);
 
 async function main() {
-  const resp = await api.typosquattingRaw({ apiKey: "YOUR_API_KEY", keyword: undefined, pattern: undefined, pageToken: undefined });
-  console.log("status:", resp.raw.status);
-  console.log(await resp.value());
+  const result = await api.typosquatting({ keyword: undefined, pattern: undefined, pageToken: undefined });
+  console.log(result);
 }
 main().catch(console.error);
 
@@ -349,19 +354,18 @@ main().catch(console.error);
 ```typescript
 // Runnable example: SSL Certificate Lookup (GET /v1.0/ssl/live)
 // Parameters for sslLookup (GET /v1.0/ssl/live):
-//   - apiKey (string, required): Your WHOISFreaks API key
 //   - domainName (string, required)
 //   - chain (boolean, optional)
 //   - sslRaw (boolean, optional)
 //   - format (string (one of: json, xml), optional)
 import { Configuration, SSLApi } from "whoisfreaks";
 
-const api = new SSLApi(new Configuration());
+const config = new Configuration({ apiKey: "YOUR_API_KEY" });  // set once
+const api = new SSLApi(config);
 
 async function main() {
-  const resp = await api.sslLookupRaw({ apiKey: "YOUR_API_KEY", domainName: "example.com", chain: undefined, sslRaw: undefined, format: undefined });
-  console.log("status:", resp.raw.status);
-  console.log(await resp.value());
+  const result = await api.sslLookup({ domainName: "example.com", chain: undefined, sslRaw: undefined, format: undefined });
+  console.log(result);
 }
 main().catch(console.error);
 
@@ -376,16 +380,15 @@ main().catch(console.error);
 ```typescript
 // Runnable example: IP Geolocation Lookup (GET /v1.0/geolocation)
 // Parameters for geolocation (GET /v1.0/geolocation):
-//   - apiKey (string, required): Your WHOISFreaks API key
 //   - ip (string, required)
 import { Configuration, GeolocationApi } from "whoisfreaks";
 
-const api = new GeolocationApi(new Configuration());
+const config = new Configuration({ apiKey: "YOUR_API_KEY" });  // set once
+const api = new GeolocationApi(config);
 
 async function main() {
-  const resp = await api.geolocationRaw({ apiKey: "YOUR_API_KEY", ip: "8.8.8.8" });
-  console.log("status:", resp.raw.status);
-  console.log(await resp.value());
+  const result = await api.geolocation({ ip: "8.8.8.8" });
+  console.log(result);
 }
 main().catch(console.error);
 
@@ -398,16 +401,15 @@ main().catch(console.error);
 ```typescript
 // Runnable example: Bulk IP Geolocation (POST /v1.0/geolocation)
 // Parameters for bulkGeolocation (POST /v1.0/geolocation):
-//   - apiKey (string, required): Your WHOISFreaks API key
 //   - body: BulkGeolocationRequest (required) -- request body object
 import { Configuration, GeolocationApi } from "whoisfreaks";
 
-const api = new GeolocationApi(new Configuration());
+const config = new Configuration({ apiKey: "YOUR_API_KEY" });  // set once
+const api = new GeolocationApi(config);
 
 async function main() {
-  const resp = await api.bulkGeolocationRaw({ apiKey: "YOUR_API_KEY", bulkGeolocationRequest: {} });
-  console.log("status:", resp.raw.status);
-  console.log(await resp.value());
+  const result = await api.bulkGeolocation({ bulkGeolocationRequest: {} });
+  console.log(result);
 }
 main().catch(console.error);
 
@@ -422,7 +424,6 @@ main().catch(console.error);
 ```typescript
 // Runnable example: Subdomains Lookup (GET /v1.0/subdomains)
 // Parameters for subdomains (GET /v1.0/subdomains):
-//   - apiKey (string, required): Your WHOISFreaks API key
 //   - domain (string, required)
 //   - after (string, optional)
 //   - before (string, optional)
@@ -431,12 +432,12 @@ main().catch(console.error);
 //   - format (string (one of: json, xml), optional)
 import { Configuration, SubdomainsApi } from "whoisfreaks";
 
-const api = new SubdomainsApi(new Configuration());
+const config = new Configuration({ apiKey: "YOUR_API_KEY" });  // set once
+const api = new SubdomainsApi(config);
 
 async function main() {
-  const resp = await api.subdomainsRaw({ apiKey: "YOUR_API_KEY", domain: "example.com", after: "2000-01-01", before: new Date().toISOString().slice(0,10), status: undefined, page: undefined, format: undefined });
-  console.log("status:", resp.raw.status);
-  console.log(await resp.value());
+  const result = await api.subdomains({ domain: "example.com", after: "2000-01-01", before: new Date().toISOString().slice(0,10), status: undefined, page: undefined, format: undefined });
+  console.log(result);
 }
 main().catch(console.error);
 
@@ -451,16 +452,15 @@ main().catch(console.error);
 ```typescript
 // Runnable example: IP Reputation Lookup (GET /v1.0/security)
 // Parameters for ipReputation (GET /v1.0/security):
-//   - apiKey (string, required): Your WHOISFreaks API key
 //   - ip (string, required)
 import { Configuration, IPReputationApi } from "whoisfreaks";
 
-const api = new IPReputationApi(new Configuration());
+const config = new Configuration({ apiKey: "YOUR_API_KEY" });  // set once
+const api = new IPReputationApi(config);
 
 async function main() {
-  const resp = await api.ipReputationRaw({ apiKey: "YOUR_API_KEY", ip: "8.8.8.8" });
-  console.log("status:", resp.raw.status);
-  console.log(await resp.value());
+  const result = await api.ipReputation({ ip: "8.8.8.8" });
+  console.log(result);
 }
 main().catch(console.error);
 
@@ -473,16 +473,15 @@ main().catch(console.error);
 ```typescript
 // Runnable example: Bulk IP Reputation (POST /v1.0/security)
 // Parameters for bulkIpReputation (POST /v1.0/security):
-//   - apiKey (string, required): Your WHOISFreaks API key
-//   - body: BulkGeolocationRequest (required) -- request body object
+//   - body: BulkIpReputationRequest (required) -- request body object
 import { Configuration, IPReputationApi } from "whoisfreaks";
 
-const api = new IPReputationApi(new Configuration());
+const config = new Configuration({ apiKey: "YOUR_API_KEY" });  // set once
+const api = new IPReputationApi(config);
 
 async function main() {
-  const resp = await api.bulkIpReputationRaw({ apiKey: "YOUR_API_KEY", bulkGeolocationRequest: {} });
-  console.log("status:", resp.raw.status);
-  console.log(await resp.value());
+  const result = await api.bulkIpReputation({ bulkIpReputationRequest: {} });
+  console.log(result);
 }
 main().catch(console.error);
 
@@ -497,17 +496,16 @@ main().catch(console.error);
 ```typescript
 // Runnable example: Domain Reputation Lookup (GET /v1/domain/security)
 // Parameters for domainReputation (GET /v1/domain/security):
-//   - apiKey (string, required): Your WHOISFreaks API key
 //   - domainName (string, required): The domain name to assess
 //   - format (string (one of: json, xml), optional)
 import { Configuration, DomainReputationApi } from "whoisfreaks";
 
-const api = new DomainReputationApi(new Configuration());
+const config = new Configuration({ apiKey: "YOUR_API_KEY" });  // set once
+const api = new DomainReputationApi(config);
 
 async function main() {
-  const resp = await api.domainReputationRaw({ apiKey: "YOUR_API_KEY", domainName: "example.com", format: undefined });
-  console.log("status:", resp.raw.status);
-  console.log(await resp.value());
+  const result = await api.domainReputation({ domainName: "example.com", format: undefined });
+  console.log(result);
 }
 main().catch(console.error);
 
@@ -522,17 +520,16 @@ main().catch(console.error);
 ```typescript
 // Runnable example: ASN WHOIS Lookup (GET /v2.0/asn-whois)
 // Parameters for asnWhois (GET /v2.0/asn-whois):
-//   - apiKey (string, required): Your WHOISFreaks API key
 //   - asn (string, required)
 //   - format (string (one of: json, xml), optional)
 import { Configuration, ASNWHOISApi } from "whoisfreaks";
 
-const api = new ASNWHOISApi(new Configuration());
+const config = new Configuration({ apiKey: "YOUR_API_KEY" });  // set once
+const api = new ASNWHOISApi(config);
 
 async function main() {
-  const resp = await api.asnWhoisRaw({ apiKey: "YOUR_API_KEY", asn: "AS15169", format: undefined });
-  console.log("status:", resp.raw.status);
-  console.log(await resp.value());
+  const result = await api.asnWhois({ asn: "AS15169", format: undefined });
+  console.log(result);
 }
 main().catch(console.error);
 
@@ -547,17 +544,16 @@ main().catch(console.error);
 ```typescript
 // Runnable example: IP WHOIS Lookup (GET /v1.0/ip-whois)
 // Parameters for ipWhois (GET /v1.0/ip-whois):
-//   - apiKey (string, required): Your WHOISFreaks API key
 //   - ip (string, required)
 //   - format (string (one of: json, xml), optional)
 import { Configuration, IPWHOISApi } from "whoisfreaks";
 
-const api = new IPWHOISApi(new Configuration());
+const config = new Configuration({ apiKey: "YOUR_API_KEY" });  // set once
+const api = new IPWHOISApi(config);
 
 async function main() {
-  const resp = await api.ipWhoisRaw({ apiKey: "YOUR_API_KEY", ip: "8.8.8.8", format: undefined });
-  console.log("status:", resp.raw.status);
-  console.log(await resp.value());
+  const result = await api.ipWhois({ ip: "8.8.8.8", format: undefined });
+  console.log(result);
 }
 main().catch(console.error);
 
@@ -572,15 +568,15 @@ main().catch(console.error);
 ```typescript
 // Runnable example: Rotate API Key (GET /v1.0/api-key/rotate)
 // Parameters for rotateApiKey (GET /v1.0/api-key/rotate):
-//   - apiKey (string, required): Your WHOISFreaks API key
+//   (no parameters; the API key is set on the client)
 import { Configuration, AccountApi } from "whoisfreaks";
 
-const api = new AccountApi(new Configuration());
+const config = new Configuration({ apiKey: "YOUR_API_KEY" });  // set once
+const api = new AccountApi(config);
 
 async function main() {
-  const resp = await api.rotateApiKeyRaw({ apiKey: "YOUR_API_KEY" });
-  console.log("status:", resp.raw.status);
-  console.log(await resp.value());
+  const result = await api.rotateApiKey({  });
+  console.log(result);
 }
 main().catch(console.error);
 
@@ -593,15 +589,15 @@ main().catch(console.error);
 ```typescript
 // Runnable example: Account Usage (GET /v1.0/whoisapi/usage)
 // Parameters for accountUsage (GET /v1.0/whoisapi/usage):
-//   - apiKey (string, required): Your WHOISFreaks API key
+//   (no parameters; the API key is set on the client)
 import { Configuration, AccountApi } from "whoisfreaks";
 
-const api = new AccountApi(new Configuration());
+const config = new Configuration({ apiKey: "YOUR_API_KEY" });  // set once
+const api = new AccountApi(config);
 
 async function main() {
-  const resp = await api.accountUsageRaw({ apiKey: "YOUR_API_KEY" });
-  console.log("status:", resp.raw.status);
-  console.log(await resp.value());
+  const result = await api.accountUsage({  });
+  console.log(result);
 }
 main().catch(console.error);
 
@@ -614,15 +610,15 @@ main().catch(console.error);
 ```typescript
 // Runnable example: Database File Status (Public) (GET /v3.3/status)
 // Parameters for databaseFileStatus (GET /v3.3/status):
-//   (no parameters besides apiKey)
+//   (no parameters; the API key is set on the client)
 import { Configuration, AccountApi } from "whoisfreaks";
 
-const api = new AccountApi(new Configuration());
+const config = new Configuration({ apiKey: "YOUR_API_KEY" });  // set once
+const api = new AccountApi(config);
 
 async function main() {
-  const resp = await api.databaseFileStatusRaw({  });
-  console.log("status:", resp.raw.status);
-  console.log(await resp.value());
+  const result = await api.databaseFileStatus({  });
+  console.log(result);
 }
 main().catch(console.error);
 
@@ -637,18 +633,17 @@ main().catch(console.error);
 ```typescript
 // Runnable example: Newly Registered gTLD (CSV) (GET /v3.1/download/domainer/gtld)
 // Parameters for dbNewlyGtld (GET /v3.1/download/domainer/gtld):
-//   - apiKey (string, required): Your WHOISFreaks API key
 //   - whois (boolean, required)
 //   - date (string, optional): yyyy-MM-dd; omit for latest
 //   - tlds (string, optional)
 import { Configuration, DatabasesNewlyRegisteredApi } from "whoisfreaks";
 
-const api = new DatabasesNewlyRegisteredApi(new Configuration());
+const config = new Configuration({ apiKey: "YOUR_API_KEY" });  // set once
+const api = new DatabasesNewlyRegisteredApi(config);
 
 async function main() {
-  const resp = await api.dbNewlyGtldRaw({ apiKey: "YOUR_API_KEY", whois: false, date: new Date(Date.now()-86400000).toISOString().slice(0,10), tlds: undefined });
-  console.log("status:", resp.raw.status);
-  console.log(await resp.value());
+  const result = await api.dbNewlyGtld({ whois: false, date: new Date(Date.now()-86400000).toISOString().slice(0,10), tlds: undefined });
+  console.log(result);
 }
 main().catch(console.error);
 
@@ -661,18 +656,17 @@ main().catch(console.error);
 ```typescript
 // Runnable example: Newly Registered ccTLD (CSV) (GET /v3.1/download/domainer/cctld)
 // Parameters for dbNewlyCctld (GET /v3.1/download/domainer/cctld):
-//   - apiKey (string, required): Your WHOISFreaks API key
 //   - whois (boolean, required)
 //   - date (string, optional): yyyy-MM-dd; omit for latest
 //   - tlds (string, optional)
 import { Configuration, DatabasesNewlyRegisteredApi } from "whoisfreaks";
 
-const api = new DatabasesNewlyRegisteredApi(new Configuration());
+const config = new Configuration({ apiKey: "YOUR_API_KEY" });  // set once
+const api = new DatabasesNewlyRegisteredApi(config);
 
 async function main() {
-  const resp = await api.dbNewlyCctldRaw({ apiKey: "YOUR_API_KEY", whois: false, date: new Date(Date.now()-86400000).toISOString().slice(0,10), tlds: undefined });
-  console.log("status:", resp.raw.status);
-  console.log(await resp.value());
+  const result = await api.dbNewlyCctld({ whois: false, date: new Date(Date.now()-86400000).toISOString().slice(0,10), tlds: undefined });
+  console.log(result);
 }
 main().catch(console.error);
 
@@ -685,16 +679,15 @@ main().catch(console.error);
 ```typescript
 // Runnable example: Newly Registered gTLD Cleaned WHOIS (CSV) (GET /v3.1/download/domainer/gtld/cleaned)
 // Parameters for dbNewlyGtldCleaned (GET /v3.1/download/domainer/gtld/cleaned):
-//   - apiKey (string, required): Your WHOISFreaks API key
 //   - date (string, optional): yyyy-MM-dd; omit for latest
 import { Configuration, DatabasesNewlyRegisteredApi } from "whoisfreaks";
 
-const api = new DatabasesNewlyRegisteredApi(new Configuration());
+const config = new Configuration({ apiKey: "YOUR_API_KEY" });  // set once
+const api = new DatabasesNewlyRegisteredApi(config);
 
 async function main() {
-  const resp = await api.dbNewlyGtldCleanedRaw({ apiKey: "YOUR_API_KEY", date: new Date(Date.now()-86400000).toISOString().slice(0,10) });
-  console.log("status:", resp.raw.status);
-  console.log(await resp.value());
+  const result = await api.dbNewlyGtldCleaned({ date: new Date(Date.now()-86400000).toISOString().slice(0,10) });
+  console.log(result);
 }
 main().catch(console.error);
 
@@ -707,16 +700,15 @@ main().catch(console.error);
 ```typescript
 // Runnable example: Newly Registered ccTLD Cleaned WHOIS (CSV) (GET /v3.1/download/domainer/cctld/cleaned)
 // Parameters for dbNewlyCctldCleaned (GET /v3.1/download/domainer/cctld/cleaned):
-//   - apiKey (string, required): Your WHOISFreaks API key
 //   - date (string, optional): yyyy-MM-dd; omit for latest
 import { Configuration, DatabasesNewlyRegisteredApi } from "whoisfreaks";
 
-const api = new DatabasesNewlyRegisteredApi(new Configuration());
+const config = new Configuration({ apiKey: "YOUR_API_KEY" });  // set once
+const api = new DatabasesNewlyRegisteredApi(config);
 
 async function main() {
-  const resp = await api.dbNewlyCctldCleanedRaw({ apiKey: "YOUR_API_KEY", date: new Date(Date.now()-86400000).toISOString().slice(0,10) });
-  console.log("status:", resp.raw.status);
-  console.log(await resp.value());
+  const result = await api.dbNewlyCctldCleaned({ date: new Date(Date.now()-86400000).toISOString().slice(0,10) });
+  console.log(result);
 }
 main().catch(console.error);
 
@@ -729,17 +721,16 @@ main().catch(console.error);
 ```typescript
 // Runnable example: Newly Registered gTLD (JSON) (GET /v3.1/domains/newly/gtld)
 // Parameters for dbNewlyGtldJson (GET /v3.1/domains/newly/gtld):
-//   - apiKey (string, required): Your WHOISFreaks API key
 //   - date (string, optional): yyyy-MM-dd; omit for latest
 //   - tlds (string, optional)
 import { Configuration, DatabasesNewlyRegisteredApi } from "whoisfreaks";
 
-const api = new DatabasesNewlyRegisteredApi(new Configuration());
+const config = new Configuration({ apiKey: "YOUR_API_KEY" });  // set once
+const api = new DatabasesNewlyRegisteredApi(config);
 
 async function main() {
-  const resp = await api.dbNewlyGtldJsonRaw({ apiKey: "YOUR_API_KEY", date: new Date(Date.now()-86400000).toISOString().slice(0,10), tlds: undefined });
-  console.log("status:", resp.raw.status);
-  console.log(await resp.value());
+  const result = await api.dbNewlyGtldJson({ date: new Date(Date.now()-86400000).toISOString().slice(0,10), tlds: undefined });
+  console.log(result);
 }
 main().catch(console.error);
 
@@ -752,17 +743,16 @@ main().catch(console.error);
 ```typescript
 // Runnable example: Newly Registered ccTLD (JSON) (GET /v3.1/domains/newly/cctld)
 // Parameters for dbNewlyCctldJson (GET /v3.1/domains/newly/cctld):
-//   - apiKey (string, required): Your WHOISFreaks API key
 //   - date (string, optional): yyyy-MM-dd; omit for latest
 //   - tlds (string, optional)
 import { Configuration, DatabasesNewlyRegisteredApi } from "whoisfreaks";
 
-const api = new DatabasesNewlyRegisteredApi(new Configuration());
+const config = new Configuration({ apiKey: "YOUR_API_KEY" });  // set once
+const api = new DatabasesNewlyRegisteredApi(config);
 
 async function main() {
-  const resp = await api.dbNewlyCctldJsonRaw({ apiKey: "YOUR_API_KEY", date: new Date(Date.now()-86400000).toISOString().slice(0,10), tlds: undefined });
-  console.log("status:", resp.raw.status);
-  console.log(await resp.value());
+  const result = await api.dbNewlyCctldJson({ date: new Date(Date.now()-86400000).toISOString().slice(0,10), tlds: undefined });
+  console.log(result);
 }
 main().catch(console.error);
 
@@ -775,16 +765,15 @@ main().catch(console.error);
 ```typescript
 // Runnable example: Newly Registered With DNS (GET /v3.1/download/domainer/newly/dns)
 // Parameters for dbNewlyDns (GET /v3.1/download/domainer/newly/dns):
-//   - apiKey (string, required): Your WHOISFreaks API key
 //   - date (string, optional): yyyy-MM-dd; omit for latest
 import { Configuration, DatabasesNewlyRegisteredApi } from "whoisfreaks";
 
-const api = new DatabasesNewlyRegisteredApi(new Configuration());
+const config = new Configuration({ apiKey: "YOUR_API_KEY" });  // set once
+const api = new DatabasesNewlyRegisteredApi(config);
 
 async function main() {
-  const resp = await api.dbNewlyDnsRaw({ apiKey: "YOUR_API_KEY", date: new Date(Date.now()-86400000).toISOString().slice(0,10) });
-  console.log("status:", resp.raw.status);
-  console.log(await resp.value());
+  const result = await api.dbNewlyDns({ date: new Date(Date.now()-86400000).toISOString().slice(0,10) });
+  console.log(result);
 }
 main().catch(console.error);
 
@@ -799,17 +788,16 @@ main().catch(console.error);
 ```typescript
 // Runnable example: Expiring Domains (GET /v3.1/download/domainer/expired)
 // Parameters for dbExpired (GET /v3.1/download/domainer/expired):
-//   - apiKey (string, required): Your WHOISFreaks API key
 //   - whois (boolean, required)
 //   - date (string, optional): yyyy-MM-dd; omit for latest
 import { Configuration, DatabasesExpiringDroppedApi } from "whoisfreaks";
 
-const api = new DatabasesExpiringDroppedApi(new Configuration());
+const config = new Configuration({ apiKey: "YOUR_API_KEY" });  // set once
+const api = new DatabasesExpiringDroppedApi(config);
 
 async function main() {
-  const resp = await api.dbExpiredRaw({ apiKey: "YOUR_API_KEY", whois: false, date: new Date(Date.now()-86400000).toISOString().slice(0,10) });
-  console.log("status:", resp.raw.status);
-  console.log(await resp.value());
+  const result = await api.dbExpired({ whois: false, date: new Date(Date.now()-86400000).toISOString().slice(0,10) });
+  console.log(result);
 }
 main().catch(console.error);
 
@@ -822,16 +810,15 @@ main().catch(console.error);
 ```typescript
 // Runnable example: Expiring Cleaned WHOIS (GET /v3.1/download/domainer/expired/cleaned)
 // Parameters for dbExpiredCleaned (GET /v3.1/download/domainer/expired/cleaned):
-//   - apiKey (string, required): Your WHOISFreaks API key
 //   - date (string, optional): yyyy-MM-dd; omit for latest
 import { Configuration, DatabasesExpiringDroppedApi } from "whoisfreaks";
 
-const api = new DatabasesExpiringDroppedApi(new Configuration());
+const config = new Configuration({ apiKey: "YOUR_API_KEY" });  // set once
+const api = new DatabasesExpiringDroppedApi(config);
 
 async function main() {
-  const resp = await api.dbExpiredCleanedRaw({ apiKey: "YOUR_API_KEY", date: new Date(Date.now()-86400000).toISOString().slice(0,10) });
-  console.log("status:", resp.raw.status);
-  console.log(await resp.value());
+  const result = await api.dbExpiredCleaned({ date: new Date(Date.now()-86400000).toISOString().slice(0,10) });
+  console.log(result);
 }
 main().catch(console.error);
 
@@ -844,17 +831,16 @@ main().catch(console.error);
 ```typescript
 // Runnable example: Dropped Domains (GET /v3.1/download/domainer/dropped)
 // Parameters for dbDropped (GET /v3.1/download/domainer/dropped):
-//   - apiKey (string, required): Your WHOISFreaks API key
 //   - whois (boolean, required)
 //   - date (string, optional): yyyy-MM-dd; omit for latest
 import { Configuration, DatabasesExpiringDroppedApi } from "whoisfreaks";
 
-const api = new DatabasesExpiringDroppedApi(new Configuration());
+const config = new Configuration({ apiKey: "YOUR_API_KEY" });  // set once
+const api = new DatabasesExpiringDroppedApi(config);
 
 async function main() {
-  const resp = await api.dbDroppedRaw({ apiKey: "YOUR_API_KEY", whois: false, date: new Date(Date.now()-86400000).toISOString().slice(0,10) });
-  console.log("status:", resp.raw.status);
-  console.log(await resp.value());
+  const result = await api.dbDropped({ whois: false, date: new Date(Date.now()-86400000).toISOString().slice(0,10) });
+  console.log(result);
 }
 main().catch(console.error);
 
@@ -867,17 +853,16 @@ main().catch(console.error);
 ```typescript
 // Runnable example: Dropped Domains (JSON) (GET /v3.1/domains/dropped)
 // Parameters for dbDroppedJson (GET /v3.1/domains/dropped):
-//   - apiKey (string, required): Your WHOISFreaks API key
 //   - date (string, optional): yyyy-MM-dd; omit for latest
 //   - tlds (string, optional)
 import { Configuration, DatabasesExpiringDroppedApi } from "whoisfreaks";
 
-const api = new DatabasesExpiringDroppedApi(new Configuration());
+const config = new Configuration({ apiKey: "YOUR_API_KEY" });  // set once
+const api = new DatabasesExpiringDroppedApi(config);
 
 async function main() {
-  const resp = await api.dbDroppedJsonRaw({ apiKey: "YOUR_API_KEY", date: new Date(Date.now()-86400000).toISOString().slice(0,10), tlds: undefined });
-  console.log("status:", resp.raw.status);
-  console.log(await resp.value());
+  const result = await api.dbDroppedJson({ date: new Date(Date.now()-86400000).toISOString().slice(0,10), tlds: undefined });
+  console.log(result);
 }
 main().catch(console.error);
 
@@ -890,17 +875,16 @@ main().catch(console.error);
 ```typescript
 // Runnable example: Dropped With Backlinks (GET /v3.3/download/domainer/dropped/backlinks)
 // Parameters for dbDroppedBacklinks (GET /v3.3/download/domainer/dropped/backlinks):
-//   - apiKey (string, required): Your WHOISFreaks API key
 //   - whois (boolean, optional)
 //   - date (string, optional): yyyy-MM-dd; omit for latest
 import { Configuration, DatabasesExpiringDroppedApi } from "whoisfreaks";
 
-const api = new DatabasesExpiringDroppedApi(new Configuration());
+const config = new Configuration({ apiKey: "YOUR_API_KEY" });  // set once
+const api = new DatabasesExpiringDroppedApi(config);
 
 async function main() {
-  const resp = await api.dbDroppedBacklinksRaw({ apiKey: "YOUR_API_KEY", whois: false, date: new Date(Date.now()-86400000).toISOString().slice(0,10) });
-  console.log("status:", resp.raw.status);
-  console.log(await resp.value());
+  const result = await api.dbDroppedBacklinks({ whois: false, date: new Date(Date.now()-86400000).toISOString().slice(0,10) });
+  console.log(result);
 }
 main().catch(console.error);
 
@@ -915,16 +899,15 @@ main().catch(console.error);
 ```typescript
 // Runnable example: WHOIS Database Daily (GET /v3.3/download/dbupdate/daily/domains/whois)
 // Parameters for dbWhoisDaily (GET /v3.3/download/dbupdate/daily/domains/whois):
-//   - apiKey (string, required): Your WHOISFreaks API key
 //   - date (string, optional): yyyy-MM-dd; omit for latest
 import { Configuration, DatabasesWHOISApi } from "whoisfreaks";
 
-const api = new DatabasesWHOISApi(new Configuration());
+const config = new Configuration({ apiKey: "YOUR_API_KEY" });  // set once
+const api = new DatabasesWHOISApi(config);
 
 async function main() {
-  const resp = await api.dbWhoisDailyRaw({ apiKey: "YOUR_API_KEY", date: new Date(Date.now()-86400000).toISOString().slice(0,10) });
-  console.log("status:", resp.raw.status);
-  console.log(await resp.value());
+  const result = await api.dbWhoisDaily({ date: new Date(Date.now()-86400000).toISOString().slice(0,10) });
+  console.log(result);
 }
 main().catch(console.error);
 
@@ -937,16 +920,15 @@ main().catch(console.error);
 ```typescript
 // Runnable example: WHOIS Database Weekly (GET /v3.3/download/dbupdate/weekly/domains/whois)
 // Parameters for dbWhoisWeekly (GET /v3.3/download/dbupdate/weekly/domains/whois):
-//   - apiKey (string, required): Your WHOISFreaks API key
 //   - date (string, optional): yyyy-MM-dd; omit for latest
 import { Configuration, DatabasesWHOISApi } from "whoisfreaks";
 
-const api = new DatabasesWHOISApi(new Configuration());
+const config = new Configuration({ apiKey: "YOUR_API_KEY" });  // set once
+const api = new DatabasesWHOISApi(config);
 
 async function main() {
-  const resp = await api.dbWhoisWeeklyRaw({ apiKey: "YOUR_API_KEY", date: new Date(Date.now()-86400000).toISOString().slice(0,10) });
-  console.log("status:", resp.raw.status);
-  console.log(await resp.value());
+  const result = await api.dbWhoisWeekly({ date: new Date(Date.now()-86400000).toISOString().slice(0,10) });
+  console.log(result);
 }
 main().catch(console.error);
 
@@ -959,16 +941,15 @@ main().catch(console.error);
 ```typescript
 // Runnable example: WHOIS Database Monthly (GET /v3.3/download/dbupdate/monthly/domains/whois)
 // Parameters for dbWhoisMonthly (GET /v3.3/download/dbupdate/monthly/domains/whois):
-//   - apiKey (string, required): Your WHOISFreaks API key
 //   - date (string, optional): yyyy-MM-dd; omit for latest
 import { Configuration, DatabasesWHOISApi } from "whoisfreaks";
 
-const api = new DatabasesWHOISApi(new Configuration());
+const config = new Configuration({ apiKey: "YOUR_API_KEY" });  // set once
+const api = new DatabasesWHOISApi(config);
 
 async function main() {
-  const resp = await api.dbWhoisMonthlyRaw({ apiKey: "YOUR_API_KEY", date: new Date(Date.now()-86400000).toISOString().slice(0,10) });
-  console.log("status:", resp.raw.status);
-  console.log(await resp.value());
+  const result = await api.dbWhoisMonthly({ date: new Date(Date.now()-86400000).toISOString().slice(0,10) });
+  console.log(result);
 }
 main().catch(console.error);
 
@@ -983,16 +964,15 @@ main().catch(console.error);
 ```typescript
 // Runnable example: DNS Database Daily (GET /v3.2/download/dbupdate/daily/dns)
 // Parameters for dbDnsDaily (GET /v3.2/download/dbupdate/daily/dns):
-//   - apiKey (string, required): Your WHOISFreaks API key
 //   - date (string, optional): yyyy-MM-dd; omit for latest
 import { Configuration, DatabasesDNSApi } from "whoisfreaks";
 
-const api = new DatabasesDNSApi(new Configuration());
+const config = new Configuration({ apiKey: "YOUR_API_KEY" });  // set once
+const api = new DatabasesDNSApi(config);
 
 async function main() {
-  const resp = await api.dbDnsDailyRaw({ apiKey: "YOUR_API_KEY", date: new Date(Date.now()-86400000).toISOString().slice(0,10) });
-  console.log("status:", resp.raw.status);
-  console.log(await resp.value());
+  const result = await api.dbDnsDaily({ date: new Date(Date.now()-86400000).toISOString().slice(0,10) });
+  console.log(result);
 }
 main().catch(console.error);
 
@@ -1005,16 +985,15 @@ main().catch(console.error);
 ```typescript
 // Runnable example: DNS Database Weekly (GET /v3.2/download/dbupdate/weekly/dns)
 // Parameters for dbDnsWeekly (GET /v3.2/download/dbupdate/weekly/dns):
-//   - apiKey (string, required): Your WHOISFreaks API key
 //   - date (string, optional): yyyy-MM-dd; omit for latest
 import { Configuration, DatabasesDNSApi } from "whoisfreaks";
 
-const api = new DatabasesDNSApi(new Configuration());
+const config = new Configuration({ apiKey: "YOUR_API_KEY" });  // set once
+const api = new DatabasesDNSApi(config);
 
 async function main() {
-  const resp = await api.dbDnsWeeklyRaw({ apiKey: "YOUR_API_KEY", date: new Date(Date.now()-86400000).toISOString().slice(0,10) });
-  console.log("status:", resp.raw.status);
-  console.log(await resp.value());
+  const result = await api.dbDnsWeekly({ date: new Date(Date.now()-86400000).toISOString().slice(0,10) });
+  console.log(result);
 }
 main().catch(console.error);
 
@@ -1027,16 +1006,15 @@ main().catch(console.error);
 ```typescript
 // Runnable example: DNS Database Monthly (GET /v3.2/download/dbupdate/monthly/dns)
 // Parameters for dbDnsMonthly (GET /v3.2/download/dbupdate/monthly/dns):
-//   - apiKey (string, required): Your WHOISFreaks API key
 //   - date (string, optional): yyyy-MM-dd; omit for latest
 import { Configuration, DatabasesDNSApi } from "whoisfreaks";
 
-const api = new DatabasesDNSApi(new Configuration());
+const config = new Configuration({ apiKey: "YOUR_API_KEY" });  // set once
+const api = new DatabasesDNSApi(config);
 
 async function main() {
-  const resp = await api.dbDnsMonthlyRaw({ apiKey: "YOUR_API_KEY", date: new Date(Date.now()-86400000).toISOString().slice(0,10) });
-  console.log("status:", resp.raw.status);
-  console.log(await resp.value());
+  const result = await api.dbDnsMonthly({ date: new Date(Date.now()-86400000).toISOString().slice(0,10) });
+  console.log(result);
 }
 main().catch(console.error);
 
@@ -1051,16 +1029,15 @@ main().catch(console.error);
 ```typescript
 // Runnable example: Subdomains Daily (GET /v3.2/download/dbupdate/daily/subdomains)
 // Parameters for dbSubdomainsDaily (GET /v3.2/download/dbupdate/daily/subdomains):
-//   - apiKey (string, required): Your WHOISFreaks API key
 //   - date (string, optional): yyyy-MM-dd; omit for latest
 import { Configuration, DatabasesSubdomainsApi } from "whoisfreaks";
 
-const api = new DatabasesSubdomainsApi(new Configuration());
+const config = new Configuration({ apiKey: "YOUR_API_KEY" });  // set once
+const api = new DatabasesSubdomainsApi(config);
 
 async function main() {
-  const resp = await api.dbSubdomainsDailyRaw({ apiKey: "YOUR_API_KEY", date: new Date(Date.now()-86400000).toISOString().slice(0,10) });
-  console.log("status:", resp.raw.status);
-  console.log(await resp.value());
+  const result = await api.dbSubdomainsDaily({ date: new Date(Date.now()-86400000).toISOString().slice(0,10) });
+  console.log(result);
 }
 main().catch(console.error);
 
@@ -1073,16 +1050,15 @@ main().catch(console.error);
 ```typescript
 // Runnable example: Subdomains Weekly (GET /v3.2/download/dbupdate/weekly/subdomains)
 // Parameters for dbSubdomainsWeekly (GET /v3.2/download/dbupdate/weekly/subdomains):
-//   - apiKey (string, required): Your WHOISFreaks API key
 //   - date (string, optional): yyyy-MM-dd; omit for latest
 import { Configuration, DatabasesSubdomainsApi } from "whoisfreaks";
 
-const api = new DatabasesSubdomainsApi(new Configuration());
+const config = new Configuration({ apiKey: "YOUR_API_KEY" });  // set once
+const api = new DatabasesSubdomainsApi(config);
 
 async function main() {
-  const resp = await api.dbSubdomainsWeeklyRaw({ apiKey: "YOUR_API_KEY", date: new Date(Date.now()-86400000).toISOString().slice(0,10) });
-  console.log("status:", resp.raw.status);
-  console.log(await resp.value());
+  const result = await api.dbSubdomainsWeekly({ date: new Date(Date.now()-86400000).toISOString().slice(0,10) });
+  console.log(result);
 }
 main().catch(console.error);
 
@@ -1095,16 +1071,15 @@ main().catch(console.error);
 ```typescript
 // Runnable example: Subdomains Monthly (GET /v3.2/download/dbupdate/monthly/subdomains)
 // Parameters for dbSubdomainsMonthly (GET /v3.2/download/dbupdate/monthly/subdomains):
-//   - apiKey (string, required): Your WHOISFreaks API key
 //   - date (string, optional): yyyy-MM-dd; omit for latest
 import { Configuration, DatabasesSubdomainsApi } from "whoisfreaks";
 
-const api = new DatabasesSubdomainsApi(new Configuration());
+const config = new Configuration({ apiKey: "YOUR_API_KEY" });  // set once
+const api = new DatabasesSubdomainsApi(config);
 
 async function main() {
-  const resp = await api.dbSubdomainsMonthlyRaw({ apiKey: "YOUR_API_KEY", date: new Date(Date.now()-86400000).toISOString().slice(0,10) });
-  console.log("status:", resp.raw.status);
-  console.log(await resp.value());
+  const result = await api.dbSubdomainsMonthly({ date: new Date(Date.now()-86400000).toISOString().slice(0,10) });
+  console.log(result);
 }
 main().catch(console.error);
 
@@ -1119,15 +1094,15 @@ main().catch(console.error);
 ```typescript
 // Runnable example: IP to Country Snapshot Status (GET /v3.3/status/snapshot/ip/country)
 // Parameters for dbIpCountryStatus (GET /v3.3/status/snapshot/ip/country):
-//   - apiKey (string, required): Your WHOISFreaks API key
+//   (no parameters; the API key is set on the client)
 import { Configuration, DatabasesIPGeolocationApi } from "whoisfreaks";
 
-const api = new DatabasesIPGeolocationApi(new Configuration());
+const config = new Configuration({ apiKey: "YOUR_API_KEY" });  // set once
+const api = new DatabasesIPGeolocationApi(config);
 
 async function main() {
-  const resp = await api.dbIpCountryStatusRaw({ apiKey: "YOUR_API_KEY" });
-  console.log("status:", resp.raw.status);
-  console.log(await resp.value());
+  const result = await api.dbIpCountryStatus({  });
+  console.log(result);
 }
 main().catch(console.error);
 
@@ -1140,16 +1115,15 @@ main().catch(console.error);
 ```typescript
 // Runnable example: IP to Country Snapshot (GET /v3.3/download/snapshot/ip/country)
 // Parameters for dbIpCountry (GET /v3.3/download/snapshot/ip/country):
-//   - apiKey (string, required): Your WHOISFreaks API key
 //   - date (string, required)
 import { Configuration, DatabasesIPGeolocationApi } from "whoisfreaks";
 
-const api = new DatabasesIPGeolocationApi(new Configuration());
+const config = new Configuration({ apiKey: "YOUR_API_KEY" });  // set once
+const api = new DatabasesIPGeolocationApi(config);
 
 async function main() {
-  const resp = await api.dbIpCountryRaw({ apiKey: "YOUR_API_KEY", date: new Date(Date.now()-86400000).toISOString().slice(0,10) });
-  console.log("status:", resp.raw.status);
-  console.log(await resp.value());
+  const result = await api.dbIpCountry({ date: new Date(Date.now()-86400000).toISOString().slice(0,10) });
+  console.log(result);
 }
 main().catch(console.error);
 
@@ -1162,15 +1136,15 @@ main().catch(console.error);
 ```typescript
 // Runnable example: IP to City Snapshot Status (GET /v3.3/status/snapshot/ip/city)
 // Parameters for dbIpCityStatus (GET /v3.3/status/snapshot/ip/city):
-//   - apiKey (string, required): Your WHOISFreaks API key
+//   (no parameters; the API key is set on the client)
 import { Configuration, DatabasesIPGeolocationApi } from "whoisfreaks";
 
-const api = new DatabasesIPGeolocationApi(new Configuration());
+const config = new Configuration({ apiKey: "YOUR_API_KEY" });  // set once
+const api = new DatabasesIPGeolocationApi(config);
 
 async function main() {
-  const resp = await api.dbIpCityStatusRaw({ apiKey: "YOUR_API_KEY" });
-  console.log("status:", resp.raw.status);
-  console.log(await resp.value());
+  const result = await api.dbIpCityStatus({  });
+  console.log(result);
 }
 main().catch(console.error);
 
@@ -1183,16 +1157,15 @@ main().catch(console.error);
 ```typescript
 // Runnable example: IP to City Snapshot (GET /v3.3/download/snapshot/ip/city)
 // Parameters for dbIpCity (GET /v3.3/download/snapshot/ip/city):
-//   - apiKey (string, required): Your WHOISFreaks API key
 //   - date (string, required)
 import { Configuration, DatabasesIPGeolocationApi } from "whoisfreaks";
 
-const api = new DatabasesIPGeolocationApi(new Configuration());
+const config = new Configuration({ apiKey: "YOUR_API_KEY" });  // set once
+const api = new DatabasesIPGeolocationApi(config);
 
 async function main() {
-  const resp = await api.dbIpCityRaw({ apiKey: "YOUR_API_KEY", date: new Date(Date.now()-86400000).toISOString().slice(0,10) });
-  console.log("status:", resp.raw.status);
-  console.log(await resp.value());
+  const result = await api.dbIpCity({ date: new Date(Date.now()-86400000).toISOString().slice(0,10) });
+  console.log(result);
 }
 main().catch(console.error);
 
@@ -1207,16 +1180,15 @@ main().catch(console.error);
 ```typescript
 // Runnable example: ASN WHOIS Snapshot (GET /v3.3/download/snapshot/asn/whois)
 // Parameters for dbAsnWhois (GET /v3.3/download/snapshot/asn/whois):
-//   - apiKey (string, required): Your WHOISFreaks API key
 //   - date (string, required)
 import { Configuration, DatabasesASNWHOISApi } from "whoisfreaks";
 
-const api = new DatabasesASNWHOISApi(new Configuration());
+const config = new Configuration({ apiKey: "YOUR_API_KEY" });  // set once
+const api = new DatabasesASNWHOISApi(config);
 
 async function main() {
-  const resp = await api.dbAsnWhoisRaw({ apiKey: "YOUR_API_KEY", date: new Date(Date.now()-86400000).toISOString().slice(0,10) });
-  console.log("status:", resp.raw.status);
-  console.log(await resp.value());
+  const result = await api.dbAsnWhois({ date: new Date(Date.now()-86400000).toISOString().slice(0,10) });
+  console.log(result);
 }
 main().catch(console.error);
 
@@ -1229,15 +1201,15 @@ main().catch(console.error);
 ```typescript
 // Runnable example: ASN WHOIS Snapshot Status (GET /v3.3/status/snapshot/asn/whois)
 // Parameters for dbAsnWhoisStatus (GET /v3.3/status/snapshot/asn/whois):
-//   - apiKey (string, required): Your WHOISFreaks API key
+//   (no parameters; the API key is set on the client)
 import { Configuration, DatabasesASNWHOISApi } from "whoisfreaks";
 
-const api = new DatabasesASNWHOISApi(new Configuration());
+const config = new Configuration({ apiKey: "YOUR_API_KEY" });  // set once
+const api = new DatabasesASNWHOISApi(config);
 
 async function main() {
-  const resp = await api.dbAsnWhoisStatusRaw({ apiKey: "YOUR_API_KEY" });
-  console.log("status:", resp.raw.status);
-  console.log(await resp.value());
+  const result = await api.dbAsnWhoisStatus({  });
+  console.log(result);
 }
 main().catch(console.error);
 
@@ -1252,16 +1224,15 @@ main().catch(console.error);
 ```typescript
 // Runnable example: IP WHOIS Snapshot (GET /v3.3/download/snapshot/ip/whois)
 // Parameters for dbIpWhois (GET /v3.3/download/snapshot/ip/whois):
-//   - apiKey (string, required): Your WHOISFreaks API key
 //   - date (string, required)
 import { Configuration, DatabasesIPWHOISApi } from "whoisfreaks";
 
-const api = new DatabasesIPWHOISApi(new Configuration());
+const config = new Configuration({ apiKey: "YOUR_API_KEY" });  // set once
+const api = new DatabasesIPWHOISApi(config);
 
 async function main() {
-  const resp = await api.dbIpWhoisRaw({ apiKey: "YOUR_API_KEY", date: new Date(Date.now()-86400000).toISOString().slice(0,10) });
-  console.log("status:", resp.raw.status);
-  console.log(await resp.value());
+  const result = await api.dbIpWhois({ date: new Date(Date.now()-86400000).toISOString().slice(0,10) });
+  console.log(result);
 }
 main().catch(console.error);
 
@@ -1274,15 +1245,15 @@ main().catch(console.error);
 ```typescript
 // Runnable example: IP WHOIS Snapshot Status (GET /v3.3/status/snapshot/ip/whois)
 // Parameters for dbIpWhoisStatus (GET /v3.3/status/snapshot/ip/whois):
-//   - apiKey (string, required): Your WHOISFreaks API key
+//   (no parameters; the API key is set on the client)
 import { Configuration, DatabasesIPWHOISApi } from "whoisfreaks";
 
-const api = new DatabasesIPWHOISApi(new Configuration());
+const config = new Configuration({ apiKey: "YOUR_API_KEY" });  // set once
+const api = new DatabasesIPWHOISApi(config);
 
 async function main() {
-  const resp = await api.dbIpWhoisStatusRaw({ apiKey: "YOUR_API_KEY" });
-  console.log("status:", resp.raw.status);
-  console.log(await resp.value());
+  const result = await api.dbIpWhoisStatus({  });
+  console.log(result);
 }
 main().catch(console.error);
 
@@ -1297,16 +1268,15 @@ main().catch(console.error);
 ```typescript
 // Runnable example: IP Security Snapshot (GET /v3.3/download/snapshot/ip/security)
 // Parameters for dbIpSecurity (GET /v3.3/download/snapshot/ip/security):
-//   - apiKey (string, required): Your WHOISFreaks API key
 //   - date (string, required)
 import { Configuration, DatabasesIPSecurityApi } from "whoisfreaks";
 
-const api = new DatabasesIPSecurityApi(new Configuration());
+const config = new Configuration({ apiKey: "YOUR_API_KEY" });  // set once
+const api = new DatabasesIPSecurityApi(config);
 
 async function main() {
-  const resp = await api.dbIpSecurityRaw({ apiKey: "YOUR_API_KEY", date: new Date(Date.now()-86400000).toISOString().slice(0,10) });
-  console.log("status:", resp.raw.status);
-  console.log(await resp.value());
+  const result = await api.dbIpSecurity({ date: new Date(Date.now()-86400000).toISOString().slice(0,10) });
+  console.log(result);
 }
 main().catch(console.error);
 
@@ -1319,15 +1289,15 @@ main().catch(console.error);
 ```typescript
 // Runnable example: IP Security Snapshot Status (GET /v3.3/status/snapshot/ip/security)
 // Parameters for dbIpSecurityStatus (GET /v3.3/status/snapshot/ip/security):
-//   - apiKey (string, required): Your WHOISFreaks API key
+//   (no parameters; the API key is set on the client)
 import { Configuration, DatabasesIPSecurityApi } from "whoisfreaks";
 
-const api = new DatabasesIPSecurityApi(new Configuration());
+const config = new Configuration({ apiKey: "YOUR_API_KEY" });  // set once
+const api = new DatabasesIPSecurityApi(config);
 
 async function main() {
-  const resp = await api.dbIpSecurityStatusRaw({ apiKey: "YOUR_API_KEY" });
-  console.log("status:", resp.raw.status);
-  console.log(await resp.value());
+  const result = await api.dbIpSecurityStatus({  });
+  console.log(result);
 }
 main().catch(console.error);
 

@@ -14,7 +14,6 @@ Expiring Domains. Returns the file/snapshot described by this operation.
 
 | Parameter | In | Required | Type | Description |
 |-----------|----|----------|------|-------------|
-| `apiKey` | query | yes | string | Your WHOISFreaks API key |
 | `whois` | query | yes | boolean |  |
 | `date` | query | no | string | yyyy-MM-dd; omit for latest |
 
@@ -30,13 +29,13 @@ from whoisfreaks import Configuration, ApiClient
 from whoisfreaks.api.databases_expiring_dropped_api import DatabasesExpiringDroppedApi
 
 # Parameters for dbExpired (GET /v3.1/download/domainer/expired):
-#   - apiKey (string, required): Your WHOISFreaks API key
 #   - whois (boolean, required)
 #   - date (string, optional): yyyy-MM-dd; omit for latest
 config = Configuration()
+config.api_key["ApiKeyAuth"] = "YOUR_API_KEY"   # set once
 api = DatabasesExpiringDroppedApi(ApiClient(config))
 
-data = api.db_expired(api_key="YOUR_API_KEY", whois=False, var_date=str(date.today() - timedelta(days=1)))   # bytes
+data = api.db_expired(whois=False, var_date=str(date.today() - timedelta(days=1)))   # bytes
 with open("dbExpired.gz", "wb") as f:
     f.write(data)
 print(f"saved {len(data)} bytes to dbExpired.gz")
@@ -50,17 +49,16 @@ print(f"saved {len(data)} bytes to dbExpired.gz")
 ```typescript
 // Runnable example: Expiring Domains (GET /v3.1/download/domainer/expired)
 // Parameters for dbExpired (GET /v3.1/download/domainer/expired):
-//   - apiKey (string, required): Your WHOISFreaks API key
 //   - whois (boolean, required)
 //   - date (string, optional): yyyy-MM-dd; omit for latest
 import { Configuration, DatabasesExpiringDroppedApi } from "whoisfreaks";
 
-const api = new DatabasesExpiringDroppedApi(new Configuration());
+const config = new Configuration({ apiKey: "YOUR_API_KEY" });  // set once
+const api = new DatabasesExpiringDroppedApi(config);
 
 async function main() {
-  const resp = await api.dbExpiredRaw({ apiKey: "YOUR_API_KEY", whois: false, date: new Date(Date.now()-86400000).toISOString().slice(0,10) });
-  console.log("status:", resp.raw.status);
-  console.log(await resp.value());
+  const result = await api.dbExpired({ whois: false, date: new Date(Date.now()-86400000).toISOString().slice(0,10) });
+  console.log(result);
 }
 main().catch(console.error);
 
@@ -73,7 +71,6 @@ main().catch(console.error);
 ```go
 // Runnable example: Expiring Domains (GET /v3.1/download/domainer/expired)
 // Parameters for dbExpired (GET /v3.1/download/domainer/expired):
-//   - apiKey (string, required): Your WHOISFreaks API key
 //   - whois (boolean, required)
 //   - date (string, optional): yyyy-MM-dd; omit for latest
 package main
@@ -89,8 +86,11 @@ import (
 func main() {
     cfg := wf.NewConfiguration()
     client := wf.NewAPIClient(cfg)
+    // apiKey is set once via the request context
+    ctx := context.WithValue(context.Background(), wf.ContextAPIKeys,
+        map[string]wf.APIKey{"ApiKeyAuth": {Key: "YOUR_API_KEY"}})
     // returns raw bytes (compressed/binary file) -- write to disk
-    data, _, err := client.DatabasesExpiringDroppedAPI.DbExpired(context.Background()).ApiKey("YOUR_API_KEY").Whois(false).Date(time.Now().AddDate(0,0,-1).Format("2006-01-02")).Execute()
+    data, _, err := client.DatabasesExpiringDroppedAPI.DbExpired(ctx).Whois(false).Date(time.Now().AddDate(0,0,-1).Format("2006-01-02")).Execute()
     if err != nil { panic(err) }
     if err := os.WriteFile("dbExpired.gz", data, 0644); err != nil { panic(err) }
     fmt.Printf("saved %d bytes to dbExpired.gz\n", len(data))
@@ -112,7 +112,6 @@ Expiring Cleaned WHOIS. Returns the file/snapshot described by this operation.
 
 | Parameter | In | Required | Type | Description |
 |-----------|----|----------|------|-------------|
-| `apiKey` | query | yes | string | Your WHOISFreaks API key |
 | `date` | query | no | string | yyyy-MM-dd; omit for latest |
 
 **Usage**
@@ -127,12 +126,12 @@ from whoisfreaks import Configuration, ApiClient
 from whoisfreaks.api.databases_expiring_dropped_api import DatabasesExpiringDroppedApi
 
 # Parameters for dbExpiredCleaned (GET /v3.1/download/domainer/expired/cleaned):
-#   - apiKey (string, required): Your WHOISFreaks API key
 #   - date (string, optional): yyyy-MM-dd; omit for latest
 config = Configuration()
+config.api_key["ApiKeyAuth"] = "YOUR_API_KEY"   # set once
 api = DatabasesExpiringDroppedApi(ApiClient(config))
 
-data = api.db_expired_cleaned(api_key="YOUR_API_KEY", var_date=str(date.today() - timedelta(days=1)))   # bytes
+data = api.db_expired_cleaned(var_date=str(date.today() - timedelta(days=1)))   # bytes
 with open("dbExpiredCleaned.gz", "wb") as f:
     f.write(data)
 print(f"saved {len(data)} bytes to dbExpiredCleaned.gz")
@@ -146,16 +145,15 @@ print(f"saved {len(data)} bytes to dbExpiredCleaned.gz")
 ```typescript
 // Runnable example: Expiring Cleaned WHOIS (GET /v3.1/download/domainer/expired/cleaned)
 // Parameters for dbExpiredCleaned (GET /v3.1/download/domainer/expired/cleaned):
-//   - apiKey (string, required): Your WHOISFreaks API key
 //   - date (string, optional): yyyy-MM-dd; omit for latest
 import { Configuration, DatabasesExpiringDroppedApi } from "whoisfreaks";
 
-const api = new DatabasesExpiringDroppedApi(new Configuration());
+const config = new Configuration({ apiKey: "YOUR_API_KEY" });  // set once
+const api = new DatabasesExpiringDroppedApi(config);
 
 async function main() {
-  const resp = await api.dbExpiredCleanedRaw({ apiKey: "YOUR_API_KEY", date: new Date(Date.now()-86400000).toISOString().slice(0,10) });
-  console.log("status:", resp.raw.status);
-  console.log(await resp.value());
+  const result = await api.dbExpiredCleaned({ date: new Date(Date.now()-86400000).toISOString().slice(0,10) });
+  console.log(result);
 }
 main().catch(console.error);
 
@@ -168,7 +166,6 @@ main().catch(console.error);
 ```go
 // Runnable example: Expiring Cleaned WHOIS (GET /v3.1/download/domainer/expired/cleaned)
 // Parameters for dbExpiredCleaned (GET /v3.1/download/domainer/expired/cleaned):
-//   - apiKey (string, required): Your WHOISFreaks API key
 //   - date (string, optional): yyyy-MM-dd; omit for latest
 package main
 
@@ -183,8 +180,11 @@ import (
 func main() {
     cfg := wf.NewConfiguration()
     client := wf.NewAPIClient(cfg)
+    // apiKey is set once via the request context
+    ctx := context.WithValue(context.Background(), wf.ContextAPIKeys,
+        map[string]wf.APIKey{"ApiKeyAuth": {Key: "YOUR_API_KEY"}})
     // returns raw bytes (compressed/binary file) -- write to disk
-    data, _, err := client.DatabasesExpiringDroppedAPI.DbExpiredCleaned(context.Background()).ApiKey("YOUR_API_KEY").Date(time.Now().AddDate(0,0,-1).Format("2006-01-02")).Execute()
+    data, _, err := client.DatabasesExpiringDroppedAPI.DbExpiredCleaned(ctx).Date(time.Now().AddDate(0,0,-1).Format("2006-01-02")).Execute()
     if err != nil { panic(err) }
     if err := os.WriteFile("dbExpiredCleaned.gz", data, 0644); err != nil { panic(err) }
     fmt.Printf("saved %d bytes to dbExpiredCleaned.gz\n", len(data))
@@ -206,7 +206,6 @@ Dropped Domains. Returns the file/snapshot described by this operation.
 
 | Parameter | In | Required | Type | Description |
 |-----------|----|----------|------|-------------|
-| `apiKey` | query | yes | string | Your WHOISFreaks API key |
 | `whois` | query | yes | boolean |  |
 | `date` | query | no | string | yyyy-MM-dd; omit for latest |
 
@@ -222,13 +221,13 @@ from whoisfreaks import Configuration, ApiClient
 from whoisfreaks.api.databases_expiring_dropped_api import DatabasesExpiringDroppedApi
 
 # Parameters for dbDropped (GET /v3.1/download/domainer/dropped):
-#   - apiKey (string, required): Your WHOISFreaks API key
 #   - whois (boolean, required)
 #   - date (string, optional): yyyy-MM-dd; omit for latest
 config = Configuration()
+config.api_key["ApiKeyAuth"] = "YOUR_API_KEY"   # set once
 api = DatabasesExpiringDroppedApi(ApiClient(config))
 
-data = api.db_dropped(api_key="YOUR_API_KEY", whois=False, var_date=str(date.today() - timedelta(days=1)))   # bytes
+data = api.db_dropped(whois=False, var_date=str(date.today() - timedelta(days=1)))   # bytes
 with open("dbDropped.gz", "wb") as f:
     f.write(data)
 print(f"saved {len(data)} bytes to dbDropped.gz")
@@ -242,17 +241,16 @@ print(f"saved {len(data)} bytes to dbDropped.gz")
 ```typescript
 // Runnable example: Dropped Domains (GET /v3.1/download/domainer/dropped)
 // Parameters for dbDropped (GET /v3.1/download/domainer/dropped):
-//   - apiKey (string, required): Your WHOISFreaks API key
 //   - whois (boolean, required)
 //   - date (string, optional): yyyy-MM-dd; omit for latest
 import { Configuration, DatabasesExpiringDroppedApi } from "whoisfreaks";
 
-const api = new DatabasesExpiringDroppedApi(new Configuration());
+const config = new Configuration({ apiKey: "YOUR_API_KEY" });  // set once
+const api = new DatabasesExpiringDroppedApi(config);
 
 async function main() {
-  const resp = await api.dbDroppedRaw({ apiKey: "YOUR_API_KEY", whois: false, date: new Date(Date.now()-86400000).toISOString().slice(0,10) });
-  console.log("status:", resp.raw.status);
-  console.log(await resp.value());
+  const result = await api.dbDropped({ whois: false, date: new Date(Date.now()-86400000).toISOString().slice(0,10) });
+  console.log(result);
 }
 main().catch(console.error);
 
@@ -265,7 +263,6 @@ main().catch(console.error);
 ```go
 // Runnable example: Dropped Domains (GET /v3.1/download/domainer/dropped)
 // Parameters for dbDropped (GET /v3.1/download/domainer/dropped):
-//   - apiKey (string, required): Your WHOISFreaks API key
 //   - whois (boolean, required)
 //   - date (string, optional): yyyy-MM-dd; omit for latest
 package main
@@ -281,8 +278,11 @@ import (
 func main() {
     cfg := wf.NewConfiguration()
     client := wf.NewAPIClient(cfg)
+    // apiKey is set once via the request context
+    ctx := context.WithValue(context.Background(), wf.ContextAPIKeys,
+        map[string]wf.APIKey{"ApiKeyAuth": {Key: "YOUR_API_KEY"}})
     // returns raw bytes (compressed/binary file) -- write to disk
-    data, _, err := client.DatabasesExpiringDroppedAPI.DbDropped(context.Background()).ApiKey("YOUR_API_KEY").Whois(false).Date(time.Now().AddDate(0,0,-1).Format("2006-01-02")).Execute()
+    data, _, err := client.DatabasesExpiringDroppedAPI.DbDropped(ctx).Whois(false).Date(time.Now().AddDate(0,0,-1).Format("2006-01-02")).Execute()
     if err != nil { panic(err) }
     if err := os.WriteFile("dbDropped.gz", data, 0644); err != nil { panic(err) }
     fmt.Printf("saved %d bytes to dbDropped.gz\n", len(data))
@@ -304,7 +304,6 @@ Dropped Domains (JSON). Returns the file/snapshot described by this operation.
 
 | Parameter | In | Required | Type | Description |
 |-----------|----|----------|------|-------------|
-| `apiKey` | query | yes | string | Your WHOISFreaks API key |
 | `date` | query | no | string | yyyy-MM-dd; omit for latest |
 | `tlds` | query | no | string |  |
 
@@ -319,15 +318,14 @@ from whoisfreaks import Configuration, ApiClient
 from whoisfreaks.api.databases_expiring_dropped_api import DatabasesExpiringDroppedApi
 
 # Parameters for dbDroppedJson (GET /v3.1/domains/dropped):
-#   - apiKey (string, required): Your WHOISFreaks API key
 #   - date (string, optional): yyyy-MM-dd; omit for latest
 #   - tlds (string, optional)
 config = Configuration()
+config.api_key["ApiKeyAuth"] = "YOUR_API_KEY"   # set once
 api = DatabasesExpiringDroppedApi(ApiClient(config))
 
-resp = api.db_dropped_json_with_http_info(api_key="YOUR_API_KEY", var_date=str(date.today() - timedelta(days=1)))
-print("status:", resp.status_code)
-print(resp.data)
+result = api.db_dropped_json(var_date=str(date.today() - timedelta(days=1)))
+print(result)
 
 ```
 
@@ -338,17 +336,16 @@ print(resp.data)
 ```typescript
 // Runnable example: Dropped Domains (JSON) (GET /v3.1/domains/dropped)
 // Parameters for dbDroppedJson (GET /v3.1/domains/dropped):
-//   - apiKey (string, required): Your WHOISFreaks API key
 //   - date (string, optional): yyyy-MM-dd; omit for latest
 //   - tlds (string, optional)
 import { Configuration, DatabasesExpiringDroppedApi } from "whoisfreaks";
 
-const api = new DatabasesExpiringDroppedApi(new Configuration());
+const config = new Configuration({ apiKey: "YOUR_API_KEY" });  // set once
+const api = new DatabasesExpiringDroppedApi(config);
 
 async function main() {
-  const resp = await api.dbDroppedJsonRaw({ apiKey: "YOUR_API_KEY", date: new Date(Date.now()-86400000).toISOString().slice(0,10), tlds: undefined });
-  console.log("status:", resp.raw.status);
-  console.log(await resp.value());
+  const result = await api.dbDroppedJson({ date: new Date(Date.now()-86400000).toISOString().slice(0,10), tlds: undefined });
+  console.log(result);
 }
 main().catch(console.error);
 
@@ -361,7 +358,6 @@ main().catch(console.error);
 ```go
 // Runnable example: Dropped Domains (JSON) (GET /v3.1/domains/dropped)
 // Parameters for dbDroppedJson (GET /v3.1/domains/dropped):
-//   - apiKey (string, required): Your WHOISFreaks API key
 //   - date (string, optional): yyyy-MM-dd; omit for latest
 //   - tlds (string, optional)
 package main
@@ -377,10 +373,11 @@ import (
 func main() {
     cfg := wf.NewConfiguration()
     client := wf.NewAPIClient(cfg)
-    // apiKey is a builder method on the request, not a config/context value
-    result, httpRes, err := client.DatabasesExpiringDroppedAPI.DbDroppedJson(context.Background()).ApiKey("YOUR_API_KEY").Date(time.Now().AddDate(0,0,-1).Format("2006-01-02")).Execute()
+    // apiKey is set once via the request context
+    ctx := context.WithValue(context.Background(), wf.ContextAPIKeys,
+        map[string]wf.APIKey{"ApiKeyAuth": {Key: "YOUR_API_KEY"}})
+    result, _, err := client.DatabasesExpiringDroppedAPI.DbDroppedJson(ctx).Date(time.Now().AddDate(0,0,-1).Format("2006-01-02")).Execute()
     if err != nil { panic(err) }
-    fmt.Println("status:", httpRes.StatusCode)
     b, _ := json.MarshalIndent(result, "", "  ")
     fmt.Println(string(b))
 }
@@ -401,7 +398,6 @@ Dropped With Backlinks. Returns the file/snapshot described by this operation.
 
 | Parameter | In | Required | Type | Description |
 |-----------|----|----------|------|-------------|
-| `apiKey` | query | yes | string | Your WHOISFreaks API key |
 | `whois` | query | no | boolean |  |
 | `date` | query | no | string | yyyy-MM-dd; omit for latest |
 
@@ -417,13 +413,13 @@ from whoisfreaks import Configuration, ApiClient
 from whoisfreaks.api.databases_expiring_dropped_api import DatabasesExpiringDroppedApi
 
 # Parameters for dbDroppedBacklinks (GET /v3.3/download/domainer/dropped/backlinks):
-#   - apiKey (string, required): Your WHOISFreaks API key
 #   - whois (boolean, optional)
 #   - date (string, optional): yyyy-MM-dd; omit for latest
 config = Configuration()
+config.api_key["ApiKeyAuth"] = "YOUR_API_KEY"   # set once
 api = DatabasesExpiringDroppedApi(ApiClient(config))
 
-data = api.db_dropped_backlinks(api_key="YOUR_API_KEY", whois=False, var_date=str(date.today() - timedelta(days=1)))   # bytes
+data = api.db_dropped_backlinks(whois=False, var_date=str(date.today() - timedelta(days=1)))   # bytes
 with open("dbDroppedBacklinks.gz", "wb") as f:
     f.write(data)
 print(f"saved {len(data)} bytes to dbDroppedBacklinks.gz")
@@ -437,17 +433,16 @@ print(f"saved {len(data)} bytes to dbDroppedBacklinks.gz")
 ```typescript
 // Runnable example: Dropped With Backlinks (GET /v3.3/download/domainer/dropped/backlinks)
 // Parameters for dbDroppedBacklinks (GET /v3.3/download/domainer/dropped/backlinks):
-//   - apiKey (string, required): Your WHOISFreaks API key
 //   - whois (boolean, optional)
 //   - date (string, optional): yyyy-MM-dd; omit for latest
 import { Configuration, DatabasesExpiringDroppedApi } from "whoisfreaks";
 
-const api = new DatabasesExpiringDroppedApi(new Configuration());
+const config = new Configuration({ apiKey: "YOUR_API_KEY" });  // set once
+const api = new DatabasesExpiringDroppedApi(config);
 
 async function main() {
-  const resp = await api.dbDroppedBacklinksRaw({ apiKey: "YOUR_API_KEY", whois: false, date: new Date(Date.now()-86400000).toISOString().slice(0,10) });
-  console.log("status:", resp.raw.status);
-  console.log(await resp.value());
+  const result = await api.dbDroppedBacklinks({ whois: false, date: new Date(Date.now()-86400000).toISOString().slice(0,10) });
+  console.log(result);
 }
 main().catch(console.error);
 
@@ -460,7 +455,6 @@ main().catch(console.error);
 ```go
 // Runnable example: Dropped With Backlinks (GET /v3.3/download/domainer/dropped/backlinks)
 // Parameters for dbDroppedBacklinks (GET /v3.3/download/domainer/dropped/backlinks):
-//   - apiKey (string, required): Your WHOISFreaks API key
 //   - whois (boolean, optional)
 //   - date (string, optional): yyyy-MM-dd; omit for latest
 package main
@@ -476,8 +470,11 @@ import (
 func main() {
     cfg := wf.NewConfiguration()
     client := wf.NewAPIClient(cfg)
+    // apiKey is set once via the request context
+    ctx := context.WithValue(context.Background(), wf.ContextAPIKeys,
+        map[string]wf.APIKey{"ApiKeyAuth": {Key: "YOUR_API_KEY"}})
     // returns raw bytes (compressed/binary file) -- write to disk
-    data, _, err := client.DatabasesExpiringDroppedAPI.DbDroppedBacklinks(context.Background()).ApiKey("YOUR_API_KEY").Whois(false).Date(time.Now().AddDate(0,0,-1).Format("2006-01-02")).Execute()
+    data, _, err := client.DatabasesExpiringDroppedAPI.DbDroppedBacklinks(ctx).Whois(false).Date(time.Now().AddDate(0,0,-1).Format("2006-01-02")).Execute()
     if err != nil { panic(err) }
     if err := os.WriteFile("dbDroppedBacklinks.gz", data, 0644); err != nil { panic(err) }
     fmt.Printf("saved %d bytes to dbDroppedBacklinks.gz\n", len(data))

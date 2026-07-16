@@ -5,12 +5,12 @@ from whoisfreaks import Configuration, ApiClient
 from whoisfreaks.api.databases_newly_registered_api import DatabasesNewlyRegisteredApi
 
 # Parameters for dbNewlyCctldCleaned (GET /v3.1/download/domainer/cctld/cleaned):
-#   - apiKey (string, required): Your WHOISFreaks API key
 #   - date (string, optional): yyyy-MM-dd; omit for latest
 config = Configuration()
+config.api_key["ApiKeyAuth"] = "YOUR_API_KEY"   # set once
 api = DatabasesNewlyRegisteredApi(ApiClient(config))
 
-data = api.db_newly_cctld_cleaned(api_key="YOUR_API_KEY", var_date=str(date.today() - timedelta(days=1)))   # bytes
+data = api.db_newly_cctld_cleaned(var_date=str(date.today() - timedelta(days=1)))   # bytes
 with open("dbNewlyCctldCleaned.gz", "wb") as f:
     f.write(data)
 print(f"saved {len(data)} bytes to dbNewlyCctldCleaned.gz")

@@ -4,13 +4,12 @@ from whoisfreaks.api.whois_api import WHOISApi
 from whoisfreaks.models.bulk_whois_request import BulkWhoisRequest
 
 # Parameters for bulkWhois (POST /v2.0/bulkwhois/live):
-#   - apiKey (string, required): Your WHOISFreaks API key
 #   - format (string (one of: json, xml), optional)
 #   - body: BulkWhoisRequest (required) -- request body object
 config = Configuration()
+config.api_key["ApiKeyAuth"] = "YOUR_API_KEY"   # set once
 api = WHOISApi(ApiClient(config))
 
 bulk_whois_request = BulkWhoisRequest()  # populate fields as needed
-resp = api.bulk_whois_with_http_info(api_key="YOUR_API_KEY", bulk_whois_request=bulk_whois_request)
-print("status:", resp.status_code)
-print(resp.data)
+result = api.bulk_whois(bulk_whois_request=bulk_whois_request)
+print(result)

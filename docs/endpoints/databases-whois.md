@@ -14,7 +14,6 @@ WHOIS Database Daily. Returns the file/snapshot described by this operation.
 
 | Parameter | In | Required | Type | Description |
 |-----------|----|----------|------|-------------|
-| `apiKey` | query | yes | string | Your WHOISFreaks API key |
 | `date` | query | no | string | yyyy-MM-dd; omit for latest |
 
 **Usage**
@@ -29,12 +28,12 @@ from whoisfreaks import Configuration, ApiClient
 from whoisfreaks.api.databases_whois_api import DatabasesWHOISApi
 
 # Parameters for dbWhoisDaily (GET /v3.3/download/dbupdate/daily/domains/whois):
-#   - apiKey (string, required): Your WHOISFreaks API key
 #   - date (string, optional): yyyy-MM-dd; omit for latest
 config = Configuration()
+config.api_key["ApiKeyAuth"] = "YOUR_API_KEY"   # set once
 api = DatabasesWHOISApi(ApiClient(config))
 
-data = api.db_whois_daily(api_key="YOUR_API_KEY", var_date=str(date.today() - timedelta(days=1)))   # bytes
+data = api.db_whois_daily(var_date=str(date.today() - timedelta(days=1)))   # bytes
 with open("dbWhoisDaily.gz", "wb") as f:
     f.write(data)
 print(f"saved {len(data)} bytes to dbWhoisDaily.gz")
@@ -48,16 +47,15 @@ print(f"saved {len(data)} bytes to dbWhoisDaily.gz")
 ```typescript
 // Runnable example: WHOIS Database Daily (GET /v3.3/download/dbupdate/daily/domains/whois)
 // Parameters for dbWhoisDaily (GET /v3.3/download/dbupdate/daily/domains/whois):
-//   - apiKey (string, required): Your WHOISFreaks API key
 //   - date (string, optional): yyyy-MM-dd; omit for latest
 import { Configuration, DatabasesWHOISApi } from "whoisfreaks";
 
-const api = new DatabasesWHOISApi(new Configuration());
+const config = new Configuration({ apiKey: "YOUR_API_KEY" });  // set once
+const api = new DatabasesWHOISApi(config);
 
 async function main() {
-  const resp = await api.dbWhoisDailyRaw({ apiKey: "YOUR_API_KEY", date: new Date(Date.now()-86400000).toISOString().slice(0,10) });
-  console.log("status:", resp.raw.status);
-  console.log(await resp.value());
+  const result = await api.dbWhoisDaily({ date: new Date(Date.now()-86400000).toISOString().slice(0,10) });
+  console.log(result);
 }
 main().catch(console.error);
 
@@ -70,7 +68,6 @@ main().catch(console.error);
 ```go
 // Runnable example: WHOIS Database Daily (GET /v3.3/download/dbupdate/daily/domains/whois)
 // Parameters for dbWhoisDaily (GET /v3.3/download/dbupdate/daily/domains/whois):
-//   - apiKey (string, required): Your WHOISFreaks API key
 //   - date (string, optional): yyyy-MM-dd; omit for latest
 package main
 
@@ -85,8 +82,11 @@ import (
 func main() {
     cfg := wf.NewConfiguration()
     client := wf.NewAPIClient(cfg)
+    // apiKey is set once via the request context
+    ctx := context.WithValue(context.Background(), wf.ContextAPIKeys,
+        map[string]wf.APIKey{"ApiKeyAuth": {Key: "YOUR_API_KEY"}})
     // returns raw bytes (compressed/binary file) -- write to disk
-    data, _, err := client.DatabasesWHOISAPI.DbWhoisDaily(context.Background()).ApiKey("YOUR_API_KEY").Date(time.Now().AddDate(0,0,-1).Format("2006-01-02")).Execute()
+    data, _, err := client.DatabasesWHOISAPI.DbWhoisDaily(ctx).Date(time.Now().AddDate(0,0,-1).Format("2006-01-02")).Execute()
     if err != nil { panic(err) }
     if err := os.WriteFile("dbWhoisDaily.gz", data, 0644); err != nil { panic(err) }
     fmt.Printf("saved %d bytes to dbWhoisDaily.gz\n", len(data))
@@ -108,7 +108,6 @@ WHOIS Database Weekly. Returns the file/snapshot described by this operation.
 
 | Parameter | In | Required | Type | Description |
 |-----------|----|----------|------|-------------|
-| `apiKey` | query | yes | string | Your WHOISFreaks API key |
 | `date` | query | no | string | yyyy-MM-dd; omit for latest |
 
 **Usage**
@@ -123,12 +122,12 @@ from whoisfreaks import Configuration, ApiClient
 from whoisfreaks.api.databases_whois_api import DatabasesWHOISApi
 
 # Parameters for dbWhoisWeekly (GET /v3.3/download/dbupdate/weekly/domains/whois):
-#   - apiKey (string, required): Your WHOISFreaks API key
 #   - date (string, optional): yyyy-MM-dd; omit for latest
 config = Configuration()
+config.api_key["ApiKeyAuth"] = "YOUR_API_KEY"   # set once
 api = DatabasesWHOISApi(ApiClient(config))
 
-data = api.db_whois_weekly(api_key="YOUR_API_KEY", var_date=str(date.today() - timedelta(days=1)))   # bytes
+data = api.db_whois_weekly(var_date=str(date.today() - timedelta(days=1)))   # bytes
 with open("dbWhoisWeekly.gz", "wb") as f:
     f.write(data)
 print(f"saved {len(data)} bytes to dbWhoisWeekly.gz")
@@ -142,16 +141,15 @@ print(f"saved {len(data)} bytes to dbWhoisWeekly.gz")
 ```typescript
 // Runnable example: WHOIS Database Weekly (GET /v3.3/download/dbupdate/weekly/domains/whois)
 // Parameters for dbWhoisWeekly (GET /v3.3/download/dbupdate/weekly/domains/whois):
-//   - apiKey (string, required): Your WHOISFreaks API key
 //   - date (string, optional): yyyy-MM-dd; omit for latest
 import { Configuration, DatabasesWHOISApi } from "whoisfreaks";
 
-const api = new DatabasesWHOISApi(new Configuration());
+const config = new Configuration({ apiKey: "YOUR_API_KEY" });  // set once
+const api = new DatabasesWHOISApi(config);
 
 async function main() {
-  const resp = await api.dbWhoisWeeklyRaw({ apiKey: "YOUR_API_KEY", date: new Date(Date.now()-86400000).toISOString().slice(0,10) });
-  console.log("status:", resp.raw.status);
-  console.log(await resp.value());
+  const result = await api.dbWhoisWeekly({ date: new Date(Date.now()-86400000).toISOString().slice(0,10) });
+  console.log(result);
 }
 main().catch(console.error);
 
@@ -164,7 +162,6 @@ main().catch(console.error);
 ```go
 // Runnable example: WHOIS Database Weekly (GET /v3.3/download/dbupdate/weekly/domains/whois)
 // Parameters for dbWhoisWeekly (GET /v3.3/download/dbupdate/weekly/domains/whois):
-//   - apiKey (string, required): Your WHOISFreaks API key
 //   - date (string, optional): yyyy-MM-dd; omit for latest
 package main
 
@@ -179,8 +176,11 @@ import (
 func main() {
     cfg := wf.NewConfiguration()
     client := wf.NewAPIClient(cfg)
+    // apiKey is set once via the request context
+    ctx := context.WithValue(context.Background(), wf.ContextAPIKeys,
+        map[string]wf.APIKey{"ApiKeyAuth": {Key: "YOUR_API_KEY"}})
     // returns raw bytes (compressed/binary file) -- write to disk
-    data, _, err := client.DatabasesWHOISAPI.DbWhoisWeekly(context.Background()).ApiKey("YOUR_API_KEY").Date(time.Now().AddDate(0,0,-1).Format("2006-01-02")).Execute()
+    data, _, err := client.DatabasesWHOISAPI.DbWhoisWeekly(ctx).Date(time.Now().AddDate(0,0,-1).Format("2006-01-02")).Execute()
     if err != nil { panic(err) }
     if err := os.WriteFile("dbWhoisWeekly.gz", data, 0644); err != nil { panic(err) }
     fmt.Printf("saved %d bytes to dbWhoisWeekly.gz\n", len(data))
@@ -202,7 +202,6 @@ WHOIS Database Monthly. Returns the file/snapshot described by this operation.
 
 | Parameter | In | Required | Type | Description |
 |-----------|----|----------|------|-------------|
-| `apiKey` | query | yes | string | Your WHOISFreaks API key |
 | `date` | query | no | string | yyyy-MM-dd; omit for latest |
 
 **Usage**
@@ -217,12 +216,12 @@ from whoisfreaks import Configuration, ApiClient
 from whoisfreaks.api.databases_whois_api import DatabasesWHOISApi
 
 # Parameters for dbWhoisMonthly (GET /v3.3/download/dbupdate/monthly/domains/whois):
-#   - apiKey (string, required): Your WHOISFreaks API key
 #   - date (string, optional): yyyy-MM-dd; omit for latest
 config = Configuration()
+config.api_key["ApiKeyAuth"] = "YOUR_API_KEY"   # set once
 api = DatabasesWHOISApi(ApiClient(config))
 
-data = api.db_whois_monthly(api_key="YOUR_API_KEY", var_date=str(date.today() - timedelta(days=1)))   # bytes
+data = api.db_whois_monthly(var_date=str(date.today() - timedelta(days=1)))   # bytes
 with open("dbWhoisMonthly.gz", "wb") as f:
     f.write(data)
 print(f"saved {len(data)} bytes to dbWhoisMonthly.gz")
@@ -236,16 +235,15 @@ print(f"saved {len(data)} bytes to dbWhoisMonthly.gz")
 ```typescript
 // Runnable example: WHOIS Database Monthly (GET /v3.3/download/dbupdate/monthly/domains/whois)
 // Parameters for dbWhoisMonthly (GET /v3.3/download/dbupdate/monthly/domains/whois):
-//   - apiKey (string, required): Your WHOISFreaks API key
 //   - date (string, optional): yyyy-MM-dd; omit for latest
 import { Configuration, DatabasesWHOISApi } from "whoisfreaks";
 
-const api = new DatabasesWHOISApi(new Configuration());
+const config = new Configuration({ apiKey: "YOUR_API_KEY" });  // set once
+const api = new DatabasesWHOISApi(config);
 
 async function main() {
-  const resp = await api.dbWhoisMonthlyRaw({ apiKey: "YOUR_API_KEY", date: new Date(Date.now()-86400000).toISOString().slice(0,10) });
-  console.log("status:", resp.raw.status);
-  console.log(await resp.value());
+  const result = await api.dbWhoisMonthly({ date: new Date(Date.now()-86400000).toISOString().slice(0,10) });
+  console.log(result);
 }
 main().catch(console.error);
 
@@ -258,7 +256,6 @@ main().catch(console.error);
 ```go
 // Runnable example: WHOIS Database Monthly (GET /v3.3/download/dbupdate/monthly/domains/whois)
 // Parameters for dbWhoisMonthly (GET /v3.3/download/dbupdate/monthly/domains/whois):
-//   - apiKey (string, required): Your WHOISFreaks API key
 //   - date (string, optional): yyyy-MM-dd; omit for latest
 package main
 
@@ -273,8 +270,11 @@ import (
 func main() {
     cfg := wf.NewConfiguration()
     client := wf.NewAPIClient(cfg)
+    // apiKey is set once via the request context
+    ctx := context.WithValue(context.Background(), wf.ContextAPIKeys,
+        map[string]wf.APIKey{"ApiKeyAuth": {Key: "YOUR_API_KEY"}})
     // returns raw bytes (compressed/binary file) -- write to disk
-    data, _, err := client.DatabasesWHOISAPI.DbWhoisMonthly(context.Background()).ApiKey("YOUR_API_KEY").Date(time.Now().AddDate(0,0,-1).Format("2006-01-02")).Execute()
+    data, _, err := client.DatabasesWHOISAPI.DbWhoisMonthly(ctx).Date(time.Now().AddDate(0,0,-1).Format("2006-01-02")).Execute()
     if err != nil { panic(err) }
     if err := os.WriteFile("dbWhoisMonthly.gz", data, 0644); err != nil { panic(err) }
     fmt.Printf("saved %d bytes to dbWhoisMonthly.gz\n", len(data))

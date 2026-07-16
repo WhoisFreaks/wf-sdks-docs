@@ -1,11 +1,12 @@
 // Runnable example: Subdomains Monthly (GET /v3.2/download/dbupdate/monthly/subdomains)
 // Parameters for dbSubdomainsMonthly (GET /v3.2/download/dbupdate/monthly/subdomains):
-//   - apiKey (string, required): Your WHOISFreaks API key
 //   - date (string, optional): yyyy-MM-dd; omit for latest
-import com.whoisfreaks.api.DatabasesSubdomainsApi
+import com.whoisfreaks.client.apis.DatabasesSubdomainsApi
+import com.whoisfreaks.client.infrastructure.ApiClient
 
 fun main() {
-    val api = DatabasesSubdomainsApi(basePath = "https://api.whoisfreaks.com")
-    val result = api.dbSubdomainsMonthly("YOUR_API_KEY", java.time.LocalDate.now().minusDays(1).toString())
-    println(result)  // status via api.dbSubdomainsMonthlyWithHttpInfo(...).statusCode
+    ApiClient.apiKey["apiKey"] = "YOUR_API_KEY"  // set once
+    val api = DatabasesSubdomainsApi()
+    val result = api.dbSubdomainsMonthly(java.time.LocalDate.now().minusDays(1).toString())
+    println(result)
 }

@@ -1,13 +1,13 @@
 // Runnable example: Rotate API Key (GET /v1.0/api-key/rotate)
 // Parameters for rotateApiKey (GET /v1.0/api-key/rotate):
-//   - apiKey (string, required): Your WHOISFreaks API key
+//   (no parameters; the API key is set on the client)
 import { Configuration, AccountApi } from "whoisfreaks";
 
-const api = new AccountApi(new Configuration());
+const config = new Configuration({ apiKey: "YOUR_API_KEY" });  // set once
+const api = new AccountApi(config);
 
 async function main() {
-  const resp = await api.rotateApiKeyRaw({ apiKey: "YOUR_API_KEY" });
-  console.log("status:", resp.raw.status);
-  console.log(await resp.value());
+  const result = await api.rotateApiKey({  });
+  console.log(result);
 }
 main().catch(console.error);

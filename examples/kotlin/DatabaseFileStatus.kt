@@ -1,10 +1,12 @@
 // Runnable example: Database File Status (Public) (GET /v3.3/status)
 // Parameters for databaseFileStatus (GET /v3.3/status):
-//   (no parameters besides apiKey)
-import com.whoisfreaks.api.AccountApi
+//   (no parameters; the API key is set on the client)
+import com.whoisfreaks.client.apis.AccountApi
+import com.whoisfreaks.client.infrastructure.ApiClient
 
 fun main() {
-    val api = AccountApi(basePath = "https://api.whoisfreaks.com")
+    ApiClient.apiKey["apiKey"] = "YOUR_API_KEY"  // set once
+    val api = AccountApi()
     val result = api.databaseFileStatus()
-    println(result)  // status via api.databaseFileStatusWithHttpInfo(...).statusCode
+    println(result)
 }

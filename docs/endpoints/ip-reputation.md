@@ -14,7 +14,6 @@ Threat intel for IP — VPN, proxy, Tor, bots. 1 credit.
 
 | Parameter | In | Required | Type | Description |
 |-----------|----|----------|------|-------------|
-| `apiKey` | query | yes | string | Your WHOISFreaks API key |
 | `ip` | query | yes | string |  |
 
 **Usage**
@@ -27,14 +26,13 @@ from whoisfreaks import Configuration, ApiClient
 from whoisfreaks.api.ip_reputation_api import IPReputationApi
 
 # Parameters for ipReputation (GET /v1.0/security):
-#   - apiKey (string, required): Your WHOISFreaks API key
 #   - ip (string, required)
 config = Configuration()
+config.api_key["ApiKeyAuth"] = "YOUR_API_KEY"   # set once
 api = IPReputationApi(ApiClient(config))
 
-resp = api.ip_reputation_with_http_info(api_key="YOUR_API_KEY", ip="8.8.8.8")
-print("status:", resp.status_code)
-print(resp.data)
+result = api.ip_reputation(ip="8.8.8.8")
+print(result)
 
 ```
 
@@ -45,16 +43,15 @@ print(resp.data)
 ```typescript
 // Runnable example: IP Reputation Lookup (GET /v1.0/security)
 // Parameters for ipReputation (GET /v1.0/security):
-//   - apiKey (string, required): Your WHOISFreaks API key
 //   - ip (string, required)
 import { Configuration, IPReputationApi } from "whoisfreaks";
 
-const api = new IPReputationApi(new Configuration());
+const config = new Configuration({ apiKey: "YOUR_API_KEY" });  // set once
+const api = new IPReputationApi(config);
 
 async function main() {
-  const resp = await api.ipReputationRaw({ apiKey: "YOUR_API_KEY", ip: "8.8.8.8" });
-  console.log("status:", resp.raw.status);
-  console.log(await resp.value());
+  const result = await api.ipReputation({ ip: "8.8.8.8" });
+  console.log(result);
 }
 main().catch(console.error);
 
@@ -67,7 +64,6 @@ main().catch(console.error);
 ```go
 // Runnable example: IP Reputation Lookup (GET /v1.0/security)
 // Parameters for ipReputation (GET /v1.0/security):
-//   - apiKey (string, required): Your WHOISFreaks API key
 //   - ip (string, required)
 package main
 
@@ -81,10 +77,11 @@ import (
 func main() {
     cfg := wf.NewConfiguration()
     client := wf.NewAPIClient(cfg)
-    // apiKey is a builder method on the request, not a config/context value
-    result, httpRes, err := client.IPReputationAPI.IpReputation(context.Background()).ApiKey("YOUR_API_KEY").Ip("8.8.8.8").Execute()
+    // apiKey is set once via the request context
+    ctx := context.WithValue(context.Background(), wf.ContextAPIKeys,
+        map[string]wf.APIKey{"ApiKeyAuth": {Key: "YOUR_API_KEY"}})
+    result, _, err := client.IPReputationAPI.IpReputation(ctx).Ip("8.8.8.8").Execute()
     if err != nil { panic(err) }
-    fmt.Println("status:", httpRes.StatusCode)
     b, _ := json.MarshalIndent(result, "", "  ")
     fmt.Println(string(b))
 }
@@ -105,7 +102,6 @@ Up to 100 IPs.
 
 | Parameter | In | Required | Type | Description |
 |-----------|----|----------|------|-------------|
-| `apiKey` | query | yes | string | Your WHOISFreaks API key |
 
 **Usage**
 
@@ -115,18 +111,17 @@ Up to 100 IPs.
 """Runnable example: Bulk IP Reputation (POST /v1.0/security)."""
 from whoisfreaks import Configuration, ApiClient
 from whoisfreaks.api.ip_reputation_api import IPReputationApi
-from whoisfreaks.models.bulk_geolocation_request import BulkGeolocationRequest
+from whoisfreaks.models.bulk_ip_reputation_request import BulkIpReputationRequest
 
 # Parameters for bulkIpReputation (POST /v1.0/security):
-#   - apiKey (string, required): Your WHOISFreaks API key
-#   - body: BulkGeolocationRequest (required) -- request body object
+#   - body: BulkIpReputationRequest (required) -- request body object
 config = Configuration()
+config.api_key["ApiKeyAuth"] = "YOUR_API_KEY"   # set once
 api = IPReputationApi(ApiClient(config))
 
-bulk_geolocation_request = BulkGeolocationRequest()  # populate fields as needed
-resp = api.bulk_ip_reputation_with_http_info(api_key="YOUR_API_KEY", bulk_geolocation_request=bulk_geolocation_request)
-print("status:", resp.status_code)
-print(resp.data)
+bulk_ip_reputation_request = BulkIpReputationRequest()  # populate fields as needed
+result = api.bulk_ip_reputation(bulk_ip_reputation_request=bulk_ip_reputation_request)
+print(result)
 
 ```
 
@@ -137,16 +132,15 @@ print(resp.data)
 ```typescript
 // Runnable example: Bulk IP Reputation (POST /v1.0/security)
 // Parameters for bulkIpReputation (POST /v1.0/security):
-//   - apiKey (string, required): Your WHOISFreaks API key
-//   - body: BulkGeolocationRequest (required) -- request body object
+//   - body: BulkIpReputationRequest (required) -- request body object
 import { Configuration, IPReputationApi } from "whoisfreaks";
 
-const api = new IPReputationApi(new Configuration());
+const config = new Configuration({ apiKey: "YOUR_API_KEY" });  // set once
+const api = new IPReputationApi(config);
 
 async function main() {
-  const resp = await api.bulkIpReputationRaw({ apiKey: "YOUR_API_KEY", bulkGeolocationRequest: {} });
-  console.log("status:", resp.raw.status);
-  console.log(await resp.value());
+  const result = await api.bulkIpReputation({ bulkIpReputationRequest: {} });
+  console.log(result);
 }
 main().catch(console.error);
 
@@ -159,8 +153,7 @@ main().catch(console.error);
 ```go
 // Runnable example: Bulk IP Reputation (POST /v1.0/security)
 // Parameters for bulkIpReputation (POST /v1.0/security):
-//   - apiKey (string, required): Your WHOISFreaks API key
-//   - body: BulkGeolocationRequest (required) -- request body object
+//   - body: BulkIpReputationRequest (required) -- request body object
 package main
 
 import (
@@ -173,10 +166,11 @@ import (
 func main() {
     cfg := wf.NewConfiguration()
     client := wf.NewAPIClient(cfg)
-    // apiKey is a builder method on the request, not a config/context value
-    result, httpRes, err := client.IPReputationAPI.BulkIpReputation(context.Background()).ApiKey("YOUR_API_KEY").BulkGeolocationRequest(*wf.NewBulkGeolocationRequest()).Execute()
+    // apiKey is set once via the request context
+    ctx := context.WithValue(context.Background(), wf.ContextAPIKeys,
+        map[string]wf.APIKey{"ApiKeyAuth": {Key: "YOUR_API_KEY"}})
+    result, _, err := client.IPReputationAPI.BulkIpReputation(ctx).BulkIpReputationRequest(*wf.NewBulkIpReputationRequest()).Execute()
     if err != nil { panic(err) }
-    fmt.Println("status:", httpRes.StatusCode)
     b, _ := json.MarshalIndent(result, "", "  ")
     fmt.Println(string(b))
 }

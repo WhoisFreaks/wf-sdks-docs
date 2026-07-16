@@ -1,5 +1,11 @@
 # Python SDK
 
+## About
+
+The official **WhoisFreaks Python SDK** — a complete client for WHOIS, DNS, SSL, domain availability, subdomain, IP geolocation, IP reputation, ASN, typosquatting, and domain reputation lookups, plus bulk database downloads. Query real-time and historical domain data, reverse WHOIS, and threat intelligence from Python with a single API key. Generated from the WhoisFreaks OpenAPI specification and published to PyPI.
+
+**Keywords:** python whois api, python whois sdk, whoisfreaks python, python domain lookup, python dns api, whois api, whois lookup, domain api, dns api, dns lookup, reverse whois, historical whois, domain availability api, ssl certificate api, ip geolocation api, ip reputation api, asn lookup, subdomain finder, typosquatting api, domain reputation, threat intelligence api, domain data api, whois sdk, domain monitoring, brand protection api
+
 - **Registry:** PyPI
 - **Package:** `whoisfreaks`
 
@@ -7,6 +13,16 @@
 
 ```bash
 pip install whoisfreaks
+```
+
+## Build from Source
+
+Prefer to build the SDK yourself instead of installing from PyPI? Clone the monorepo and build the Python package locally:
+
+```bash
+git clone https://github.com/WhoisFreaks/wf-sdks
+cd wf-sdks/sdks/python
+pip install -e .   # editable local install
 ```
 
 ## Getting Started
@@ -26,10 +42,12 @@ Create `main.py`:
 from whoisfreaks import Configuration, ApiClient
 from whoisfreaks.api.whois_api import WHOISApi
 
-api = WHOISApi(ApiClient(Configuration()))
-resp = api.whois_live_with_http_info(api_key="YOUR_API_KEY", domain_name="example.com")
-print("status:", resp.status_code)
-print(resp.data)
+config = Configuration()
+config.api_key["ApiKeyAuth"] = "YOUR_API_KEY"   # set once
+api = WHOISApi(ApiClient(config))
+
+result = api.whois_live(domain_name="example.com")
+print(result)
 ```
 
 Run it:
@@ -48,15 +66,14 @@ from whoisfreaks import Configuration, ApiClient
 from whoisfreaks.api.whois_api import WHOISApi
 
 # Parameters for whoisLive (GET /v2.0/whois/live):
-#   - apiKey (string, required): Your WHOISFreaks API key
 #   - domainName (string, required)
 #   - format (string (one of: json, xml), optional)
 config = Configuration()
+config.api_key["ApiKeyAuth"] = "YOUR_API_KEY"   # set once
 api = WHOISApi(ApiClient(config))
 
-resp = api.whois_live_with_http_info(api_key="YOUR_API_KEY", domain_name="example.com")
-print("status:", resp.status_code)
-print(resp.data)
+result = api.whois_live(domain_name="example.com")
+print(result)
 
 ```
 
@@ -76,15 +93,14 @@ from whoisfreaks import Configuration, ApiClient
 from whoisfreaks.api.whois_api import WHOISApi
 
 # Parameters for whoisLive (GET /v2.0/whois/live):
-#   - apiKey (string, required): Your WHOISFreaks API key
 #   - domainName (string, required)
 #   - format (string (one of: json, xml), optional)
 config = Configuration()
+config.api_key["ApiKeyAuth"] = "YOUR_API_KEY"   # set once
 api = WHOISApi(ApiClient(config))
 
-resp = api.whois_live_with_http_info(api_key="YOUR_API_KEY", domain_name="example.com")
-print("status:", resp.status_code)
-print(resp.data)
+result = api.whois_live(domain_name="example.com")
+print(result)
 
 ```
 
@@ -99,16 +115,15 @@ from whoisfreaks.api.whois_api import WHOISApi
 from whoisfreaks.models.bulk_whois_request import BulkWhoisRequest
 
 # Parameters for bulkWhois (POST /v2.0/bulkwhois/live):
-#   - apiKey (string, required): Your WHOISFreaks API key
 #   - format (string (one of: json, xml), optional)
 #   - body: BulkWhoisRequest (required) -- request body object
 config = Configuration()
+config.api_key["ApiKeyAuth"] = "YOUR_API_KEY"   # set once
 api = WHOISApi(ApiClient(config))
 
 bulk_whois_request = BulkWhoisRequest()  # populate fields as needed
-resp = api.bulk_whois_with_http_info(api_key="YOUR_API_KEY", bulk_whois_request=bulk_whois_request)
-print("status:", resp.status_code)
-print(resp.data)
+result = api.bulk_whois(bulk_whois_request=bulk_whois_request)
+print(result)
 
 ```
 
@@ -122,16 +137,15 @@ from whoisfreaks import Configuration, ApiClient
 from whoisfreaks.api.whois_api import WHOISApi
 
 # Parameters for whoisHistory (GET /v2.0/whois/history):
-#   - apiKey (string, required): Your WHOISFreaks API key
 #   - domainName (string, required): Domain to fetch historical WHOIS records for
 #   - page (integer, optional): Page number
 #   - format (string (one of: json, xml), optional)
 config = Configuration()
+config.api_key["ApiKeyAuth"] = "YOUR_API_KEY"   # set once
 api = WHOISApi(ApiClient(config))
 
-resp = api.whois_history_with_http_info(api_key="YOUR_API_KEY", domain_name="example.com")
-print("status:", resp.status_code)
-print(resp.data)
+result = api.whois_history(domain_name="example.com")
+print(result)
 
 ```
 
@@ -145,16 +159,15 @@ from whoisfreaks import Configuration, ApiClient
 from whoisfreaks.api.whois_api import WHOISApi
 
 # Parameters for whoisReverse (GET /v2.0/whois/reverse):
-#   - apiKey (string, required): Your WHOISFreaks API key
 #   - keyword (string, required): Keyword to search across WHOIS records
 #   - page (integer, optional): Page number
 #   - format (string (one of: json, xml), optional)
 config = Configuration()
+config.api_key["ApiKeyAuth"] = "YOUR_API_KEY"   # set once
 api = WHOISApi(ApiClient(config))
 
-resp = api.whois_reverse_with_http_info(api_key="YOUR_API_KEY", keyword="value")
-print("status:", resp.status_code)
-print(resp.data)
+result = api.whois_reverse(keyword="value")
+print(result)
 
 ```
 
@@ -170,17 +183,16 @@ from whoisfreaks import Configuration, ApiClient
 from whoisfreaks.api.dns_api import DNSApi
 
 # Parameters for dnsLive (GET /v2.0/dns/live):
-#   - apiKey (string, required): Your WHOISFreaks API key
 #   - domainName (string, required)
 #   - ipAddress (string, required): Use for PTR lookups
 #   - type (string, required): all or comma-separated: A,MX,NS,TXT,SOA,SPF,AAAA,CNAME
 #   - format (string (one of: json, xml), optional)
 config = Configuration()
+config.api_key["ApiKeyAuth"] = "YOUR_API_KEY"   # set once
 api = DNSApi(ApiClient(config))
 
-resp = api.dns_live_with_http_info(api_key="YOUR_API_KEY", domain_name="example.com", ip_address="8.8.8.8", var_type="value")
-print("status:", resp.status_code)
-print(resp.data)
+result = api.dns_live(domain_name="example.com", ip_address="8.8.8.8", var_type="value")
+print(result)
 
 ```
 
@@ -194,17 +206,16 @@ from whoisfreaks import Configuration, ApiClient
 from whoisfreaks.api.dns_api import DNSApi
 
 # Parameters for dnsHistorical (GET /v2.0/dns/historical):
-#   - apiKey (string, required): Your WHOISFreaks API key
 #   - domainName (string, required)
 #   - type (string, required)
 #   - page (integer, optional)
 #   - format (string (one of: json, xml), optional)
 config = Configuration()
+config.api_key["ApiKeyAuth"] = "YOUR_API_KEY"   # set once
 api = DNSApi(ApiClient(config))
 
-resp = api.dns_historical_with_http_info(api_key="YOUR_API_KEY", domain_name="example.com", var_type="value")
-print("status:", resp.status_code)
-print(resp.data)
+result = api.dns_historical(domain_name="example.com", var_type="value")
+print(result)
 
 ```
 
@@ -218,18 +229,17 @@ from whoisfreaks import Configuration, ApiClient
 from whoisfreaks.api.dns_api import DNSApi
 
 # Parameters for dnsReverse (GET /v2.1/dns/reverse):
-#   - apiKey (string, required): Your WHOISFreaks API key
 #   - value (string, required): IP, CIDR, or record value
 #   - type (string (one of: a, mx, cname, ns, aaaa, txt, soa), required)
 #   - exact (boolean, optional)
 #   - page (integer, optional)
 #   - format (string (one of: json, xml), optional)
 config = Configuration()
+config.api_key["ApiKeyAuth"] = "YOUR_API_KEY"   # set once
 api = DNSApi(ApiClient(config))
 
-resp = api.dns_reverse_with_http_info(api_key="YOUR_API_KEY", value="value", var_type="a", exact=True)
-print("status:", resp.status_code)
-print(resp.data)
+result = api.dns_reverse(value="value", var_type="a", exact=True)
+print(result)
 
 ```
 
@@ -244,17 +254,16 @@ from whoisfreaks.api.dns_api import DNSApi
 from whoisfreaks.models.dns_bulk_request import DnsBulkRequest
 
 # Parameters for dnsBulk (POST /v2.0/dns/bulk/live):
-#   - apiKey (string, required): Your WHOISFreaks API key
 #   - type (string, required)
 #   - format (string (one of: json, xml), optional)
 #   - body: DnsBulkRequest (required) -- request body object
 config = Configuration()
+config.api_key["ApiKeyAuth"] = "YOUR_API_KEY"   # set once
 api = DNSApi(ApiClient(config))
 
 dns_bulk_request = DnsBulkRequest()  # populate fields as needed
-resp = api.dns_bulk_with_http_info(api_key="YOUR_API_KEY", var_type="value", dns_bulk_request=dns_bulk_request)
-print("status:", resp.status_code)
-print(resp.data)
+result = api.dns_bulk(var_type="value", dns_bulk_request=dns_bulk_request)
+print(result)
 
 ```
 
@@ -270,17 +279,16 @@ from whoisfreaks import Configuration, ApiClient
 from whoisfreaks.api.domain_availability_api import DomainAvailabilityApi
 
 # Parameters for domainAvailabilityV2 (GET /v2.0/domain/availability):
-#   - apiKey (string, required): Your WHOISFreaks API key
 #   - domain (string, required): The domain name to check
 #   - sug (boolean, optional): Whether to return TLD suggestions alongside the queried domain.
 #   - count (integer, optional): Number of TLD suggestions to return when sug=true. Maximum is 100.
 #   - format (string (one of: json, xml), optional)
 config = Configuration()
+config.api_key["ApiKeyAuth"] = "YOUR_API_KEY"   # set once
 api = DomainAvailabilityApi(ApiClient(config))
 
-resp = api.domain_availability_v2_with_http_info(api_key="YOUR_API_KEY", domain="example.com")
-print("status:", resp.status_code)
-print(resp.data)
+result = api.domain_availability_v2(domain="example.com")
+print(result)
 
 ```
 
@@ -295,17 +303,16 @@ from whoisfreaks.api.domain_availability_api import DomainAvailabilityApi
 from whoisfreaks.models.bulk_domain_availability_request import BulkDomainAvailabilityRequest
 
 # Parameters for bulkDomainAvailabilityV2 (POST /v2.0/domain/availability):
-#   - apiKey (string, required): Your WHOISFreaks API key
 #   - domain (string, optional): Required for TLD-mode bulk check (base domain).
 #   - format (string (one of: json, xml), optional)
 #   - body: BulkDomainAvailabilityRequest (required) -- request body object
 config = Configuration()
+config.api_key["ApiKeyAuth"] = "YOUR_API_KEY"   # set once
 api = DomainAvailabilityApi(ApiClient(config))
 
 bulk_domain_availability_request = BulkDomainAvailabilityRequest()  # populate fields as needed
-resp = api.bulk_domain_availability_v2_with_http_info(api_key="YOUR_API_KEY", bulk_domain_availability_request=bulk_domain_availability_request)
-print("status:", resp.status_code)
-print(resp.data)
+result = api.bulk_domain_availability_v2(bulk_domain_availability_request=bulk_domain_availability_request)
+print(result)
 
 ```
 
@@ -321,16 +328,15 @@ from whoisfreaks import Configuration, ApiClient
 from whoisfreaks.api.typosquatting_api import TyposquattingApi
 
 # Parameters for typosquatting (GET /v3.0/domain/typos):
-#   - apiKey (string, required): Your WHOISFreaks API key
 #   - keyword (string, optional)
 #   - pattern (string, optional)
 #   - pageToken (string, optional)
 config = Configuration()
+config.api_key["ApiKeyAuth"] = "YOUR_API_KEY"   # set once
 api = TyposquattingApi(ApiClient(config))
 
-resp = api.typosquatting_with_http_info(api_key="YOUR_API_KEY")
-print("status:", resp.status_code)
-print(resp.data)
+result = api.typosquatting()
+print(result)
 
 ```
 
@@ -346,17 +352,16 @@ from whoisfreaks import Configuration, ApiClient
 from whoisfreaks.api.ssl_api import SSLApi
 
 # Parameters for sslLookup (GET /v1.0/ssl/live):
-#   - apiKey (string, required): Your WHOISFreaks API key
 #   - domainName (string, required)
 #   - chain (boolean, optional)
 #   - sslRaw (boolean, optional)
 #   - format (string (one of: json, xml), optional)
 config = Configuration()
+config.api_key["ApiKeyAuth"] = "YOUR_API_KEY"   # set once
 api = SSLApi(ApiClient(config))
 
-resp = api.ssl_lookup_with_http_info(api_key="YOUR_API_KEY", domain_name="example.com")
-print("status:", resp.status_code)
-print(resp.data)
+result = api.ssl_lookup(domain_name="example.com")
+print(result)
 
 ```
 
@@ -372,14 +377,13 @@ from whoisfreaks import Configuration, ApiClient
 from whoisfreaks.api.geolocation_api import GeolocationApi
 
 # Parameters for geolocation (GET /v1.0/geolocation):
-#   - apiKey (string, required): Your WHOISFreaks API key
 #   - ip (string, required)
 config = Configuration()
+config.api_key["ApiKeyAuth"] = "YOUR_API_KEY"   # set once
 api = GeolocationApi(ApiClient(config))
 
-resp = api.geolocation_with_http_info(api_key="YOUR_API_KEY", ip="8.8.8.8")
-print("status:", resp.status_code)
-print(resp.data)
+result = api.geolocation(ip="8.8.8.8")
+print(result)
 
 ```
 
@@ -394,15 +398,14 @@ from whoisfreaks.api.geolocation_api import GeolocationApi
 from whoisfreaks.models.bulk_geolocation_request import BulkGeolocationRequest
 
 # Parameters for bulkGeolocation (POST /v1.0/geolocation):
-#   - apiKey (string, required): Your WHOISFreaks API key
 #   - body: BulkGeolocationRequest (required) -- request body object
 config = Configuration()
+config.api_key["ApiKeyAuth"] = "YOUR_API_KEY"   # set once
 api = GeolocationApi(ApiClient(config))
 
 bulk_geolocation_request = BulkGeolocationRequest()  # populate fields as needed
-resp = api.bulk_geolocation_with_http_info(api_key="YOUR_API_KEY", bulk_geolocation_request=bulk_geolocation_request)
-print("status:", resp.status_code)
-print(resp.data)
+result = api.bulk_geolocation(bulk_geolocation_request=bulk_geolocation_request)
+print(result)
 
 ```
 
@@ -419,7 +422,6 @@ from whoisfreaks import Configuration, ApiClient
 from whoisfreaks.api.subdomains_api import SubdomainsApi
 
 # Parameters for subdomains (GET /v1.0/subdomains):
-#   - apiKey (string, required): Your WHOISFreaks API key
 #   - domain (string, required)
 #   - after (string, optional)
 #   - before (string, optional)
@@ -427,11 +429,11 @@ from whoisfreaks.api.subdomains_api import SubdomainsApi
 #   - page (integer, optional)
 #   - format (string (one of: json, xml), optional)
 config = Configuration()
+config.api_key["ApiKeyAuth"] = "YOUR_API_KEY"   # set once
 api = SubdomainsApi(ApiClient(config))
 
-resp = api.subdomains_with_http_info(api_key="YOUR_API_KEY", domain="example.com", after="2000-01-01", before=str(date.today()))
-print("status:", resp.status_code)
-print(resp.data)
+result = api.subdomains(domain="example.com", after="2000-01-01", before=str(date.today()))
+print(result)
 
 ```
 
@@ -447,14 +449,13 @@ from whoisfreaks import Configuration, ApiClient
 from whoisfreaks.api.ip_reputation_api import IPReputationApi
 
 # Parameters for ipReputation (GET /v1.0/security):
-#   - apiKey (string, required): Your WHOISFreaks API key
 #   - ip (string, required)
 config = Configuration()
+config.api_key["ApiKeyAuth"] = "YOUR_API_KEY"   # set once
 api = IPReputationApi(ApiClient(config))
 
-resp = api.ip_reputation_with_http_info(api_key="YOUR_API_KEY", ip="8.8.8.8")
-print("status:", resp.status_code)
-print(resp.data)
+result = api.ip_reputation(ip="8.8.8.8")
+print(result)
 
 ```
 
@@ -466,18 +467,17 @@ print(resp.data)
 """Runnable example: Bulk IP Reputation (POST /v1.0/security)."""
 from whoisfreaks import Configuration, ApiClient
 from whoisfreaks.api.ip_reputation_api import IPReputationApi
-from whoisfreaks.models.bulk_geolocation_request import BulkGeolocationRequest
+from whoisfreaks.models.bulk_ip_reputation_request import BulkIpReputationRequest
 
 # Parameters for bulkIpReputation (POST /v1.0/security):
-#   - apiKey (string, required): Your WHOISFreaks API key
-#   - body: BulkGeolocationRequest (required) -- request body object
+#   - body: BulkIpReputationRequest (required) -- request body object
 config = Configuration()
+config.api_key["ApiKeyAuth"] = "YOUR_API_KEY"   # set once
 api = IPReputationApi(ApiClient(config))
 
-bulk_geolocation_request = BulkGeolocationRequest()  # populate fields as needed
-resp = api.bulk_ip_reputation_with_http_info(api_key="YOUR_API_KEY", bulk_geolocation_request=bulk_geolocation_request)
-print("status:", resp.status_code)
-print(resp.data)
+bulk_ip_reputation_request = BulkIpReputationRequest()  # populate fields as needed
+result = api.bulk_ip_reputation(bulk_ip_reputation_request=bulk_ip_reputation_request)
+print(result)
 
 ```
 
@@ -493,15 +493,14 @@ from whoisfreaks import Configuration, ApiClient
 from whoisfreaks.api.domain_reputation_api import DomainReputationApi
 
 # Parameters for domainReputation (GET /v1/domain/security):
-#   - apiKey (string, required): Your WHOISFreaks API key
 #   - domainName (string, required): The domain name to assess
 #   - format (string (one of: json, xml), optional)
 config = Configuration()
+config.api_key["ApiKeyAuth"] = "YOUR_API_KEY"   # set once
 api = DomainReputationApi(ApiClient(config))
 
-resp = api.domain_reputation_with_http_info(api_key="YOUR_API_KEY", domain_name="example.com")
-print("status:", resp.status_code)
-print(resp.data)
+result = api.domain_reputation(domain_name="example.com")
+print(result)
 
 ```
 
@@ -517,15 +516,14 @@ from whoisfreaks import Configuration, ApiClient
 from whoisfreaks.api.asnwhois_api import ASNWHOISApi
 
 # Parameters for asnWhois (GET /v2.0/asn-whois):
-#   - apiKey (string, required): Your WHOISFreaks API key
 #   - asn (string, required)
 #   - format (string (one of: json, xml), optional)
 config = Configuration()
+config.api_key["ApiKeyAuth"] = "YOUR_API_KEY"   # set once
 api = ASNWHOISApi(ApiClient(config))
 
-resp = api.asn_whois_with_http_info(api_key="YOUR_API_KEY", asn="AS15169")
-print("status:", resp.status_code)
-print(resp.data)
+result = api.asn_whois(asn="AS15169")
+print(result)
 
 ```
 
@@ -541,15 +539,14 @@ from whoisfreaks import Configuration, ApiClient
 from whoisfreaks.api.ipwhois_api import IPWHOISApi
 
 # Parameters for ipWhois (GET /v1.0/ip-whois):
-#   - apiKey (string, required): Your WHOISFreaks API key
 #   - ip (string, required)
 #   - format (string (one of: json, xml), optional)
 config = Configuration()
+config.api_key["ApiKeyAuth"] = "YOUR_API_KEY"   # set once
 api = IPWHOISApi(ApiClient(config))
 
-resp = api.ip_whois_with_http_info(api_key="YOUR_API_KEY", ip="8.8.8.8")
-print("status:", resp.status_code)
-print(resp.data)
+result = api.ip_whois(ip="8.8.8.8")
+print(result)
 
 ```
 
@@ -565,13 +562,13 @@ from whoisfreaks import Configuration, ApiClient
 from whoisfreaks.api.account_api import AccountApi
 
 # Parameters for rotateApiKey (GET /v1.0/api-key/rotate):
-#   - apiKey (string, required): Your WHOISFreaks API key
+#   (no parameters; the API key is set on the client)
 config = Configuration()
+config.api_key["ApiKeyAuth"] = "YOUR_API_KEY"   # set once
 api = AccountApi(ApiClient(config))
 
-resp = api.rotate_api_key_with_http_info(api_key="YOUR_API_KEY")
-print("status:", resp.status_code)
-print(resp.data)
+result = api.rotate_api_key()
+print(result)
 
 ```
 
@@ -585,13 +582,13 @@ from whoisfreaks import Configuration, ApiClient
 from whoisfreaks.api.account_api import AccountApi
 
 # Parameters for accountUsage (GET /v1.0/whoisapi/usage):
-#   - apiKey (string, required): Your WHOISFreaks API key
+#   (no parameters; the API key is set on the client)
 config = Configuration()
+config.api_key["ApiKeyAuth"] = "YOUR_API_KEY"   # set once
 api = AccountApi(ApiClient(config))
 
-resp = api.account_usage_with_http_info(api_key="YOUR_API_KEY")
-print("status:", resp.status_code)
-print(resp.data)
+result = api.account_usage()
+print(result)
 
 ```
 
@@ -605,13 +602,13 @@ from whoisfreaks import Configuration, ApiClient
 from whoisfreaks.api.account_api import AccountApi
 
 # Parameters for databaseFileStatus (GET /v3.3/status):
-#   (no parameters besides apiKey)
+#   (no parameters; the API key is set on the client)
 config = Configuration()
+config.api_key["ApiKeyAuth"] = "YOUR_API_KEY"   # set once
 api = AccountApi(ApiClient(config))
 
-resp = api.database_file_status_with_http_info()
-print("status:", resp.status_code)
-print(resp.data)
+result = api.database_file_status()
+print(result)
 
 ```
 
@@ -629,14 +626,14 @@ from whoisfreaks import Configuration, ApiClient
 from whoisfreaks.api.databases_newly_registered_api import DatabasesNewlyRegisteredApi
 
 # Parameters for dbNewlyGtld (GET /v3.1/download/domainer/gtld):
-#   - apiKey (string, required): Your WHOISFreaks API key
 #   - whois (boolean, required)
 #   - date (string, optional): yyyy-MM-dd; omit for latest
 #   - tlds (string, optional)
 config = Configuration()
+config.api_key["ApiKeyAuth"] = "YOUR_API_KEY"   # set once
 api = DatabasesNewlyRegisteredApi(ApiClient(config))
 
-data = api.db_newly_gtld(api_key="YOUR_API_KEY", whois=False, var_date=str(date.today() - timedelta(days=1)))   # bytes
+data = api.db_newly_gtld(whois=False, var_date=str(date.today() - timedelta(days=1)))   # bytes
 with open("dbNewlyGtld.gz", "wb") as f:
     f.write(data)
 print(f"saved {len(data)} bytes to dbNewlyGtld.gz")
@@ -655,14 +652,14 @@ from whoisfreaks import Configuration, ApiClient
 from whoisfreaks.api.databases_newly_registered_api import DatabasesNewlyRegisteredApi
 
 # Parameters for dbNewlyCctld (GET /v3.1/download/domainer/cctld):
-#   - apiKey (string, required): Your WHOISFreaks API key
 #   - whois (boolean, required)
 #   - date (string, optional): yyyy-MM-dd; omit for latest
 #   - tlds (string, optional)
 config = Configuration()
+config.api_key["ApiKeyAuth"] = "YOUR_API_KEY"   # set once
 api = DatabasesNewlyRegisteredApi(ApiClient(config))
 
-data = api.db_newly_cctld(api_key="YOUR_API_KEY", whois=False, var_date=str(date.today() - timedelta(days=1)))   # bytes
+data = api.db_newly_cctld(whois=False, var_date=str(date.today() - timedelta(days=1)))   # bytes
 with open("dbNewlyCctld.gz", "wb") as f:
     f.write(data)
 print(f"saved {len(data)} bytes to dbNewlyCctld.gz")
@@ -681,12 +678,12 @@ from whoisfreaks import Configuration, ApiClient
 from whoisfreaks.api.databases_newly_registered_api import DatabasesNewlyRegisteredApi
 
 # Parameters for dbNewlyGtldCleaned (GET /v3.1/download/domainer/gtld/cleaned):
-#   - apiKey (string, required): Your WHOISFreaks API key
 #   - date (string, optional): yyyy-MM-dd; omit for latest
 config = Configuration()
+config.api_key["ApiKeyAuth"] = "YOUR_API_KEY"   # set once
 api = DatabasesNewlyRegisteredApi(ApiClient(config))
 
-data = api.db_newly_gtld_cleaned(api_key="YOUR_API_KEY", var_date=str(date.today() - timedelta(days=1)))   # bytes
+data = api.db_newly_gtld_cleaned(var_date=str(date.today() - timedelta(days=1)))   # bytes
 with open("dbNewlyGtldCleaned.gz", "wb") as f:
     f.write(data)
 print(f"saved {len(data)} bytes to dbNewlyGtldCleaned.gz")
@@ -705,12 +702,12 @@ from whoisfreaks import Configuration, ApiClient
 from whoisfreaks.api.databases_newly_registered_api import DatabasesNewlyRegisteredApi
 
 # Parameters for dbNewlyCctldCleaned (GET /v3.1/download/domainer/cctld/cleaned):
-#   - apiKey (string, required): Your WHOISFreaks API key
 #   - date (string, optional): yyyy-MM-dd; omit for latest
 config = Configuration()
+config.api_key["ApiKeyAuth"] = "YOUR_API_KEY"   # set once
 api = DatabasesNewlyRegisteredApi(ApiClient(config))
 
-data = api.db_newly_cctld_cleaned(api_key="YOUR_API_KEY", var_date=str(date.today() - timedelta(days=1)))   # bytes
+data = api.db_newly_cctld_cleaned(var_date=str(date.today() - timedelta(days=1)))   # bytes
 with open("dbNewlyCctldCleaned.gz", "wb") as f:
     f.write(data)
 print(f"saved {len(data)} bytes to dbNewlyCctldCleaned.gz")
@@ -728,15 +725,14 @@ from whoisfreaks import Configuration, ApiClient
 from whoisfreaks.api.databases_newly_registered_api import DatabasesNewlyRegisteredApi
 
 # Parameters for dbNewlyGtldJson (GET /v3.1/domains/newly/gtld):
-#   - apiKey (string, required): Your WHOISFreaks API key
 #   - date (string, optional): yyyy-MM-dd; omit for latest
 #   - tlds (string, optional)
 config = Configuration()
+config.api_key["ApiKeyAuth"] = "YOUR_API_KEY"   # set once
 api = DatabasesNewlyRegisteredApi(ApiClient(config))
 
-resp = api.db_newly_gtld_json_with_http_info(api_key="YOUR_API_KEY", var_date=str(date.today() - timedelta(days=1)))
-print("status:", resp.status_code)
-print(resp.data)
+result = api.db_newly_gtld_json(var_date=str(date.today() - timedelta(days=1)))
+print(result)
 
 ```
 
@@ -751,15 +747,14 @@ from whoisfreaks import Configuration, ApiClient
 from whoisfreaks.api.databases_newly_registered_api import DatabasesNewlyRegisteredApi
 
 # Parameters for dbNewlyCctldJson (GET /v3.1/domains/newly/cctld):
-#   - apiKey (string, required): Your WHOISFreaks API key
 #   - date (string, optional): yyyy-MM-dd; omit for latest
 #   - tlds (string, optional)
 config = Configuration()
+config.api_key["ApiKeyAuth"] = "YOUR_API_KEY"   # set once
 api = DatabasesNewlyRegisteredApi(ApiClient(config))
 
-resp = api.db_newly_cctld_json_with_http_info(api_key="YOUR_API_KEY", var_date=str(date.today() - timedelta(days=1)))
-print("status:", resp.status_code)
-print(resp.data)
+result = api.db_newly_cctld_json(var_date=str(date.today() - timedelta(days=1)))
+print(result)
 
 ```
 
@@ -775,12 +770,12 @@ from whoisfreaks import Configuration, ApiClient
 from whoisfreaks.api.databases_newly_registered_api import DatabasesNewlyRegisteredApi
 
 # Parameters for dbNewlyDns (GET /v3.1/download/domainer/newly/dns):
-#   - apiKey (string, required): Your WHOISFreaks API key
 #   - date (string, optional): yyyy-MM-dd; omit for latest
 config = Configuration()
+config.api_key["ApiKeyAuth"] = "YOUR_API_KEY"   # set once
 api = DatabasesNewlyRegisteredApi(ApiClient(config))
 
-data = api.db_newly_dns(api_key="YOUR_API_KEY", var_date=str(date.today() - timedelta(days=1)))   # bytes
+data = api.db_newly_dns(var_date=str(date.today() - timedelta(days=1)))   # bytes
 with open("dbNewlyDns.gz", "wb") as f:
     f.write(data)
 print(f"saved {len(data)} bytes to dbNewlyDns.gz")
@@ -801,13 +796,13 @@ from whoisfreaks import Configuration, ApiClient
 from whoisfreaks.api.databases_expiring_dropped_api import DatabasesExpiringDroppedApi
 
 # Parameters for dbExpired (GET /v3.1/download/domainer/expired):
-#   - apiKey (string, required): Your WHOISFreaks API key
 #   - whois (boolean, required)
 #   - date (string, optional): yyyy-MM-dd; omit for latest
 config = Configuration()
+config.api_key["ApiKeyAuth"] = "YOUR_API_KEY"   # set once
 api = DatabasesExpiringDroppedApi(ApiClient(config))
 
-data = api.db_expired(api_key="YOUR_API_KEY", whois=False, var_date=str(date.today() - timedelta(days=1)))   # bytes
+data = api.db_expired(whois=False, var_date=str(date.today() - timedelta(days=1)))   # bytes
 with open("dbExpired.gz", "wb") as f:
     f.write(data)
 print(f"saved {len(data)} bytes to dbExpired.gz")
@@ -826,12 +821,12 @@ from whoisfreaks import Configuration, ApiClient
 from whoisfreaks.api.databases_expiring_dropped_api import DatabasesExpiringDroppedApi
 
 # Parameters for dbExpiredCleaned (GET /v3.1/download/domainer/expired/cleaned):
-#   - apiKey (string, required): Your WHOISFreaks API key
 #   - date (string, optional): yyyy-MM-dd; omit for latest
 config = Configuration()
+config.api_key["ApiKeyAuth"] = "YOUR_API_KEY"   # set once
 api = DatabasesExpiringDroppedApi(ApiClient(config))
 
-data = api.db_expired_cleaned(api_key="YOUR_API_KEY", var_date=str(date.today() - timedelta(days=1)))   # bytes
+data = api.db_expired_cleaned(var_date=str(date.today() - timedelta(days=1)))   # bytes
 with open("dbExpiredCleaned.gz", "wb") as f:
     f.write(data)
 print(f"saved {len(data)} bytes to dbExpiredCleaned.gz")
@@ -850,13 +845,13 @@ from whoisfreaks import Configuration, ApiClient
 from whoisfreaks.api.databases_expiring_dropped_api import DatabasesExpiringDroppedApi
 
 # Parameters for dbDropped (GET /v3.1/download/domainer/dropped):
-#   - apiKey (string, required): Your WHOISFreaks API key
 #   - whois (boolean, required)
 #   - date (string, optional): yyyy-MM-dd; omit for latest
 config = Configuration()
+config.api_key["ApiKeyAuth"] = "YOUR_API_KEY"   # set once
 api = DatabasesExpiringDroppedApi(ApiClient(config))
 
-data = api.db_dropped(api_key="YOUR_API_KEY", whois=False, var_date=str(date.today() - timedelta(days=1)))   # bytes
+data = api.db_dropped(whois=False, var_date=str(date.today() - timedelta(days=1)))   # bytes
 with open("dbDropped.gz", "wb") as f:
     f.write(data)
 print(f"saved {len(data)} bytes to dbDropped.gz")
@@ -874,15 +869,14 @@ from whoisfreaks import Configuration, ApiClient
 from whoisfreaks.api.databases_expiring_dropped_api import DatabasesExpiringDroppedApi
 
 # Parameters for dbDroppedJson (GET /v3.1/domains/dropped):
-#   - apiKey (string, required): Your WHOISFreaks API key
 #   - date (string, optional): yyyy-MM-dd; omit for latest
 #   - tlds (string, optional)
 config = Configuration()
+config.api_key["ApiKeyAuth"] = "YOUR_API_KEY"   # set once
 api = DatabasesExpiringDroppedApi(ApiClient(config))
 
-resp = api.db_dropped_json_with_http_info(api_key="YOUR_API_KEY", var_date=str(date.today() - timedelta(days=1)))
-print("status:", resp.status_code)
-print(resp.data)
+result = api.db_dropped_json(var_date=str(date.today() - timedelta(days=1)))
+print(result)
 
 ```
 
@@ -898,13 +892,13 @@ from whoisfreaks import Configuration, ApiClient
 from whoisfreaks.api.databases_expiring_dropped_api import DatabasesExpiringDroppedApi
 
 # Parameters for dbDroppedBacklinks (GET /v3.3/download/domainer/dropped/backlinks):
-#   - apiKey (string, required): Your WHOISFreaks API key
 #   - whois (boolean, optional)
 #   - date (string, optional): yyyy-MM-dd; omit for latest
 config = Configuration()
+config.api_key["ApiKeyAuth"] = "YOUR_API_KEY"   # set once
 api = DatabasesExpiringDroppedApi(ApiClient(config))
 
-data = api.db_dropped_backlinks(api_key="YOUR_API_KEY", whois=False, var_date=str(date.today() - timedelta(days=1)))   # bytes
+data = api.db_dropped_backlinks(whois=False, var_date=str(date.today() - timedelta(days=1)))   # bytes
 with open("dbDroppedBacklinks.gz", "wb") as f:
     f.write(data)
 print(f"saved {len(data)} bytes to dbDroppedBacklinks.gz")
@@ -925,12 +919,12 @@ from whoisfreaks import Configuration, ApiClient
 from whoisfreaks.api.databases_whois_api import DatabasesWHOISApi
 
 # Parameters for dbWhoisDaily (GET /v3.3/download/dbupdate/daily/domains/whois):
-#   - apiKey (string, required): Your WHOISFreaks API key
 #   - date (string, optional): yyyy-MM-dd; omit for latest
 config = Configuration()
+config.api_key["ApiKeyAuth"] = "YOUR_API_KEY"   # set once
 api = DatabasesWHOISApi(ApiClient(config))
 
-data = api.db_whois_daily(api_key="YOUR_API_KEY", var_date=str(date.today() - timedelta(days=1)))   # bytes
+data = api.db_whois_daily(var_date=str(date.today() - timedelta(days=1)))   # bytes
 with open("dbWhoisDaily.gz", "wb") as f:
     f.write(data)
 print(f"saved {len(data)} bytes to dbWhoisDaily.gz")
@@ -949,12 +943,12 @@ from whoisfreaks import Configuration, ApiClient
 from whoisfreaks.api.databases_whois_api import DatabasesWHOISApi
 
 # Parameters for dbWhoisWeekly (GET /v3.3/download/dbupdate/weekly/domains/whois):
-#   - apiKey (string, required): Your WHOISFreaks API key
 #   - date (string, optional): yyyy-MM-dd; omit for latest
 config = Configuration()
+config.api_key["ApiKeyAuth"] = "YOUR_API_KEY"   # set once
 api = DatabasesWHOISApi(ApiClient(config))
 
-data = api.db_whois_weekly(api_key="YOUR_API_KEY", var_date=str(date.today() - timedelta(days=1)))   # bytes
+data = api.db_whois_weekly(var_date=str(date.today() - timedelta(days=1)))   # bytes
 with open("dbWhoisWeekly.gz", "wb") as f:
     f.write(data)
 print(f"saved {len(data)} bytes to dbWhoisWeekly.gz")
@@ -973,12 +967,12 @@ from whoisfreaks import Configuration, ApiClient
 from whoisfreaks.api.databases_whois_api import DatabasesWHOISApi
 
 # Parameters for dbWhoisMonthly (GET /v3.3/download/dbupdate/monthly/domains/whois):
-#   - apiKey (string, required): Your WHOISFreaks API key
 #   - date (string, optional): yyyy-MM-dd; omit for latest
 config = Configuration()
+config.api_key["ApiKeyAuth"] = "YOUR_API_KEY"   # set once
 api = DatabasesWHOISApi(ApiClient(config))
 
-data = api.db_whois_monthly(api_key="YOUR_API_KEY", var_date=str(date.today() - timedelta(days=1)))   # bytes
+data = api.db_whois_monthly(var_date=str(date.today() - timedelta(days=1)))   # bytes
 with open("dbWhoisMonthly.gz", "wb") as f:
     f.write(data)
 print(f"saved {len(data)} bytes to dbWhoisMonthly.gz")
@@ -999,12 +993,12 @@ from whoisfreaks import Configuration, ApiClient
 from whoisfreaks.api.databases_dns_api import DatabasesDNSApi
 
 # Parameters for dbDnsDaily (GET /v3.2/download/dbupdate/daily/dns):
-#   - apiKey (string, required): Your WHOISFreaks API key
 #   - date (string, optional): yyyy-MM-dd; omit for latest
 config = Configuration()
+config.api_key["ApiKeyAuth"] = "YOUR_API_KEY"   # set once
 api = DatabasesDNSApi(ApiClient(config))
 
-data = api.db_dns_daily(api_key="YOUR_API_KEY", var_date=str(date.today() - timedelta(days=1)))   # bytes
+data = api.db_dns_daily(var_date=str(date.today() - timedelta(days=1)))   # bytes
 with open("dbDnsDaily.gz", "wb") as f:
     f.write(data)
 print(f"saved {len(data)} bytes to dbDnsDaily.gz")
@@ -1023,12 +1017,12 @@ from whoisfreaks import Configuration, ApiClient
 from whoisfreaks.api.databases_dns_api import DatabasesDNSApi
 
 # Parameters for dbDnsWeekly (GET /v3.2/download/dbupdate/weekly/dns):
-#   - apiKey (string, required): Your WHOISFreaks API key
 #   - date (string, optional): yyyy-MM-dd; omit for latest
 config = Configuration()
+config.api_key["ApiKeyAuth"] = "YOUR_API_KEY"   # set once
 api = DatabasesDNSApi(ApiClient(config))
 
-data = api.db_dns_weekly(api_key="YOUR_API_KEY", var_date=str(date.today() - timedelta(days=1)))   # bytes
+data = api.db_dns_weekly(var_date=str(date.today() - timedelta(days=1)))   # bytes
 with open("dbDnsWeekly.gz", "wb") as f:
     f.write(data)
 print(f"saved {len(data)} bytes to dbDnsWeekly.gz")
@@ -1047,12 +1041,12 @@ from whoisfreaks import Configuration, ApiClient
 from whoisfreaks.api.databases_dns_api import DatabasesDNSApi
 
 # Parameters for dbDnsMonthly (GET /v3.2/download/dbupdate/monthly/dns):
-#   - apiKey (string, required): Your WHOISFreaks API key
 #   - date (string, optional): yyyy-MM-dd; omit for latest
 config = Configuration()
+config.api_key["ApiKeyAuth"] = "YOUR_API_KEY"   # set once
 api = DatabasesDNSApi(ApiClient(config))
 
-data = api.db_dns_monthly(api_key="YOUR_API_KEY", var_date=str(date.today() - timedelta(days=1)))   # bytes
+data = api.db_dns_monthly(var_date=str(date.today() - timedelta(days=1)))   # bytes
 with open("dbDnsMonthly.gz", "wb") as f:
     f.write(data)
 print(f"saved {len(data)} bytes to dbDnsMonthly.gz")
@@ -1073,12 +1067,12 @@ from whoisfreaks import Configuration, ApiClient
 from whoisfreaks.api.databases_subdomains_api import DatabasesSubdomainsApi
 
 # Parameters for dbSubdomainsDaily (GET /v3.2/download/dbupdate/daily/subdomains):
-#   - apiKey (string, required): Your WHOISFreaks API key
 #   - date (string, optional): yyyy-MM-dd; omit for latest
 config = Configuration()
+config.api_key["ApiKeyAuth"] = "YOUR_API_KEY"   # set once
 api = DatabasesSubdomainsApi(ApiClient(config))
 
-data = api.db_subdomains_daily(api_key="YOUR_API_KEY", var_date=str(date.today() - timedelta(days=1)))   # bytes
+data = api.db_subdomains_daily(var_date=str(date.today() - timedelta(days=1)))   # bytes
 with open("dbSubdomainsDaily.gz", "wb") as f:
     f.write(data)
 print(f"saved {len(data)} bytes to dbSubdomainsDaily.gz")
@@ -1097,12 +1091,12 @@ from whoisfreaks import Configuration, ApiClient
 from whoisfreaks.api.databases_subdomains_api import DatabasesSubdomainsApi
 
 # Parameters for dbSubdomainsWeekly (GET /v3.2/download/dbupdate/weekly/subdomains):
-#   - apiKey (string, required): Your WHOISFreaks API key
 #   - date (string, optional): yyyy-MM-dd; omit for latest
 config = Configuration()
+config.api_key["ApiKeyAuth"] = "YOUR_API_KEY"   # set once
 api = DatabasesSubdomainsApi(ApiClient(config))
 
-data = api.db_subdomains_weekly(api_key="YOUR_API_KEY", var_date=str(date.today() - timedelta(days=1)))   # bytes
+data = api.db_subdomains_weekly(var_date=str(date.today() - timedelta(days=1)))   # bytes
 with open("dbSubdomainsWeekly.gz", "wb") as f:
     f.write(data)
 print(f"saved {len(data)} bytes to dbSubdomainsWeekly.gz")
@@ -1121,12 +1115,12 @@ from whoisfreaks import Configuration, ApiClient
 from whoisfreaks.api.databases_subdomains_api import DatabasesSubdomainsApi
 
 # Parameters for dbSubdomainsMonthly (GET /v3.2/download/dbupdate/monthly/subdomains):
-#   - apiKey (string, required): Your WHOISFreaks API key
 #   - date (string, optional): yyyy-MM-dd; omit for latest
 config = Configuration()
+config.api_key["ApiKeyAuth"] = "YOUR_API_KEY"   # set once
 api = DatabasesSubdomainsApi(ApiClient(config))
 
-data = api.db_subdomains_monthly(api_key="YOUR_API_KEY", var_date=str(date.today() - timedelta(days=1)))   # bytes
+data = api.db_subdomains_monthly(var_date=str(date.today() - timedelta(days=1)))   # bytes
 with open("dbSubdomainsMonthly.gz", "wb") as f:
     f.write(data)
 print(f"saved {len(data)} bytes to dbSubdomainsMonthly.gz")
@@ -1145,13 +1139,13 @@ from whoisfreaks import Configuration, ApiClient
 from whoisfreaks.api.databases_ip_geolocation_api import DatabasesIPGeolocationApi
 
 # Parameters for dbIpCountryStatus (GET /v3.3/status/snapshot/ip/country):
-#   - apiKey (string, required): Your WHOISFreaks API key
+#   (no parameters; the API key is set on the client)
 config = Configuration()
+config.api_key["ApiKeyAuth"] = "YOUR_API_KEY"   # set once
 api = DatabasesIPGeolocationApi(ApiClient(config))
 
-resp = api.db_ip_country_status_with_http_info(api_key="YOUR_API_KEY")
-print("status:", resp.status_code)
-print(resp.data)
+result = api.db_ip_country_status()
+print(result)
 
 ```
 
@@ -1167,12 +1161,12 @@ from whoisfreaks import Configuration, ApiClient
 from whoisfreaks.api.databases_ip_geolocation_api import DatabasesIPGeolocationApi
 
 # Parameters for dbIpCountry (GET /v3.3/download/snapshot/ip/country):
-#   - apiKey (string, required): Your WHOISFreaks API key
 #   - date (string, required)
 config = Configuration()
+config.api_key["ApiKeyAuth"] = "YOUR_API_KEY"   # set once
 api = DatabasesIPGeolocationApi(ApiClient(config))
 
-data = api.db_ip_country(api_key="YOUR_API_KEY", var_date=str(date.today() - timedelta(days=1)))   # bytes
+data = api.db_ip_country(var_date=str(date.today() - timedelta(days=1)))   # bytes
 with open("dbIpCountry.gz", "wb") as f:
     f.write(data)
 print(f"saved {len(data)} bytes to dbIpCountry.gz")
@@ -1189,13 +1183,13 @@ from whoisfreaks import Configuration, ApiClient
 from whoisfreaks.api.databases_ip_geolocation_api import DatabasesIPGeolocationApi
 
 # Parameters for dbIpCityStatus (GET /v3.3/status/snapshot/ip/city):
-#   - apiKey (string, required): Your WHOISFreaks API key
+#   (no parameters; the API key is set on the client)
 config = Configuration()
+config.api_key["ApiKeyAuth"] = "YOUR_API_KEY"   # set once
 api = DatabasesIPGeolocationApi(ApiClient(config))
 
-resp = api.db_ip_city_status_with_http_info(api_key="YOUR_API_KEY")
-print("status:", resp.status_code)
-print(resp.data)
+result = api.db_ip_city_status()
+print(result)
 
 ```
 
@@ -1211,12 +1205,12 @@ from whoisfreaks import Configuration, ApiClient
 from whoisfreaks.api.databases_ip_geolocation_api import DatabasesIPGeolocationApi
 
 # Parameters for dbIpCity (GET /v3.3/download/snapshot/ip/city):
-#   - apiKey (string, required): Your WHOISFreaks API key
 #   - date (string, required)
 config = Configuration()
+config.api_key["ApiKeyAuth"] = "YOUR_API_KEY"   # set once
 api = DatabasesIPGeolocationApi(ApiClient(config))
 
-data = api.db_ip_city(api_key="YOUR_API_KEY", var_date=str(date.today() - timedelta(days=1)))   # bytes
+data = api.db_ip_city(var_date=str(date.today() - timedelta(days=1)))   # bytes
 with open("dbIpCity.gz", "wb") as f:
     f.write(data)
 print(f"saved {len(data)} bytes to dbIpCity.gz")
@@ -1237,12 +1231,12 @@ from whoisfreaks import Configuration, ApiClient
 from whoisfreaks.api.databases_asnwhois_api import DatabasesASNWHOISApi
 
 # Parameters for dbAsnWhois (GET /v3.3/download/snapshot/asn/whois):
-#   - apiKey (string, required): Your WHOISFreaks API key
 #   - date (string, required)
 config = Configuration()
+config.api_key["ApiKeyAuth"] = "YOUR_API_KEY"   # set once
 api = DatabasesASNWHOISApi(ApiClient(config))
 
-data = api.db_asn_whois(api_key="YOUR_API_KEY", var_date=str(date.today() - timedelta(days=1)))   # bytes
+data = api.db_asn_whois(var_date=str(date.today() - timedelta(days=1)))   # bytes
 with open("dbAsnWhois.gz", "wb") as f:
     f.write(data)
 print(f"saved {len(data)} bytes to dbAsnWhois.gz")
@@ -1259,13 +1253,13 @@ from whoisfreaks import Configuration, ApiClient
 from whoisfreaks.api.databases_asnwhois_api import DatabasesASNWHOISApi
 
 # Parameters for dbAsnWhoisStatus (GET /v3.3/status/snapshot/asn/whois):
-#   - apiKey (string, required): Your WHOISFreaks API key
+#   (no parameters; the API key is set on the client)
 config = Configuration()
+config.api_key["ApiKeyAuth"] = "YOUR_API_KEY"   # set once
 api = DatabasesASNWHOISApi(ApiClient(config))
 
-resp = api.db_asn_whois_status_with_http_info(api_key="YOUR_API_KEY")
-print("status:", resp.status_code)
-print(resp.data)
+result = api.db_asn_whois_status()
+print(result)
 
 ```
 
@@ -1283,12 +1277,12 @@ from whoisfreaks import Configuration, ApiClient
 from whoisfreaks.api.databases_ipwhois_api import DatabasesIPWHOISApi
 
 # Parameters for dbIpWhois (GET /v3.3/download/snapshot/ip/whois):
-#   - apiKey (string, required): Your WHOISFreaks API key
 #   - date (string, required)
 config = Configuration()
+config.api_key["ApiKeyAuth"] = "YOUR_API_KEY"   # set once
 api = DatabasesIPWHOISApi(ApiClient(config))
 
-data = api.db_ip_whois(api_key="YOUR_API_KEY", var_date=str(date.today() - timedelta(days=1)))   # bytes
+data = api.db_ip_whois(var_date=str(date.today() - timedelta(days=1)))   # bytes
 with open("dbIpWhois.gz", "wb") as f:
     f.write(data)
 print(f"saved {len(data)} bytes to dbIpWhois.gz")
@@ -1305,13 +1299,13 @@ from whoisfreaks import Configuration, ApiClient
 from whoisfreaks.api.databases_ipwhois_api import DatabasesIPWHOISApi
 
 # Parameters for dbIpWhoisStatus (GET /v3.3/status/snapshot/ip/whois):
-#   - apiKey (string, required): Your WHOISFreaks API key
+#   (no parameters; the API key is set on the client)
 config = Configuration()
+config.api_key["ApiKeyAuth"] = "YOUR_API_KEY"   # set once
 api = DatabasesIPWHOISApi(ApiClient(config))
 
-resp = api.db_ip_whois_status_with_http_info(api_key="YOUR_API_KEY")
-print("status:", resp.status_code)
-print(resp.data)
+result = api.db_ip_whois_status()
+print(result)
 
 ```
 
@@ -1329,12 +1323,12 @@ from whoisfreaks import Configuration, ApiClient
 from whoisfreaks.api.databases_ip_security_api import DatabasesIPSecurityApi
 
 # Parameters for dbIpSecurity (GET /v3.3/download/snapshot/ip/security):
-#   - apiKey (string, required): Your WHOISFreaks API key
 #   - date (string, required)
 config = Configuration()
+config.api_key["ApiKeyAuth"] = "YOUR_API_KEY"   # set once
 api = DatabasesIPSecurityApi(ApiClient(config))
 
-data = api.db_ip_security(api_key="YOUR_API_KEY", var_date=str(date.today() - timedelta(days=1)))   # bytes
+data = api.db_ip_security(var_date=str(date.today() - timedelta(days=1)))   # bytes
 with open("dbIpSecurity.gz", "wb") as f:
     f.write(data)
 print(f"saved {len(data)} bytes to dbIpSecurity.gz")
@@ -1351,12 +1345,12 @@ from whoisfreaks import Configuration, ApiClient
 from whoisfreaks.api.databases_ip_security_api import DatabasesIPSecurityApi
 
 # Parameters for dbIpSecurityStatus (GET /v3.3/status/snapshot/ip/security):
-#   - apiKey (string, required): Your WHOISFreaks API key
+#   (no parameters; the API key is set on the client)
 config = Configuration()
+config.api_key["ApiKeyAuth"] = "YOUR_API_KEY"   # set once
 api = DatabasesIPSecurityApi(ApiClient(config))
 
-resp = api.db_ip_security_status_with_http_info(api_key="YOUR_API_KEY")
-print("status:", resp.status_code)
-print(resp.data)
+result = api.db_ip_security_status()
+print(result)
 
 ```

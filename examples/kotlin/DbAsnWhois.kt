@@ -1,11 +1,12 @@
 // Runnable example: ASN WHOIS Snapshot (GET /v3.3/download/snapshot/asn/whois)
 // Parameters for dbAsnWhois (GET /v3.3/download/snapshot/asn/whois):
-//   - apiKey (string, required): Your WHOISFreaks API key
 //   - date (string, required)
-import com.whoisfreaks.api.DatabasesASNWHOISApi
+import com.whoisfreaks.client.apis.DatabasesASNWHOISApi
+import com.whoisfreaks.client.infrastructure.ApiClient
 
 fun main() {
-    val api = DatabasesASNWHOISApi(basePath = "https://api.whoisfreaks.com")
-    val result = api.dbAsnWhois("YOUR_API_KEY", java.time.LocalDate.now().minusDays(1).toString())
-    println(result)  // status via api.dbAsnWhoisWithHttpInfo(...).statusCode
+    ApiClient.apiKey["apiKey"] = "YOUR_API_KEY"  // set once
+    val api = DatabasesASNWHOISApi()
+    val result = api.dbAsnWhois(java.time.LocalDate.now().minusDays(1).toString())
+    println(result)
 }

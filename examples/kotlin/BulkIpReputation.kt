@@ -1,12 +1,13 @@
 // Runnable example: Bulk IP Reputation (POST /v1.0/security)
 // Parameters for bulkIpReputation (POST /v1.0/security):
-//   - apiKey (string, required): Your WHOISFreaks API key
-//   - body: BulkGeolocationRequest (required) -- request body object
-import com.whoisfreaks.api.IPReputationApi
-import com.whoisfreaks.models.BulkGeolocationRequest
+//   - body: BulkIpReputationRequest (required) -- request body object
+import com.whoisfreaks.client.apis.IPReputationApi
+import com.whoisfreaks.client.infrastructure.ApiClient
+import com.whoisfreaks.client.models.BulkIpReputationRequest
 
 fun main() {
-    val api = IPReputationApi(basePath = "https://api.whoisfreaks.com")
-    val result = api.bulkIpReputation("YOUR_API_KEY", BulkGeolocationRequest())
-    println(result)  // status via api.bulkIpReputationWithHttpInfo(...).statusCode
+    ApiClient.apiKey["apiKey"] = "YOUR_API_KEY"  // set once
+    val api = IPReputationApi()
+    val result = api.bulkIpReputation(BulkIpReputationRequest())
+    println(result)
 }

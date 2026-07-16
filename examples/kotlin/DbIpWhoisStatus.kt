@@ -1,10 +1,12 @@
 // Runnable example: IP WHOIS Snapshot Status (GET /v3.3/status/snapshot/ip/whois)
 // Parameters for dbIpWhoisStatus (GET /v3.3/status/snapshot/ip/whois):
-//   - apiKey (string, required): Your WHOISFreaks API key
-import com.whoisfreaks.api.DatabasesIPWHOISApi
+//   (no parameters; the API key is set on the client)
+import com.whoisfreaks.client.apis.DatabasesIPWHOISApi
+import com.whoisfreaks.client.infrastructure.ApiClient
 
 fun main() {
-    val api = DatabasesIPWHOISApi(basePath = "https://api.whoisfreaks.com")
-    val result = api.dbIpWhoisStatus("YOUR_API_KEY")
-    println(result)  // status via api.dbIpWhoisStatusWithHttpInfo(...).statusCode
+    ApiClient.apiKey["apiKey"] = "YOUR_API_KEY"  // set once
+    val api = DatabasesIPWHOISApi()
+    val result = api.dbIpWhoisStatus()
+    println(result)
 }

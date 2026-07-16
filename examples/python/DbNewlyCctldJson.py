@@ -4,12 +4,11 @@ from whoisfreaks import Configuration, ApiClient
 from whoisfreaks.api.databases_newly_registered_api import DatabasesNewlyRegisteredApi
 
 # Parameters for dbNewlyCctldJson (GET /v3.1/domains/newly/cctld):
-#   - apiKey (string, required): Your WHOISFreaks API key
 #   - date (string, optional): yyyy-MM-dd; omit for latest
 #   - tlds (string, optional)
 config = Configuration()
+config.api_key["ApiKeyAuth"] = "YOUR_API_KEY"   # set once
 api = DatabasesNewlyRegisteredApi(ApiClient(config))
 
-resp = api.db_newly_cctld_json_with_http_info(api_key="YOUR_API_KEY", var_date=str(date.today() - timedelta(days=1)))
-print("status:", resp.status_code)
-print(resp.data)
+result = api.db_newly_cctld_json(var_date=str(date.today() - timedelta(days=1)))
+print(result)

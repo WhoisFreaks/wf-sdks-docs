@@ -14,7 +14,6 @@ Check availability of a single domain and optionally get suggestions across mult
 
 | Parameter | In | Required | Type | Description |
 |-----------|----|----------|------|-------------|
-| `apiKey` | query | yes | string | Your WHOISFreaks API key |
 | `domain` | query | yes | string | The domain name to check |
 | `sug` | query | no | boolean | Whether to return TLD suggestions alongside the queried domain. |
 | `count` | query | no | integer | Number of TLD suggestions to return when sug=true. Maximum is 100. |
@@ -30,17 +29,16 @@ from whoisfreaks import Configuration, ApiClient
 from whoisfreaks.api.domain_availability_api import DomainAvailabilityApi
 
 # Parameters for domainAvailabilityV2 (GET /v2.0/domain/availability):
-#   - apiKey (string, required): Your WHOISFreaks API key
 #   - domain (string, required): The domain name to check
 #   - sug (boolean, optional): Whether to return TLD suggestions alongside the queried domain.
 #   - count (integer, optional): Number of TLD suggestions to return when sug=true. Maximum is 100.
 #   - format (string (one of: json, xml), optional)
 config = Configuration()
+config.api_key["ApiKeyAuth"] = "YOUR_API_KEY"   # set once
 api = DomainAvailabilityApi(ApiClient(config))
 
-resp = api.domain_availability_v2_with_http_info(api_key="YOUR_API_KEY", domain="example.com")
-print("status:", resp.status_code)
-print(resp.data)
+result = api.domain_availability_v2(domain="example.com")
+print(result)
 
 ```
 
@@ -51,19 +49,18 @@ print(resp.data)
 ```typescript
 // Runnable example: Domain Availability Check with Suggestions (GET /v2.0/domain/availability)
 // Parameters for domainAvailabilityV2 (GET /v2.0/domain/availability):
-//   - apiKey (string, required): Your WHOISFreaks API key
 //   - domain (string, required): The domain name to check
 //   - sug (boolean, optional): Whether to return TLD suggestions alongside the queried domain.
 //   - count (integer, optional): Number of TLD suggestions to return when sug=true. Maximum is 100.
 //   - format (string (one of: json, xml), optional)
 import { Configuration, DomainAvailabilityApi } from "whoisfreaks";
 
-const api = new DomainAvailabilityApi(new Configuration());
+const config = new Configuration({ apiKey: "YOUR_API_KEY" });  // set once
+const api = new DomainAvailabilityApi(config);
 
 async function main() {
-  const resp = await api.domainAvailabilityV2Raw({ apiKey: "YOUR_API_KEY", domain: "example.com", sug: undefined, count: undefined, format: undefined });
-  console.log("status:", resp.raw.status);
-  console.log(await resp.value());
+  const result = await api.domainAvailabilityV2({ domain: "example.com", sug: undefined, count: undefined, format: undefined });
+  console.log(result);
 }
 main().catch(console.error);
 
@@ -76,7 +73,6 @@ main().catch(console.error);
 ```go
 // Runnable example: Domain Availability Check with Suggestions (GET /v2.0/domain/availability)
 // Parameters for domainAvailabilityV2 (GET /v2.0/domain/availability):
-//   - apiKey (string, required): Your WHOISFreaks API key
 //   - domain (string, required): The domain name to check
 //   - sug (boolean, optional): Whether to return TLD suggestions alongside the queried domain.
 //   - count (integer, optional): Number of TLD suggestions to return when sug=true. Maximum is 100.
@@ -93,10 +89,11 @@ import (
 func main() {
     cfg := wf.NewConfiguration()
     client := wf.NewAPIClient(cfg)
-    // apiKey is a builder method on the request, not a config/context value
-    result, httpRes, err := client.DomainAvailabilityAPI.DomainAvailabilityV2(context.Background()).ApiKey("YOUR_API_KEY").Domain("example.com").Execute()
+    // apiKey is set once via the request context
+    ctx := context.WithValue(context.Background(), wf.ContextAPIKeys,
+        map[string]wf.APIKey{"ApiKeyAuth": {Key: "YOUR_API_KEY"}})
+    result, _, err := client.DomainAvailabilityAPI.DomainAvailabilityV2(ctx).Domain("example.com").Execute()
     if err != nil { panic(err) }
-    fmt.Println("status:", httpRes.StatusCode)
     b, _ := json.MarshalIndent(result, "", "  ")
     fmt.Println(string(b))
 }
@@ -117,7 +114,6 @@ Two bulk modes. Mode 1: POST domainNames array. Mode 2: POST tld array plus doma
 
 | Parameter | In | Required | Type | Description |
 |-----------|----|----------|------|-------------|
-| `apiKey` | query | yes | string | Your WHOISFreaks API key |
 | `domain` | query | no | string | Required for TLD-mode bulk check (base domain). |
 | `format` | query | no | string |  (one of: json, xml) |
 
@@ -132,17 +128,16 @@ from whoisfreaks.api.domain_availability_api import DomainAvailabilityApi
 from whoisfreaks.models.bulk_domain_availability_request import BulkDomainAvailabilityRequest
 
 # Parameters for bulkDomainAvailabilityV2 (POST /v2.0/domain/availability):
-#   - apiKey (string, required): Your WHOISFreaks API key
 #   - domain (string, optional): Required for TLD-mode bulk check (base domain).
 #   - format (string (one of: json, xml), optional)
 #   - body: BulkDomainAvailabilityRequest (required) -- request body object
 config = Configuration()
+config.api_key["ApiKeyAuth"] = "YOUR_API_KEY"   # set once
 api = DomainAvailabilityApi(ApiClient(config))
 
 bulk_domain_availability_request = BulkDomainAvailabilityRequest()  # populate fields as needed
-resp = api.bulk_domain_availability_v2_with_http_info(api_key="YOUR_API_KEY", bulk_domain_availability_request=bulk_domain_availability_request)
-print("status:", resp.status_code)
-print(resp.data)
+result = api.bulk_domain_availability_v2(bulk_domain_availability_request=bulk_domain_availability_request)
+print(result)
 
 ```
 
@@ -153,18 +148,17 @@ print(resp.data)
 ```typescript
 // Runnable example: Bulk Domain Availability Check (POST /v2.0/domain/availability)
 // Parameters for bulkDomainAvailabilityV2 (POST /v2.0/domain/availability):
-//   - apiKey (string, required): Your WHOISFreaks API key
 //   - domain (string, optional): Required for TLD-mode bulk check (base domain).
 //   - format (string (one of: json, xml), optional)
 //   - body: BulkDomainAvailabilityRequest (required) -- request body object
 import { Configuration, DomainAvailabilityApi } from "whoisfreaks";
 
-const api = new DomainAvailabilityApi(new Configuration());
+const config = new Configuration({ apiKey: "YOUR_API_KEY" });  // set once
+const api = new DomainAvailabilityApi(config);
 
 async function main() {
-  const resp = await api.bulkDomainAvailabilityV2Raw({ apiKey: "YOUR_API_KEY", bulkDomainAvailabilityRequest: {}, domain: undefined, format: undefined });
-  console.log("status:", resp.raw.status);
-  console.log(await resp.value());
+  const result = await api.bulkDomainAvailabilityV2({ bulkDomainAvailabilityRequest: {}, domain: undefined, format: undefined });
+  console.log(result);
 }
 main().catch(console.error);
 
@@ -177,7 +171,6 @@ main().catch(console.error);
 ```go
 // Runnable example: Bulk Domain Availability Check (POST /v2.0/domain/availability)
 // Parameters for bulkDomainAvailabilityV2 (POST /v2.0/domain/availability):
-//   - apiKey (string, required): Your WHOISFreaks API key
 //   - domain (string, optional): Required for TLD-mode bulk check (base domain).
 //   - format (string (one of: json, xml), optional)
 //   - body: BulkDomainAvailabilityRequest (required) -- request body object
@@ -193,10 +186,11 @@ import (
 func main() {
     cfg := wf.NewConfiguration()
     client := wf.NewAPIClient(cfg)
-    // apiKey is a builder method on the request, not a config/context value
-    result, httpRes, err := client.DomainAvailabilityAPI.BulkDomainAvailabilityV2(context.Background()).ApiKey("YOUR_API_KEY").BulkDomainAvailabilityRequest(*wf.NewBulkDomainAvailabilityRequest()).Execute()
+    // apiKey is set once via the request context
+    ctx := context.WithValue(context.Background(), wf.ContextAPIKeys,
+        map[string]wf.APIKey{"ApiKeyAuth": {Key: "YOUR_API_KEY"}})
+    result, _, err := client.DomainAvailabilityAPI.BulkDomainAvailabilityV2(ctx).BulkDomainAvailabilityRequest(*wf.NewBulkDomainAvailabilityRequest()).Execute()
     if err != nil { panic(err) }
-    fmt.Println("status:", httpRes.StatusCode)
     b, _ := json.MarshalIndent(result, "", "  ")
     fmt.Println(string(b))
 }

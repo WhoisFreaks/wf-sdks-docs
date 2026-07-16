@@ -1,6 +1,5 @@
 // Runnable example: Historical DNS Lookup (GET /v2.0/dns/historical)
 // Parameters for dnsHistorical (GET /v2.0/dns/historical):
-//   - apiKey (string, required): Your WHOISFreaks API key
 //   - domainName (string, required)
 //   - type (string, required)
 //   - page (integer, optional)
@@ -12,9 +11,9 @@ using WhoisFreaks.Client;
 class DnsHistorical {
     static void Main() {
         var config = new Configuration { BasePath = "https://api.whoisfreaks.com" };
+        config.AddApiKey("ApiKeyAuth", "YOUR_API_KEY");  // set once
         var api = new DNSApi(config);
-        var resp = api.DnsHistoricalWithHttpInfo("YOUR_API_KEY", "example.com", "value", null, null);
-        Console.WriteLine($"status: {(int)resp.StatusCode}");
-        Console.WriteLine(resp.Data);
+        var result = api.DnsHistorical("example.com", "value", null, null);
+        Console.WriteLine(result);
     }
 }

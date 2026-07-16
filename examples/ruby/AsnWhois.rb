@@ -1,11 +1,13 @@
 # Runnable example: ASN WHOIS Lookup (GET /v2.0/asn-whois)
 # Parameters for asnWhois (GET /v2.0/asn-whois):
-#   - apiKey (string, required): Your WHOISFreaks API key
 #   - asn (string, required)
 #   - format (string (one of: json, xml), optional)
 require 'whoisfreaks'
 
+WhoisFreaks.configure do |config|
+  config.api_key["apiKey"] = "YOUR_API_KEY"   # set once
+end
+
 api = WhoisFreaks::ASNWHOISApi.new
-data, status, _headers = api.asn_whois_with_http_info("YOUR_API_KEY", "AS15169")
-puts "status: #{status}"
-puts data
+result = api.asn_whois("AS15169")
+puts result

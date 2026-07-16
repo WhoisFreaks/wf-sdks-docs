@@ -1,9 +1,12 @@
 # Runnable example: Database File Status (Public) (GET /v3.3/status)
 # Parameters for databaseFileStatus (GET /v3.3/status):
-#   (no parameters besides apiKey)
+#   (no parameters; the API key is set on the client)
 require 'whoisfreaks'
 
+WhoisFreaks.configure do |config|
+  config.api_key["apiKey"] = "YOUR_API_KEY"   # set once
+end
+
 api = WhoisFreaks::AccountApi.new
-data, status, _headers = api.database_file_status_with_http_info()
-puts "status: #{status}"
-puts data
+result = api.database_file_status()
+puts result

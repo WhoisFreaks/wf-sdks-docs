@@ -14,7 +14,6 @@ Real-time WHOIS lookup from authoritative servers. Cost 1 credit.
 
 | Parameter | In | Required | Type | Description |
 |-----------|----|----------|------|-------------|
-| `apiKey` | query | yes | string | Your WHOISFreaks API key |
 | `domainName` | query | yes | string |  |
 | `format` | query | no | string |  (one of: json, xml) |
 
@@ -28,15 +27,14 @@ from whoisfreaks import Configuration, ApiClient
 from whoisfreaks.api.whois_api import WHOISApi
 
 # Parameters for whoisLive (GET /v2.0/whois/live):
-#   - apiKey (string, required): Your WHOISFreaks API key
 #   - domainName (string, required)
 #   - format (string (one of: json, xml), optional)
 config = Configuration()
+config.api_key["ApiKeyAuth"] = "YOUR_API_KEY"   # set once
 api = WHOISApi(ApiClient(config))
 
-resp = api.whois_live_with_http_info(api_key="YOUR_API_KEY", domain_name="example.com")
-print("status:", resp.status_code)
-print(resp.data)
+result = api.whois_live(domain_name="example.com")
+print(result)
 
 ```
 
@@ -47,17 +45,16 @@ print(resp.data)
 ```typescript
 // Runnable example: Live WHOIS Lookup (GET /v2.0/whois/live)
 // Parameters for whoisLive (GET /v2.0/whois/live):
-//   - apiKey (string, required): Your WHOISFreaks API key
 //   - domainName (string, required)
 //   - format (string (one of: json, xml), optional)
 import { Configuration, WHOISApi } from "whoisfreaks";
 
-const api = new WHOISApi(new Configuration());
+const config = new Configuration({ apiKey: "YOUR_API_KEY" });  // set once
+const api = new WHOISApi(config);
 
 async function main() {
-  const resp = await api.whoisLiveRaw({ apiKey: "YOUR_API_KEY", domainName: "example.com", format: undefined });
-  console.log("status:", resp.raw.status);
-  console.log(await resp.value());
+  const result = await api.whoisLive({ domainName: "example.com", format: undefined });
+  console.log(result);
 }
 main().catch(console.error);
 
@@ -70,7 +67,6 @@ main().catch(console.error);
 ```go
 // Runnable example: Live WHOIS Lookup (GET /v2.0/whois/live)
 // Parameters for whoisLive (GET /v2.0/whois/live):
-//   - apiKey (string, required): Your WHOISFreaks API key
 //   - domainName (string, required)
 //   - format (string (one of: json, xml), optional)
 package main
@@ -85,10 +81,11 @@ import (
 func main() {
     cfg := wf.NewConfiguration()
     client := wf.NewAPIClient(cfg)
-    // apiKey is a builder method on the request, not a config/context value
-    result, httpRes, err := client.WHOISAPI.WhoisLive(context.Background()).ApiKey("YOUR_API_KEY").DomainName("example.com").Execute()
+    // apiKey is set once via the request context
+    ctx := context.WithValue(context.Background(), wf.ContextAPIKeys,
+        map[string]wf.APIKey{"ApiKeyAuth": {Key: "YOUR_API_KEY"}})
+    result, _, err := client.WHOISAPI.WhoisLive(ctx).DomainName("example.com").Execute()
     if err != nil { panic(err) }
-    fmt.Println("status:", httpRes.StatusCode)
     b, _ := json.MarshalIndent(result, "", "  ")
     fmt.Println(string(b))
 }
@@ -109,7 +106,6 @@ Up to 100 domains in one request. 1 credit per successful domain.
 
 | Parameter | In | Required | Type | Description |
 |-----------|----|----------|------|-------------|
-| `apiKey` | query | yes | string | Your WHOISFreaks API key |
 | `format` | query | no | string |  (one of: json, xml) |
 
 **Usage**
@@ -123,16 +119,15 @@ from whoisfreaks.api.whois_api import WHOISApi
 from whoisfreaks.models.bulk_whois_request import BulkWhoisRequest
 
 # Parameters for bulkWhois (POST /v2.0/bulkwhois/live):
-#   - apiKey (string, required): Your WHOISFreaks API key
 #   - format (string (one of: json, xml), optional)
 #   - body: BulkWhoisRequest (required) -- request body object
 config = Configuration()
+config.api_key["ApiKeyAuth"] = "YOUR_API_KEY"   # set once
 api = WHOISApi(ApiClient(config))
 
 bulk_whois_request = BulkWhoisRequest()  # populate fields as needed
-resp = api.bulk_whois_with_http_info(api_key="YOUR_API_KEY", bulk_whois_request=bulk_whois_request)
-print("status:", resp.status_code)
-print(resp.data)
+result = api.bulk_whois(bulk_whois_request=bulk_whois_request)
+print(result)
 
 ```
 
@@ -143,17 +138,16 @@ print(resp.data)
 ```typescript
 // Runnable example: Bulk WHOIS Lookup (POST /v2.0/bulkwhois/live)
 // Parameters for bulkWhois (POST /v2.0/bulkwhois/live):
-//   - apiKey (string, required): Your WHOISFreaks API key
 //   - format (string (one of: json, xml), optional)
 //   - body: BulkWhoisRequest (required) -- request body object
 import { Configuration, WHOISApi } from "whoisfreaks";
 
-const api = new WHOISApi(new Configuration());
+const config = new Configuration({ apiKey: "YOUR_API_KEY" });  // set once
+const api = new WHOISApi(config);
 
 async function main() {
-  const resp = await api.bulkWhoisRaw({ apiKey: "YOUR_API_KEY", bulkWhoisRequest: {}, format: undefined });
-  console.log("status:", resp.raw.status);
-  console.log(await resp.value());
+  const result = await api.bulkWhois({ bulkWhoisRequest: {}, format: undefined });
+  console.log(result);
 }
 main().catch(console.error);
 
@@ -166,7 +160,6 @@ main().catch(console.error);
 ```go
 // Runnable example: Bulk WHOIS Lookup (POST /v2.0/bulkwhois/live)
 // Parameters for bulkWhois (POST /v2.0/bulkwhois/live):
-//   - apiKey (string, required): Your WHOISFreaks API key
 //   - format (string (one of: json, xml), optional)
 //   - body: BulkWhoisRequest (required) -- request body object
 package main
@@ -181,10 +174,11 @@ import (
 func main() {
     cfg := wf.NewConfiguration()
     client := wf.NewAPIClient(cfg)
-    // apiKey is a builder method on the request, not a config/context value
-    result, httpRes, err := client.WHOISAPI.BulkWhois(context.Background()).ApiKey("YOUR_API_KEY").BulkWhoisRequest(*wf.NewBulkWhoisRequest()).Execute()
+    // apiKey is set once via the request context
+    ctx := context.WithValue(context.Background(), wf.ContextAPIKeys,
+        map[string]wf.APIKey{"ApiKeyAuth": {Key: "YOUR_API_KEY"}})
+    result, _, err := client.WHOISAPI.BulkWhois(ctx).BulkWhoisRequest(*wf.NewBulkWhoisRequest()).Execute()
     if err != nil { panic(err) }
-    fmt.Println("status:", httpRes.StatusCode)
     b, _ := json.MarshalIndent(result, "", "  ")
     fmt.Println(string(b))
 }
@@ -203,7 +197,6 @@ func main() {
 
 | Parameter | In | Required | Type | Description |
 |-----------|----|----------|------|-------------|
-| `apiKey` | query | yes | string | Your WHOISFreaks API key |
 | `domainName` | query | yes | string | Domain to fetch historical WHOIS records for |
 | `page` | query | no | integer | Page number |
 | `format` | query | no | string |  (one of: json, xml) |
@@ -218,16 +211,15 @@ from whoisfreaks import Configuration, ApiClient
 from whoisfreaks.api.whois_api import WHOISApi
 
 # Parameters for whoisHistory (GET /v2.0/whois/history):
-#   - apiKey (string, required): Your WHOISFreaks API key
 #   - domainName (string, required): Domain to fetch historical WHOIS records for
 #   - page (integer, optional): Page number
 #   - format (string (one of: json, xml), optional)
 config = Configuration()
+config.api_key["ApiKeyAuth"] = "YOUR_API_KEY"   # set once
 api = WHOISApi(ApiClient(config))
 
-resp = api.whois_history_with_http_info(api_key="YOUR_API_KEY", domain_name="example.com")
-print("status:", resp.status_code)
-print(resp.data)
+result = api.whois_history(domain_name="example.com")
+print(result)
 
 ```
 
@@ -238,18 +230,17 @@ print(resp.data)
 ```typescript
 // Runnable example: Historical WHOIS records for a domain (GET /v2.0/whois/history)
 // Parameters for whoisHistory (GET /v2.0/whois/history):
-//   - apiKey (string, required): Your WHOISFreaks API key
 //   - domainName (string, required): Domain to fetch historical WHOIS records for
 //   - page (integer, optional): Page number
 //   - format (string (one of: json, xml), optional)
 import { Configuration, WHOISApi } from "whoisfreaks";
 
-const api = new WHOISApi(new Configuration());
+const config = new Configuration({ apiKey: "YOUR_API_KEY" });  // set once
+const api = new WHOISApi(config);
 
 async function main() {
-  const resp = await api.whoisHistoryRaw({ apiKey: "YOUR_API_KEY", domainName: "example.com", page: undefined, format: undefined });
-  console.log("status:", resp.raw.status);
-  console.log(await resp.value());
+  const result = await api.whoisHistory({ domainName: "example.com", page: undefined, format: undefined });
+  console.log(result);
 }
 main().catch(console.error);
 
@@ -262,7 +253,6 @@ main().catch(console.error);
 ```go
 // Runnable example: Historical WHOIS records for a domain (GET /v2.0/whois/history)
 // Parameters for whoisHistory (GET /v2.0/whois/history):
-//   - apiKey (string, required): Your WHOISFreaks API key
 //   - domainName (string, required): Domain to fetch historical WHOIS records for
 //   - page (integer, optional): Page number
 //   - format (string (one of: json, xml), optional)
@@ -278,10 +268,11 @@ import (
 func main() {
     cfg := wf.NewConfiguration()
     client := wf.NewAPIClient(cfg)
-    // apiKey is a builder method on the request, not a config/context value
-    result, httpRes, err := client.WHOISAPI.WhoisHistory(context.Background()).ApiKey("YOUR_API_KEY").DomainName("example.com").Execute()
+    // apiKey is set once via the request context
+    ctx := context.WithValue(context.Background(), wf.ContextAPIKeys,
+        map[string]wf.APIKey{"ApiKeyAuth": {Key: "YOUR_API_KEY"}})
+    result, _, err := client.WHOISAPI.WhoisHistory(ctx).DomainName("example.com").Execute()
     if err != nil { panic(err) }
-    fmt.Println("status:", httpRes.StatusCode)
     b, _ := json.MarshalIndent(result, "", "  ")
     fmt.Println(string(b))
 }
@@ -300,7 +291,6 @@ func main() {
 
 | Parameter | In | Required | Type | Description |
 |-----------|----|----------|------|-------------|
-| `apiKey` | query | yes | string | Your WHOISFreaks API key |
 | `keyword` | query | yes | string | Keyword to search across WHOIS records |
 | `page` | query | no | integer | Page number |
 | `format` | query | no | string |  (one of: json, xml) |
@@ -315,16 +305,15 @@ from whoisfreaks import Configuration, ApiClient
 from whoisfreaks.api.whois_api import WHOISApi
 
 # Parameters for whoisReverse (GET /v2.0/whois/reverse):
-#   - apiKey (string, required): Your WHOISFreaks API key
 #   - keyword (string, required): Keyword to search across WHOIS records
 #   - page (integer, optional): Page number
 #   - format (string (one of: json, xml), optional)
 config = Configuration()
+config.api_key["ApiKeyAuth"] = "YOUR_API_KEY"   # set once
 api = WHOISApi(ApiClient(config))
 
-resp = api.whois_reverse_with_http_info(api_key="YOUR_API_KEY", keyword="value")
-print("status:", resp.status_code)
-print(resp.data)
+result = api.whois_reverse(keyword="value")
+print(result)
 
 ```
 
@@ -335,18 +324,17 @@ print(resp.data)
 ```typescript
 // Runnable example: Reverse WHOIS lookup by keyword (GET /v2.0/whois/reverse)
 // Parameters for whoisReverse (GET /v2.0/whois/reverse):
-//   - apiKey (string, required): Your WHOISFreaks API key
 //   - keyword (string, required): Keyword to search across WHOIS records
 //   - page (integer, optional): Page number
 //   - format (string (one of: json, xml), optional)
 import { Configuration, WHOISApi } from "whoisfreaks";
 
-const api = new WHOISApi(new Configuration());
+const config = new Configuration({ apiKey: "YOUR_API_KEY" });  // set once
+const api = new WHOISApi(config);
 
 async function main() {
-  const resp = await api.whoisReverseRaw({ apiKey: "YOUR_API_KEY", keyword: "value", page: undefined, format: undefined });
-  console.log("status:", resp.raw.status);
-  console.log(await resp.value());
+  const result = await api.whoisReverse({ keyword: "value", page: undefined, format: undefined });
+  console.log(result);
 }
 main().catch(console.error);
 
@@ -359,7 +347,6 @@ main().catch(console.error);
 ```go
 // Runnable example: Reverse WHOIS lookup by keyword (GET /v2.0/whois/reverse)
 // Parameters for whoisReverse (GET /v2.0/whois/reverse):
-//   - apiKey (string, required): Your WHOISFreaks API key
 //   - keyword (string, required): Keyword to search across WHOIS records
 //   - page (integer, optional): Page number
 //   - format (string (one of: json, xml), optional)
@@ -375,10 +362,11 @@ import (
 func main() {
     cfg := wf.NewConfiguration()
     client := wf.NewAPIClient(cfg)
-    // apiKey is a builder method on the request, not a config/context value
-    result, httpRes, err := client.WHOISAPI.WhoisReverse(context.Background()).ApiKey("YOUR_API_KEY").Keyword("value").Execute()
+    // apiKey is set once via the request context
+    ctx := context.WithValue(context.Background(), wf.ContextAPIKeys,
+        map[string]wf.APIKey{"ApiKeyAuth": {Key: "YOUR_API_KEY"}})
+    result, _, err := client.WHOISAPI.WhoisReverse(ctx).Keyword("value").Execute()
     if err != nil { panic(err) }
-    fmt.Println("status:", httpRes.StatusCode)
     b, _ := json.MarshalIndent(result, "", "  ")
     fmt.Println(string(b))
 }

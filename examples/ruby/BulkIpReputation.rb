@@ -1,10 +1,12 @@
 # Runnable example: Bulk IP Reputation (POST /v1.0/security)
 # Parameters for bulkIpReputation (POST /v1.0/security):
-#   - apiKey (string, required): Your WHOISFreaks API key
-#   - body: BulkGeolocationRequest (required) -- request body object
+#   - body: BulkIpReputationRequest (required) -- request body object
 require 'whoisfreaks'
 
+WhoisFreaks.configure do |config|
+  config.api_key["apiKey"] = "YOUR_API_KEY"   # set once
+end
+
 api = WhoisFreaks::IPReputationApi.new
-data, status, _headers = api.bulk_ip_reputation_with_http_info("YOUR_API_KEY", WhoisFreaks::BulkGeolocationRequest.new)
-puts "status: #{status}"
-puts data
+result = api.bulk_ip_reputation(WhoisFreaks::BulkIpReputationRequest.new)
+puts result

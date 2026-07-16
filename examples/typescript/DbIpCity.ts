@@ -1,14 +1,13 @@
 // Runnable example: IP to City Snapshot (GET /v3.3/download/snapshot/ip/city)
 // Parameters for dbIpCity (GET /v3.3/download/snapshot/ip/city):
-//   - apiKey (string, required): Your WHOISFreaks API key
 //   - date (string, required)
 import { Configuration, DatabasesIPGeolocationApi } from "whoisfreaks";
 
-const api = new DatabasesIPGeolocationApi(new Configuration());
+const config = new Configuration({ apiKey: "YOUR_API_KEY" });  // set once
+const api = new DatabasesIPGeolocationApi(config);
 
 async function main() {
-  const resp = await api.dbIpCityRaw({ apiKey: "YOUR_API_KEY", date: new Date(Date.now()-86400000).toISOString().slice(0,10) });
-  console.log("status:", resp.raw.status);
-  console.log(await resp.value());
+  const result = await api.dbIpCity({ date: new Date(Date.now()-86400000).toISOString().slice(0,10) });
+  console.log(result);
 }
 main().catch(console.error);
