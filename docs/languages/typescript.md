@@ -20,8 +20,8 @@ npm install whoisfreaks
 Prefer to build the SDK yourself instead of installing from npm? Clone the monorepo and build the TypeScript package locally:
 
 ```bash
-git clone https://github.com/WhoisFreaks/wf-sdks
-cd wf-sdks/sdks/typescript
+git clone https://github.com/WhoisFreaks/whoisfreaks-typescript
+cd whoisfreaks-typescript
 npm install
 npm run build
 ```

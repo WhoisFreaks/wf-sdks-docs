@@ -20,9 +20,9 @@ gem install whoisfreaks
 Prefer to build the SDK yourself instead of installing from RubyGems? Clone the monorepo and build the Ruby package locally:
 
 ```bash
-git clone https://github.com/WhoisFreaks/wf-sdks
-cd wf-sdks/sdks/ruby
-gem build whoisfreaks.gemspec
+git clone https://github.com/WhoisFreaks/whoisfreaks-ruby
+cd whoisfreaks-ruby
+gem build *.gemspec
 gem install ./whoisfreaks-*.gem
 ```
 

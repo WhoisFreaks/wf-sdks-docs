@@ -20,8 +20,8 @@ dotnet add package WhoisFreaks
 Prefer to build the SDK yourself instead of installing from NuGet? Clone the monorepo and build the C# / .NET package locally:
 
 ```bash
-git clone https://github.com/WhoisFreaks/wf-sdks
-cd wf-sdks/sdks/csharp
+git clone https://github.com/WhoisFreaks/whoisfreaks-csharp
+cd whoisfreaks-csharp
 dotnet build   # or: dotnet pack -c Release
 ```
 

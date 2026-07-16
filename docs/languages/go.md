@@ -20,8 +20,8 @@ go get github.com/WhoisFreaks/whoisfreaks-go
 Prefer to build the SDK yourself instead of installing from Go modules? Clone the monorepo and build the Go package locally:
 
 ```bash
-git clone https://github.com/WhoisFreaks/wf-sdks
-cd wf-sdks/sdks/go
+git clone https://github.com/WhoisFreaks/whoisfreaks-go
+cd whoisfreaks-go
 go build ./...   # or import the module path directly
 ```
 

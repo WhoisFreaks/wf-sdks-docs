@@ -20,8 +20,8 @@ npm install whoisfreaks-js
 Prefer to build the SDK yourself instead of installing from npm? Clone the monorepo and build the JavaScript package locally:
 
 ```bash
-git clone https://github.com/WhoisFreaks/wf-sdks
-cd wf-sdks/sdks/javascript
+git clone https://github.com/WhoisFreaks/whoisfreaks-javascript
+cd whoisfreaks-javascript
 npm install
 npm run build
 ```
@@ -44,12 +44,12 @@ const { ApiClient, WHOISApi } = pkg;
 // or:  const { ApiClient, WHOISApi } = require("whoisfreaks-js");
 
 const client = ApiClient.instance;
-client.authentications["ApiKeyAuth"].apiKey = "YOUR_API_KEY";  // set once
+client.authentications["ApiKeyAuth"].apiKey = "YOUR_API_KEY"; // set once
 const api = new WHOISApi(client);
 
 api.whoisLive("example.com")
-  .then(data => console.log(data))
-  .catch(err => console.error(err));
+    .then((data) => console.log(data))
+    .catch((err) => console.error(err));
 ```
 
 Run it:
@@ -73,13 +73,12 @@ const { ApiClient, WHOISApi } = pkg;
 // or:  const { ApiClient, WHOISApi } = require("whoisfreaks-js");
 
 const client = ApiClient.instance;
-client.authentications["ApiKeyAuth"].apiKey = "YOUR_API_KEY";  // set once
+client.authentications["ApiKeyAuth"].apiKey = "YOUR_API_KEY"; // set once
 const api = new WHOISApi(client);
 
 api.whoisLive("example.com")
-  .then(data => console.log(data))
-  .catch(err => console.error(err));
-
+    .then((data) => console.log(data))
+    .catch((err) => console.error(err));
 ```
 
 ## Endpoints
@@ -103,13 +102,12 @@ const { ApiClient, WHOISApi } = pkg;
 // or:  const { ApiClient, WHOISApi } = require("whoisfreaks-js");
 
 const client = ApiClient.instance;
-client.authentications["ApiKeyAuth"].apiKey = "YOUR_API_KEY";  // set once
+client.authentications["ApiKeyAuth"].apiKey = "YOUR_API_KEY"; // set once
 const api = new WHOISApi(client);
 
 api.whoisLive("example.com")
-  .then(data => console.log(data))
-  .catch(err => console.error(err));
-
+    .then((data) => console.log(data))
+    .catch((err) => console.error(err));
 ```
 
 #### Bulk WHOIS Lookup
@@ -127,13 +125,12 @@ const { ApiClient, WHOISApi } = pkg;
 // or:  const { ApiClient, WHOISApi } = require("whoisfreaks-js");
 
 const client = ApiClient.instance;
-client.authentications["ApiKeyAuth"].apiKey = "YOUR_API_KEY";  // set once
+client.authentications["ApiKeyAuth"].apiKey = "YOUR_API_KEY"; // set once
 const api = new WHOISApi(client);
 
 api.bulkWhois({})
-  .then(data => console.log(data))
-  .catch(err => console.error(err));
-
+    .then((data) => console.log(data))
+    .catch((err) => console.error(err));
 ```
 
 #### Historical WHOIS records for a domain
@@ -152,13 +149,12 @@ const { ApiClient, WHOISApi } = pkg;
 // or:  const { ApiClient, WHOISApi } = require("whoisfreaks-js");
 
 const client = ApiClient.instance;
-client.authentications["ApiKeyAuth"].apiKey = "YOUR_API_KEY";  // set once
+client.authentications["ApiKeyAuth"].apiKey = "YOUR_API_KEY"; // set once
 const api = new WHOISApi(client);
 
 api.whoisHistory("example.com")
-  .then(data => console.log(data))
-  .catch(err => console.error(err));
-
+    .then((data) => console.log(data))
+    .catch((err) => console.error(err));
 ```
 
 #### Reverse WHOIS lookup by keyword
@@ -177,13 +173,12 @@ const { ApiClient, WHOISApi } = pkg;
 // or:  const { ApiClient, WHOISApi } = require("whoisfreaks-js");
 
 const client = ApiClient.instance;
-client.authentications["ApiKeyAuth"].apiKey = "YOUR_API_KEY";  // set once
+client.authentications["ApiKeyAuth"].apiKey = "YOUR_API_KEY"; // set once
 const api = new WHOISApi(client);
 
 api.whoisReverse("value")
-  .then(data => console.log(data))
-  .catch(err => console.error(err));
-
+    .then((data) => console.log(data))
+    .catch((err) => console.error(err));
 ```
 
 ### DNS
@@ -205,13 +200,12 @@ const { ApiClient, DNSApi } = pkg;
 // or:  const { ApiClient, DNSApi } = require("whoisfreaks-js");
 
 const client = ApiClient.instance;
-client.authentications["ApiKeyAuth"].apiKey = "YOUR_API_KEY";  // set once
+client.authentications["ApiKeyAuth"].apiKey = "YOUR_API_KEY"; // set once
 const api = new DNSApi(client);
 
 api.dnsLive("example.com", "8.8.8.8", "value")
-  .then(data => console.log(data))
-  .catch(err => console.error(err));
-
+    .then((data) => console.log(data))
+    .catch((err) => console.error(err));
 ```
 
 #### Historical DNS Lookup
@@ -231,13 +225,12 @@ const { ApiClient, DNSApi } = pkg;
 // or:  const { ApiClient, DNSApi } = require("whoisfreaks-js");
 
 const client = ApiClient.instance;
-client.authentications["ApiKeyAuth"].apiKey = "YOUR_API_KEY";  // set once
+client.authentications["ApiKeyAuth"].apiKey = "YOUR_API_KEY"; // set once
 const api = new DNSApi(client);
 
 api.dnsHistorical("example.com", "value")
-  .then(data => console.log(data))
-  .catch(err => console.error(err));
-
+    .then((data) => console.log(data))
+    .catch((err) => console.error(err));
 ```
 
 #### Reverse DNS Lookup
@@ -258,13 +251,12 @@ const { ApiClient, DNSApi } = pkg;
 // or:  const { ApiClient, DNSApi } = require("whoisfreaks-js");
 
 const client = ApiClient.instance;
-client.authentications["ApiKeyAuth"].apiKey = "YOUR_API_KEY";  // set once
+client.authentications["ApiKeyAuth"].apiKey = "YOUR_API_KEY"; // set once
 const api = new DNSApi(client);
 
 api.dnsReverse("value", "a", true)
-  .then(data => console.log(data))
-  .catch(err => console.error(err));
-
+    .then((data) => console.log(data))
+    .catch((err) => console.error(err));
 ```
 
 #### Bulk DNS Lookup
@@ -283,13 +275,12 @@ const { ApiClient, DNSApi } = pkg;
 // or:  const { ApiClient, DNSApi } = require("whoisfreaks-js");
 
 const client = ApiClient.instance;
-client.authentications["ApiKeyAuth"].apiKey = "YOUR_API_KEY";  // set once
+client.authentications["ApiKeyAuth"].apiKey = "YOUR_API_KEY"; // set once
 const api = new DNSApi(client);
 
 api.dnsBulk("value", {})
-  .then(data => console.log(data))
-  .catch(err => console.error(err));
-
+    .then((data) => console.log(data))
+    .catch((err) => console.error(err));
 ```
 
 ### Domain Availability
@@ -311,13 +302,12 @@ const { ApiClient, DomainAvailabilityApi } = pkg;
 // or:  const { ApiClient, DomainAvailabilityApi } = require("whoisfreaks-js");
 
 const client = ApiClient.instance;
-client.authentications["ApiKeyAuth"].apiKey = "YOUR_API_KEY";  // set once
+client.authentications["ApiKeyAuth"].apiKey = "YOUR_API_KEY"; // set once
 const api = new DomainAvailabilityApi(client);
 
 api.domainAvailabilityV2("example.com")
-  .then(data => console.log(data))
-  .catch(err => console.error(err));
-
+    .then((data) => console.log(data))
+    .catch((err) => console.error(err));
 ```
 
 #### Bulk Domain Availability Check
@@ -336,13 +326,12 @@ const { ApiClient, DomainAvailabilityApi } = pkg;
 // or:  const { ApiClient, DomainAvailabilityApi } = require("whoisfreaks-js");
 
 const client = ApiClient.instance;
-client.authentications["ApiKeyAuth"].apiKey = "YOUR_API_KEY";  // set once
+client.authentications["ApiKeyAuth"].apiKey = "YOUR_API_KEY"; // set once
 const api = new DomainAvailabilityApi(client);
 
 api.bulkDomainAvailabilityV2({})
-  .then(data => console.log(data))
-  .catch(err => console.error(err));
-
+    .then((data) => console.log(data))
+    .catch((err) => console.error(err));
 ```
 
 ### Typosquatting
@@ -363,13 +352,12 @@ const { ApiClient, TyposquattingApi } = pkg;
 // or:  const { ApiClient, TyposquattingApi } = require("whoisfreaks-js");
 
 const client = ApiClient.instance;
-client.authentications["ApiKeyAuth"].apiKey = "YOUR_API_KEY";  // set once
+client.authentications["ApiKeyAuth"].apiKey = "YOUR_API_KEY"; // set once
 const api = new TyposquattingApi(client);
 
 api.typosquatting()
-  .then(data => console.log(data))
-  .catch(err => console.error(err));
-
+    .then((data) => console.log(data))
+    .catch((err) => console.error(err));
 ```
 
 ### SSL
@@ -391,13 +379,12 @@ const { ApiClient, SSLApi } = pkg;
 // or:  const { ApiClient, SSLApi } = require("whoisfreaks-js");
 
 const client = ApiClient.instance;
-client.authentications["ApiKeyAuth"].apiKey = "YOUR_API_KEY";  // set once
+client.authentications["ApiKeyAuth"].apiKey = "YOUR_API_KEY"; // set once
 const api = new SSLApi(client);
 
 api.sslLookup("example.com")
-  .then(data => console.log(data))
-  .catch(err => console.error(err));
-
+    .then((data) => console.log(data))
+    .catch((err) => console.error(err));
 ```
 
 ### Geolocation
@@ -416,13 +403,12 @@ const { ApiClient, GeolocationApi } = pkg;
 // or:  const { ApiClient, GeolocationApi } = require("whoisfreaks-js");
 
 const client = ApiClient.instance;
-client.authentications["ApiKeyAuth"].apiKey = "YOUR_API_KEY";  // set once
+client.authentications["ApiKeyAuth"].apiKey = "YOUR_API_KEY"; // set once
 const api = new GeolocationApi(client);
 
 api.geolocation("8.8.8.8")
-  .then(data => console.log(data))
-  .catch(err => console.error(err));
-
+    .then((data) => console.log(data))
+    .catch((err) => console.error(err));
 ```
 
 #### Bulk IP Geolocation
@@ -439,13 +425,12 @@ const { ApiClient, GeolocationApi } = pkg;
 // or:  const { ApiClient, GeolocationApi } = require("whoisfreaks-js");
 
 const client = ApiClient.instance;
-client.authentications["ApiKeyAuth"].apiKey = "YOUR_API_KEY";  // set once
+client.authentications["ApiKeyAuth"].apiKey = "YOUR_API_KEY"; // set once
 const api = new GeolocationApi(client);
 
 api.bulkGeolocation({})
-  .then(data => console.log(data))
-  .catch(err => console.error(err));
-
+    .then((data) => console.log(data))
+    .catch((err) => console.error(err));
 ```
 
 ### Subdomains
@@ -469,13 +454,12 @@ const { ApiClient, SubdomainsApi } = pkg;
 // or:  const { ApiClient, SubdomainsApi } = require("whoisfreaks-js");
 
 const client = ApiClient.instance;
-client.authentications["ApiKeyAuth"].apiKey = "YOUR_API_KEY";  // set once
+client.authentications["ApiKeyAuth"].apiKey = "YOUR_API_KEY"; // set once
 const api = new SubdomainsApi(client);
 
-api.subdomains("example.com", "2000-01-01", new Date().toISOString().slice(0,10))
-  .then(data => console.log(data))
-  .catch(err => console.error(err));
-
+api.subdomains("example.com", "2000-01-01", new Date().toISOString().slice(0, 10))
+    .then((data) => console.log(data))
+    .catch((err) => console.error(err));
 ```
 
 ### IP Reputation
@@ -494,13 +478,12 @@ const { ApiClient, IPReputationApi } = pkg;
 // or:  const { ApiClient, IPReputationApi } = require("whoisfreaks-js");
 
 const client = ApiClient.instance;
-client.authentications["ApiKeyAuth"].apiKey = "YOUR_API_KEY";  // set once
+client.authentications["ApiKeyAuth"].apiKey = "YOUR_API_KEY"; // set once
 const api = new IPReputationApi(client);
 
 api.ipReputation("8.8.8.8")
-  .then(data => console.log(data))
-  .catch(err => console.error(err));
-
+    .then((data) => console.log(data))
+    .catch((err) => console.error(err));
 ```
 
 #### Bulk IP Reputation
@@ -517,13 +500,12 @@ const { ApiClient, IPReputationApi } = pkg;
 // or:  const { ApiClient, IPReputationApi } = require("whoisfreaks-js");
 
 const client = ApiClient.instance;
-client.authentications["ApiKeyAuth"].apiKey = "YOUR_API_KEY";  // set once
+client.authentications["ApiKeyAuth"].apiKey = "YOUR_API_KEY"; // set once
 const api = new IPReputationApi(client);
 
 api.bulkIpReputation({})
-  .then(data => console.log(data))
-  .catch(err => console.error(err));
-
+    .then((data) => console.log(data))
+    .catch((err) => console.error(err));
 ```
 
 ### Domain Reputation
@@ -543,13 +525,12 @@ const { ApiClient, DomainReputationApi } = pkg;
 // or:  const { ApiClient, DomainReputationApi } = require("whoisfreaks-js");
 
 const client = ApiClient.instance;
-client.authentications["ApiKeyAuth"].apiKey = "YOUR_API_KEY";  // set once
+client.authentications["ApiKeyAuth"].apiKey = "YOUR_API_KEY"; // set once
 const api = new DomainReputationApi(client);
 
 api.domainReputation("example.com")
-  .then(data => console.log(data))
-  .catch(err => console.error(err));
-
+    .then((data) => console.log(data))
+    .catch((err) => console.error(err));
 ```
 
 ### ASN WHOIS
@@ -569,13 +550,12 @@ const { ApiClient, ASNWHOISApi } = pkg;
 // or:  const { ApiClient, ASNWHOISApi } = require("whoisfreaks-js");
 
 const client = ApiClient.instance;
-client.authentications["ApiKeyAuth"].apiKey = "YOUR_API_KEY";  // set once
+client.authentications["ApiKeyAuth"].apiKey = "YOUR_API_KEY"; // set once
 const api = new ASNWHOISApi(client);
 
 api.asnWhois("AS15169")
-  .then(data => console.log(data))
-  .catch(err => console.error(err));
-
+    .then((data) => console.log(data))
+    .catch((err) => console.error(err));
 ```
 
 ### IP WHOIS
@@ -595,13 +575,12 @@ const { ApiClient, IPWHOISApi } = pkg;
 // or:  const { ApiClient, IPWHOISApi } = require("whoisfreaks-js");
 
 const client = ApiClient.instance;
-client.authentications["ApiKeyAuth"].apiKey = "YOUR_API_KEY";  // set once
+client.authentications["ApiKeyAuth"].apiKey = "YOUR_API_KEY"; // set once
 const api = new IPWHOISApi(client);
 
 api.ipWhois("8.8.8.8")
-  .then(data => console.log(data))
-  .catch(err => console.error(err));
-
+    .then((data) => console.log(data))
+    .catch((err) => console.error(err));
 ```
 
 ### Account
@@ -620,13 +599,12 @@ const { ApiClient, AccountApi } = pkg;
 // or:  const { ApiClient, AccountApi } = require("whoisfreaks-js");
 
 const client = ApiClient.instance;
-client.authentications["ApiKeyAuth"].apiKey = "YOUR_API_KEY";  // set once
+client.authentications["ApiKeyAuth"].apiKey = "YOUR_API_KEY"; // set once
 const api = new AccountApi(client);
 
 api.rotateApiKey()
-  .then(data => console.log(data))
-  .catch(err => console.error(err));
-
+    .then((data) => console.log(data))
+    .catch((err) => console.error(err));
 ```
 
 #### Account Usage
@@ -643,13 +621,12 @@ const { ApiClient, AccountApi } = pkg;
 // or:  const { ApiClient, AccountApi } = require("whoisfreaks-js");
 
 const client = ApiClient.instance;
-client.authentications["ApiKeyAuth"].apiKey = "YOUR_API_KEY";  // set once
+client.authentications["ApiKeyAuth"].apiKey = "YOUR_API_KEY"; // set once
 const api = new AccountApi(client);
 
 api.accountUsage()
-  .then(data => console.log(data))
-  .catch(err => console.error(err));
-
+    .then((data) => console.log(data))
+    .catch((err) => console.error(err));
 ```
 
 #### Database File Status (Public)
@@ -666,13 +643,12 @@ const { ApiClient, AccountApi } = pkg;
 // or:  const { ApiClient, AccountApi } = require("whoisfreaks-js");
 
 const client = ApiClient.instance;
-client.authentications["ApiKeyAuth"].apiKey = "YOUR_API_KEY";  // set once
+client.authentications["ApiKeyAuth"].apiKey = "YOUR_API_KEY"; // set once
 const api = new AccountApi(client);
 
 api.databaseFileStatus()
-  .then(data => console.log(data))
-  .catch(err => console.error(err));
-
+    .then((data) => console.log(data))
+    .catch((err) => console.error(err));
 ```
 
 ### Databases - Newly Registered
@@ -693,13 +669,12 @@ const { ApiClient, DatabasesNewlyRegisteredApi } = pkg;
 // or:  const { ApiClient, DatabasesNewlyRegisteredApi } = require("whoisfreaks-js");
 
 const client = ApiClient.instance;
-client.authentications["ApiKeyAuth"].apiKey = "YOUR_API_KEY";  // set once
+client.authentications["ApiKeyAuth"].apiKey = "YOUR_API_KEY"; // set once
 const api = new DatabasesNewlyRegisteredApi(client);
 
-api.dbNewlyGtld(false, new Date(Date.now()-86400000).toISOString().slice(0,10))
-  .then(data => console.log(data))
-  .catch(err => console.error(err));
-
+api.dbNewlyGtld(false, new Date(Date.now() - 86400000).toISOString().slice(0, 10))
+    .then((data) => console.log(data))
+    .catch((err) => console.error(err));
 ```
 
 #### Newly Registered ccTLD (CSV)
@@ -718,13 +693,12 @@ const { ApiClient, DatabasesNewlyRegisteredApi } = pkg;
 // or:  const { ApiClient, DatabasesNewlyRegisteredApi } = require("whoisfreaks-js");
 
 const client = ApiClient.instance;
-client.authentications["ApiKeyAuth"].apiKey = "YOUR_API_KEY";  // set once
+client.authentications["ApiKeyAuth"].apiKey = "YOUR_API_KEY"; // set once
 const api = new DatabasesNewlyRegisteredApi(client);
 
-api.dbNewlyCctld(false, new Date(Date.now()-86400000).toISOString().slice(0,10))
-  .then(data => console.log(data))
-  .catch(err => console.error(err));
-
+api.dbNewlyCctld(false, new Date(Date.now() - 86400000).toISOString().slice(0, 10))
+    .then((data) => console.log(data))
+    .catch((err) => console.error(err));
 ```
 
 #### Newly Registered gTLD Cleaned WHOIS (CSV)
@@ -741,13 +715,12 @@ const { ApiClient, DatabasesNewlyRegisteredApi } = pkg;
 // or:  const { ApiClient, DatabasesNewlyRegisteredApi } = require("whoisfreaks-js");
 
 const client = ApiClient.instance;
-client.authentications["ApiKeyAuth"].apiKey = "YOUR_API_KEY";  // set once
+client.authentications["ApiKeyAuth"].apiKey = "YOUR_API_KEY"; // set once
 const api = new DatabasesNewlyRegisteredApi(client);
 
-api.dbNewlyGtldCleaned(new Date(Date.now()-86400000).toISOString().slice(0,10))
-  .then(data => console.log(data))
-  .catch(err => console.error(err));
-
+api.dbNewlyGtldCleaned(new Date(Date.now() - 86400000).toISOString().slice(0, 10))
+    .then((data) => console.log(data))
+    .catch((err) => console.error(err));
 ```
 
 #### Newly Registered ccTLD Cleaned WHOIS (CSV)
@@ -764,13 +737,12 @@ const { ApiClient, DatabasesNewlyRegisteredApi } = pkg;
 // or:  const { ApiClient, DatabasesNewlyRegisteredApi } = require("whoisfreaks-js");
 
 const client = ApiClient.instance;
-client.authentications["ApiKeyAuth"].apiKey = "YOUR_API_KEY";  // set once
+client.authentications["ApiKeyAuth"].apiKey = "YOUR_API_KEY"; // set once
 const api = new DatabasesNewlyRegisteredApi(client);
 
-api.dbNewlyCctldCleaned(new Date(Date.now()-86400000).toISOString().slice(0,10))
-  .then(data => console.log(data))
-  .catch(err => console.error(err));
-
+api.dbNewlyCctldCleaned(new Date(Date.now() - 86400000).toISOString().slice(0, 10))
+    .then((data) => console.log(data))
+    .catch((err) => console.error(err));
 ```
 
 #### Newly Registered gTLD (JSON)
@@ -788,13 +760,12 @@ const { ApiClient, DatabasesNewlyRegisteredApi } = pkg;
 // or:  const { ApiClient, DatabasesNewlyRegisteredApi } = require("whoisfreaks-js");
 
 const client = ApiClient.instance;
-client.authentications["ApiKeyAuth"].apiKey = "YOUR_API_KEY";  // set once
+client.authentications["ApiKeyAuth"].apiKey = "YOUR_API_KEY"; // set once
 const api = new DatabasesNewlyRegisteredApi(client);
 
-api.dbNewlyGtldJson(new Date(Date.now()-86400000).toISOString().slice(0,10))
-  .then(data => console.log(data))
-  .catch(err => console.error(err));
-
+api.dbNewlyGtldJson(new Date(Date.now() - 86400000).toISOString().slice(0, 10))
+    .then((data) => console.log(data))
+    .catch((err) => console.error(err));
 ```
 
 #### Newly Registered ccTLD (JSON)
@@ -812,13 +783,12 @@ const { ApiClient, DatabasesNewlyRegisteredApi } = pkg;
 // or:  const { ApiClient, DatabasesNewlyRegisteredApi } = require("whoisfreaks-js");
 
 const client = ApiClient.instance;
-client.authentications["ApiKeyAuth"].apiKey = "YOUR_API_KEY";  // set once
+client.authentications["ApiKeyAuth"].apiKey = "YOUR_API_KEY"; // set once
 const api = new DatabasesNewlyRegisteredApi(client);
 
-api.dbNewlyCctldJson(new Date(Date.now()-86400000).toISOString().slice(0,10))
-  .then(data => console.log(data))
-  .catch(err => console.error(err));
-
+api.dbNewlyCctldJson(new Date(Date.now() - 86400000).toISOString().slice(0, 10))
+    .then((data) => console.log(data))
+    .catch((err) => console.error(err));
 ```
 
 #### Newly Registered With DNS
@@ -835,13 +805,12 @@ const { ApiClient, DatabasesNewlyRegisteredApi } = pkg;
 // or:  const { ApiClient, DatabasesNewlyRegisteredApi } = require("whoisfreaks-js");
 
 const client = ApiClient.instance;
-client.authentications["ApiKeyAuth"].apiKey = "YOUR_API_KEY";  // set once
+client.authentications["ApiKeyAuth"].apiKey = "YOUR_API_KEY"; // set once
 const api = new DatabasesNewlyRegisteredApi(client);
 
-api.dbNewlyDns(new Date(Date.now()-86400000).toISOString().slice(0,10))
-  .then(data => console.log(data))
-  .catch(err => console.error(err));
-
+api.dbNewlyDns(new Date(Date.now() - 86400000).toISOString().slice(0, 10))
+    .then((data) => console.log(data))
+    .catch((err) => console.error(err));
 ```
 
 ### Databases - Expiring & Dropped
@@ -861,13 +830,12 @@ const { ApiClient, DatabasesExpiringDroppedApi } = pkg;
 // or:  const { ApiClient, DatabasesExpiringDroppedApi } = require("whoisfreaks-js");
 
 const client = ApiClient.instance;
-client.authentications["ApiKeyAuth"].apiKey = "YOUR_API_KEY";  // set once
+client.authentications["ApiKeyAuth"].apiKey = "YOUR_API_KEY"; // set once
 const api = new DatabasesExpiringDroppedApi(client);
 
-api.dbExpired(false, new Date(Date.now()-86400000).toISOString().slice(0,10))
-  .then(data => console.log(data))
-  .catch(err => console.error(err));
-
+api.dbExpired(false, new Date(Date.now() - 86400000).toISOString().slice(0, 10))
+    .then((data) => console.log(data))
+    .catch((err) => console.error(err));
 ```
 
 #### Expiring Cleaned WHOIS
@@ -884,13 +852,12 @@ const { ApiClient, DatabasesExpiringDroppedApi } = pkg;
 // or:  const { ApiClient, DatabasesExpiringDroppedApi } = require("whoisfreaks-js");
 
 const client = ApiClient.instance;
-client.authentications["ApiKeyAuth"].apiKey = "YOUR_API_KEY";  // set once
+client.authentications["ApiKeyAuth"].apiKey = "YOUR_API_KEY"; // set once
 const api = new DatabasesExpiringDroppedApi(client);
 
-api.dbExpiredCleaned(new Date(Date.now()-86400000).toISOString().slice(0,10))
-  .then(data => console.log(data))
-  .catch(err => console.error(err));
-
+api.dbExpiredCleaned(new Date(Date.now() - 86400000).toISOString().slice(0, 10))
+    .then((data) => console.log(data))
+    .catch((err) => console.error(err));
 ```
 
 #### Dropped Domains
@@ -908,13 +875,12 @@ const { ApiClient, DatabasesExpiringDroppedApi } = pkg;
 // or:  const { ApiClient, DatabasesExpiringDroppedApi } = require("whoisfreaks-js");
 
 const client = ApiClient.instance;
-client.authentications["ApiKeyAuth"].apiKey = "YOUR_API_KEY";  // set once
+client.authentications["ApiKeyAuth"].apiKey = "YOUR_API_KEY"; // set once
 const api = new DatabasesExpiringDroppedApi(client);
 
-api.dbDropped(false, new Date(Date.now()-86400000).toISOString().slice(0,10))
-  .then(data => console.log(data))
-  .catch(err => console.error(err));
-
+api.dbDropped(false, new Date(Date.now() - 86400000).toISOString().slice(0, 10))
+    .then((data) => console.log(data))
+    .catch((err) => console.error(err));
 ```
 
 #### Dropped Domains (JSON)
@@ -932,13 +898,12 @@ const { ApiClient, DatabasesExpiringDroppedApi } = pkg;
 // or:  const { ApiClient, DatabasesExpiringDroppedApi } = require("whoisfreaks-js");
 
 const client = ApiClient.instance;
-client.authentications["ApiKeyAuth"].apiKey = "YOUR_API_KEY";  // set once
+client.authentications["ApiKeyAuth"].apiKey = "YOUR_API_KEY"; // set once
 const api = new DatabasesExpiringDroppedApi(client);
 
-api.dbDroppedJson(new Date(Date.now()-86400000).toISOString().slice(0,10))
-  .then(data => console.log(data))
-  .catch(err => console.error(err));
-
+api.dbDroppedJson(new Date(Date.now() - 86400000).toISOString().slice(0, 10))
+    .then((data) => console.log(data))
+    .catch((err) => console.error(err));
 ```
 
 #### Dropped With Backlinks
@@ -956,13 +921,12 @@ const { ApiClient, DatabasesExpiringDroppedApi } = pkg;
 // or:  const { ApiClient, DatabasesExpiringDroppedApi } = require("whoisfreaks-js");
 
 const client = ApiClient.instance;
-client.authentications["ApiKeyAuth"].apiKey = "YOUR_API_KEY";  // set once
+client.authentications["ApiKeyAuth"].apiKey = "YOUR_API_KEY"; // set once
 const api = new DatabasesExpiringDroppedApi(client);
 
-api.dbDroppedBacklinks(false, new Date(Date.now()-86400000).toISOString().slice(0,10))
-  .then(data => console.log(data))
-  .catch(err => console.error(err));
-
+api.dbDroppedBacklinks(false, new Date(Date.now() - 86400000).toISOString().slice(0, 10))
+    .then((data) => console.log(data))
+    .catch((err) => console.error(err));
 ```
 
 ### Databases - WHOIS
@@ -981,13 +945,12 @@ const { ApiClient, DatabasesWHOISApi } = pkg;
 // or:  const { ApiClient, DatabasesWHOISApi } = require("whoisfreaks-js");
 
 const client = ApiClient.instance;
-client.authentications["ApiKeyAuth"].apiKey = "YOUR_API_KEY";  // set once
+client.authentications["ApiKeyAuth"].apiKey = "YOUR_API_KEY"; // set once
 const api = new DatabasesWHOISApi(client);
 
-api.dbWhoisDaily(new Date(Date.now()-86400000).toISOString().slice(0,10))
-  .then(data => console.log(data))
-  .catch(err => console.error(err));
-
+api.dbWhoisDaily(new Date(Date.now() - 86400000).toISOString().slice(0, 10))
+    .then((data) => console.log(data))
+    .catch((err) => console.error(err));
 ```
 
 #### WHOIS Database Weekly
@@ -1004,13 +967,12 @@ const { ApiClient, DatabasesWHOISApi } = pkg;
 // or:  const { ApiClient, DatabasesWHOISApi } = require("whoisfreaks-js");
 
 const client = ApiClient.instance;
-client.authentications["ApiKeyAuth"].apiKey = "YOUR_API_KEY";  // set once
+client.authentications["ApiKeyAuth"].apiKey = "YOUR_API_KEY"; // set once
 const api = new DatabasesWHOISApi(client);
 
-api.dbWhoisWeekly(new Date(Date.now()-86400000).toISOString().slice(0,10))
-  .then(data => console.log(data))
-  .catch(err => console.error(err));
-
+api.dbWhoisWeekly(new Date(Date.now() - 86400000).toISOString().slice(0, 10))
+    .then((data) => console.log(data))
+    .catch((err) => console.error(err));
 ```
 
 #### WHOIS Database Monthly
@@ -1027,13 +989,12 @@ const { ApiClient, DatabasesWHOISApi } = pkg;
 // or:  const { ApiClient, DatabasesWHOISApi } = require("whoisfreaks-js");
 
 const client = ApiClient.instance;
-client.authentications["ApiKeyAuth"].apiKey = "YOUR_API_KEY";  // set once
+client.authentications["ApiKeyAuth"].apiKey = "YOUR_API_KEY"; // set once
 const api = new DatabasesWHOISApi(client);
 
-api.dbWhoisMonthly(new Date(Date.now()-86400000).toISOString().slice(0,10))
-  .then(data => console.log(data))
-  .catch(err => console.error(err));
-
+api.dbWhoisMonthly(new Date(Date.now() - 86400000).toISOString().slice(0, 10))
+    .then((data) => console.log(data))
+    .catch((err) => console.error(err));
 ```
 
 ### Databases - DNS
@@ -1052,13 +1013,12 @@ const { ApiClient, DatabasesDNSApi } = pkg;
 // or:  const { ApiClient, DatabasesDNSApi } = require("whoisfreaks-js");
 
 const client = ApiClient.instance;
-client.authentications["ApiKeyAuth"].apiKey = "YOUR_API_KEY";  // set once
+client.authentications["ApiKeyAuth"].apiKey = "YOUR_API_KEY"; // set once
 const api = new DatabasesDNSApi(client);
 
-api.dbDnsDaily(new Date(Date.now()-86400000).toISOString().slice(0,10))
-  .then(data => console.log(data))
-  .catch(err => console.error(err));
-
+api.dbDnsDaily(new Date(Date.now() - 86400000).toISOString().slice(0, 10))
+    .then((data) => console.log(data))
+    .catch((err) => console.error(err));
 ```
 
 #### DNS Database Weekly
@@ -1075,13 +1035,12 @@ const { ApiClient, DatabasesDNSApi } = pkg;
 // or:  const { ApiClient, DatabasesDNSApi } = require("whoisfreaks-js");
 
 const client = ApiClient.instance;
-client.authentications["ApiKeyAuth"].apiKey = "YOUR_API_KEY";  // set once
+client.authentications["ApiKeyAuth"].apiKey = "YOUR_API_KEY"; // set once
 const api = new DatabasesDNSApi(client);
 
-api.dbDnsWeekly(new Date(Date.now()-86400000).toISOString().slice(0,10))
-  .then(data => console.log(data))
-  .catch(err => console.error(err));
-
+api.dbDnsWeekly(new Date(Date.now() - 86400000).toISOString().slice(0, 10))
+    .then((data) => console.log(data))
+    .catch((err) => console.error(err));
 ```
 
 #### DNS Database Monthly
@@ -1098,13 +1057,12 @@ const { ApiClient, DatabasesDNSApi } = pkg;
 // or:  const { ApiClient, DatabasesDNSApi } = require("whoisfreaks-js");
 
 const client = ApiClient.instance;
-client.authentications["ApiKeyAuth"].apiKey = "YOUR_API_KEY";  // set once
+client.authentications["ApiKeyAuth"].apiKey = "YOUR_API_KEY"; // set once
 const api = new DatabasesDNSApi(client);
 
-api.dbDnsMonthly(new Date(Date.now()-86400000).toISOString().slice(0,10))
-  .then(data => console.log(data))
-  .catch(err => console.error(err));
-
+api.dbDnsMonthly(new Date(Date.now() - 86400000).toISOString().slice(0, 10))
+    .then((data) => console.log(data))
+    .catch((err) => console.error(err));
 ```
 
 ### Databases - Subdomains
@@ -1123,13 +1081,12 @@ const { ApiClient, DatabasesSubdomainsApi } = pkg;
 // or:  const { ApiClient, DatabasesSubdomainsApi } = require("whoisfreaks-js");
 
 const client = ApiClient.instance;
-client.authentications["ApiKeyAuth"].apiKey = "YOUR_API_KEY";  // set once
+client.authentications["ApiKeyAuth"].apiKey = "YOUR_API_KEY"; // set once
 const api = new DatabasesSubdomainsApi(client);
 
-api.dbSubdomainsDaily(new Date(Date.now()-86400000).toISOString().slice(0,10))
-  .then(data => console.log(data))
-  .catch(err => console.error(err));
-
+api.dbSubdomainsDaily(new Date(Date.now() - 86400000).toISOString().slice(0, 10))
+    .then((data) => console.log(data))
+    .catch((err) => console.error(err));
 ```
 
 #### Subdomains Weekly
@@ -1146,13 +1103,12 @@ const { ApiClient, DatabasesSubdomainsApi } = pkg;
 // or:  const { ApiClient, DatabasesSubdomainsApi } = require("whoisfreaks-js");
 
 const client = ApiClient.instance;
-client.authentications["ApiKeyAuth"].apiKey = "YOUR_API_KEY";  // set once
+client.authentications["ApiKeyAuth"].apiKey = "YOUR_API_KEY"; // set once
 const api = new DatabasesSubdomainsApi(client);
 
-api.dbSubdomainsWeekly(new Date(Date.now()-86400000).toISOString().slice(0,10))
-  .then(data => console.log(data))
-  .catch(err => console.error(err));
-
+api.dbSubdomainsWeekly(new Date(Date.now() - 86400000).toISOString().slice(0, 10))
+    .then((data) => console.log(data))
+    .catch((err) => console.error(err));
 ```
 
 #### Subdomains Monthly
@@ -1169,13 +1125,12 @@ const { ApiClient, DatabasesSubdomainsApi } = pkg;
 // or:  const { ApiClient, DatabasesSubdomainsApi } = require("whoisfreaks-js");
 
 const client = ApiClient.instance;
-client.authentications["ApiKeyAuth"].apiKey = "YOUR_API_KEY";  // set once
+client.authentications["ApiKeyAuth"].apiKey = "YOUR_API_KEY"; // set once
 const api = new DatabasesSubdomainsApi(client);
 
-api.dbSubdomainsMonthly(new Date(Date.now()-86400000).toISOString().slice(0,10))
-  .then(data => console.log(data))
-  .catch(err => console.error(err));
-
+api.dbSubdomainsMonthly(new Date(Date.now() - 86400000).toISOString().slice(0, 10))
+    .then((data) => console.log(data))
+    .catch((err) => console.error(err));
 ```
 
 ### Databases - IP Geolocation
@@ -1194,13 +1149,12 @@ const { ApiClient, DatabasesIPGeolocationApi } = pkg;
 // or:  const { ApiClient, DatabasesIPGeolocationApi } = require("whoisfreaks-js");
 
 const client = ApiClient.instance;
-client.authentications["ApiKeyAuth"].apiKey = "YOUR_API_KEY";  // set once
+client.authentications["ApiKeyAuth"].apiKey = "YOUR_API_KEY"; // set once
 const api = new DatabasesIPGeolocationApi(client);
 
 api.dbIpCountryStatus()
-  .then(data => console.log(data))
-  .catch(err => console.error(err));
-
+    .then((data) => console.log(data))
+    .catch((err) => console.error(err));
 ```
 
 #### IP to Country Snapshot
@@ -1217,13 +1171,12 @@ const { ApiClient, DatabasesIPGeolocationApi } = pkg;
 // or:  const { ApiClient, DatabasesIPGeolocationApi } = require("whoisfreaks-js");
 
 const client = ApiClient.instance;
-client.authentications["ApiKeyAuth"].apiKey = "YOUR_API_KEY";  // set once
+client.authentications["ApiKeyAuth"].apiKey = "YOUR_API_KEY"; // set once
 const api = new DatabasesIPGeolocationApi(client);
 
-api.dbIpCountry(new Date(Date.now()-86400000).toISOString().slice(0,10))
-  .then(data => console.log(data))
-  .catch(err => console.error(err));
-
+api.dbIpCountry(new Date(Date.now() - 86400000).toISOString().slice(0, 10))
+    .then((data) => console.log(data))
+    .catch((err) => console.error(err));
 ```
 
 #### IP to City Snapshot Status
@@ -1240,13 +1193,12 @@ const { ApiClient, DatabasesIPGeolocationApi } = pkg;
 // or:  const { ApiClient, DatabasesIPGeolocationApi } = require("whoisfreaks-js");
 
 const client = ApiClient.instance;
-client.authentications["ApiKeyAuth"].apiKey = "YOUR_API_KEY";  // set once
+client.authentications["ApiKeyAuth"].apiKey = "YOUR_API_KEY"; // set once
 const api = new DatabasesIPGeolocationApi(client);
 
 api.dbIpCityStatus()
-  .then(data => console.log(data))
-  .catch(err => console.error(err));
-
+    .then((data) => console.log(data))
+    .catch((err) => console.error(err));
 ```
 
 #### IP to City Snapshot
@@ -1263,13 +1215,12 @@ const { ApiClient, DatabasesIPGeolocationApi } = pkg;
 // or:  const { ApiClient, DatabasesIPGeolocationApi } = require("whoisfreaks-js");
 
 const client = ApiClient.instance;
-client.authentications["ApiKeyAuth"].apiKey = "YOUR_API_KEY";  // set once
+client.authentications["ApiKeyAuth"].apiKey = "YOUR_API_KEY"; // set once
 const api = new DatabasesIPGeolocationApi(client);
 
-api.dbIpCity(new Date(Date.now()-86400000).toISOString().slice(0,10))
-  .then(data => console.log(data))
-  .catch(err => console.error(err));
-
+api.dbIpCity(new Date(Date.now() - 86400000).toISOString().slice(0, 10))
+    .then((data) => console.log(data))
+    .catch((err) => console.error(err));
 ```
 
 ### Databases - ASN WHOIS
@@ -1288,13 +1239,12 @@ const { ApiClient, DatabasesASNWHOISApi } = pkg;
 // or:  const { ApiClient, DatabasesASNWHOISApi } = require("whoisfreaks-js");
 
 const client = ApiClient.instance;
-client.authentications["ApiKeyAuth"].apiKey = "YOUR_API_KEY";  // set once
+client.authentications["ApiKeyAuth"].apiKey = "YOUR_API_KEY"; // set once
 const api = new DatabasesASNWHOISApi(client);
 
-api.dbAsnWhois(new Date(Date.now()-86400000).toISOString().slice(0,10))
-  .then(data => console.log(data))
-  .catch(err => console.error(err));
-
+api.dbAsnWhois(new Date(Date.now() - 86400000).toISOString().slice(0, 10))
+    .then((data) => console.log(data))
+    .catch((err) => console.error(err));
 ```
 
 #### ASN WHOIS Snapshot Status
@@ -1311,13 +1261,12 @@ const { ApiClient, DatabasesASNWHOISApi } = pkg;
 // or:  const { ApiClient, DatabasesASNWHOISApi } = require("whoisfreaks-js");
 
 const client = ApiClient.instance;
-client.authentications["ApiKeyAuth"].apiKey = "YOUR_API_KEY";  // set once
+client.authentications["ApiKeyAuth"].apiKey = "YOUR_API_KEY"; // set once
 const api = new DatabasesASNWHOISApi(client);
 
 api.dbAsnWhoisStatus()
-  .then(data => console.log(data))
-  .catch(err => console.error(err));
-
+    .then((data) => console.log(data))
+    .catch((err) => console.error(err));
 ```
 
 ### Databases - IP WHOIS
@@ -1336,13 +1285,12 @@ const { ApiClient, DatabasesIPWHOISApi } = pkg;
 // or:  const { ApiClient, DatabasesIPWHOISApi } = require("whoisfreaks-js");
 
 const client = ApiClient.instance;
-client.authentications["ApiKeyAuth"].apiKey = "YOUR_API_KEY";  // set once
+client.authentications["ApiKeyAuth"].apiKey = "YOUR_API_KEY"; // set once
 const api = new DatabasesIPWHOISApi(client);
 
-api.dbIpWhois(new Date(Date.now()-86400000).toISOString().slice(0,10))
-  .then(data => console.log(data))
-  .catch(err => console.error(err));
-
+api.dbIpWhois(new Date(Date.now() - 86400000).toISOString().slice(0, 10))
+    .then((data) => console.log(data))
+    .catch((err) => console.error(err));
 ```
 
 #### IP WHOIS Snapshot Status
@@ -1359,13 +1307,12 @@ const { ApiClient, DatabasesIPWHOISApi } = pkg;
 // or:  const { ApiClient, DatabasesIPWHOISApi } = require("whoisfreaks-js");
 
 const client = ApiClient.instance;
-client.authentications["ApiKeyAuth"].apiKey = "YOUR_API_KEY";  // set once
+client.authentications["ApiKeyAuth"].apiKey = "YOUR_API_KEY"; // set once
 const api = new DatabasesIPWHOISApi(client);
 
 api.dbIpWhoisStatus()
-  .then(data => console.log(data))
-  .catch(err => console.error(err));
-
+    .then((data) => console.log(data))
+    .catch((err) => console.error(err));
 ```
 
 ### Databases - IP Security
@@ -1384,13 +1331,12 @@ const { ApiClient, DatabasesIPSecurityApi } = pkg;
 // or:  const { ApiClient, DatabasesIPSecurityApi } = require("whoisfreaks-js");
 
 const client = ApiClient.instance;
-client.authentications["ApiKeyAuth"].apiKey = "YOUR_API_KEY";  // set once
+client.authentications["ApiKeyAuth"].apiKey = "YOUR_API_KEY"; // set once
 const api = new DatabasesIPSecurityApi(client);
 
-api.dbIpSecurity(new Date(Date.now()-86400000).toISOString().slice(0,10))
-  .then(data => console.log(data))
-  .catch(err => console.error(err));
-
+api.dbIpSecurity(new Date(Date.now() - 86400000).toISOString().slice(0, 10))
+    .then((data) => console.log(data))
+    .catch((err) => console.error(err));
 ```
 
 #### IP Security Snapshot Status
@@ -1407,11 +1353,10 @@ const { ApiClient, DatabasesIPSecurityApi } = pkg;
 // or:  const { ApiClient, DatabasesIPSecurityApi } = require("whoisfreaks-js");
 
 const client = ApiClient.instance;
-client.authentications["ApiKeyAuth"].apiKey = "YOUR_API_KEY";  // set once
+client.authentications["ApiKeyAuth"].apiKey = "YOUR_API_KEY"; // set once
 const api = new DatabasesIPSecurityApi(client);
 
 api.dbIpSecurityStatus()
-  .then(data => console.log(data))
-  .catch(err => console.error(err));
-
+    .then((data) => console.log(data))
+    .catch((err) => console.error(err));
 ```

@@ -20,8 +20,8 @@ pip install whoisfreaks
 Prefer to build the SDK yourself instead of installing from PyPI? Clone the monorepo and build the Python package locally:
 
 ```bash
-git clone https://github.com/WhoisFreaks/wf-sdks
-cd wf-sdks/sdks/python
+git clone https://github.com/WhoisFreaks/whoisfreaks-python
+cd whoisfreaks-python
 pip install -e .   # editable local install
 ```
 

@@ -20,8 +20,8 @@ implementation("com.whoisfreaks:whoisfreaks:LATEST")
 Prefer to build the SDK yourself instead of installing from Maven Central? Clone the monorepo and build the Kotlin package locally:
 
 ```bash
-git clone https://github.com/WhoisFreaks/wf-sdks
-cd wf-sdks/sdks/kotlin
+git clone https://github.com/WhoisFreaks/whoisfreaks-kotlin
+cd whoisfreaks-kotlin
 ./gradlew build   # or: ./gradlew publishToMavenLocal
 ```
 

@@ -1075,34 +1075,31 @@ def _tags(lang):
     return lead + _COMMON_TAGS
 
 def build_from_source(lang):
-    """Instructions to clone + build the SDK locally (for users who want to
-    build from source rather than install from the registry)."""
-    repo = "https://github.com/WhoisFreaks/wf-sdks"
+    """Instructions to clone + build the SDK locally from its public
+    per-language distribution repository (github.com/WhoisFreaks/whoisfreaks-<lang>)."""
+    repo = f"https://github.com/WhoisFreaks/whoisfreaks-{lang}"
     steps = {
-        "python": ["git clone " + repo, "cd wf-sdks/sdks/python",
-                   "pip install -e .   # editable local install"],
-        "javascript": ["git clone " + repo, "cd wf-sdks/sdks/javascript",
+        "python":     [f"git clone {repo}", f"cd whoisfreaks-{lang}",
+                       "pip install -e .   # editable local install"],
+        "javascript": [f"git clone {repo}", f"cd whoisfreaks-{lang}",
                        "npm install", "npm run build"],
-        "typescript": ["git clone " + repo, "cd wf-sdks/sdks/typescript",
+        "typescript": [f"git clone {repo}", f"cd whoisfreaks-{lang}",
                        "npm install", "npm run build"],
-        "java": ["git clone " + repo, "cd wf-sdks/sdks/java",
-                 "mvn clean install   # builds + installs to local ~/.m2"],
-        "kotlin": ["git clone " + repo, "cd wf-sdks/sdks/kotlin",
-                   "./gradlew build   # or: ./gradlew publishToMavenLocal"],
-        "csharp": ["git clone " + repo, "cd wf-sdks/sdks/csharp",
-                   "dotnet build   # or: dotnet pack -c Release"],
-        "ruby": ["git clone " + repo, "cd wf-sdks/sdks/ruby",
-                 "gem build whoisfreaks.gemspec", "gem install ./whoisfreaks-*.gem"],
-        "go": ["git clone " + repo, "cd wf-sdks/sdks/go",
-               "go build ./...   # or import the module path directly"],
-        "php": ["git clone " + repo, "cd wf-sdks/sdks/php", "composer install"],
-        "swift": ["git clone " + repo, "cd wf-sdks/sdks/swift", "swift build"],
+        "java":       [f"git clone {repo}", f"cd whoisfreaks-{lang}",
+                       "mvn clean install   # builds + installs to local ~/.m2"],
+        "kotlin":     [f"git clone {repo}", f"cd whoisfreaks-{lang}",
+                       "./gradlew build   # or: ./gradlew publishToMavenLocal"],
+        "csharp":     [f"git clone {repo}", f"cd whoisfreaks-{lang}",
+                       "dotnet build   # or: dotnet pack -c Release"],
+        "ruby":       [f"git clone {repo}", f"cd whoisfreaks-{lang}",
+                       "gem build *.gemspec", "gem install ./whoisfreaks-*.gem"],
+        "go":         [f"git clone {repo}", f"cd whoisfreaks-{lang}",
+                       "go build ./...   # or import the module path directly"],
+        "php":        [f"git clone {repo}", f"cd whoisfreaks-{lang}", "composer install"],
+        "swift":      [f"git clone {repo}", f"cd whoisfreaks-{lang}", "swift build"],
     }
-    fence = {"python":"bash","javascript":"bash","typescript":"bash","java":"bash",
-             "kotlin":"bash","csharp":"bash","ruby":"bash","go":"bash","php":"bash",
-             "swift":"bash"}[lang]
-    lines = steps.get(lang, ["git clone " + repo])
-    return [f"```{fence}"] + lines + ["```"]
+    lines = steps.get(lang, [f"git clone {repo}"])
+    return ["```bash"] + lines + ["```"]
 
 # ---------- languages/<lang>.md ----------------------------------------------
 for lang in LANG_ORDER:

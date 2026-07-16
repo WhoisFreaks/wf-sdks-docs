@@ -20,8 +20,8 @@ composer require WhoisFreaks/whoisfreaks-php
 Prefer to build the SDK yourself instead of installing from Packagist? Clone the monorepo and build the PHP package locally:
 
 ```bash
-git clone https://github.com/WhoisFreaks/wf-sdks
-cd wf-sdks/sdks/php
+git clone https://github.com/WhoisFreaks/whoisfreaks-php
+cd whoisfreaks-php
 composer install
 ```
 

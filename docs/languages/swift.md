@@ -20,8 +20,8 @@ The official **WhoisFreaks Swift SDK** — a complete client for WHOIS, DNS, SSL
 Prefer to build the SDK yourself instead of installing from Swift PM? Clone the monorepo and build the Swift package locally:
 
 ```bash
-git clone https://github.com/WhoisFreaks/wf-sdks
-cd wf-sdks/sdks/swift
+git clone https://github.com/WhoisFreaks/whoisfreaks-swift
+cd whoisfreaks-swift
 swift build
 ```
 

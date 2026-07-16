@@ -24,8 +24,8 @@ The official **WhoisFreaks Java SDK** — a complete client for WHOIS, DNS, SSL,
 Prefer to build the SDK yourself instead of installing from Maven Central? Clone the monorepo and build the Java package locally:
 
 ```bash
-git clone https://github.com/WhoisFreaks/wf-sdks
-cd wf-sdks/sdks/java
+git clone https://github.com/WhoisFreaks/whoisfreaks-java
+cd whoisfreaks-java
 mvn clean install   # builds + installs to local ~/.m2
 ```
 
