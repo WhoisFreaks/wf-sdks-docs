@@ -4,7 +4,6 @@ Install: see the [TypeScript guide](../../docs/languages/typescript.md). Set `YO
 
 ## WHOIS
 - [`WhoisLive.ts`](WhoisLive.ts) — Live WHOIS Lookup (`GET /v2.0/whois/live`)
-- [`WhoisHistoricalOrReverse.ts`](WhoisHistoricalOrReverse.ts) — WHOIS Historical or Reverse Lookup (`GET /v1.0/whois`)
 - [`BulkWhois.ts`](BulkWhois.ts) — Bulk WHOIS Lookup (`POST /v2.0/bulkwhois/live`)
 - [`WhoisHistory.ts`](WhoisHistory.ts) — Historical WHOIS records for a domain (`GET /v2.0/whois/history`)
 - [`WhoisReverse.ts`](WhoisReverse.ts) — Reverse WHOIS lookup by keyword (`GET /v2.0/whois/reverse`)

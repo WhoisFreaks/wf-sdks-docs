@@ -4,7 +4,6 @@ Install: see the [Swift guide](../../docs/languages/swift.md). Set `YOUR_API_KEY
 
 ## WHOIS
 - [`WhoisLive.swift`](WhoisLive.swift) — Live WHOIS Lookup (`GET /v2.0/whois/live`)
-- [`WhoisHistoricalOrReverse.swift`](WhoisHistoricalOrReverse.swift) — WHOIS Historical or Reverse Lookup (`GET /v1.0/whois`)
 - [`BulkWhois.swift`](BulkWhois.swift) — Bulk WHOIS Lookup (`POST /v2.0/bulkwhois/live`)
 - [`WhoisHistory.swift`](WhoisHistory.swift) — Historical WHOIS records for a domain (`GET /v2.0/whois/history`)
 - [`WhoisReverse.swift`](WhoisReverse.swift) — Reverse WHOIS lookup by keyword (`GET /v2.0/whois/reverse`)

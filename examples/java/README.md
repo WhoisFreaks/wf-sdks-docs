@@ -4,7 +4,6 @@ Install: see the [Java guide](../../docs/languages/java.md). Set `YOUR_API_KEY` 
 
 ## WHOIS
 - [`WhoisLive.java`](WhoisLive.java) — Live WHOIS Lookup (`GET /v2.0/whois/live`)
-- [`WhoisHistoricalOrReverse.java`](WhoisHistoricalOrReverse.java) — WHOIS Historical or Reverse Lookup (`GET /v1.0/whois`)
 - [`BulkWhois.java`](BulkWhois.java) — Bulk WHOIS Lookup (`POST /v2.0/bulkwhois/live`)
 - [`WhoisHistory.java`](WhoisHistory.java) — Historical WHOIS records for a domain (`GET /v2.0/whois/history`)
 - [`WhoisReverse.java`](WhoisReverse.java) — Reverse WHOIS lookup by keyword (`GET /v2.0/whois/reverse`)

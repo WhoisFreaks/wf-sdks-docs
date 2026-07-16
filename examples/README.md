@@ -1,13 +1,12 @@
 # Runnable Examples
 
-Copy-paste, ready-to-run examples for **every one of the 55 endpoints** in **all 10 languages** (550 files).
+Copy-paste, ready-to-run examples for **every one of the 54 endpoints** in **all 10 languages** (540 files).
 
 Set `YOUR_API_KEY` to your key (from <https://billing.whoisfreaks.com>) and run. Layout: `examples/<language>/<Operation>.<ext>`.
 
 | Endpoint | Operation | Example file (per language) |
 |----------|-----------|------------------------------|
 | Live WHOIS Lookup | `whoisLive` | [Python](python/WhoisLive.py) · [JavaScript](javascript/WhoisLive.js) · [TypeScript](typescript/WhoisLive.ts) · [Java](java/WhoisLive.java) · [Kotlin](kotlin/WhoisLive.kt) · [C# / .NET](csharp/WhoisLive.cs) · [Ruby](ruby/WhoisLive.rb) · [Go](go/WhoisLive.go) · [Swift](swift/WhoisLive.swift) · [PHP](php/WhoisLive.php) |
-| WHOIS Historical or Reverse Lookup | `whoisHistoricalOrReverse` | [Python](python/WhoisHistoricalOrReverse.py) · [JavaScript](javascript/WhoisHistoricalOrReverse.js) · [TypeScript](typescript/WhoisHistoricalOrReverse.ts) · [Java](java/WhoisHistoricalOrReverse.java) · [Kotlin](kotlin/WhoisHistoricalOrReverse.kt) · [C# / .NET](csharp/WhoisHistoricalOrReverse.cs) · [Ruby](ruby/WhoisHistoricalOrReverse.rb) · [Go](go/WhoisHistoricalOrReverse.go) · [Swift](swift/WhoisHistoricalOrReverse.swift) · [PHP](php/WhoisHistoricalOrReverse.php) |
 | Bulk WHOIS Lookup | `bulkWhois` | [Python](python/BulkWhois.py) · [JavaScript](javascript/BulkWhois.js) · [TypeScript](typescript/BulkWhois.ts) · [Java](java/BulkWhois.java) · [Kotlin](kotlin/BulkWhois.kt) · [C# / .NET](csharp/BulkWhois.cs) · [Ruby](ruby/BulkWhois.rb) · [Go](go/BulkWhois.go) · [Swift](swift/BulkWhois.swift) · [PHP](php/BulkWhois.php) |
 | Historical WHOIS records for a domain | `whoisHistory` | [Python](python/WhoisHistory.py) · [JavaScript](javascript/WhoisHistory.js) · [TypeScript](typescript/WhoisHistory.ts) · [Java](java/WhoisHistory.java) · [Kotlin](kotlin/WhoisHistory.kt) · [C# / .NET](csharp/WhoisHistory.cs) · [Ruby](ruby/WhoisHistory.rb) · [Go](go/WhoisHistory.go) · [Swift](swift/WhoisHistory.swift) · [PHP](php/WhoisHistory.php) |
 | Reverse WHOIS lookup by keyword | `whoisReverse` | [Python](python/WhoisReverse.py) · [JavaScript](javascript/WhoisReverse.js) · [TypeScript](typescript/WhoisReverse.ts) · [Java](java/WhoisReverse.java) · [Kotlin](kotlin/WhoisReverse.kt) · [C# / .NET](csharp/WhoisReverse.cs) · [Ruby](ruby/WhoisReverse.rb) · [Go](go/WhoisReverse.go) · [Swift](swift/WhoisReverse.swift) · [PHP](php/WhoisReverse.php) |

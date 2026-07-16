@@ -66,7 +66,7 @@ do {
 
 ## Endpoints
 
-All 55 endpoints are shown below, grouped by category. Each includes its method, path, parameters, and a runnable example. See the [full endpoint reference](../endpoints/README.md) for response shapes and field details.
+All 54 endpoints are shown below, grouped by category. Each includes its method, path, parameters, and a runnable example. See the [full endpoint reference](../endpoints/README.md) for response shapes and field details.
 
 ### WHOIS
 
@@ -84,35 +84,6 @@ import WhoisFreaks
 
 do {
     let result = try await WHOISAPI.whoisLive(apiKey: "YOUR_API_KEY", domainName: "example.com", format: nil)
-    print(result)
-} catch {
-    print(error)
-}
-
-```
-
-#### WHOIS Historical or Reverse Lookup
-
-`GET /v1.0/whois`
-
-```swift
-// Runnable example: WHOIS Historical or Reverse Lookup (GET /v1.0/whois)
-// Parameters for whoisHistoricalOrReverse (GET /v1.0/whois):
-//   - apiKey (string, required): Your WHOISFreaks API key
-//   - whois (string (one of: historical, reverse), required)
-//   - domainName (string, required): Required for historical lookup
-//   - keyword (string, optional): For reverse — domain keyword search
-//   - email (string, optional): For reverse — registrant email search
-//   - owner (string, optional): For reverse — registrant name search
-//   - company (string, optional): For reverse — company name search
-//   - mode (string (one of: default, mini), optional)
-//   - exact (boolean, optional)
-//   - page (integer, optional)
-//   - format (string (one of: json, xml), optional)
-import WhoisFreaks
-
-do {
-    let result = try await WHOISAPI.whoisHistoricalOrReverse(apiKey: "YOUR_API_KEY", whois: "historical", domainName: "example.com", exact: true, keyword: nil, email: nil, owner: nil, company: nil, mode: nil, page: nil, format: nil)
     print(result)
 } catch {
     print(error)

@@ -4,7 +4,6 @@ Install: see the [JavaScript guide](../../docs/languages/javascript.md). Set `YO
 
 ## WHOIS
 - [`WhoisLive.js`](WhoisLive.js) — Live WHOIS Lookup (`GET /v2.0/whois/live`)
-- [`WhoisHistoricalOrReverse.js`](WhoisHistoricalOrReverse.js) — WHOIS Historical or Reverse Lookup (`GET /v1.0/whois`)
 - [`BulkWhois.js`](BulkWhois.js) — Bulk WHOIS Lookup (`POST /v2.0/bulkwhois/live`)
 - [`WhoisHistory.js`](WhoisHistory.js) — Historical WHOIS records for a domain (`GET /v2.0/whois/history`)
 - [`WhoisReverse.js`](WhoisReverse.js) — Reverse WHOIS lookup by keyword (`GET /v2.0/whois/reverse`)
