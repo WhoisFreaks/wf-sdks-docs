@@ -1041,16 +1041,18 @@ for lang in LANG_ORDER:
     fence_c, code = render_example(lang, first_op)
     body += [f"```{fence_c}", code, "```", "",
              "## Endpoints", "",
-             f"All {TOTAL_OPS} endpoints are available. A few common examples "
-             f"follow; see the [full endpoint reference](../endpoints/README.md) "
-             f"for every operation, its parameters, and response shape.", ""]
-    # show one example per category (first op of each tag)
+             f"All {TOTAL_OPS} endpoints are shown below, grouped by category. "
+             f"Each includes its method, path, parameters, and a runnable example. "
+             f"See the [full endpoint reference](../endpoints/README.md) for "
+             f"response shapes and field details.", ""]
+    # show every operation, grouped by category (tag)
     for tag, ops in OPS.items():
-        op = ops[0]
-        fence, code = render_example(lang, op)
-        body += [f"### {tag}: {op['summary'] or op['op_id']}", "",
-                 f"`{op['method']} {op['path']}`", "",
-                 f"```{fence}", code, "```", ""]
+        body += [f"### {tag}", ""]
+        for op in ops:
+            fence, code = render_example(lang, op)
+            body += [f"#### {op['summary'] or op['op_id']}", "",
+                     f"`{op['method']} {op['path']}`", "",
+                     f"```{fence}", code, "```", ""]
     w(f"docs/languages/{lang}.md", "\n".join(body))
 
 # ---------- root README ------------------------------------------------------

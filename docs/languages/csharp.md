@@ -68,9 +68,11 @@ class WhoisLive {
 
 ## Endpoints
 
-All 55 endpoints are available. A few common examples follow; see the [full endpoint reference](../endpoints/README.md) for every operation, its parameters, and response shape.
+All 55 endpoints are shown below, grouped by category. Each includes its method, path, parameters, and a runnable example. See the [full endpoint reference](../endpoints/README.md) for response shapes and field details.
 
-### WHOIS: Live WHOIS Lookup
+### WHOIS
+
+#### Live WHOIS Lookup
 
 `GET /v2.0/whois/live`
 
@@ -96,7 +98,124 @@ class WhoisLive {
 
 ```
 
-### DNS: Live DNS Lookup
+#### WHOIS Historical or Reverse Lookup
+
+`GET /v1.0/whois`
+
+```csharp
+// Runnable example: WHOIS Historical or Reverse Lookup (GET /v1.0/whois)
+// Parameters for whoisHistoricalOrReverse (GET /v1.0/whois):
+//   - apiKey (string, required): Your WHOISFreaks API key
+//   - whois (string (one of: historical, reverse), required)
+//   - domainName (string, required): Required for historical lookup
+//   - keyword (string, optional): For reverse — domain keyword search
+//   - email (string, optional): For reverse — registrant email search
+//   - owner (string, optional): For reverse — registrant name search
+//   - company (string, optional): For reverse — company name search
+//   - mode (string (one of: default, mini), optional)
+//   - exact (boolean, optional)
+//   - page (integer, optional)
+//   - format (string (one of: json, xml), optional)
+using System;
+using WhoisFreaks.Api;
+using WhoisFreaks.Client;
+
+class WhoisHistoricalOrReverse {
+    static void Main() {
+        var config = new Configuration { BasePath = "https://api.whoisfreaks.com" };
+        var api = new WHOISApi(config);
+        var resp = api.WhoisHistoricalOrReverseWithHttpInfo("YOUR_API_KEY", "historical", "example.com", true, null, null, null, null, null, null, null);
+        Console.WriteLine($"status: {(int)resp.StatusCode}");
+        Console.WriteLine(resp.Data);
+    }
+}
+
+```
+
+#### Bulk WHOIS Lookup
+
+`POST /v2.0/bulkwhois/live`
+
+```csharp
+// Runnable example: Bulk WHOIS Lookup (POST /v2.0/bulkwhois/live)
+// Parameters for bulkWhois (POST /v2.0/bulkwhois/live):
+//   - apiKey (string, required): Your WHOISFreaks API key
+//   - format (string (one of: json, xml), optional)
+//   - body: BulkWhoisRequest (required) -- request body object
+using System;
+using WhoisFreaks.Api;
+using WhoisFreaks.Client;
+using WhoisFreaks.Model;
+
+class BulkWhois {
+    static void Main() {
+        var config = new Configuration { BasePath = "https://api.whoisfreaks.com" };
+        var api = new WHOISApi(config);
+        var resp = api.BulkWhoisWithHttpInfo("YOUR_API_KEY", new BulkWhoisRequest(), null);
+        Console.WriteLine($"status: {(int)resp.StatusCode}");
+        Console.WriteLine(resp.Data);
+    }
+}
+
+```
+
+#### Historical WHOIS records for a domain
+
+`GET /v2.0/whois/history`
+
+```csharp
+// Runnable example: Historical WHOIS records for a domain (GET /v2.0/whois/history)
+// Parameters for whoisHistory (GET /v2.0/whois/history):
+//   - apiKey (string, required): Your WHOISFreaks API key
+//   - domainName (string, required): Domain to fetch historical WHOIS records for
+//   - page (integer, optional): Page number
+//   - format (string (one of: json, xml), optional)
+using System;
+using WhoisFreaks.Api;
+using WhoisFreaks.Client;
+
+class WhoisHistory {
+    static void Main() {
+        var config = new Configuration { BasePath = "https://api.whoisfreaks.com" };
+        var api = new WHOISApi(config);
+        var resp = api.WhoisHistoryWithHttpInfo("YOUR_API_KEY", "example.com", null, null);
+        Console.WriteLine($"status: {(int)resp.StatusCode}");
+        Console.WriteLine(resp.Data);
+    }
+}
+
+```
+
+#### Reverse WHOIS lookup by keyword
+
+`GET /v2.0/whois/reverse`
+
+```csharp
+// Runnable example: Reverse WHOIS lookup by keyword (GET /v2.0/whois/reverse)
+// Parameters for whoisReverse (GET /v2.0/whois/reverse):
+//   - apiKey (string, required): Your WHOISFreaks API key
+//   - keyword (string, required): Keyword to search across WHOIS records
+//   - page (integer, optional): Page number
+//   - format (string (one of: json, xml), optional)
+using System;
+using WhoisFreaks.Api;
+using WhoisFreaks.Client;
+
+class WhoisReverse {
+    static void Main() {
+        var config = new Configuration { BasePath = "https://api.whoisfreaks.com" };
+        var api = new WHOISApi(config);
+        var resp = api.WhoisReverseWithHttpInfo("YOUR_API_KEY", "value", null, null);
+        Console.WriteLine($"status: {(int)resp.StatusCode}");
+        Console.WriteLine(resp.Data);
+    }
+}
+
+```
+
+### DNS
+
+#### Live DNS Lookup
 
 `GET /v2.0/dns/live`
 
@@ -124,7 +243,94 @@ class DnsLive {
 
 ```
 
-### Domain Availability: Domain Availability Check with Suggestions
+#### Historical DNS Lookup
+
+`GET /v2.0/dns/historical`
+
+```csharp
+// Runnable example: Historical DNS Lookup (GET /v2.0/dns/historical)
+// Parameters for dnsHistorical (GET /v2.0/dns/historical):
+//   - apiKey (string, required): Your WHOISFreaks API key
+//   - domainName (string, required)
+//   - type (string, required)
+//   - page (integer, optional)
+//   - format (string (one of: json, xml), optional)
+using System;
+using WhoisFreaks.Api;
+using WhoisFreaks.Client;
+
+class DnsHistorical {
+    static void Main() {
+        var config = new Configuration { BasePath = "https://api.whoisfreaks.com" };
+        var api = new DNSApi(config);
+        var resp = api.DnsHistoricalWithHttpInfo("YOUR_API_KEY", "example.com", "value", null, null);
+        Console.WriteLine($"status: {(int)resp.StatusCode}");
+        Console.WriteLine(resp.Data);
+    }
+}
+
+```
+
+#### Reverse DNS Lookup
+
+`GET /v2.1/dns/reverse`
+
+```csharp
+// Runnable example: Reverse DNS Lookup (GET /v2.1/dns/reverse)
+// Parameters for dnsReverse (GET /v2.1/dns/reverse):
+//   - apiKey (string, required): Your WHOISFreaks API key
+//   - value (string, required): IP, CIDR, or record value
+//   - type (string (one of: a, mx, cname, ns, aaaa, txt, soa), required)
+//   - exact (boolean, optional)
+//   - page (integer, optional)
+//   - format (string (one of: json, xml), optional)
+using System;
+using WhoisFreaks.Api;
+using WhoisFreaks.Client;
+
+class DnsReverse {
+    static void Main() {
+        var config = new Configuration { BasePath = "https://api.whoisfreaks.com" };
+        var api = new DNSApi(config);
+        var resp = api.DnsReverseWithHttpInfo("YOUR_API_KEY", "value", "a", true, null, null);
+        Console.WriteLine($"status: {(int)resp.StatusCode}");
+        Console.WriteLine(resp.Data);
+    }
+}
+
+```
+
+#### Bulk DNS Lookup
+
+`POST /v2.0/dns/bulk/live`
+
+```csharp
+// Runnable example: Bulk DNS Lookup (POST /v2.0/dns/bulk/live)
+// Parameters for dnsBulk (POST /v2.0/dns/bulk/live):
+//   - apiKey (string, required): Your WHOISFreaks API key
+//   - type (string, required)
+//   - format (string (one of: json, xml), optional)
+//   - body: DnsBulkRequest (required) -- request body object
+using System;
+using WhoisFreaks.Api;
+using WhoisFreaks.Client;
+using WhoisFreaks.Model;
+
+class DnsBulk {
+    static void Main() {
+        var config = new Configuration { BasePath = "https://api.whoisfreaks.com" };
+        var api = new DNSApi(config);
+        var resp = api.DnsBulkWithHttpInfo("YOUR_API_KEY", "value", new DnsBulkRequest(), null);
+        Console.WriteLine($"status: {(int)resp.StatusCode}");
+        Console.WriteLine(resp.Data);
+    }
+}
+
+```
+
+### Domain Availability
+
+#### Domain Availability Check with Suggestions
 
 `GET /v2.0/domain/availability`
 
@@ -152,7 +358,37 @@ class DomainAvailabilityV2 {
 
 ```
 
-### Typosquatting: Typosquatting Lookup
+#### Bulk Domain Availability Check
+
+`POST /v2.0/domain/availability`
+
+```csharp
+// Runnable example: Bulk Domain Availability Check (POST /v2.0/domain/availability)
+// Parameters for bulkDomainAvailabilityV2 (POST /v2.0/domain/availability):
+//   - apiKey (string, required): Your WHOISFreaks API key
+//   - domain (string, optional): Required for TLD-mode bulk check (base domain).
+//   - format (string (one of: json, xml), optional)
+//   - body: BulkDomainAvailabilityRequest (required) -- request body object
+using System;
+using WhoisFreaks.Api;
+using WhoisFreaks.Client;
+using WhoisFreaks.Model;
+
+class BulkDomainAvailabilityV2 {
+    static void Main() {
+        var config = new Configuration { BasePath = "https://api.whoisfreaks.com" };
+        var api = new DomainAvailabilityApi(config);
+        var resp = api.BulkDomainAvailabilityV2WithHttpInfo("YOUR_API_KEY", new BulkDomainAvailabilityRequest(), null, null);
+        Console.WriteLine($"status: {(int)resp.StatusCode}");
+        Console.WriteLine(resp.Data);
+    }
+}
+
+```
+
+### Typosquatting
+
+#### Typosquatting Lookup
 
 `GET /v3.0/domain/typos`
 
@@ -179,7 +415,9 @@ class Typosquatting {
 
 ```
 
-### SSL: SSL Certificate Lookup
+### SSL
+
+#### SSL Certificate Lookup
 
 `GET /v1.0/ssl/live`
 
@@ -207,7 +445,9 @@ class SslLookup {
 
 ```
 
-### Geolocation: IP Geolocation Lookup
+### Geolocation
+
+#### IP Geolocation Lookup
 
 `GET /v1.0/geolocation`
 
@@ -232,7 +472,35 @@ class Geolocation {
 
 ```
 
-### Subdomains: Subdomains Lookup
+#### Bulk IP Geolocation
+
+`POST /v1.0/geolocation`
+
+```csharp
+// Runnable example: Bulk IP Geolocation (POST /v1.0/geolocation)
+// Parameters for bulkGeolocation (POST /v1.0/geolocation):
+//   - apiKey (string, required): Your WHOISFreaks API key
+//   - body: BulkGeolocationRequest (required) -- request body object
+using System;
+using WhoisFreaks.Api;
+using WhoisFreaks.Client;
+using WhoisFreaks.Model;
+
+class BulkGeolocation {
+    static void Main() {
+        var config = new Configuration { BasePath = "https://api.whoisfreaks.com" };
+        var api = new GeolocationApi(config);
+        var resp = api.BulkGeolocationWithHttpInfo("YOUR_API_KEY", new BulkGeolocationRequest());
+        Console.WriteLine($"status: {(int)resp.StatusCode}");
+        Console.WriteLine(resp.Data);
+    }
+}
+
+```
+
+### Subdomains
+
+#### Subdomains Lookup
 
 `GET /v1.0/subdomains`
 
@@ -262,7 +530,9 @@ class Subdomains {
 
 ```
 
-### IP Reputation: IP Reputation Lookup
+### IP Reputation
+
+#### IP Reputation Lookup
 
 `GET /v1.0/security`
 
@@ -287,7 +557,35 @@ class IpReputation {
 
 ```
 
-### Domain Reputation: Domain Reputation Lookup
+#### Bulk IP Reputation
+
+`POST /v1.0/security`
+
+```csharp
+// Runnable example: Bulk IP Reputation (POST /v1.0/security)
+// Parameters for bulkIpReputation (POST /v1.0/security):
+//   - apiKey (string, required): Your WHOISFreaks API key
+//   - body: BulkGeolocationRequest (required) -- request body object
+using System;
+using WhoisFreaks.Api;
+using WhoisFreaks.Client;
+using WhoisFreaks.Model;
+
+class BulkIpReputation {
+    static void Main() {
+        var config = new Configuration { BasePath = "https://api.whoisfreaks.com" };
+        var api = new IPReputationApi(config);
+        var resp = api.BulkIpReputationWithHttpInfo("YOUR_API_KEY", new BulkGeolocationRequest());
+        Console.WriteLine($"status: {(int)resp.StatusCode}");
+        Console.WriteLine(resp.Data);
+    }
+}
+
+```
+
+### Domain Reputation
+
+#### Domain Reputation Lookup
 
 `GET /v1/domain/security`
 
@@ -313,7 +611,9 @@ class DomainReputation {
 
 ```
 
-### ASN WHOIS: ASN WHOIS Lookup
+### ASN WHOIS
+
+#### ASN WHOIS Lookup
 
 `GET /v2.0/asn-whois`
 
@@ -339,7 +639,9 @@ class AsnWhois {
 
 ```
 
-### IP WHOIS: IP WHOIS Lookup
+### IP WHOIS
+
+#### IP WHOIS Lookup
 
 `GET /v1.0/ip-whois`
 
@@ -365,7 +667,9 @@ class IpWhois {
 
 ```
 
-### Account: Rotate API Key
+### Account
+
+#### Rotate API Key
 
 `GET /v1.0/api-key/rotate`
 
@@ -389,7 +693,57 @@ class RotateApiKey {
 
 ```
 
-### Databases - Newly Registered: Newly Registered gTLD (CSV)
+#### Account Usage
+
+`GET /v1.0/whoisapi/usage`
+
+```csharp
+// Runnable example: Account Usage (GET /v1.0/whoisapi/usage)
+// Parameters for accountUsage (GET /v1.0/whoisapi/usage):
+//   - apiKey (string, required): Your WHOISFreaks API key
+using System;
+using WhoisFreaks.Api;
+using WhoisFreaks.Client;
+
+class AccountUsage {
+    static void Main() {
+        var config = new Configuration { BasePath = "https://api.whoisfreaks.com" };
+        var api = new AccountApi(config);
+        var resp = api.AccountUsageWithHttpInfo("YOUR_API_KEY");
+        Console.WriteLine($"status: {(int)resp.StatusCode}");
+        Console.WriteLine(resp.Data);
+    }
+}
+
+```
+
+#### Database File Status (Public)
+
+`GET /v3.3/status`
+
+```csharp
+// Runnable example: Database File Status (Public) (GET /v3.3/status)
+// Parameters for databaseFileStatus (GET /v3.3/status):
+//   (no parameters besides apiKey)
+using System;
+using WhoisFreaks.Api;
+using WhoisFreaks.Client;
+
+class DatabaseFileStatus {
+    static void Main() {
+        var config = new Configuration { BasePath = "https://api.whoisfreaks.com" };
+        var api = new AccountApi(config);
+        var resp = api.DatabaseFileStatusWithHttpInfo();
+        Console.WriteLine($"status: {(int)resp.StatusCode}");
+        Console.WriteLine(resp.Data);
+    }
+}
+
+```
+
+### Databases - Newly Registered
+
+#### Newly Registered gTLD (CSV)
 
 `GET /v3.1/download/domainer/gtld`
 
@@ -416,7 +770,163 @@ class DbNewlyGtld {
 
 ```
 
-### Databases - Expiring & Dropped: Expiring Domains
+#### Newly Registered ccTLD (CSV)
+
+`GET /v3.1/download/domainer/cctld`
+
+```csharp
+// Runnable example: Newly Registered ccTLD (CSV) (GET /v3.1/download/domainer/cctld)
+// Parameters for dbNewlyCctld (GET /v3.1/download/domainer/cctld):
+//   - apiKey (string, required): Your WHOISFreaks API key
+//   - whois (boolean, required)
+//   - date (string, optional): yyyy-MM-dd; omit for latest
+//   - tlds (string, optional)
+using System;
+using WhoisFreaks.Api;
+using WhoisFreaks.Client;
+
+class DbNewlyCctld {
+    static void Main() {
+        var config = new Configuration { BasePath = "https://api.whoisfreaks.com" };
+        var api = new DatabasesNewlyRegisteredApi(config);
+        var resp = api.DbNewlyCctldWithHttpInfo("YOUR_API_KEY", false, DateTime.UtcNow.AddDays(-1).ToString("yyyy-MM-dd"), null);
+        Console.WriteLine($"status: {(int)resp.StatusCode}");
+        Console.WriteLine(resp.Data);
+    }
+}
+
+```
+
+#### Newly Registered gTLD Cleaned WHOIS (CSV)
+
+`GET /v3.1/download/domainer/gtld/cleaned`
+
+```csharp
+// Runnable example: Newly Registered gTLD Cleaned WHOIS (CSV) (GET /v3.1/download/domainer/gtld/cleaned)
+// Parameters for dbNewlyGtldCleaned (GET /v3.1/download/domainer/gtld/cleaned):
+//   - apiKey (string, required): Your WHOISFreaks API key
+//   - date (string, optional): yyyy-MM-dd; omit for latest
+using System;
+using WhoisFreaks.Api;
+using WhoisFreaks.Client;
+
+class DbNewlyGtldCleaned {
+    static void Main() {
+        var config = new Configuration { BasePath = "https://api.whoisfreaks.com" };
+        var api = new DatabasesNewlyRegisteredApi(config);
+        var resp = api.DbNewlyGtldCleanedWithHttpInfo("YOUR_API_KEY", DateTime.UtcNow.AddDays(-1).ToString("yyyy-MM-dd"));
+        Console.WriteLine($"status: {(int)resp.StatusCode}");
+        Console.WriteLine(resp.Data);
+    }
+}
+
+```
+
+#### Newly Registered ccTLD Cleaned WHOIS (CSV)
+
+`GET /v3.1/download/domainer/cctld/cleaned`
+
+```csharp
+// Runnable example: Newly Registered ccTLD Cleaned WHOIS (CSV) (GET /v3.1/download/domainer/cctld/cleaned)
+// Parameters for dbNewlyCctldCleaned (GET /v3.1/download/domainer/cctld/cleaned):
+//   - apiKey (string, required): Your WHOISFreaks API key
+//   - date (string, optional): yyyy-MM-dd; omit for latest
+using System;
+using WhoisFreaks.Api;
+using WhoisFreaks.Client;
+
+class DbNewlyCctldCleaned {
+    static void Main() {
+        var config = new Configuration { BasePath = "https://api.whoisfreaks.com" };
+        var api = new DatabasesNewlyRegisteredApi(config);
+        var resp = api.DbNewlyCctldCleanedWithHttpInfo("YOUR_API_KEY", DateTime.UtcNow.AddDays(-1).ToString("yyyy-MM-dd"));
+        Console.WriteLine($"status: {(int)resp.StatusCode}");
+        Console.WriteLine(resp.Data);
+    }
+}
+
+```
+
+#### Newly Registered gTLD (JSON)
+
+`GET /v3.1/domains/newly/gtld`
+
+```csharp
+// Runnable example: Newly Registered gTLD (JSON) (GET /v3.1/domains/newly/gtld)
+// Parameters for dbNewlyGtldJson (GET /v3.1/domains/newly/gtld):
+//   - apiKey (string, required): Your WHOISFreaks API key
+//   - date (string, optional): yyyy-MM-dd; omit for latest
+//   - tlds (string, optional)
+using System;
+using WhoisFreaks.Api;
+using WhoisFreaks.Client;
+
+class DbNewlyGtldJson {
+    static void Main() {
+        var config = new Configuration { BasePath = "https://api.whoisfreaks.com" };
+        var api = new DatabasesNewlyRegisteredApi(config);
+        var resp = api.DbNewlyGtldJsonWithHttpInfo("YOUR_API_KEY", DateTime.UtcNow.AddDays(-1).ToString("yyyy-MM-dd"), null);
+        Console.WriteLine($"status: {(int)resp.StatusCode}");
+        Console.WriteLine(resp.Data);
+    }
+}
+
+```
+
+#### Newly Registered ccTLD (JSON)
+
+`GET /v3.1/domains/newly/cctld`
+
+```csharp
+// Runnable example: Newly Registered ccTLD (JSON) (GET /v3.1/domains/newly/cctld)
+// Parameters for dbNewlyCctldJson (GET /v3.1/domains/newly/cctld):
+//   - apiKey (string, required): Your WHOISFreaks API key
+//   - date (string, optional): yyyy-MM-dd; omit for latest
+//   - tlds (string, optional)
+using System;
+using WhoisFreaks.Api;
+using WhoisFreaks.Client;
+
+class DbNewlyCctldJson {
+    static void Main() {
+        var config = new Configuration { BasePath = "https://api.whoisfreaks.com" };
+        var api = new DatabasesNewlyRegisteredApi(config);
+        var resp = api.DbNewlyCctldJsonWithHttpInfo("YOUR_API_KEY", DateTime.UtcNow.AddDays(-1).ToString("yyyy-MM-dd"), null);
+        Console.WriteLine($"status: {(int)resp.StatusCode}");
+        Console.WriteLine(resp.Data);
+    }
+}
+
+```
+
+#### Newly Registered With DNS
+
+`GET /v3.1/download/domainer/newly/dns`
+
+```csharp
+// Runnable example: Newly Registered With DNS (GET /v3.1/download/domainer/newly/dns)
+// Parameters for dbNewlyDns (GET /v3.1/download/domainer/newly/dns):
+//   - apiKey (string, required): Your WHOISFreaks API key
+//   - date (string, optional): yyyy-MM-dd; omit for latest
+using System;
+using WhoisFreaks.Api;
+using WhoisFreaks.Client;
+
+class DbNewlyDns {
+    static void Main() {
+        var config = new Configuration { BasePath = "https://api.whoisfreaks.com" };
+        var api = new DatabasesNewlyRegisteredApi(config);
+        var resp = api.DbNewlyDnsWithHttpInfo("YOUR_API_KEY", DateTime.UtcNow.AddDays(-1).ToString("yyyy-MM-dd"));
+        Console.WriteLine($"status: {(int)resp.StatusCode}");
+        Console.WriteLine(resp.Data);
+    }
+}
+
+```
+
+### Databases - Expiring & Dropped
+
+#### Expiring Domains
 
 `GET /v3.1/download/domainer/expired`
 
@@ -442,7 +952,112 @@ class DbExpired {
 
 ```
 
-### Databases - WHOIS: WHOIS Database Daily
+#### Expiring Cleaned WHOIS
+
+`GET /v3.1/download/domainer/expired/cleaned`
+
+```csharp
+// Runnable example: Expiring Cleaned WHOIS (GET /v3.1/download/domainer/expired/cleaned)
+// Parameters for dbExpiredCleaned (GET /v3.1/download/domainer/expired/cleaned):
+//   - apiKey (string, required): Your WHOISFreaks API key
+//   - date (string, optional): yyyy-MM-dd; omit for latest
+using System;
+using WhoisFreaks.Api;
+using WhoisFreaks.Client;
+
+class DbExpiredCleaned {
+    static void Main() {
+        var config = new Configuration { BasePath = "https://api.whoisfreaks.com" };
+        var api = new DatabasesExpiringDroppedApi(config);
+        var resp = api.DbExpiredCleanedWithHttpInfo("YOUR_API_KEY", DateTime.UtcNow.AddDays(-1).ToString("yyyy-MM-dd"));
+        Console.WriteLine($"status: {(int)resp.StatusCode}");
+        Console.WriteLine(resp.Data);
+    }
+}
+
+```
+
+#### Dropped Domains
+
+`GET /v3.1/download/domainer/dropped`
+
+```csharp
+// Runnable example: Dropped Domains (GET /v3.1/download/domainer/dropped)
+// Parameters for dbDropped (GET /v3.1/download/domainer/dropped):
+//   - apiKey (string, required): Your WHOISFreaks API key
+//   - whois (boolean, required)
+//   - date (string, optional): yyyy-MM-dd; omit for latest
+using System;
+using WhoisFreaks.Api;
+using WhoisFreaks.Client;
+
+class DbDropped {
+    static void Main() {
+        var config = new Configuration { BasePath = "https://api.whoisfreaks.com" };
+        var api = new DatabasesExpiringDroppedApi(config);
+        var resp = api.DbDroppedWithHttpInfo("YOUR_API_KEY", false, DateTime.UtcNow.AddDays(-1).ToString("yyyy-MM-dd"));
+        Console.WriteLine($"status: {(int)resp.StatusCode}");
+        Console.WriteLine(resp.Data);
+    }
+}
+
+```
+
+#### Dropped Domains (JSON)
+
+`GET /v3.1/domains/dropped`
+
+```csharp
+// Runnable example: Dropped Domains (JSON) (GET /v3.1/domains/dropped)
+// Parameters for dbDroppedJson (GET /v3.1/domains/dropped):
+//   - apiKey (string, required): Your WHOISFreaks API key
+//   - date (string, optional): yyyy-MM-dd; omit for latest
+//   - tlds (string, optional)
+using System;
+using WhoisFreaks.Api;
+using WhoisFreaks.Client;
+
+class DbDroppedJson {
+    static void Main() {
+        var config = new Configuration { BasePath = "https://api.whoisfreaks.com" };
+        var api = new DatabasesExpiringDroppedApi(config);
+        var resp = api.DbDroppedJsonWithHttpInfo("YOUR_API_KEY", DateTime.UtcNow.AddDays(-1).ToString("yyyy-MM-dd"), null);
+        Console.WriteLine($"status: {(int)resp.StatusCode}");
+        Console.WriteLine(resp.Data);
+    }
+}
+
+```
+
+#### Dropped With Backlinks
+
+`GET /v3.3/download/domainer/dropped/backlinks`
+
+```csharp
+// Runnable example: Dropped With Backlinks (GET /v3.3/download/domainer/dropped/backlinks)
+// Parameters for dbDroppedBacklinks (GET /v3.3/download/domainer/dropped/backlinks):
+//   - apiKey (string, required): Your WHOISFreaks API key
+//   - whois (boolean, optional)
+//   - date (string, optional): yyyy-MM-dd; omit for latest
+using System;
+using WhoisFreaks.Api;
+using WhoisFreaks.Client;
+
+class DbDroppedBacklinks {
+    static void Main() {
+        var config = new Configuration { BasePath = "https://api.whoisfreaks.com" };
+        var api = new DatabasesExpiringDroppedApi(config);
+        var resp = api.DbDroppedBacklinksWithHttpInfo("YOUR_API_KEY", false, DateTime.UtcNow.AddDays(-1).ToString("yyyy-MM-dd"));
+        Console.WriteLine($"status: {(int)resp.StatusCode}");
+        Console.WriteLine(resp.Data);
+    }
+}
+
+```
+
+### Databases - WHOIS
+
+#### WHOIS Database Daily
 
 `GET /v3.3/download/dbupdate/daily/domains/whois`
 
@@ -467,7 +1082,59 @@ class DbWhoisDaily {
 
 ```
 
-### Databases - DNS: DNS Database Daily
+#### WHOIS Database Weekly
+
+`GET /v3.3/download/dbupdate/weekly/domains/whois`
+
+```csharp
+// Runnable example: WHOIS Database Weekly (GET /v3.3/download/dbupdate/weekly/domains/whois)
+// Parameters for dbWhoisWeekly (GET /v3.3/download/dbupdate/weekly/domains/whois):
+//   - apiKey (string, required): Your WHOISFreaks API key
+//   - date (string, optional): yyyy-MM-dd; omit for latest
+using System;
+using WhoisFreaks.Api;
+using WhoisFreaks.Client;
+
+class DbWhoisWeekly {
+    static void Main() {
+        var config = new Configuration { BasePath = "https://api.whoisfreaks.com" };
+        var api = new DatabasesWHOISApi(config);
+        var resp = api.DbWhoisWeeklyWithHttpInfo("YOUR_API_KEY", DateTime.UtcNow.AddDays(-1).ToString("yyyy-MM-dd"));
+        Console.WriteLine($"status: {(int)resp.StatusCode}");
+        Console.WriteLine(resp.Data);
+    }
+}
+
+```
+
+#### WHOIS Database Monthly
+
+`GET /v3.3/download/dbupdate/monthly/domains/whois`
+
+```csharp
+// Runnable example: WHOIS Database Monthly (GET /v3.3/download/dbupdate/monthly/domains/whois)
+// Parameters for dbWhoisMonthly (GET /v3.3/download/dbupdate/monthly/domains/whois):
+//   - apiKey (string, required): Your WHOISFreaks API key
+//   - date (string, optional): yyyy-MM-dd; omit for latest
+using System;
+using WhoisFreaks.Api;
+using WhoisFreaks.Client;
+
+class DbWhoisMonthly {
+    static void Main() {
+        var config = new Configuration { BasePath = "https://api.whoisfreaks.com" };
+        var api = new DatabasesWHOISApi(config);
+        var resp = api.DbWhoisMonthlyWithHttpInfo("YOUR_API_KEY", DateTime.UtcNow.AddDays(-1).ToString("yyyy-MM-dd"));
+        Console.WriteLine($"status: {(int)resp.StatusCode}");
+        Console.WriteLine(resp.Data);
+    }
+}
+
+```
+
+### Databases - DNS
+
+#### DNS Database Daily
 
 `GET /v3.2/download/dbupdate/daily/dns`
 
@@ -492,7 +1159,59 @@ class DbDnsDaily {
 
 ```
 
-### Databases - Subdomains: Subdomains Daily
+#### DNS Database Weekly
+
+`GET /v3.2/download/dbupdate/weekly/dns`
+
+```csharp
+// Runnable example: DNS Database Weekly (GET /v3.2/download/dbupdate/weekly/dns)
+// Parameters for dbDnsWeekly (GET /v3.2/download/dbupdate/weekly/dns):
+//   - apiKey (string, required): Your WHOISFreaks API key
+//   - date (string, optional): yyyy-MM-dd; omit for latest
+using System;
+using WhoisFreaks.Api;
+using WhoisFreaks.Client;
+
+class DbDnsWeekly {
+    static void Main() {
+        var config = new Configuration { BasePath = "https://api.whoisfreaks.com" };
+        var api = new DatabasesDNSApi(config);
+        var resp = api.DbDnsWeeklyWithHttpInfo("YOUR_API_KEY", DateTime.UtcNow.AddDays(-1).ToString("yyyy-MM-dd"));
+        Console.WriteLine($"status: {(int)resp.StatusCode}");
+        Console.WriteLine(resp.Data);
+    }
+}
+
+```
+
+#### DNS Database Monthly
+
+`GET /v3.2/download/dbupdate/monthly/dns`
+
+```csharp
+// Runnable example: DNS Database Monthly (GET /v3.2/download/dbupdate/monthly/dns)
+// Parameters for dbDnsMonthly (GET /v3.2/download/dbupdate/monthly/dns):
+//   - apiKey (string, required): Your WHOISFreaks API key
+//   - date (string, optional): yyyy-MM-dd; omit for latest
+using System;
+using WhoisFreaks.Api;
+using WhoisFreaks.Client;
+
+class DbDnsMonthly {
+    static void Main() {
+        var config = new Configuration { BasePath = "https://api.whoisfreaks.com" };
+        var api = new DatabasesDNSApi(config);
+        var resp = api.DbDnsMonthlyWithHttpInfo("YOUR_API_KEY", DateTime.UtcNow.AddDays(-1).ToString("yyyy-MM-dd"));
+        Console.WriteLine($"status: {(int)resp.StatusCode}");
+        Console.WriteLine(resp.Data);
+    }
+}
+
+```
+
+### Databases - Subdomains
+
+#### Subdomains Daily
 
 `GET /v3.2/download/dbupdate/daily/subdomains`
 
@@ -517,7 +1236,59 @@ class DbSubdomainsDaily {
 
 ```
 
-### Databases - IP Geolocation: IP to Country Snapshot Status
+#### Subdomains Weekly
+
+`GET /v3.2/download/dbupdate/weekly/subdomains`
+
+```csharp
+// Runnable example: Subdomains Weekly (GET /v3.2/download/dbupdate/weekly/subdomains)
+// Parameters for dbSubdomainsWeekly (GET /v3.2/download/dbupdate/weekly/subdomains):
+//   - apiKey (string, required): Your WHOISFreaks API key
+//   - date (string, optional): yyyy-MM-dd; omit for latest
+using System;
+using WhoisFreaks.Api;
+using WhoisFreaks.Client;
+
+class DbSubdomainsWeekly {
+    static void Main() {
+        var config = new Configuration { BasePath = "https://api.whoisfreaks.com" };
+        var api = new DatabasesSubdomainsApi(config);
+        var resp = api.DbSubdomainsWeeklyWithHttpInfo("YOUR_API_KEY", DateTime.UtcNow.AddDays(-1).ToString("yyyy-MM-dd"));
+        Console.WriteLine($"status: {(int)resp.StatusCode}");
+        Console.WriteLine(resp.Data);
+    }
+}
+
+```
+
+#### Subdomains Monthly
+
+`GET /v3.2/download/dbupdate/monthly/subdomains`
+
+```csharp
+// Runnable example: Subdomains Monthly (GET /v3.2/download/dbupdate/monthly/subdomains)
+// Parameters for dbSubdomainsMonthly (GET /v3.2/download/dbupdate/monthly/subdomains):
+//   - apiKey (string, required): Your WHOISFreaks API key
+//   - date (string, optional): yyyy-MM-dd; omit for latest
+using System;
+using WhoisFreaks.Api;
+using WhoisFreaks.Client;
+
+class DbSubdomainsMonthly {
+    static void Main() {
+        var config = new Configuration { BasePath = "https://api.whoisfreaks.com" };
+        var api = new DatabasesSubdomainsApi(config);
+        var resp = api.DbSubdomainsMonthlyWithHttpInfo("YOUR_API_KEY", DateTime.UtcNow.AddDays(-1).ToString("yyyy-MM-dd"));
+        Console.WriteLine($"status: {(int)resp.StatusCode}");
+        Console.WriteLine(resp.Data);
+    }
+}
+
+```
+
+### Databases - IP Geolocation
+
+#### IP to Country Snapshot Status
 
 `GET /v3.3/status/snapshot/ip/country`
 
@@ -541,7 +1312,83 @@ class DbIpCountryStatus {
 
 ```
 
-### Databases - ASN WHOIS: ASN WHOIS Snapshot
+#### IP to Country Snapshot
+
+`GET /v3.3/download/snapshot/ip/country`
+
+```csharp
+// Runnable example: IP to Country Snapshot (GET /v3.3/download/snapshot/ip/country)
+// Parameters for dbIpCountry (GET /v3.3/download/snapshot/ip/country):
+//   - apiKey (string, required): Your WHOISFreaks API key
+//   - date (string, required)
+using System;
+using WhoisFreaks.Api;
+using WhoisFreaks.Client;
+
+class DbIpCountry {
+    static void Main() {
+        var config = new Configuration { BasePath = "https://api.whoisfreaks.com" };
+        var api = new DatabasesIPGeolocationApi(config);
+        var resp = api.DbIpCountryWithHttpInfo("YOUR_API_KEY", DateTime.UtcNow.AddDays(-1).ToString("yyyy-MM-dd"));
+        Console.WriteLine($"status: {(int)resp.StatusCode}");
+        Console.WriteLine(resp.Data);
+    }
+}
+
+```
+
+#### IP to City Snapshot Status
+
+`GET /v3.3/status/snapshot/ip/city`
+
+```csharp
+// Runnable example: IP to City Snapshot Status (GET /v3.3/status/snapshot/ip/city)
+// Parameters for dbIpCityStatus (GET /v3.3/status/snapshot/ip/city):
+//   - apiKey (string, required): Your WHOISFreaks API key
+using System;
+using WhoisFreaks.Api;
+using WhoisFreaks.Client;
+
+class DbIpCityStatus {
+    static void Main() {
+        var config = new Configuration { BasePath = "https://api.whoisfreaks.com" };
+        var api = new DatabasesIPGeolocationApi(config);
+        var resp = api.DbIpCityStatusWithHttpInfo("YOUR_API_KEY");
+        Console.WriteLine($"status: {(int)resp.StatusCode}");
+        Console.WriteLine(resp.Data);
+    }
+}
+
+```
+
+#### IP to City Snapshot
+
+`GET /v3.3/download/snapshot/ip/city`
+
+```csharp
+// Runnable example: IP to City Snapshot (GET /v3.3/download/snapshot/ip/city)
+// Parameters for dbIpCity (GET /v3.3/download/snapshot/ip/city):
+//   - apiKey (string, required): Your WHOISFreaks API key
+//   - date (string, required)
+using System;
+using WhoisFreaks.Api;
+using WhoisFreaks.Client;
+
+class DbIpCity {
+    static void Main() {
+        var config = new Configuration { BasePath = "https://api.whoisfreaks.com" };
+        var api = new DatabasesIPGeolocationApi(config);
+        var resp = api.DbIpCityWithHttpInfo("YOUR_API_KEY", DateTime.UtcNow.AddDays(-1).ToString("yyyy-MM-dd"));
+        Console.WriteLine($"status: {(int)resp.StatusCode}");
+        Console.WriteLine(resp.Data);
+    }
+}
+
+```
+
+### Databases - ASN WHOIS
+
+#### ASN WHOIS Snapshot
 
 `GET /v3.3/download/snapshot/asn/whois`
 
@@ -566,7 +1413,33 @@ class DbAsnWhois {
 
 ```
 
-### Databases - IP WHOIS: IP WHOIS Snapshot
+#### ASN WHOIS Snapshot Status
+
+`GET /v3.3/status/snapshot/asn/whois`
+
+```csharp
+// Runnable example: ASN WHOIS Snapshot Status (GET /v3.3/status/snapshot/asn/whois)
+// Parameters for dbAsnWhoisStatus (GET /v3.3/status/snapshot/asn/whois):
+//   - apiKey (string, required): Your WHOISFreaks API key
+using System;
+using WhoisFreaks.Api;
+using WhoisFreaks.Client;
+
+class DbAsnWhoisStatus {
+    static void Main() {
+        var config = new Configuration { BasePath = "https://api.whoisfreaks.com" };
+        var api = new DatabasesASNWHOISApi(config);
+        var resp = api.DbAsnWhoisStatusWithHttpInfo("YOUR_API_KEY");
+        Console.WriteLine($"status: {(int)resp.StatusCode}");
+        Console.WriteLine(resp.Data);
+    }
+}
+
+```
+
+### Databases - IP WHOIS
+
+#### IP WHOIS Snapshot
 
 `GET /v3.3/download/snapshot/ip/whois`
 
@@ -591,7 +1464,33 @@ class DbIpWhois {
 
 ```
 
-### Databases - IP Security: IP Security Snapshot
+#### IP WHOIS Snapshot Status
+
+`GET /v3.3/status/snapshot/ip/whois`
+
+```csharp
+// Runnable example: IP WHOIS Snapshot Status (GET /v3.3/status/snapshot/ip/whois)
+// Parameters for dbIpWhoisStatus (GET /v3.3/status/snapshot/ip/whois):
+//   - apiKey (string, required): Your WHOISFreaks API key
+using System;
+using WhoisFreaks.Api;
+using WhoisFreaks.Client;
+
+class DbIpWhoisStatus {
+    static void Main() {
+        var config = new Configuration { BasePath = "https://api.whoisfreaks.com" };
+        var api = new DatabasesIPWHOISApi(config);
+        var resp = api.DbIpWhoisStatusWithHttpInfo("YOUR_API_KEY");
+        Console.WriteLine($"status: {(int)resp.StatusCode}");
+        Console.WriteLine(resp.Data);
+    }
+}
+
+```
+
+### Databases - IP Security
+
+#### IP Security Snapshot
 
 `GET /v3.3/download/snapshot/ip/security`
 
@@ -609,6 +1508,30 @@ class DbIpSecurity {
         var config = new Configuration { BasePath = "https://api.whoisfreaks.com" };
         var api = new DatabasesIPSecurityApi(config);
         var resp = api.DbIpSecurityWithHttpInfo("YOUR_API_KEY", DateTime.UtcNow.AddDays(-1).ToString("yyyy-MM-dd"));
+        Console.WriteLine($"status: {(int)resp.StatusCode}");
+        Console.WriteLine(resp.Data);
+    }
+}
+
+```
+
+#### IP Security Snapshot Status
+
+`GET /v3.3/status/snapshot/ip/security`
+
+```csharp
+// Runnable example: IP Security Snapshot Status (GET /v3.3/status/snapshot/ip/security)
+// Parameters for dbIpSecurityStatus (GET /v3.3/status/snapshot/ip/security):
+//   - apiKey (string, required): Your WHOISFreaks API key
+using System;
+using WhoisFreaks.Api;
+using WhoisFreaks.Client;
+
+class DbIpSecurityStatus {
+    static void Main() {
+        var config = new Configuration { BasePath = "https://api.whoisfreaks.com" };
+        var api = new DatabasesIPSecurityApi(config);
+        var resp = api.DbIpSecurityStatusWithHttpInfo("YOUR_API_KEY");
         Console.WriteLine($"status: {(int)resp.StatusCode}");
         Console.WriteLine(resp.Data);
     }
