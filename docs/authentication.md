@@ -6,6 +6,10 @@ and it is attached to every request automatically.
 
 ## Get an API key
 
+New to WhoisFreaks? Follow the step-by-step guide, [Getting Started with WhoisFreaks: How to Sign Up and Get Your API Key](https://whoisfreaks.com/resources/tutorial/getting-started-with-whoisfreaks-how-to-sign-up-and-get-your-api-key), which walks through account creation and locating your key.
+
+In short:
+
 1. Sign in at <https://billing.whoisfreaks.com>.
 2. Copy your API key from the dashboard.
 3. Keep it secret — do **not** commit it to source control. Prefer an
@@ -13,9 +17,9 @@ and it is attached to every request automatically.
 
 ## Base URLs
 
-| Purpose | Base URL |
-|---------|----------|
-| Live API lookups | `https://api.whoisfreaks.com` |
+| Purpose                 | Base URL                        |
+| ----------------------- | ------------------------------- |
+| Live API lookups        | `https://api.whoisfreaks.com`   |
 | Database file downloads | `https://files.whoisfreaks.com` |
 
 ## Setting the key per language
@@ -52,13 +56,12 @@ const { ApiClient, WHOISApi } = pkg;
 // or:  const { ApiClient, WHOISApi } = require("whoisfreaks-js");
 
 const client = ApiClient.instance;
-client.authentications["ApiKeyAuth"].apiKey = "YOUR_API_KEY";  // set once
+client.authentications["ApiKeyAuth"].apiKey = "YOUR_API_KEY"; // set once
 const api = new WHOISApi(client);
 
 api.whoisLive("example.com")
-  .then(data => console.log(data))
-  .catch(err => console.error(err));
-
+    .then((data) => console.log(data))
+    .catch((err) => console.error(err));
 ```
 
 ### TypeScript
@@ -70,15 +73,14 @@ api.whoisLive("example.com")
 //   - format (string (one of: json, xml), optional)
 import { Configuration, WHOISApi } from "whoisfreaks";
 
-const config = new Configuration({ apiKey: "YOUR_API_KEY" });  // set once
+const config = new Configuration({ apiKey: "YOUR_API_KEY" }); // set once
 const api = new WHOISApi(config);
 
 async function main() {
-  const result = await api.whoisLive({ domainName: "example.com", format: undefined });
-  console.log(result);
+    const result = await api.whoisLive({ domainName: "example.com", format: undefined });
+    console.log(result);
 }
 main().catch(console.error);
-
 ```
 
 ### Java

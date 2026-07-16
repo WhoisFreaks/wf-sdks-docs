@@ -1,5 +1,7 @@
 # Databases - IP Geolocation
 
+*Section: Databases*
+
 IP geolocation database snapshots
 
 4 endpoint(s). All requests require your API key — see [Authentication](../authentication.md).
@@ -14,6 +16,17 @@ IP to Country Snapshot Status. Returns the file/snapshot described by this opera
 
 | Parameter | In | Required | Type | Description |
 |-----------|----|----------|------|-------------|
+
+**Response** (`SnapshotStatus`)
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `status` | string |  |
+| `snapshot_creation_date` | string |  |
+| `snapshot_name` | string |  |
+| `snapshot_deletion_time` | string |  |
+| `message` | string |  |
+
 
 **Usage**
 
@@ -195,6 +208,17 @@ IP to City Snapshot Status. Returns the file/snapshot described by this operatio
 
 | Parameter | In | Required | Type | Description |
 |-----------|----|----------|------|-------------|
+
+**Response** (`SnapshotStatus`)
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `status` | string |  |
+| `snapshot_creation_date` | string |  |
+| `snapshot_name` | string |  |
+| `snapshot_deletion_time` | string |  |
+| `message` | string |  |
+
 
 **Usage**
 

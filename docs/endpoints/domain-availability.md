@@ -1,5 +1,7 @@
 # Domain Availability
 
+*Section: API Solutions*
+
 Check domain availability
 
 2 endpoint(s). All requests require your API key — see [Authentication](../authentication.md).
@@ -18,6 +20,26 @@ Check availability of a single domain and optionally get suggestions across mult
 | `sug` | query | no | boolean | Whether to return TLD suggestions alongside the queried domain. |
 | `count` | query | no | integer | Number of TLD suggestions to return when sug=true. Maximum is 100. |
 | `format` | query | no | string |  (one of: json, xml) |
+
+**Response** (`DomainAvailabilityResponse`)
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `domain` | string |  |
+| `availability` | string |  |
+| `message` | string |  |
+| `domain_available_response` | array<DomainAvailabilityItem> |  |
+
+<details><summary><code>DomainAvailabilityItem</code> object</summary>
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `domain` | string |  |
+| `availability` | string |  |
+| `status` | boolean |  |
+
+</details>
+
 
 **Usage**
 
@@ -116,6 +138,23 @@ Two bulk modes. Mode 1: POST domainNames array. Mode 2: POST tld array plus doma
 |-----------|----|----------|------|-------------|
 | `domain` | query | no | string | Required for TLD-mode bulk check (base domain). |
 | `format` | query | no | string |  (one of: json, xml) |
+
+**Response** (`BulkDomainAvailabilityResponse`)
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `bulk_domain_availability_response` | array<DomainAvailabilityItem> |  |
+
+<details><summary><code>DomainAvailabilityItem</code> object</summary>
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `domain` | string |  |
+| `availability` | string |  |
+| `status` | boolean |  |
+
+</details>
+
 
 **Usage**
 

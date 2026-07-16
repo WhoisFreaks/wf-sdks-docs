@@ -1,5 +1,7 @@
 # Databases - Expiring & Dropped
 
+*Section: Databases*
+
 Expiring and dropped domain downloads
 
 5 endpoint(s). All requests require your API key — see [Authentication](../authentication.md).

@@ -1,5 +1,7 @@
 # Databases - Newly Registered
 
+*Section: Databases*
+
 Newly registered domain downloads
 
 7 endpoint(s). All requests require your API key — see [Authentication](../authentication.md).

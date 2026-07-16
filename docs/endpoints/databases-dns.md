@@ -1,5 +1,7 @@
 # Databases - DNS
 
+*Section: Databases*
+
 DNS database snapshots
 
 3 endpoint(s). All requests require your API key — see [Authentication](../authentication.md).

@@ -1,5 +1,7 @@
 # SSL
 
+*Section: API Solutions*
+
 SSL certificate lookup
 
 1 endpoint(s). All requests require your API key — see [Authentication](../authentication.md).
@@ -18,6 +20,34 @@ Real-time SSL cert with optional chain.
 | `chain` | query | no | boolean |  |
 | `sslRaw` | query | no | boolean |  |
 | `format` | query | no | string |  (one of: json, xml) |
+
+**Response** (`SslResponse`)
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `domainName` | string |  |
+| `queryTime` | string |  |
+| `sslCertificates` | array<SslCertificate> |  |
+| `sslRaw` | string |  |
+
+<details><summary><code>SslCertificate</code> object</summary>
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `chainOrder` | string |  |
+| `authenticationType` | string |  |
+| `validityStartDate` | string |  |
+| `validityEndDate` | string |  |
+| `serialNumber` | string |  |
+| `signatureAlgorithm` | string |  |
+| `subject` | SslUnitInfo |  |
+| `issuer` | SslUnitInfo |  |
+| `publicKey` | SslPublicKeyInfo |  |
+| `extensions` | SslExtensionsInfo |  |
+| `pemRaw` | string |  |
+
+</details>
+
 
 **Usage**
 

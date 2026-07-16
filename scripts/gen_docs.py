@@ -427,6 +427,16 @@ def collect():
                 (deref(cv).get("schema") or {}).get("format") == "binary"
                 for cv in _content.values()
             )
+            # resolve the 200 JSON response schema name (for a response-fields table)
+            _resp_schema = None
+            for _ct, _cv in _content.items():
+                if _ct.startswith("application/json"):
+                    _sc = deref(_cv).get("schema") or {}
+                    if "$ref" in _sc:
+                        _resp_schema = _sc["$ref"].split("/")[-1]
+                    elif _sc.get("type") == "array" and "$ref" in (_sc.get("items") or {}):
+                        _resp_schema = _sc["items"]["$ref"].split("/")[-1]
+                    break
             out.setdefault(tag, []).append({
                 "tag": tag,
                 "method": method.upper(),
@@ -438,6 +448,7 @@ def collect():
                 "request_body": bool(op.get("requestBody")),
                 "body_model": _body_model(op),
                 "is_binary": _is_binary,
+                "response_schema": _resp_schema,
             })
     return out
 
@@ -978,9 +989,79 @@ INFO = spec["info"]
 # flatten the multi-line spec description into a single clean sentence
 DESC1 = " ".join(INFO["description"].split("\n\n")[0].split())
 
+# ---------- super-section grouping (API Solutions / Databases / Account) -----
+SECTIONS = [
+    ("API Solutions",
+     "Real-time and on-demand lookup APIs. Query a single domain, IP, or ASN and "
+     "get structured JSON (or XML) back immediately.",
+     ["WHOIS", "DNS", "Domain Availability", "Typosquatting", "SSL", "Geolocation",
+      "Subdomains", "IP Reputation", "Domain Reputation", "ASN WHOIS", "IP WHOIS"]),
+    ("Databases",
+     "Bulk data feeds and downloadable database snapshots for large-scale "
+     "processing — newly registered, expiring/dropped, and full WHOIS/DNS/IP datasets.",
+     ["Databases - Newly Registered", "Databases - Expiring & Dropped",
+      "Databases - WHOIS", "Databases - DNS", "Databases - Subdomains",
+      "Databases - IP Geolocation", "Databases - ASN WHOIS",
+      "Databases - IP WHOIS", "Databases - IP Security"]),
+    ("Account & Utilities",
+     "Manage your account, monitor API usage and credits, and rotate your API key.",
+     ["Account"]),
+]
+def section_of(tag):
+    for name, _desc, tags in SECTIONS:
+        if tag in tags:
+            return name
+    return "Other"
+
+def response_fields_table(op):
+    """Render a Markdown table of the top-level response fields, expanding nested
+    object $refs one level so the reader sees the shape without chasing refs."""
+    name = op.get("response_schema")
+    if not name:
+        return None
+    schema = (spec.get("components", {}).get("schemas", {}) or {}).get(name)
+    if not schema or "properties" not in schema:
+        return None
+    def type_of(v):
+        if "$ref" in v:
+            return v["$ref"].split("/")[-1]
+        if v.get("type") == "array":
+            it = v.get("items", {})
+            inner = it["$ref"].split("/")[-1] if "$ref" in it else it.get("type", "any")
+            return f"array<{inner}>"
+        return v.get("type", "any")
+    rows = ["| Field | Type | Description |", "|-------|------|-------------|"]
+    for k, v in schema["properties"].items():
+        desc = (v.get("description") or "").replace("\n", " ").strip()
+        rows.append(f"| `{k}` | {type_of(v)} | {desc} |")
+    out = [f"**Response** (`{name}`)", "", "\n".join(rows), ""]
+    # expand nested object schemas one level (unique refs referenced above)
+    nested = []
+    seen = set()
+    for v in schema["properties"].values():
+        ref = None
+        if "$ref" in v:
+            ref = v["$ref"].split("/")[-1]
+        elif v.get("type") == "array" and "$ref" in (v.get("items") or {}):
+            ref = v["items"]["$ref"].split("/")[-1]
+        if ref and ref not in seen:
+            seen.add(ref)
+            sub = (spec.get("components", {}).get("schemas", {}) or {}).get(ref)
+            if sub and "properties" in sub:
+                nested.append((ref, sub))
+    for ref, sub in nested:
+        sr = ["| Field | Type | Description |", "|-------|------|-------------|"]
+        for k, v in sub["properties"].items():
+            d = (v.get("description") or "").replace("\n", " ").strip()
+            sr.append(f"| `{k}` | {type_of(v)} | {d} |")
+        out += [f"<details><summary><code>{ref}</code> object</summary>", "",
+                "\n".join(sr), "", "</details>", ""]
+    return "\n".join(out)
+
 # ---------- endpoints/<tag>.md -----------------------------------------------
 for tag, ops in OPS.items():
     body = [f"# {tag}", ""]
+    body += [f"*Section: {section_of(tag)}*", ""]
     if TAG_DESC := next((t.get("description") for t in spec.get("tags", []) if t.get("name") == tag), None):
         body += [TAG_DESC, ""]
     body += [f"{len(ops)} endpoint(s). All requests require your API key — see "
@@ -992,6 +1073,11 @@ for tag, ops in OPS.items():
         if op["description"]:
             body += [op["description"], ""]
         body += ["**Parameters**", "", param_table(op["params"]), ""]
+        # response fields table (from the spec response schema), when not a binary download
+        if not op.get("is_binary"):
+            rt = response_fields_table(op)
+            if rt:
+                body += [rt, ""]
         # usage example in three common languages
         body += ["**Usage**", ""]
         for lang in ("python", "typescript", "go"):
@@ -1001,20 +1087,55 @@ for tag, ops in OPS.items():
         body += ["---", ""]
     w(f"docs/endpoints/{slug(tag)}.md", "\n".join(body))
 
-# ---------- endpoints/README.md (catalog) ------------------------------------
+# ---------- endpoints/README.md (catalog, grouped by section) ----------------
 cat = ["# Endpoint Reference", "",
        f"The WhoisFreaks API exposes **{TOTAL_OPS} endpoints** across "
-       f"**{len(OPS)} categories**. Every endpoint is available in all "
-       f"{len(LANGS)} SDKs. Browse by category:", ""]
-for tag in OPS:
-    cat.append(f"- [{tag}]({slug(tag)}.md) — {len(OPS[tag])} endpoint(s)")
-cat += ["", "## Full endpoint list", "",
-        "| Category | Method | Path | Operation |",
-        "|----------|--------|------|-----------|"]
+       f"**{len(OPS)} categories**, organized into {len(SECTIONS)} sections. "
+       f"Every endpoint is available in all {len(LANGS)} SDKs.", ""]
+for sec_name, sec_desc, sec_tags in SECTIONS:
+    present = [t for t in sec_tags if t in OPS]
+    if not present:
+        continue
+    total = sum(len(OPS[t]) for t in present)
+    cat += [f"## {sec_name}", "", sec_desc, "",
+            f"{total} endpoints across {len(present)} categories "
+            f"— see the [{sec_name} overview]({slug(sec_name)}.md).", ""]
+    for t in present:
+        cat.append(f"- [{t}]({slug(t)}.md) — {len(OPS[t])} endpoint(s)")
+    cat.append("")
+cat += ["## Full endpoint list", "",
+        "| Section | Category | Method | Path | Operation |",
+        "|---------|----------|--------|------|-----------|"]
 for tag, ops in OPS.items():
     for op in ops:
-        cat.append(f"| {tag} | {op['method']} | `{op['path']}` | `{op['op_id']}` |")
+        cat.append(f"| {section_of(tag)} | {tag} | {op['method']} | "
+                   f"`{op['path']}` | `{op['op_id']}` |")
 w("docs/endpoints/README.md", "\n".join(cat))
+
+# ---------- endpoints/<section>.md (section landing pages) -------------------
+for sec_name, sec_desc, sec_tags in SECTIONS:
+    present = [t for t in sec_tags if t in OPS]
+    if not present:
+        continue
+    total = sum(len(OPS[t]) for t in present)
+    sb = [f"# {sec_name}", "", sec_desc, "",
+          f"**{total} endpoints** across **{len(present)} categories**. "
+          f"All requests require your API key — see "
+          f"[Authentication](../authentication.md).", "",
+          "## Categories", ""]
+    for t in present:
+        tag_desc = next((td.get("description") for td in spec.get("tags", [])
+                         if td.get("name") == t), "") or ""
+        sb.append(f"### [{t}]({slug(t)}.md)")
+        sb.append("")
+        if tag_desc:
+            sb += [tag_desc, ""]
+        sb += [f"{len(OPS[t])} endpoint(s):", ""]
+        for op in OPS[t]:
+            sb.append(f"- **{op['summary'] or op['op_id']}** — "
+                      f"`{op['method']} {op['path']}`")
+        sb.append("")
+    w(f"docs/endpoints/{slug(sec_name)}.md", "\n".join(sb))
 
 # ---------- authentication.md ------------------------------------------------
 auth = f"""# Authentication
@@ -1024,6 +1145,10 @@ query parameter. Each SDK exposes a configuration hook so you set the key once
 and it is attached to every request automatically.
 
 ## Get an API key
+
+New to WhoisFreaks? Follow the step-by-step guide, [Getting Started with WhoisFreaks: How to Sign Up and Get Your API Key](https://whoisfreaks.com/resources/tutorial/getting-started-with-whoisfreaks-how-to-sign-up-and-get-your-api-key), which walks through account creation and locating your key.
+
+In short:
 
 1. Sign in at <https://billing.whoisfreaks.com>.
 2. Copy your API key from the dashboard.
@@ -1150,6 +1275,16 @@ lang_rows = "\n".join(
     for l in LANG_ORDER)
 cat_rows = "\n".join(f"| [{tag}](docs/endpoints/{slug(tag)}.md) | {len(ops)} |"
                      for tag, ops in OPS.items())
+# section-grouped rows for the root README
+_sr = []
+for _sn, _sd, _st in SECTIONS:
+    _present = [t for t in _st if t in OPS]
+    if not _present:
+        continue
+    _tot = sum(len(OPS[t]) for t in _present)
+    _cats = ", ".join(f"[{t}](docs/endpoints/{slug(t)}.md)" for t in _present)
+    _sr.append(f"### [{_sn}](docs/endpoints/{slug(_sn)}.md) — {_tot} endpoints\n\n{_sd}\n\n{_cats}\n")
+section_rows = "\n".join(_sr)
 
 readme = f"""# WhoisFreaks SDK Documentation
 
@@ -1196,14 +1331,11 @@ print(result)
 
 The equivalent for every other language is in its [language guide](#language-guides).
 
-## Endpoint categories
+## Endpoint sections
 
-| Category | Endpoints |
-|----------|-----------|
-{cat_rows}
+The API is organized into three sections. See the [full endpoint reference](docs/endpoints/README.md) for every operation with parameters, response fields, and per-language examples.
 
-See the [full endpoint reference](docs/endpoints/README.md) for the complete
-list with parameters and per-language examples.
+{section_rows}
 
 ## Authentication at a glance
 

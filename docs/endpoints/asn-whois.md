@@ -1,5 +1,7 @@
 # ASN WHOIS
 
+*Section: API Solutions*
+
 Autonomous System Number WHOIS
 
 1 endpoint(s). All requests require your API key — see [Authentication](../authentication.md).
@@ -16,6 +18,36 @@ WHOIS for an ASN. 1 credit.
 |-----------|----|----------|------|-------------|
 | `asn` | query | yes | string |  |
 | `format` | query | no | string |  (one of: json, xml) |
+
+**Response** (`AsnWhoisResponse`)
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `asn` | AsnInfo |  |
+
+<details><summary><code>AsnInfo</code> object</summary>
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `as_number` | string |  |
+| `organization` | string |  |
+| `country` | string |  |
+| `type` | string |  |
+| `domain` | string |  |
+| `date_allocated` | string |  |
+| `asn_name` | string |  |
+| `allocation_status` | string |  |
+| `num_of_ipv4_routes` | string |  |
+| `num_of_ipv6_routes` | string |  |
+| `rir` | string |  |
+| `routes` | array<string> |  |
+| `downstreams` | array<AsnPeer> |  |
+| `upstreams` | array<AsnPeer> |  |
+| `peers` | array<AsnPeer> |  |
+| `whois_response` | string |  |
+
+</details>
+
 
 **Usage**
 

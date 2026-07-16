@@ -1,5 +1,7 @@
 # Account
 
+_Section: Account & Utilities_
+
 Account, API key, and usage utilities
 
 3 endpoint(s). All requests require your API key — see [Authentication](../authentication.md).
@@ -12,8 +14,8 @@ Rotate API Key. Returns the file/snapshot described by this operation.
 
 **Parameters**
 
-| Parameter | In | Required | Type | Description |
-|-----------|----|----------|------|-------------|
+| Parameter | In  | Required | Type | Description |
+| --------- | --- | -------- | ---- | ----------- |
 
 **Usage**
 
@@ -45,15 +47,14 @@ print(result)
 //   (no parameters; the API key is set on the client)
 import { Configuration, AccountApi } from "whoisfreaks";
 
-const config = new Configuration({ apiKey: "YOUR_API_KEY" });  // set once
+const config = new Configuration({ apiKey: "YOUR_API_KEY" }); // set once
 const api = new AccountApi(config);
 
 async function main() {
-  const result = await api.rotateApiKey({  });
-  console.log(result);
+    const result = await api.rotateApiKey({});
+    console.log(result);
 }
 main().catch(console.error);
-
 ```
 
 </details>
@@ -99,8 +100,37 @@ Account Usage. Returns the file/snapshot described by this operation.
 
 **Parameters**
 
-| Parameter | In | Required | Type | Description |
-|-----------|----|----------|------|-------------|
+| Parameter | In  | Required | Type | Description |
+| --------- | --- | -------- | ---- | ----------- |
+
+**Response** (`AccountUsageResponse`)
+
+| Field             | Type            | Description |
+| ----------------- | --------------- | ----------- |
+| `apiKey`          | string          |             |
+| `apiCredits`      | ApiCredits      |             |
+| `apiSubscription` | ApiSubscription |             |
+
+<details><summary><code>ApiCredits</code> object</summary>
+
+| Field           | Type    | Description |
+| --------------- | ------- | ----------- |
+| `totalCredits`  | integer |             |
+| `servedRequest` | integer |             |
+
+</details>
+
+<details><summary><code>ApiSubscription</code> object</summary>
+
+| Field                     | Type    | Description |
+| ------------------------- | ------- | ----------- |
+| `requestLimit`            | integer |             |
+| `servedRequests`          | integer |             |
+| `subscriptionStatus`      | string  |             |
+| `surchargeRequestLimit`   | integer |             |
+| `servedSurchargeRequests` | integer |             |
+
+</details>
 
 **Usage**
 
@@ -132,15 +162,14 @@ print(result)
 //   (no parameters; the API key is set on the client)
 import { Configuration, AccountApi } from "whoisfreaks";
 
-const config = new Configuration({ apiKey: "YOUR_API_KEY" });  // set once
+const config = new Configuration({ apiKey: "YOUR_API_KEY" }); // set once
 const api = new AccountApi(config);
 
 async function main() {
-  const result = await api.accountUsage({  });
-  console.log(result);
+    const result = await api.accountUsage({});
+    console.log(result);
 }
 main().catch(console.error);
-
 ```
 
 </details>
@@ -186,8 +215,51 @@ No API key required. Returns freshness of all downloadable files.
 
 **Parameters**
 
-| Parameter | In | Required | Type | Description |
-|-----------|----|----------|------|-------------|
+| Parameter | In  | Required | Type | Description |
+| --------- | --- | -------- | ---- | ----------- |
+
+**Response** (`DatabaseFileStatus`)
+
+| Field                    | Type            | Description |
+| ------------------------ | --------------- | ----------- |
+| `newly`                  | NewlyStatus     |             |
+| `expired`                | DateRangeStatus |             |
+| `cleaned_expired`        | DateRangeStatus |             |
+| `dropped`                | DateRangeStatus |             |
+| `dropped_with_backlinks` | DateRangeStatus |             |
+| `database_updates`       | DatabaseUpdates |             |
+
+<details><summary><code>NewlyStatus</code> object</summary>
+
+| Field           | Type            | Description |
+| --------------- | --------------- | ----------- |
+| `gtld`          | DateRangeStatus |             |
+| `cctld`         | DateRangeStatus |             |
+| `dns`           | DateRangeStatus |             |
+| `cleaned_gtld`  | DateRangeStatus |             |
+| `cleaned_cctld` | DateRangeStatus |             |
+
+</details>
+
+<details><summary><code>DateRangeStatus</code> object</summary>
+
+| Field            | Type   | Description |
+| ---------------- | ------ | ----------- |
+| `available_from` | string |             |
+| `last_update`    | string |             |
+
+</details>
+
+<details><summary><code>DatabaseUpdates</code> object</summary>
+
+| Field          | Type              | Description |
+| -------------- | ----------------- | ----------- |
+| `domain_whois` | UpdateFrequencies |             |
+| `dns`          | UpdateFrequencies |             |
+| `subdomains`   | UpdateFrequencies |             |
+| `ip_whois`     | UpdateFrequencies |             |
+
+</details>
 
 **Usage**
 
@@ -219,15 +291,14 @@ print(result)
 //   (no parameters; the API key is set on the client)
 import { Configuration, AccountApi } from "whoisfreaks";
 
-const config = new Configuration({ apiKey: "YOUR_API_KEY" });  // set once
+const config = new Configuration({ apiKey: "YOUR_API_KEY" }); // set once
 const api = new AccountApi(config);
 
 async function main() {
-  const result = await api.databaseFileStatus({  });
-  console.log(result);
+    const result = await api.databaseFileStatus({});
+    console.log(result);
 }
 main().catch(console.error);
-
 ```
 
 </details>

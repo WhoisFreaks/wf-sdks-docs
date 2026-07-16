@@ -1,5 +1,7 @@
 # DNS
 
+*Section: API Solutions*
+
 DNS lookup APIs (live, historical, reverse, bulk)
 
 4 endpoint(s). All requests require your API key — see [Authentication](../authentication.md).
@@ -18,6 +20,41 @@ Real-time DNS record lookup. 1 credit per query.
 | `ipAddress` | query | no | string | Use for PTR lookups |
 | `type` | query | yes | string | all or comma-separated: A,MX,NS,TXT,SOA,SPF,AAAA,CNAME |
 | `format` | query | no | string |  (one of: json, xml) |
+
+**Response** (`DnsResponse`)
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `domainName` | string |  |
+| `ipAddress` | string |  |
+| `queryTime` | string |  |
+| `status` | boolean |  |
+| `domainRegistered` | boolean |  |
+| `dnsTypes` | object |  |
+| `dnsRecords` | array<DnsRecord> |  |
+
+<details><summary><code>DnsRecord</code> object</summary>
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `type` | string |  |
+| `name` | string |  |
+| `ttl` | integer |  |
+| `address` | string |  |
+| `priority` | integer |  |
+| `exchange` | string |  |
+| `target` | string |  |
+| `strings` | array<string> |  |
+| `host` | string |  |
+| `admin` | string |  |
+| `serial` | integer |  |
+| `refresh` | integer |  |
+| `retry` | integer |  |
+| `expire` | integer |  |
+| `minimum` | integer |  |
+
+</details>
+
 
 **Usage**
 
@@ -118,6 +155,30 @@ All historical DNS records. 2 credits per page (100 records/page).
 | `type` | query | yes | string |  |
 | `page` | query | no | integer |  |
 | `format` | query | no | string |  (one of: json, xml) |
+
+**Response** (`HistoricalDnsResponse`)
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `totalPages` | integer |  |
+| `currenPage` | integer |  |
+| `totalRecords` | integer |  |
+| `historicalDns` | array<DnsResponse> |  |
+
+<details><summary><code>DnsResponse</code> object</summary>
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `domainName` | string |  |
+| `ipAddress` | string |  |
+| `queryTime` | string |  |
+| `status` | boolean |  |
+| `domainRegistered` | boolean |  |
+| `dnsTypes` | object |  |
+| `dnsRecords` | array<DnsRecord> |  |
+
+</details>
+
 
 **Usage**
 
@@ -220,6 +281,30 @@ Search domains by IP or DNS value. 5 credits per page.
 | `page` | query | no | integer |  |
 | `format` | query | no | string |  (one of: json, xml) |
 
+**Response** (`ReverseDnsResponse`)
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `totalRecords` | integer |  |
+| `totalPages` | integer |  |
+| `currentPage` | integer |  |
+| `reverseDnsRecords` | array<DnsResponse> |  |
+
+<details><summary><code>DnsResponse</code> object</summary>
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `domainName` | string |  |
+| `ipAddress` | string |  |
+| `queryTime` | string |  |
+| `status` | boolean |  |
+| `domainRegistered` | boolean |  |
+| `dnsTypes` | object |  |
+| `dnsRecords` | array<DnsRecord> |  |
+
+</details>
+
+
 **Usage**
 
 <details><summary>Python</summary>
@@ -320,6 +405,27 @@ Up to 100 domains + 100 IPs in one request.
 |-----------|----|----------|------|-------------|
 | `type` | query | yes | string |  |
 | `format` | query | no | string |  (one of: json, xml) |
+
+**Response** (`BulkDnsResponse`)
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `bulk_dns_info` | array<DnsResponse> |  |
+
+<details><summary><code>DnsResponse</code> object</summary>
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `domainName` | string |  |
+| `ipAddress` | string |  |
+| `queryTime` | string |  |
+| `status` | boolean |  |
+| `domainRegistered` | boolean |  |
+| `dnsTypes` | object |  |
+| `dnsRecords` | array<DnsRecord> |  |
+
+</details>
+
 
 **Usage**
 

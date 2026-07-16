@@ -1,5 +1,7 @@
 # Databases - IP Security
 
+*Section: Databases*
+
 IP security database snapshots
 
 2 endpoint(s). All requests require your API key — see [Authentication](../authentication.md).
@@ -108,6 +110,17 @@ IP Security Snapshot Status. Returns the file/snapshot described by this operati
 
 | Parameter | In | Required | Type | Description |
 |-----------|----|----------|------|-------------|
+
+**Response** (`SnapshotStatus`)
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `status` | string |  |
+| `snapshot_creation_date` | string |  |
+| `snapshot_name` | string |  |
+| `snapshot_deletion_time` | string |  |
+| `message` | string |  |
+
 
 **Usage**
 

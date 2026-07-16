@@ -1,5 +1,7 @@
 # IP WHOIS
 
+*Section: API Solutions*
+
 IP address WHOIS
 
 1 endpoint(s). All requests require your API key — see [Authentication](../authentication.md).
@@ -16,6 +18,186 @@ WHOIS for an IP address. 1 credit.
 |-----------|----|----------|------|-------------|
 | `ip` | query | yes | string |  |
 | `format` | query | no | string |  (one of: json, xml) |
+
+**Response** (`IpWhoisResponse`)
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `status` | boolean |  |
+| `ip_address` | string |  |
+| `as_number` | string |  |
+| `query_time` | string |  |
+| `whois_server` | string |  |
+| `whois_raw_response` | string |  |
+| `r_whois_raw_response` | string |  |
+| `inet_nums` | array<InetNum> |  |
+| `organization` | WhoisOrganization |  |
+| `irt` | Irt |  |
+| `administrative_contacts` | array<WhoisPerson> |  |
+| `technical_contacts` | array<WhoisPerson> |  |
+| `abuse_contacts` | array<WhoisPerson> |  |
+| `routes` | array<Route> |  |
+
+<details><summary><code>InetNum</code> object</summary>
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `start_ip` | string |  |
+| `end_ip` | string |  |
+| `cidr` | array<string> |  |
+| `net_name` | string |  |
+| `net_handle` | string |  |
+| `description` | array<string> |  |
+| `countries` | array<string> |  |
+| `geofeed` | string |  |
+| `latitude` | number |  |
+| `longitude` | number |  |
+| `city` | string |  |
+| `languages` | array<string> |  |
+| `status` | string |  |
+| `organization` | string |  |
+| `sponsoring_organization` | string |  |
+| `remarks` | array<string> |  |
+| `assignment_size` | string |  |
+| `notify` | array<string> |  |
+| `mnt_by` | array<string> |  |
+| `mnt_lower` | array<string> |  |
+| `mnt_domains` | array<string> |  |
+| `mnt_routes` | array<string> |  |
+| `mnt_irt` | array<string> |  |
+| `date_created` | string |  |
+| `date_updated` | string |  |
+| `source` | string |  |
+| `parents` | array<string> |  |
+
+</details>
+
+<details><summary><code>WhoisOrganization</code> object</summary>
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `handle` | string |  |
+| `name` | string |  |
+| `type` | string |  |
+| `description` | array<string> |  |
+| `address` | array<string> |  |
+| `street` | string |  |
+| `city` | string |  |
+| `district` | string |  |
+| `state` | string |  |
+| `zip_code` | string |  |
+| `country` | array<string> |  |
+| `latitude` | number |  |
+| `longitude` | number |  |
+| `email` | array<string> |  |
+| `abuse_mailbox` | array<string> |  |
+| `phone` | array<string> |  |
+| `fax_no` | array<string> |  |
+| `organizations` | array<string> |  |
+| `admin_contacts` | array<string> |  |
+| `tech_contacts` | array<string> |  |
+| `abuse_contacts` | array<string> |  |
+| `languages` | array<string> |  |
+| `remarks` | array<string> |  |
+| `notify` | array<string> |  |
+| `ref_nfy` | array<string> |  |
+| `mnt_ref` | array<string> |  |
+| `mnt_by` | array<string> |  |
+| `date_created` | string |  |
+| `date_updated` | string |  |
+| `source` | string |  |
+
+</details>
+
+<details><summary><code>Irt</code> object</summary>
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `handle` | string |  |
+| `address` | array<string> |  |
+| `street` | string |  |
+| `city` | string |  |
+| `district` | string |  |
+| `state` | string |  |
+| `zip_code` | string |  |
+| `country` | string |  |
+| `email` | array<string> |  |
+| `abuse_mailbox` | array<string> |  |
+| `phone` | array<string> |  |
+| `fax_no` | array<string> |  |
+| `organizations` | array<string> |  |
+| `admin_contacts` | array<string> |  |
+| `tech_contacts` | array<string> |  |
+| `remarks` | array<string> |  |
+| `signature` | array<string> |  |
+| `encryption` | array<string> |  |
+| `auth` | array<string> |  |
+| `notify` | array<string> |  |
+| `irt_nfy` | array<string> |  |
+| `mnt_by` | array<string> |  |
+| `mnt_ref` | array<string> |  |
+
+</details>
+
+<details><summary><code>WhoisPerson</code> object</summary>
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `handle` | string |  |
+| `name` | string |  |
+| `address` | array<string> |  |
+| `street` | string |  |
+| `city` | string |  |
+| `district` | string |  |
+| `state` | string |  |
+| `zip_code` | string |  |
+| `country` | string |  |
+| `email` | array<string> |  |
+| `abuse_mailbox` | array<string> |  |
+| `phone` | array<string> |  |
+| `fax_no` | array<string> |  |
+| `organizations` | array<string> |  |
+| `admin_contacts` | array<string> |  |
+| `tech_contacts` | array<string> |  |
+| `remarks` | array<string> |  |
+| `notify` | array<string> |  |
+| `mnt_by` | array<string> |  |
+| `mnt_ref` | array<string> |  |
+| `date_created` | string |  |
+| `date_updated` | string |  |
+| `source` | string |  |
+
+</details>
+
+<details><summary><code>Route</code> object</summary>
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `route` | string |  |
+| `description` | array<string> |  |
+| `origin` | string |  |
+| `pingable` | array<string> |  |
+| `ping_hdl` | array<string> |  |
+| `holes` | array<string> |  |
+| `country` | string |  |
+| `organizations` | array<string> |  |
+| `member_of` | array<string> |  |
+| `inject` | array<string> |  |
+| `aggr_mtd` | string |  |
+| `aggr_bndry` | string |  |
+| `export_comps` | string |  |
+| `components` | string |  |
+| `remarks` | array<string> |  |
+| `notify` | array<string> |  |
+| `mnt_lower` | array<string> |  |
+| `mnt_routes` | array<string> |  |
+| `mnt_by` | array<string> |  |
+| `date_created` | string |  |
+| `date_updated` | string |  |
+| `source` | string |  |
+
+</details>
+
 
 **Usage**
 

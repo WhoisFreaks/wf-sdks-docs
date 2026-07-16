@@ -1,5 +1,7 @@
 # Databases - WHOIS
 
+*Section: Databases*
+
 WHOIS database snapshots
 
 3 endpoint(s). All requests require your API key — see [Authentication](../authentication.md).

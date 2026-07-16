@@ -1,5 +1,7 @@
 # Typosquatting
 
+*Section: API Solutions*
+
 Detect typo variants of brand domains
 
 1 endpoint(s). All requests require your API key — see [Authentication](../authentication.md).
@@ -17,6 +19,31 @@ Find typo variants of a brand. 5 credits per page.
 | `keyword` | query | no | string |  |
 | `pattern` | query | no | string |  |
 | `pageToken` | query | no | string |  |
+
+**Response** (`TyposquattingResponse`)
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `status` | boolean |  |
+| `totalRecords` | integer |  |
+| `currentPage` | integer |  |
+| `totalPages` | integer |  |
+| `hasNextPage` | boolean |  |
+| `nextPageToken` | string |  |
+| `domains` | array<TyposquattingDomain> |  |
+
+<details><summary><code>TyposquattingDomain</code> object</summary>
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `domainName` | string |  |
+| `createDate` | string |  |
+| `expiryDate` | string |  |
+| `lastSeen` | string |  |
+| `isDropped` | boolean |  |
+
+</details>
+
 
 **Usage**
 

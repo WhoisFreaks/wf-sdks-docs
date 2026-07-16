@@ -1,5 +1,7 @@
 # WHOIS
 
+*Section: API Solutions*
+
 WHOIS lookup APIs (live, historical, reverse, bulk)
 
 4 endpoint(s). All requests require your API key — see [Authentication](../authentication.md).
@@ -16,6 +18,117 @@ Real-time WHOIS lookup from authoritative servers. Cost 1 credit.
 |-----------|----|----------|------|-------------|
 | `domainName` | query | yes | string |  |
 | `format` | query | no | string |  (one of: json, xml) |
+
+**Response** (`WhoisResponse`)
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `status` | boolean |  |
+| `domain_name` | string |  |
+| `query_time` | string |  |
+| `whois_server` | string |  |
+| `domain_registered` | string |  |
+| `secure_dns` | boolean |  |
+| `domain_handle` | string |  |
+| `create_date` | string |  |
+| `update_date` | string |  |
+| `expiry_date` | string |  |
+| `domain_registrar` | RegistrarInformation |  |
+| `reseller_contact` | ResellerContact |  |
+| `registrant_contact` | PersonalInformation |  |
+| `administrative_contact` | PersonalInformation |  |
+| `technical_contact` | PersonalInformation |  |
+| `billing_contact` | PersonalInformation |  |
+| `eligibility_info` | EligibilityInfo |  |
+| `abuse_contact` | RegistrarInformation |  |
+| `name_servers` | array<string> |  |
+| `domain_status` | array<string> |  |
+| `whois_raw_domain` | string |  |
+| `registry_data` | RegistryData |  |
+
+<details><summary><code>RegistrarInformation</code> object</summary>
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `id` | string |  |
+| `id_type` | string |  |
+| `iana_id` | string |  |
+| `registry_id` | string |  |
+| `handle` | string |  |
+| `status` | string |  |
+| `registrar_name` | string |  |
+| `normalized_name` | string |  |
+| `whois_server` | string |  |
+| `rdap_server` | string |  |
+| `website_url` | string |  |
+| `email_address` | string |  |
+| `phone_number` | string |  |
+| `authoritative_registry_name` | string |  |
+| `organization_number` | string |  |
+| `is_sponsor` | boolean |  |
+
+</details>
+
+<details><summary><code>ResellerContact</code> object</summary>
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `name` | string |  |
+| `email_address` | string |  |
+| `phone` | string |  |
+
+</details>
+
+<details><summary><code>PersonalInformation</code> object</summary>
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `id` | string |  |
+| `id_type` | string |  |
+| `handle` | string |  |
+| `name` | string |  |
+| `company` | string |  |
+| `street` | string |  |
+| `city` | string |  |
+| `state` | string |  |
+| `zip_code` | string |  |
+| `country_name` | string |  |
+| `country_code` | string |  |
+| `email_address` | string |  |
+| `phone` | string |  |
+| `fax` | string |  |
+| `mailing_address` | string |  |
+
+</details>
+
+<details><summary><code>EligibilityInfo</code> object</summary>
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `id` | string |  |
+| `name` | string |  |
+| `type` | string |  |
+
+</details>
+
+<details><summary><code>RegistryData</code> object</summary>
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `domain_name` | string |  |
+| `query_time` | string |  |
+| `whois_server` | string |  |
+| `domain_registered` | string |  |
+| `create_date` | string |  |
+| `update_date` | string |  |
+| `expiry_date` | string |  |
+| `domain_registrar` | RegistrarInformation |  |
+| `name_servers` | array<string> |  |
+| `domain_status` | array<string> |  |
+| `whois_raw_domain` | string |  |
+
+</details>
+
 
 **Usage**
 
@@ -107,6 +220,23 @@ Up to 100 domains in one request. 1 credit per successful domain.
 | Parameter | In | Required | Type | Description |
 |-----------|----|----------|------|-------------|
 | `format` | query | no | string |  (one of: json, xml) |
+
+**Response** (`BulkWhoisResponse`)
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `bulk_whois_response` | array<BulkWhoisItem> |  |
+
+<details><summary><code>BulkWhoisItem</code> object</summary>
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `status` | boolean |  |
+| `domain_name` | string |  |
+| `error` | string |  |
+
+</details>
+
 
 **Usage**
 
@@ -201,6 +331,46 @@ func main() {
 | `page` | query | no | integer | Page number |
 | `format` | query | no | string |  (one of: json, xml) |
 
+**Response** (`WhoisHistoricalResponse`)
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `status` | boolean |  |
+| `whois` | string |  |
+| `total_records` | string |  |
+| `whois_domains_historical` | array<WhoisHistoricalItem> |  |
+
+<details><summary><code>WhoisHistoricalItem</code> object</summary>
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `num` | integer |  |
+| `status` | boolean |  |
+| `domain_name` | string |  |
+| `query_time` | string |  |
+| `whois_server` | string |  |
+| `domain_registered` | string |  |
+| `secure_dns` | boolean |  |
+| `domain_handle` | string |  |
+| `create_date` | string |  |
+| `update_date` | string |  |
+| `expiry_date` | string |  |
+| `domain_registrar` | RegistrarInformation |  |
+| `reseller_contact` | ResellerContact |  |
+| `registrant_contact` | PersonalInformation |  |
+| `administrative_contact` | PersonalInformation |  |
+| `technical_contact` | PersonalInformation |  |
+| `billing_contact` | PersonalInformation |  |
+| `eligibility_info` | EligibilityInfo |  |
+| `abuse_contact` | RegistrarInformation |  |
+| `name_servers` | array<string> |  |
+| `domain_status` | array<string> |  |
+| `whois_raw_domain` | string |  |
+| `registry_data` | RegistryData |  |
+
+</details>
+
+
 **Usage**
 
 <details><summary>Python</summary>
@@ -294,6 +464,46 @@ func main() {
 | `keyword` | query | yes | string | Keyword to search across WHOIS records |
 | `page` | query | no | integer | Page number |
 | `format` | query | no | string |  (one of: json, xml) |
+
+**Response** (`ReverseWhoisResponse`)
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `Total_Result` | integer |  |
+| `Total_Pages` | integer |  |
+| `Current_Page` | integer |  |
+| `whois_domains_historical` | array<WhoisHistoricalItem> |  |
+
+<details><summary><code>WhoisHistoricalItem</code> object</summary>
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `num` | integer |  |
+| `status` | boolean |  |
+| `domain_name` | string |  |
+| `query_time` | string |  |
+| `whois_server` | string |  |
+| `domain_registered` | string |  |
+| `secure_dns` | boolean |  |
+| `domain_handle` | string |  |
+| `create_date` | string |  |
+| `update_date` | string |  |
+| `expiry_date` | string |  |
+| `domain_registrar` | RegistrarInformation |  |
+| `reseller_contact` | ResellerContact |  |
+| `registrant_contact` | PersonalInformation |  |
+| `administrative_contact` | PersonalInformation |  |
+| `technical_contact` | PersonalInformation |  |
+| `billing_contact` | PersonalInformation |  |
+| `eligibility_info` | EligibilityInfo |  |
+| `abuse_contact` | RegistrarInformation |  |
+| `name_servers` | array<string> |  |
+| `domain_status` | array<string> |  |
+| `whois_raw_domain` | string |  |
+| `registry_data` | RegistryData |  |
+
+</details>
+
 
 **Usage**
 

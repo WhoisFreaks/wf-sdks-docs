@@ -1,5 +1,7 @@
 # Domain Reputation
 
+*Section: API Solutions*
+
 Real-time domain threat assessment and trust scoring
 
 1 endpoint(s). All requests require your API key — see [Authentication](../authentication.md).
@@ -16,6 +18,90 @@ Real-time domain threat assessment. Returns risk verdict, trust score, DGA analy
 |-----------|----|----------|------|-------------|
 | `domainName` | query | yes | string | The domain name to assess |
 | `format` | query | no | string |  (one of: json, xml) |
+
+**Response** (`DomainReputationResponse`)
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `input` | DomainReputationInput |  |
+| `assessed_at` | string |  |
+| `version` | string |  |
+| `processing_time_ms` | integer |  |
+| `risk_category` | RiskCategory |  |
+| `dga_score` | DgaScore |  |
+| `trust_signals` | TrustSignals |  |
+| `intelligence` | ReputationIntelligence |  |
+| `evidence_summary` | EvidenceSummary |  |
+| `errors` | array<string> |  |
+
+<details><summary><code>DomainReputationInput</code> object</summary>
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `domain` | string |  |
+
+</details>
+
+<details><summary><code>RiskCategory</code> object</summary>
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `verdict` | string |  |
+| `confidence` | number |  |
+| `primary_threat` | string |  |
+| `severity` | string |  |
+| `threat_types` | array<string> |  |
+| `sources` | array<ThreatSource> |  |
+| `pivot_matches` | array<PivotMatch> |  |
+
+</details>
+
+<details><summary><code>DgaScore</code> object</summary>
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `score` | number |  |
+| `is_dga` | boolean |  |
+| `model` | string |  |
+| `features` | DgaFeatures |  |
+| `interpretation` | string |  |
+
+</details>
+
+<details><summary><code>TrustSignals</code> object</summary>
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `trust_score` | integer |  |
+| `trust_band` | string |  |
+| `signals` | ReputationSignals |  |
+| `indicators` | ReputationIndicators |  |
+
+</details>
+
+<details><summary><code>ReputationIntelligence</code> object</summary>
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `ioc_type` | string |  |
+| `ioc_value` | string |  |
+| `related_iocs` | array<RelatedIoc> |  |
+| `feed_tags` | array<string> |  |
+| `stix_pattern` | string |  |
+| `recommended_action` | string |  |
+| `first_seen` | string |  |
+| `last_seen` | string |  |
+
+</details>
+
+<details><summary><code>EvidenceSummary</code> object</summary>
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `why_flagged` | array<string> |  |
+
+</details>
+
 
 **Usage**
 

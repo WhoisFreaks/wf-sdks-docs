@@ -1,5 +1,7 @@
 # IP Reputation
 
+*Section: API Solutions*
+
 IP threat intelligence
 
 2 endpoint(s). All requests require your API key — see [Authentication](../authentication.md).
@@ -15,6 +17,94 @@ Threat intel for IP — VPN, proxy, Tor, bots. 1 credit.
 | Parameter | In | Required | Type | Description |
 |-----------|----|----------|------|-------------|
 | `ip` | query | yes | string |  |
+
+**Response** (`IpReputationResponse`)
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `ip` | string |  |
+| `location` | IpLocation |  |
+| `network` | IpSecurityNetwork |  |
+| `asn` | IpSecurityAsn |  |
+| `security` | IpSecurity |  |
+
+<details><summary><code>IpLocation</code> object</summary>
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `continent_code` | string |  |
+| `continent_name` | string |  |
+| `country_code2` | string |  |
+| `country_code3` | string |  |
+| `country_name` | string |  |
+| `country_name_official` | string |  |
+| `country_capital` | string |  |
+| `state_prov` | string |  |
+| `state_code` | string |  |
+| `district` | string |  |
+| `city` | string |  |
+| `locality` | string |  |
+| `accuracy_radius` | string |  |
+| `confidence` | string |  |
+| `zipcode` | string |  |
+| `latitude` | string |  |
+| `longitude` | string |  |
+| `is_eu` | boolean |  |
+| `geoname_id` | string |  |
+| `country_emoji` | string |  |
+
+</details>
+
+<details><summary><code>IpSecurityNetwork</code> object</summary>
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `connection_type` | string |  |
+| `route` | string |  |
+| `is_anycast` | boolean |  |
+
+</details>
+
+<details><summary><code>IpSecurityAsn</code> object</summary>
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `as_number` | string |  |
+| `organization` | string |  |
+| `country` | string |  |
+| `type` | string |  |
+| `domain` | string |  |
+| `date_allocated` | string |  |
+| `rir` | string |  |
+
+</details>
+
+<details><summary><code>IpSecurity</code> object</summary>
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `threat_score` | integer |  |
+| `is_tor` | boolean |  |
+| `is_proxy` | boolean |  |
+| `proxy_provider_names` | array<string> |  |
+| `proxy_confidence_score` | integer |  |
+| `proxy_last_seen` | string |  |
+| `is_residential_proxy` | boolean |  |
+| `is_vpn` | boolean |  |
+| `vpn_provider_names` | array<string> |  |
+| `vpn_confidence_score` | integer |  |
+| `vpn_last_seen` | string |  |
+| `is_relay` | boolean |  |
+| `relay_provider_name` | string |  |
+| `is_anonymous` | boolean |  |
+| `is_known_attacker` | boolean |  |
+| `is_bot` | boolean |  |
+| `is_spam` | boolean |  |
+| `is_cloud_provider` | boolean |  |
+| `cloud_provider_name` | string |  |
+
+</details>
+
 
 **Usage**
 
@@ -102,6 +192,94 @@ Up to 100 IPs.
 
 | Parameter | In | Required | Type | Description |
 |-----------|----|----------|------|-------------|
+
+**Response** (`IpReputationResponse`)
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `ip` | string |  |
+| `location` | IpLocation |  |
+| `network` | IpSecurityNetwork |  |
+| `asn` | IpSecurityAsn |  |
+| `security` | IpSecurity |  |
+
+<details><summary><code>IpLocation</code> object</summary>
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `continent_code` | string |  |
+| `continent_name` | string |  |
+| `country_code2` | string |  |
+| `country_code3` | string |  |
+| `country_name` | string |  |
+| `country_name_official` | string |  |
+| `country_capital` | string |  |
+| `state_prov` | string |  |
+| `state_code` | string |  |
+| `district` | string |  |
+| `city` | string |  |
+| `locality` | string |  |
+| `accuracy_radius` | string |  |
+| `confidence` | string |  |
+| `zipcode` | string |  |
+| `latitude` | string |  |
+| `longitude` | string |  |
+| `is_eu` | boolean |  |
+| `geoname_id` | string |  |
+| `country_emoji` | string |  |
+
+</details>
+
+<details><summary><code>IpSecurityNetwork</code> object</summary>
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `connection_type` | string |  |
+| `route` | string |  |
+| `is_anycast` | boolean |  |
+
+</details>
+
+<details><summary><code>IpSecurityAsn</code> object</summary>
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `as_number` | string |  |
+| `organization` | string |  |
+| `country` | string |  |
+| `type` | string |  |
+| `domain` | string |  |
+| `date_allocated` | string |  |
+| `rir` | string |  |
+
+</details>
+
+<details><summary><code>IpSecurity</code> object</summary>
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `threat_score` | integer |  |
+| `is_tor` | boolean |  |
+| `is_proxy` | boolean |  |
+| `proxy_provider_names` | array<string> |  |
+| `proxy_confidence_score` | integer |  |
+| `proxy_last_seen` | string |  |
+| `is_residential_proxy` | boolean |  |
+| `is_vpn` | boolean |  |
+| `vpn_provider_names` | array<string> |  |
+| `vpn_confidence_score` | integer |  |
+| `vpn_last_seen` | string |  |
+| `is_relay` | boolean |  |
+| `relay_provider_name` | string |  |
+| `is_anonymous` | boolean |  |
+| `is_known_attacker` | boolean |  |
+| `is_bot` | boolean |  |
+| `is_spam` | boolean |  |
+| `is_cloud_provider` | boolean |  |
+| `cloud_provider_name` | string |  |
+
+</details>
+
 
 **Usage**
 

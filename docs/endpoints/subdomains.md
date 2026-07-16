@@ -1,5 +1,7 @@
 # Subdomains
 
+*Section: API Solutions*
+
 Subdomain enumeration
 
 1 endpoint(s). All requests require your API key — see [Authentication](../authentication.md).
@@ -20,6 +22,31 @@ All subdomains including nested. 2 credits per query.
 | `status` | query | no | string |  (one of: active, inactive) |
 | `page` | query | no | integer |  |
 | `format` | query | no | string |  (one of: json, xml) |
+
+**Response** (`SubdomainsResponse`)
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `domain` | string |  |
+| `status` | boolean |  |
+| `current_page` | integer |  |
+| `total_pages` | integer |  |
+| `query_time` | string |  |
+| `total_records` | integer |  |
+| `subdomains` | array<Subdomain> |  |
+
+<details><summary><code>Subdomain</code> object</summary>
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `subdomain` | string |  |
+| `first_seen` | string |  |
+| `last_seen` | string |  |
+| `inactive_from` | string |  |
+| `dns_records` | DnsResponse |  |
+
+</details>
+
 
 **Usage**
 

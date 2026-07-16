@@ -16,18 +16,18 @@ its language's standard registry.
 
 ## Language guides
 
-| Language | Registry | Package | Guide |
-|----------|----------|---------|-------|
-| Python | PyPI | `whoisfreaks` | [Guide](docs/languages/python.md) |
-| JavaScript | npm | `whoisfreaks-js` | [Guide](docs/languages/javascript.md) |
-| TypeScript | npm | `whoisfreaks` | [Guide](docs/languages/typescript.md) |
-| Java | Maven Central | `com.whoisfreaks:whoisfreaks` | [Guide](docs/languages/java.md) |
-| Kotlin | Maven Central | `com.whoisfreaks:whoisfreaks` | [Guide](docs/languages/kotlin.md) |
-| C# / .NET | NuGet | `WhoisFreaks` | [Guide](docs/languages/csharp.md) |
-| Ruby | RubyGems | `whoisfreaks` | [Guide](docs/languages/ruby.md) |
-| Go | Go modules | `github.com/WhoisFreaks/whoisfreaks-go` | [Guide](docs/languages/go.md) |
-| Swift | Swift PM | `github.com/WhoisFreaks/whoisfreaks-swift` | [Guide](docs/languages/swift.md) |
-| PHP | Packagist | `WhoisFreaks/whoisfreaks-php` | [Guide](docs/languages/php.md) |
+| Language   | Registry      | Package                                    | Guide                                 |
+| ---------- | ------------- | ------------------------------------------ | ------------------------------------- |
+| Python     | PyPI          | `whoisfreaks`                              | [Guide](docs/languages/python.md)     |
+| JavaScript | npm           | `whoisfreaks-js`                           | [Guide](docs/languages/javascript.md) |
+| TypeScript | npm           | `whoisfreaks`                              | [Guide](docs/languages/typescript.md) |
+| Java       | Maven Central | `com.whoisfreaks:whoisfreaks`              | [Guide](docs/languages/java.md)       |
+| Kotlin     | Maven Central | `com.whoisfreaks:whoisfreaks`              | [Guide](docs/languages/kotlin.md)     |
+| C# / .NET  | NuGet         | `WhoisFreaks`                              | [Guide](docs/languages/csharp.md)     |
+| Ruby       | RubyGems      | `whoisfreaks`                              | [Guide](docs/languages/ruby.md)       |
+| Go         | Go modules    | `github.com/WhoisFreaks/whoisfreaks-go`    | [Guide](docs/languages/go.md)         |
+| Swift      | Swift PM      | `github.com/WhoisFreaks/whoisfreaks-swift` | [Guide](docs/languages/swift.md)      |
+| PHP        | Packagist     | `WhoisFreaks/whoisfreaks-php`              | [Guide](docs/languages/php.md)        |
 
 ## Quick start
 
@@ -52,34 +52,27 @@ print(result)
 
 The equivalent for every other language is in its [language guide](#language-guides).
 
-## Endpoint categories
+## Endpoint sections
 
-| Category | Endpoints |
-|----------|-----------|
-| [WHOIS](docs/endpoints/whois.md) | 4 |
-| [DNS](docs/endpoints/dns.md) | 4 |
-| [Domain Availability](docs/endpoints/domain-availability.md) | 2 |
-| [Typosquatting](docs/endpoints/typosquatting.md) | 1 |
-| [SSL](docs/endpoints/ssl.md) | 1 |
-| [Geolocation](docs/endpoints/geolocation.md) | 2 |
-| [Subdomains](docs/endpoints/subdomains.md) | 1 |
-| [IP Reputation](docs/endpoints/ip-reputation.md) | 2 |
-| [Domain Reputation](docs/endpoints/domain-reputation.md) | 1 |
-| [ASN WHOIS](docs/endpoints/asn-whois.md) | 1 |
-| [IP WHOIS](docs/endpoints/ip-whois.md) | 1 |
-| [Account](docs/endpoints/account.md) | 3 |
-| [Databases - Newly Registered](docs/endpoints/databases-newly-registered.md) | 7 |
-| [Databases - Expiring & Dropped](docs/endpoints/databases-expiring-dropped.md) | 5 |
-| [Databases - WHOIS](docs/endpoints/databases-whois.md) | 3 |
-| [Databases - DNS](docs/endpoints/databases-dns.md) | 3 |
-| [Databases - Subdomains](docs/endpoints/databases-subdomains.md) | 3 |
-| [Databases - IP Geolocation](docs/endpoints/databases-ip-geolocation.md) | 4 |
-| [Databases - ASN WHOIS](docs/endpoints/databases-asn-whois.md) | 2 |
-| [Databases - IP WHOIS](docs/endpoints/databases-ip-whois.md) | 2 |
-| [Databases - IP Security](docs/endpoints/databases-ip-security.md) | 2 |
+The API is organized into three sections. See the [full endpoint reference](docs/endpoints/README.md) for every operation with parameters, response fields, and per-language examples.
 
-See the [full endpoint reference](docs/endpoints/README.md) for the complete
-list with parameters and per-language examples.
+### [API Solutions](docs/endpoints/api-solutions.md) — 20 endpoints
+
+Real-time and on-demand lookup APIs. Query a single domain, IP, or ASN and get structured JSON (or XML) back immediately.
+
+[WHOIS](docs/endpoints/whois.md), [DNS](docs/endpoints/dns.md), [Domain Availability](docs/endpoints/domain-availability.md), [Typosquatting](docs/endpoints/typosquatting.md), [SSL](docs/endpoints/ssl.md), [Geolocation](docs/endpoints/geolocation.md), [Subdomains](docs/endpoints/subdomains.md), [IP Reputation](docs/endpoints/ip-reputation.md), [Domain Reputation](docs/endpoints/domain-reputation.md), [ASN WHOIS](docs/endpoints/asn-whois.md), [IP WHOIS](docs/endpoints/ip-whois.md)
+
+### [Databases](docs/endpoints/databases.md) — 31 endpoints
+
+Bulk data feeds and downloadable database snapshots for large-scale processing — newly registered, expiring/dropped, and full WHOIS/DNS/IP datasets.
+
+[Databases - Newly Registered](docs/endpoints/databases-newly-registered.md), [Databases - Expiring & Dropped](docs/endpoints/databases-expiring-dropped.md), [Databases - WHOIS](docs/endpoints/databases-whois.md), [Databases - DNS](docs/endpoints/databases-dns.md), [Databases - Subdomains](docs/endpoints/databases-subdomains.md), [Databases - IP Geolocation](docs/endpoints/databases-ip-geolocation.md), [Databases - ASN WHOIS](docs/endpoints/databases-asn-whois.md), [Databases - IP WHOIS](docs/endpoints/databases-ip-whois.md), [Databases - IP Security](docs/endpoints/databases-ip-security.md)
+
+### [Account & Utilities](docs/endpoints/account-utilities.md) — 3 endpoints
+
+Manage your account, monitor API usage and credits, and rotate your API key.
+
+[Account](docs/endpoints/account.md)
 
 ## Authentication at a glance
 
@@ -89,9 +82,9 @@ configuration object — see [Authentication](docs/authentication.md).
 
 Base URLs:
 
-| Purpose | URL |
-|---------|-----|
-| Live lookups | `https://api.whoisfreaks.com` |
+| Purpose            | URL                             |
+| ------------------ | ------------------------------- |
+| APIs               | `https://api.whoisfreaks.com`   |
 | Database downloads | `https://files.whoisfreaks.com` |
 
 ## About these docs

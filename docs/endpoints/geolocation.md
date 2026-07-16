@@ -1,5 +1,7 @@
 # Geolocation
 
+*Section: API Solutions*
+
 IP geolocation lookup
 
 2 endpoint(s). All requests require your API key — see [Authentication](../authentication.md).
@@ -15,6 +17,74 @@ Get location, ASN, currency for an IP. 1 credit.
 | Parameter | In | Required | Type | Description |
 |-----------|----|----------|------|-------------|
 | `ip` | query | yes | string |  |
+
+**Response** (`GeolocationResponse`)
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `ip` | string |  |
+| `location` | IpLocation |  |
+| `country_metadata` | CountryMetadata |  |
+| `network` | GeoNetwork |  |
+| `currency` | Currency |  |
+
+<details><summary><code>IpLocation</code> object</summary>
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `continent_code` | string |  |
+| `continent_name` | string |  |
+| `country_code2` | string |  |
+| `country_code3` | string |  |
+| `country_name` | string |  |
+| `country_name_official` | string |  |
+| `country_capital` | string |  |
+| `state_prov` | string |  |
+| `state_code` | string |  |
+| `district` | string |  |
+| `city` | string |  |
+| `locality` | string |  |
+| `accuracy_radius` | string |  |
+| `confidence` | string |  |
+| `zipcode` | string |  |
+| `latitude` | string |  |
+| `longitude` | string |  |
+| `is_eu` | boolean |  |
+| `geoname_id` | string |  |
+| `country_emoji` | string |  |
+
+</details>
+
+<details><summary><code>CountryMetadata</code> object</summary>
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `calling_code` | string |  |
+| `tld` | string |  |
+| `languages` | array<string> |  |
+
+</details>
+
+<details><summary><code>GeoNetwork</code> object</summary>
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `asn` | GeoAsn |  |
+| `connection_type` | string |  |
+| `company` | GeoCompany |  |
+
+</details>
+
+<details><summary><code>Currency</code> object</summary>
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `code` | string |  |
+| `name` | string |  |
+| `symbol` | string |  |
+
+</details>
+
 
 **Usage**
 
@@ -102,6 +172,74 @@ Up to 100 IPs.
 
 | Parameter | In | Required | Type | Description |
 |-----------|----|----------|------|-------------|
+
+**Response** (`GeolocationResponse`)
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `ip` | string |  |
+| `location` | IpLocation |  |
+| `country_metadata` | CountryMetadata |  |
+| `network` | GeoNetwork |  |
+| `currency` | Currency |  |
+
+<details><summary><code>IpLocation</code> object</summary>
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `continent_code` | string |  |
+| `continent_name` | string |  |
+| `country_code2` | string |  |
+| `country_code3` | string |  |
+| `country_name` | string |  |
+| `country_name_official` | string |  |
+| `country_capital` | string |  |
+| `state_prov` | string |  |
+| `state_code` | string |  |
+| `district` | string |  |
+| `city` | string |  |
+| `locality` | string |  |
+| `accuracy_radius` | string |  |
+| `confidence` | string |  |
+| `zipcode` | string |  |
+| `latitude` | string |  |
+| `longitude` | string |  |
+| `is_eu` | boolean |  |
+| `geoname_id` | string |  |
+| `country_emoji` | string |  |
+
+</details>
+
+<details><summary><code>CountryMetadata</code> object</summary>
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `calling_code` | string |  |
+| `tld` | string |  |
+| `languages` | array<string> |  |
+
+</details>
+
+<details><summary><code>GeoNetwork</code> object</summary>
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `asn` | GeoAsn |  |
+| `connection_type` | string |  |
+| `company` | GeoCompany |  |
+
+</details>
+
+<details><summary><code>Currency</code> object</summary>
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `code` | string |  |
+| `name` | string |  |
+| `symbol` | string |  |
+
+</details>
+
 
 **Usage**
 
