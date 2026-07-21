@@ -47,7 +47,7 @@ Install: see the [Python guide](../../docs/languages/python.md). Set `YOUR_API_K
 ## Account
 - [`RotateApiKey.py`](RotateApiKey.py) — Rotate API Key (`GET /v1.0/api-key/rotate`)
 - [`AccountUsage.py`](AccountUsage.py) — Account Usage (`GET /v1.0/whoisapi/usage`)
-- [`DatabaseFileStatus.py`](DatabaseFileStatus.py) — Database File Status (Public) (`GET /v3.3/status`)
+- [`DatabaseFileStatus.py`](DatabaseFileStatus.py) — Database File Status (Public) (`GET /v3.4/status`)
 
 ## Databases - Newly Registered
 - [`DbNewlyGtld.py`](DbNewlyGtld.py) — Newly Registered gTLD (CSV) (`GET /v3.1/download/domainer/gtld`)
@@ -97,3 +97,11 @@ Install: see the [Python guide](../../docs/languages/python.md). Set `YOUR_API_K
 ## Databases - IP Security
 - [`DbIpSecurity.py`](DbIpSecurity.py) — IP Security Snapshot (`GET /v3.3/download/snapshot/ip/security`)
 - [`DbIpSecurityStatus.py`](DbIpSecurityStatus.py) — IP Security Snapshot Status (`GET /v3.3/status/snapshot/ip/security`)
+
+## Databases - Threat Feed
+- [`DownloadThreatFeedPhishing.py`](DownloadThreatFeedPhishing.py) — Download the daily phishing threat feed (CSV) (`GET /v3.4/download/threat-feed/phishing`)
+- [`DownloadThreatFeedPhishingSample.py`](DownloadThreatFeedPhishingSample.py) — Download a sample of the phishing threat feed (CSV) (`GET /v3.4/download/threat-feed/phishing/sample`)
+- [`DownloadThreatFeedMalware.py`](DownloadThreatFeedMalware.py) — Download the daily malware threat feed (CSV) (`GET /v3.4/download/threat-feed/malware`)
+- [`DownloadThreatFeedMalwareSample.py`](DownloadThreatFeedMalwareSample.py) — Download a sample of the malware threat feed (CSV) (`GET /v3.4/download/threat-feed/malware/sample`)
+- [`DownloadThreatFeedSpam.py`](DownloadThreatFeedSpam.py) — Download the daily spam threat feed (CSV) (`GET /v3.4/download/threat-feed/spam`)
+- [`DownloadThreatFeedSpamSample.py`](DownloadThreatFeedSpamSample.py) — Download a sample of the spam threat feed (CSV) (`GET /v3.4/download/threat-feed/spam/sample`)

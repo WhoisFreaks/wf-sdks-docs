@@ -103,7 +103,7 @@ func main() {
 
 ## Endpoints
 
-All 54 endpoints are shown below, grouped by category. Each includes its method, path, parameters, and a runnable example. See the [full endpoint reference](../endpoints/README.md) for response shapes and field details.
+All 60 endpoints are shown below, grouped by category. Each includes its method, path, parameters, and a runnable example. See the [full endpoint reference](../endpoints/README.md) for response shapes and field details.
 
 ### WHOIS
 
@@ -850,11 +850,11 @@ func main() {
 
 #### Database File Status (Public)
 
-`GET /v3.3/status`
+`GET /v3.4/status`
 
 ```go
-// Runnable example: Database File Status (Public) (GET /v3.3/status)
-// Parameters for databaseFileStatus (GET /v3.3/status):
+// Runnable example: Database File Status (Public) (GET /v3.4/status)
+// Parameters for databaseFileStatus (GET /v3.4/status):
 //   (no parameters; the API key is set on the client)
 package main
 
@@ -1913,6 +1913,203 @@ func main() {
     if err != nil { panic(err) }
     b, _ := json.MarshalIndent(result, "", "  ")
     fmt.Println(string(b))
+}
+
+```
+
+### Databases - Threat Feed
+
+#### Download the daily phishing threat feed (CSV)
+
+`GET /v3.4/download/threat-feed/phishing`
+
+```go
+// Runnable example: Download the daily phishing threat feed (CSV) (GET /v3.4/download/threat-feed/phishing)
+// Parameters for downloadThreatFeedPhishing (GET /v3.4/download/threat-feed/phishing):
+//   - date (string, optional): Feed date (yyyy-MM-dd); defaults to latest available
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    "time"
+    wf "github.com/WhoisFreaks/whoisfreaks-go"
+)
+
+func main() {
+    cfg := wf.NewConfiguration()
+    client := wf.NewAPIClient(cfg)
+    // apiKey is set once via the request context
+    ctx := context.WithValue(context.Background(), wf.ContextAPIKeys,
+        map[string]wf.APIKey{"ApiKeyAuth": {Key: "YOUR_API_KEY"}})
+    // returns raw bytes (compressed/binary file) -- write to disk
+    data, _, err := client.DatabasesThreatFeedAPI.DownloadThreatFeedPhishing(ctx).Date(time.Now().AddDate(0,0,-1).Format("2006-01-02")).Execute()
+    if err != nil { panic(err) }
+    if err := os.WriteFile("downloadThreatFeedPhishing.gz", data, 0644); err != nil { panic(err) }
+    fmt.Printf("saved %d bytes to downloadThreatFeedPhishing.gz\n", len(data))
+}
+
+```
+
+#### Download a sample of the phishing threat feed (CSV)
+
+`GET /v3.4/download/threat-feed/phishing/sample`
+
+```go
+// Runnable example: Download a sample of the phishing threat feed (CSV) (GET /v3.4/download/threat-feed/phishing/sample)
+// Parameters for downloadThreatFeedPhishingSample (GET /v3.4/download/threat-feed/phishing/sample):
+//   (no parameters; the API key is set on the client)
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    wf "github.com/WhoisFreaks/whoisfreaks-go"
+)
+
+func main() {
+    cfg := wf.NewConfiguration()
+    client := wf.NewAPIClient(cfg)
+    // apiKey is set once via the request context
+    ctx := context.WithValue(context.Background(), wf.ContextAPIKeys,
+        map[string]wf.APIKey{"ApiKeyAuth": {Key: "YOUR_API_KEY"}})
+    // returns raw bytes (compressed/binary file) -- write to disk
+    data, _, err := client.DatabasesThreatFeedAPI.DownloadThreatFeedPhishingSample(ctx).Execute()
+    if err != nil { panic(err) }
+    if err := os.WriteFile("downloadThreatFeedPhishingSample.gz", data, 0644); err != nil { panic(err) }
+    fmt.Printf("saved %d bytes to downloadThreatFeedPhishingSample.gz\n", len(data))
+}
+
+```
+
+#### Download the daily malware threat feed (CSV)
+
+`GET /v3.4/download/threat-feed/malware`
+
+```go
+// Runnable example: Download the daily malware threat feed (CSV) (GET /v3.4/download/threat-feed/malware)
+// Parameters for downloadThreatFeedMalware (GET /v3.4/download/threat-feed/malware):
+//   - date (string, optional): Feed date (yyyy-MM-dd); defaults to latest available
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    "time"
+    wf "github.com/WhoisFreaks/whoisfreaks-go"
+)
+
+func main() {
+    cfg := wf.NewConfiguration()
+    client := wf.NewAPIClient(cfg)
+    // apiKey is set once via the request context
+    ctx := context.WithValue(context.Background(), wf.ContextAPIKeys,
+        map[string]wf.APIKey{"ApiKeyAuth": {Key: "YOUR_API_KEY"}})
+    // returns raw bytes (compressed/binary file) -- write to disk
+    data, _, err := client.DatabasesThreatFeedAPI.DownloadThreatFeedMalware(ctx).Date(time.Now().AddDate(0,0,-1).Format("2006-01-02")).Execute()
+    if err != nil { panic(err) }
+    if err := os.WriteFile("downloadThreatFeedMalware.gz", data, 0644); err != nil { panic(err) }
+    fmt.Printf("saved %d bytes to downloadThreatFeedMalware.gz\n", len(data))
+}
+
+```
+
+#### Download a sample of the malware threat feed (CSV)
+
+`GET /v3.4/download/threat-feed/malware/sample`
+
+```go
+// Runnable example: Download a sample of the malware threat feed (CSV) (GET /v3.4/download/threat-feed/malware/sample)
+// Parameters for downloadThreatFeedMalwareSample (GET /v3.4/download/threat-feed/malware/sample):
+//   (no parameters; the API key is set on the client)
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    wf "github.com/WhoisFreaks/whoisfreaks-go"
+)
+
+func main() {
+    cfg := wf.NewConfiguration()
+    client := wf.NewAPIClient(cfg)
+    // apiKey is set once via the request context
+    ctx := context.WithValue(context.Background(), wf.ContextAPIKeys,
+        map[string]wf.APIKey{"ApiKeyAuth": {Key: "YOUR_API_KEY"}})
+    // returns raw bytes (compressed/binary file) -- write to disk
+    data, _, err := client.DatabasesThreatFeedAPI.DownloadThreatFeedMalwareSample(ctx).Execute()
+    if err != nil { panic(err) }
+    if err := os.WriteFile("downloadThreatFeedMalwareSample.gz", data, 0644); err != nil { panic(err) }
+    fmt.Printf("saved %d bytes to downloadThreatFeedMalwareSample.gz\n", len(data))
+}
+
+```
+
+#### Download the daily spam threat feed (CSV)
+
+`GET /v3.4/download/threat-feed/spam`
+
+```go
+// Runnable example: Download the daily spam threat feed (CSV) (GET /v3.4/download/threat-feed/spam)
+// Parameters for downloadThreatFeedSpam (GET /v3.4/download/threat-feed/spam):
+//   - date (string, optional): Feed date (yyyy-MM-dd); defaults to latest available
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    "time"
+    wf "github.com/WhoisFreaks/whoisfreaks-go"
+)
+
+func main() {
+    cfg := wf.NewConfiguration()
+    client := wf.NewAPIClient(cfg)
+    // apiKey is set once via the request context
+    ctx := context.WithValue(context.Background(), wf.ContextAPIKeys,
+        map[string]wf.APIKey{"ApiKeyAuth": {Key: "YOUR_API_KEY"}})
+    // returns raw bytes (compressed/binary file) -- write to disk
+    data, _, err := client.DatabasesThreatFeedAPI.DownloadThreatFeedSpam(ctx).Date(time.Now().AddDate(0,0,-1).Format("2006-01-02")).Execute()
+    if err != nil { panic(err) }
+    if err := os.WriteFile("downloadThreatFeedSpam.gz", data, 0644); err != nil { panic(err) }
+    fmt.Printf("saved %d bytes to downloadThreatFeedSpam.gz\n", len(data))
+}
+
+```
+
+#### Download a sample of the spam threat feed (CSV)
+
+`GET /v3.4/download/threat-feed/spam/sample`
+
+```go
+// Runnable example: Download a sample of the spam threat feed (CSV) (GET /v3.4/download/threat-feed/spam/sample)
+// Parameters for downloadThreatFeedSpamSample (GET /v3.4/download/threat-feed/spam/sample):
+//   (no parameters; the API key is set on the client)
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    wf "github.com/WhoisFreaks/whoisfreaks-go"
+)
+
+func main() {
+    cfg := wf.NewConfiguration()
+    client := wf.NewAPIClient(cfg)
+    // apiKey is set once via the request context
+    ctx := context.WithValue(context.Background(), wf.ContextAPIKeys,
+        map[string]wf.APIKey{"ApiKeyAuth": {Key: "YOUR_API_KEY"}})
+    // returns raw bytes (compressed/binary file) -- write to disk
+    data, _, err := client.DatabasesThreatFeedAPI.DownloadThreatFeedSpamSample(ctx).Execute()
+    if err != nil { panic(err) }
+    if err := os.WriteFile("downloadThreatFeedSpamSample.gz", data, 0644); err != nil { panic(err) }
+    fmt.Printf("saved %d bytes to downloadThreatFeedSpamSample.gz\n", len(data))
 }
 
 ```

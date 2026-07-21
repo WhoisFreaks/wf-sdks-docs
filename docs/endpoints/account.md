@@ -1,6 +1,6 @@
 # Account
 
-_Section: Account & Utilities_
+*Section: Account & Utilities*
 
 Account, API key, and usage utilities
 
@@ -14,8 +14,8 @@ Rotate API Key. Returns the file/snapshot described by this operation.
 
 **Parameters**
 
-| Parameter | In  | Required | Type | Description |
-| --------- | --- | -------- | ---- | ----------- |
+| Parameter | In | Required | Type | Description |
+|-----------|----|----------|------|-------------|
 
 **Usage**
 
@@ -47,14 +47,15 @@ print(result)
 //   (no parameters; the API key is set on the client)
 import { Configuration, AccountApi } from "whoisfreaks";
 
-const config = new Configuration({ apiKey: "YOUR_API_KEY" }); // set once
+const config = new Configuration({ apiKey: "YOUR_API_KEY" });  // set once
 const api = new AccountApi(config);
 
 async function main() {
-    const result = await api.rotateApiKey({});
-    console.log(result);
+  const result = await api.rotateApiKey({  });
+  console.log(result);
 }
 main().catch(console.error);
+
 ```
 
 </details>
@@ -100,37 +101,38 @@ Account Usage. Returns the file/snapshot described by this operation.
 
 **Parameters**
 
-| Parameter | In  | Required | Type | Description |
-| --------- | --- | -------- | ---- | ----------- |
+| Parameter | In | Required | Type | Description |
+|-----------|----|----------|------|-------------|
 
 **Response** (`AccountUsageResponse`)
 
-| Field             | Type            | Description |
-| ----------------- | --------------- | ----------- |
-| `apiKey`          | string          |             |
-| `apiCredits`      | ApiCredits      |             |
-| `apiSubscription` | ApiSubscription |             |
+| Field | Type | Description |
+|-------|------|-------------|
+| `apiKey` | string |  |
+| `apiCredits` | ApiCredits |  |
+| `apiSubscription` | ApiSubscription |  |
 
 <details><summary><code>ApiCredits</code> object</summary>
 
-| Field           | Type    | Description |
-| --------------- | ------- | ----------- |
-| `totalCredits`  | integer |             |
-| `servedRequest` | integer |             |
+| Field | Type | Description |
+|-------|------|-------------|
+| `totalCredits` | integer |  |
+| `servedRequest` | integer |  |
 
 </details>
 
 <details><summary><code>ApiSubscription</code> object</summary>
 
-| Field                     | Type    | Description |
-| ------------------------- | ------- | ----------- |
-| `requestLimit`            | integer |             |
-| `servedRequests`          | integer |             |
-| `subscriptionStatus`      | string  |             |
-| `surchargeRequestLimit`   | integer |             |
-| `servedSurchargeRequests` | integer |             |
+| Field | Type | Description |
+|-------|------|-------------|
+| `requestLimit` | integer |  |
+| `servedRequests` | integer |  |
+| `subscriptionStatus` | string |  |
+| `surchargeRequestLimit` | integer |  |
+| `servedSurchargeRequests` | integer |  |
 
 </details>
+
 
 **Usage**
 
@@ -162,14 +164,15 @@ print(result)
 //   (no parameters; the API key is set on the client)
 import { Configuration, AccountApi } from "whoisfreaks";
 
-const config = new Configuration({ apiKey: "YOUR_API_KEY" }); // set once
+const config = new Configuration({ apiKey: "YOUR_API_KEY" });  // set once
 const api = new AccountApi(config);
 
 async function main() {
-    const result = await api.accountUsage({});
-    console.log(result);
+  const result = await api.accountUsage({  });
+  console.log(result);
 }
 main().catch(console.error);
+
 ```
 
 </details>
@@ -209,68 +212,80 @@ func main() {
 
 ## Database File Status (Public)
 
-`GET /v3.3/status`
+`GET /v3.4/status`
 
 No API key required. Returns freshness of all downloadable files.
 
 **Parameters**
 
-| Parameter | In  | Required | Type | Description |
-| --------- | --- | -------- | ---- | ----------- |
+| Parameter | In | Required | Type | Description |
+|-----------|----|----------|------|-------------|
 
 **Response** (`DatabaseFileStatus`)
 
-| Field                    | Type            | Description |
-| ------------------------ | --------------- | ----------- |
-| `newly`                  | NewlyStatus     |             |
-| `expired`                | DateRangeStatus |             |
-| `cleaned_expired`        | DateRangeStatus |             |
-| `dropped`                | DateRangeStatus |             |
-| `dropped_with_backlinks` | DateRangeStatus |             |
-| `database_updates`       | DatabaseUpdates |             |
+| Field | Type | Description |
+|-------|------|-------------|
+| `newly` | NewlyStatus |  |
+| `expired` | DateRangeStatus |  |
+| `cleaned_expired` | DateRangeStatus |  |
+| `dropped` | DateRangeStatus |  |
+| `dropped_with_backlinks` | DateRangeStatus |  |
+| `threat_feed` | ThreatFeedStatus |  |
+| `database_updates` | DatabaseUpdates |  |
 
 <details><summary><code>NewlyStatus</code> object</summary>
 
-| Field           | Type            | Description |
-| --------------- | --------------- | ----------- |
-| `gtld`          | DateRangeStatus |             |
-| `cctld`         | DateRangeStatus |             |
-| `dns`           | DateRangeStatus |             |
-| `cleaned_gtld`  | DateRangeStatus |             |
-| `cleaned_cctld` | DateRangeStatus |             |
+| Field | Type | Description |
+|-------|------|-------------|
+| `gtld` | DateRangeStatus |  |
+| `cctld` | DateRangeStatus |  |
+| `dns` | DateRangeStatus |  |
+| `cleaned_gtld` | DateRangeStatus |  |
+| `cleaned_cctld` | DateRangeStatus |  |
 
 </details>
 
 <details><summary><code>DateRangeStatus</code> object</summary>
 
-| Field            | Type   | Description |
-| ---------------- | ------ | ----------- |
-| `available_from` | string |             |
-| `last_update`    | string |             |
+| Field | Type | Description |
+|-------|------|-------------|
+| `available_from` | string |  |
+| `last_update` | string |  |
+
+</details>
+
+<details><summary><code>ThreatFeedStatus</code> object</summary>
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `phishing` | DateRangeStatus |  |
+| `malware` | DateRangeStatus |  |
+| `spam` | DateRangeStatus |  |
 
 </details>
 
 <details><summary><code>DatabaseUpdates</code> object</summary>
 
-| Field          | Type              | Description |
-| -------------- | ----------------- | ----------- |
-| `domain_whois` | UpdateFrequencies |             |
-| `dns`          | UpdateFrequencies |             |
-| `subdomains`   | UpdateFrequencies |             |
-| `ip_whois`     | UpdateFrequencies |             |
+| Field | Type | Description |
+|-------|------|-------------|
+| `domain_whois` | UpdateFrequencies |  |
+| `dns` | UpdateFrequencies |  |
+| `subdomains` | UpdateFrequencies |  |
+| `ip_whois` | UpdateFrequencies |  |
 
 </details>
+
 
 **Usage**
 
 <details><summary>Python</summary>
 
 ```python
-"""Runnable example: Database File Status (Public) (GET /v3.3/status)."""
+"""Runnable example: Database File Status (Public) (GET /v3.4/status)."""
 from whoisfreaks import Configuration, ApiClient
 from whoisfreaks.api.account_api import AccountApi
 
-# Parameters for databaseFileStatus (GET /v3.3/status):
+# Parameters for databaseFileStatus (GET /v3.4/status):
 #   (no parameters; the API key is set on the client)
 config = Configuration()
 config.api_key["ApiKeyAuth"] = "YOUR_API_KEY"   # set once
@@ -286,19 +301,20 @@ print(result)
 <details><summary>TypeScript</summary>
 
 ```typescript
-// Runnable example: Database File Status (Public) (GET /v3.3/status)
-// Parameters for databaseFileStatus (GET /v3.3/status):
+// Runnable example: Database File Status (Public) (GET /v3.4/status)
+// Parameters for databaseFileStatus (GET /v3.4/status):
 //   (no parameters; the API key is set on the client)
 import { Configuration, AccountApi } from "whoisfreaks";
 
-const config = new Configuration({ apiKey: "YOUR_API_KEY" }); // set once
+const config = new Configuration({ apiKey: "YOUR_API_KEY" });  // set once
 const api = new AccountApi(config);
 
 async function main() {
-    const result = await api.databaseFileStatus({});
-    console.log(result);
+  const result = await api.databaseFileStatus({  });
+  console.log(result);
 }
 main().catch(console.error);
+
 ```
 
 </details>
@@ -306,8 +322,8 @@ main().catch(console.error);
 <details><summary>Go</summary>
 
 ```go
-// Runnable example: Database File Status (Public) (GET /v3.3/status)
-// Parameters for databaseFileStatus (GET /v3.3/status):
+// Runnable example: Database File Status (Public) (GET /v3.4/status)
+// Parameters for databaseFileStatus (GET /v3.4/status):
 //   (no parameters; the API key is set on the client)
 package main
 

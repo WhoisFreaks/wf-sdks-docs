@@ -47,7 +47,7 @@ Install: see the [TypeScript guide](../../docs/languages/typescript.md). Set `YO
 ## Account
 - [`RotateApiKey.ts`](RotateApiKey.ts) — Rotate API Key (`GET /v1.0/api-key/rotate`)
 - [`AccountUsage.ts`](AccountUsage.ts) — Account Usage (`GET /v1.0/whoisapi/usage`)
-- [`DatabaseFileStatus.ts`](DatabaseFileStatus.ts) — Database File Status (Public) (`GET /v3.3/status`)
+- [`DatabaseFileStatus.ts`](DatabaseFileStatus.ts) — Database File Status (Public) (`GET /v3.4/status`)
 
 ## Databases - Newly Registered
 - [`DbNewlyGtld.ts`](DbNewlyGtld.ts) — Newly Registered gTLD (CSV) (`GET /v3.1/download/domainer/gtld`)
@@ -97,3 +97,11 @@ Install: see the [TypeScript guide](../../docs/languages/typescript.md). Set `YO
 ## Databases - IP Security
 - [`DbIpSecurity.ts`](DbIpSecurity.ts) — IP Security Snapshot (`GET /v3.3/download/snapshot/ip/security`)
 - [`DbIpSecurityStatus.ts`](DbIpSecurityStatus.ts) — IP Security Snapshot Status (`GET /v3.3/status/snapshot/ip/security`)
+
+## Databases - Threat Feed
+- [`DownloadThreatFeedPhishing.ts`](DownloadThreatFeedPhishing.ts) — Download the daily phishing threat feed (CSV) (`GET /v3.4/download/threat-feed/phishing`)
+- [`DownloadThreatFeedPhishingSample.ts`](DownloadThreatFeedPhishingSample.ts) — Download a sample of the phishing threat feed (CSV) (`GET /v3.4/download/threat-feed/phishing/sample`)
+- [`DownloadThreatFeedMalware.ts`](DownloadThreatFeedMalware.ts) — Download the daily malware threat feed (CSV) (`GET /v3.4/download/threat-feed/malware`)
+- [`DownloadThreatFeedMalwareSample.ts`](DownloadThreatFeedMalwareSample.ts) — Download a sample of the malware threat feed (CSV) (`GET /v3.4/download/threat-feed/malware/sample`)
+- [`DownloadThreatFeedSpam.ts`](DownloadThreatFeedSpam.ts) — Download the daily spam threat feed (CSV) (`GET /v3.4/download/threat-feed/spam`)
+- [`DownloadThreatFeedSpamSample.ts`](DownloadThreatFeedSpamSample.ts) — Download a sample of the spam threat feed (CSV) (`GET /v3.4/download/threat-feed/spam/sample`)

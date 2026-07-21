@@ -2,7 +2,7 @@
 
 Bulk data feeds and downloadable database snapshots for large-scale processing — newly registered, expiring/dropped, and full WHOIS/DNS/IP datasets.
 
-**31 endpoints** across **9 categories**. All requests require your API key — see [Authentication](../authentication.md).
+**37 endpoints** across **10 categories**. All requests require your API key — see [Authentication](../authentication.md).
 
 ## Categories
 
@@ -99,3 +99,14 @@ IP security database snapshots
 
 - **IP Security Snapshot** — `GET /v3.3/download/snapshot/ip/security`
 - **IP Security Snapshot Status** — `GET /v3.3/status/snapshot/ip/security`
+
+### [Databases - Threat Feed](databases-threat-feed.md)
+
+6 endpoint(s):
+
+- **Download the daily phishing threat feed (CSV)** — `GET /v3.4/download/threat-feed/phishing`
+- **Download a sample of the phishing threat feed (CSV)** — `GET /v3.4/download/threat-feed/phishing/sample`
+- **Download the daily malware threat feed (CSV)** — `GET /v3.4/download/threat-feed/malware`
+- **Download a sample of the malware threat feed (CSV)** — `GET /v3.4/download/threat-feed/malware/sample`
+- **Download the daily spam threat feed (CSV)** — `GET /v3.4/download/threat-feed/spam`
+- **Download a sample of the spam threat feed (CSV)** — `GET /v3.4/download/threat-feed/spam/sample`

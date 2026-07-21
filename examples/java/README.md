@@ -47,7 +47,7 @@ Install: see the [Java guide](../../docs/languages/java.md). Set `YOUR_API_KEY` 
 ## Account
 - [`RotateApiKey.java`](RotateApiKey.java) — Rotate API Key (`GET /v1.0/api-key/rotate`)
 - [`AccountUsage.java`](AccountUsage.java) — Account Usage (`GET /v1.0/whoisapi/usage`)
-- [`DatabaseFileStatus.java`](DatabaseFileStatus.java) — Database File Status (Public) (`GET /v3.3/status`)
+- [`DatabaseFileStatus.java`](DatabaseFileStatus.java) — Database File Status (Public) (`GET /v3.4/status`)
 
 ## Databases - Newly Registered
 - [`DbNewlyGtld.java`](DbNewlyGtld.java) — Newly Registered gTLD (CSV) (`GET /v3.1/download/domainer/gtld`)
@@ -97,3 +97,11 @@ Install: see the [Java guide](../../docs/languages/java.md). Set `YOUR_API_KEY` 
 ## Databases - IP Security
 - [`DbIpSecurity.java`](DbIpSecurity.java) — IP Security Snapshot (`GET /v3.3/download/snapshot/ip/security`)
 - [`DbIpSecurityStatus.java`](DbIpSecurityStatus.java) — IP Security Snapshot Status (`GET /v3.3/status/snapshot/ip/security`)
+
+## Databases - Threat Feed
+- [`DownloadThreatFeedPhishing.java`](DownloadThreatFeedPhishing.java) — Download the daily phishing threat feed (CSV) (`GET /v3.4/download/threat-feed/phishing`)
+- [`DownloadThreatFeedPhishingSample.java`](DownloadThreatFeedPhishingSample.java) — Download a sample of the phishing threat feed (CSV) (`GET /v3.4/download/threat-feed/phishing/sample`)
+- [`DownloadThreatFeedMalware.java`](DownloadThreatFeedMalware.java) — Download the daily malware threat feed (CSV) (`GET /v3.4/download/threat-feed/malware`)
+- [`DownloadThreatFeedMalwareSample.java`](DownloadThreatFeedMalwareSample.java) — Download a sample of the malware threat feed (CSV) (`GET /v3.4/download/threat-feed/malware/sample`)
+- [`DownloadThreatFeedSpam.java`](DownloadThreatFeedSpam.java) — Download the daily spam threat feed (CSV) (`GET /v3.4/download/threat-feed/spam`)
+- [`DownloadThreatFeedSpamSample.java`](DownloadThreatFeedSpamSample.java) — Download a sample of the spam threat feed (CSV) (`GET /v3.4/download/threat-feed/spam/sample`)

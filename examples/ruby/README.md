@@ -47,7 +47,7 @@ Install: see the [Ruby guide](../../docs/languages/ruby.md). Set `YOUR_API_KEY` 
 ## Account
 - [`RotateApiKey.rb`](RotateApiKey.rb) — Rotate API Key (`GET /v1.0/api-key/rotate`)
 - [`AccountUsage.rb`](AccountUsage.rb) — Account Usage (`GET /v1.0/whoisapi/usage`)
-- [`DatabaseFileStatus.rb`](DatabaseFileStatus.rb) — Database File Status (Public) (`GET /v3.3/status`)
+- [`DatabaseFileStatus.rb`](DatabaseFileStatus.rb) — Database File Status (Public) (`GET /v3.4/status`)
 
 ## Databases - Newly Registered
 - [`DbNewlyGtld.rb`](DbNewlyGtld.rb) — Newly Registered gTLD (CSV) (`GET /v3.1/download/domainer/gtld`)
@@ -97,3 +97,11 @@ Install: see the [Ruby guide](../../docs/languages/ruby.md). Set `YOUR_API_KEY` 
 ## Databases - IP Security
 - [`DbIpSecurity.rb`](DbIpSecurity.rb) — IP Security Snapshot (`GET /v3.3/download/snapshot/ip/security`)
 - [`DbIpSecurityStatus.rb`](DbIpSecurityStatus.rb) — IP Security Snapshot Status (`GET /v3.3/status/snapshot/ip/security`)
+
+## Databases - Threat Feed
+- [`DownloadThreatFeedPhishing.rb`](DownloadThreatFeedPhishing.rb) — Download the daily phishing threat feed (CSV) (`GET /v3.4/download/threat-feed/phishing`)
+- [`DownloadThreatFeedPhishingSample.rb`](DownloadThreatFeedPhishingSample.rb) — Download a sample of the phishing threat feed (CSV) (`GET /v3.4/download/threat-feed/phishing/sample`)
+- [`DownloadThreatFeedMalware.rb`](DownloadThreatFeedMalware.rb) — Download the daily malware threat feed (CSV) (`GET /v3.4/download/threat-feed/malware`)
+- [`DownloadThreatFeedMalwareSample.rb`](DownloadThreatFeedMalwareSample.rb) — Download a sample of the malware threat feed (CSV) (`GET /v3.4/download/threat-feed/malware/sample`)
+- [`DownloadThreatFeedSpam.rb`](DownloadThreatFeedSpam.rb) — Download the daily spam threat feed (CSV) (`GET /v3.4/download/threat-feed/spam`)
+- [`DownloadThreatFeedSpamSample.rb`](DownloadThreatFeedSpamSample.rb) — Download a sample of the spam threat feed (CSV) (`GET /v3.4/download/threat-feed/spam/sample`)

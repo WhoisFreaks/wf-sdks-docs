@@ -86,7 +86,7 @@ do {
 
 ## Endpoints
 
-All 54 endpoints are shown below, grouped by category. Each includes its method, path, parameters, and a runnable example. See the [full endpoint reference](../endpoints/README.md) for response shapes and field details.
+All 60 endpoints are shown below, grouped by category. Each includes its method, path, parameters, and a runnable example. See the [full endpoint reference](../endpoints/README.md) for response shapes and field details.
 
 ### WHOIS
 
@@ -635,11 +635,11 @@ do {
 
 #### Database File Status (Public)
 
-`GET /v3.3/status`
+`GET /v3.4/status`
 
 ```swift
-// Runnable example: Database File Status (Public) (GET /v3.3/status)
-// Parameters for databaseFileStatus (GET /v3.3/status):
+// Runnable example: Database File Status (Public) (GET /v3.4/status)
+// Parameters for databaseFileStatus (GET /v3.4/status):
 //   (no parameters; the API key is set on the client)
 import WhoisFreaks
 
@@ -1384,6 +1384,143 @@ WhoisFreaksAPI.apiKey = "YOUR_API_KEY"
 
 do {
     let result = try await DatabasesIPSecurityAPI.dbIpSecurityStatus()
+    print(result)
+} catch {
+    print(error)
+}
+
+```
+
+### Databases - Threat Feed
+
+#### Download the daily phishing threat feed (CSV)
+
+`GET /v3.4/download/threat-feed/phishing`
+
+```swift
+// Runnable example: Download the daily phishing threat feed (CSV) (GET /v3.4/download/threat-feed/phishing)
+// Parameters for downloadThreatFeedPhishing (GET /v3.4/download/threat-feed/phishing):
+//   - date (string, optional): Feed date (yyyy-MM-dd); defaults to latest available
+import Foundation
+import WhoisFreaks
+
+// Set your API key once (applied to every request)
+WhoisFreaksAPI.apiKey = "YOUR_API_KEY"
+
+do {
+    let result = try await DatabasesThreatFeedAPI.downloadThreatFeedPhishing(date: String(ISO8601DateFormatter().string(from: Calendar.current.date(byAdding: .day, value: -1, to: Date())!).prefix(10)))
+    print(result)
+} catch {
+    print(error)
+}
+
+```
+
+#### Download a sample of the phishing threat feed (CSV)
+
+`GET /v3.4/download/threat-feed/phishing/sample`
+
+```swift
+// Runnable example: Download a sample of the phishing threat feed (CSV) (GET /v3.4/download/threat-feed/phishing/sample)
+// Parameters for downloadThreatFeedPhishingSample (GET /v3.4/download/threat-feed/phishing/sample):
+//   (no parameters; the API key is set on the client)
+import WhoisFreaks
+
+// Set your API key once (applied to every request)
+WhoisFreaksAPI.apiKey = "YOUR_API_KEY"
+
+do {
+    let result = try await DatabasesThreatFeedAPI.downloadThreatFeedPhishingSample()
+    print(result)
+} catch {
+    print(error)
+}
+
+```
+
+#### Download the daily malware threat feed (CSV)
+
+`GET /v3.4/download/threat-feed/malware`
+
+```swift
+// Runnable example: Download the daily malware threat feed (CSV) (GET /v3.4/download/threat-feed/malware)
+// Parameters for downloadThreatFeedMalware (GET /v3.4/download/threat-feed/malware):
+//   - date (string, optional): Feed date (yyyy-MM-dd); defaults to latest available
+import Foundation
+import WhoisFreaks
+
+// Set your API key once (applied to every request)
+WhoisFreaksAPI.apiKey = "YOUR_API_KEY"
+
+do {
+    let result = try await DatabasesThreatFeedAPI.downloadThreatFeedMalware(date: String(ISO8601DateFormatter().string(from: Calendar.current.date(byAdding: .day, value: -1, to: Date())!).prefix(10)))
+    print(result)
+} catch {
+    print(error)
+}
+
+```
+
+#### Download a sample of the malware threat feed (CSV)
+
+`GET /v3.4/download/threat-feed/malware/sample`
+
+```swift
+// Runnable example: Download a sample of the malware threat feed (CSV) (GET /v3.4/download/threat-feed/malware/sample)
+// Parameters for downloadThreatFeedMalwareSample (GET /v3.4/download/threat-feed/malware/sample):
+//   (no parameters; the API key is set on the client)
+import WhoisFreaks
+
+// Set your API key once (applied to every request)
+WhoisFreaksAPI.apiKey = "YOUR_API_KEY"
+
+do {
+    let result = try await DatabasesThreatFeedAPI.downloadThreatFeedMalwareSample()
+    print(result)
+} catch {
+    print(error)
+}
+
+```
+
+#### Download the daily spam threat feed (CSV)
+
+`GET /v3.4/download/threat-feed/spam`
+
+```swift
+// Runnable example: Download the daily spam threat feed (CSV) (GET /v3.4/download/threat-feed/spam)
+// Parameters for downloadThreatFeedSpam (GET /v3.4/download/threat-feed/spam):
+//   - date (string, optional): Feed date (yyyy-MM-dd); defaults to latest available
+import Foundation
+import WhoisFreaks
+
+// Set your API key once (applied to every request)
+WhoisFreaksAPI.apiKey = "YOUR_API_KEY"
+
+do {
+    let result = try await DatabasesThreatFeedAPI.downloadThreatFeedSpam(date: String(ISO8601DateFormatter().string(from: Calendar.current.date(byAdding: .day, value: -1, to: Date())!).prefix(10)))
+    print(result)
+} catch {
+    print(error)
+}
+
+```
+
+#### Download a sample of the spam threat feed (CSV)
+
+`GET /v3.4/download/threat-feed/spam/sample`
+
+```swift
+// Runnable example: Download a sample of the spam threat feed (CSV) (GET /v3.4/download/threat-feed/spam/sample)
+// Parameters for downloadThreatFeedSpamSample (GET /v3.4/download/threat-feed/spam/sample):
+//   (no parameters; the API key is set on the client)
+import WhoisFreaks
+
+// Set your API key once (applied to every request)
+WhoisFreaksAPI.apiKey = "YOUR_API_KEY"
+
+do {
+    let result = try await DatabasesThreatFeedAPI.downloadThreatFeedSpamSample()
     print(result)
 } catch {
     print(error)

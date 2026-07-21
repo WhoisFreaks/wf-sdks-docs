@@ -83,7 +83,7 @@ class WhoisLive {
 
 ## Endpoints
 
-All 54 endpoints are shown below, grouped by category. Each includes its method, path, parameters, and a runnable example. See the [full endpoint reference](../endpoints/README.md) for response shapes and field details.
+All 60 endpoints are shown below, grouped by category. Each includes its method, path, parameters, and a runnable example. See the [full endpoint reference](../endpoints/README.md) for response shapes and field details.
 
 ### WHOIS
 
@@ -680,11 +680,11 @@ class AccountUsage {
 
 #### Database File Status (Public)
 
-`GET /v3.3/status`
+`GET /v3.4/status`
 
 ```csharp
-// Runnable example: Database File Status (Public) (GET /v3.3/status)
-// Parameters for databaseFileStatus (GET /v3.3/status):
+// Runnable example: Database File Status (Public) (GET /v3.4/status)
+// Parameters for databaseFileStatus (GET /v3.4/status):
 //   (no parameters; the API key is set on the client)
 using System;
 using WhoisFreaks.Api;
@@ -1468,6 +1468,152 @@ class DbIpSecurityStatus {
         config.AddApiKey("ApiKeyAuth", "YOUR_API_KEY");  // set once
         var api = new DatabasesIPSecurityApi(config);
         var result = api.DbIpSecurityStatus();
+        Console.WriteLine(result);
+    }
+}
+
+```
+
+### Databases - Threat Feed
+
+#### Download the daily phishing threat feed (CSV)
+
+`GET /v3.4/download/threat-feed/phishing`
+
+```csharp
+// Runnable example: Download the daily phishing threat feed (CSV) (GET /v3.4/download/threat-feed/phishing)
+// Parameters for downloadThreatFeedPhishing (GET /v3.4/download/threat-feed/phishing):
+//   - date (string, optional): Feed date (yyyy-MM-dd); defaults to latest available
+using System;
+using WhoisFreaks.Api;
+using WhoisFreaks.Client;
+
+class DownloadThreatFeedPhishing {
+    static void Main() {
+        var config = new Configuration { BasePath = "https://api.whoisfreaks.com" };
+        config.AddApiKey("ApiKeyAuth", "YOUR_API_KEY");  // set once
+        var api = new DatabasesThreatFeedApi(config);
+        var result = api.DownloadThreatFeedPhishing(DateTime.UtcNow.AddDays(-1).ToString("yyyy-MM-dd"));
+        Console.WriteLine(result);
+    }
+}
+
+```
+
+#### Download a sample of the phishing threat feed (CSV)
+
+`GET /v3.4/download/threat-feed/phishing/sample`
+
+```csharp
+// Runnable example: Download a sample of the phishing threat feed (CSV) (GET /v3.4/download/threat-feed/phishing/sample)
+// Parameters for downloadThreatFeedPhishingSample (GET /v3.4/download/threat-feed/phishing/sample):
+//   (no parameters; the API key is set on the client)
+using System;
+using WhoisFreaks.Api;
+using WhoisFreaks.Client;
+
+class DownloadThreatFeedPhishingSample {
+    static void Main() {
+        var config = new Configuration { BasePath = "https://api.whoisfreaks.com" };
+        config.AddApiKey("ApiKeyAuth", "YOUR_API_KEY");  // set once
+        var api = new DatabasesThreatFeedApi(config);
+        var result = api.DownloadThreatFeedPhishingSample();
+        Console.WriteLine(result);
+    }
+}
+
+```
+
+#### Download the daily malware threat feed (CSV)
+
+`GET /v3.4/download/threat-feed/malware`
+
+```csharp
+// Runnable example: Download the daily malware threat feed (CSV) (GET /v3.4/download/threat-feed/malware)
+// Parameters for downloadThreatFeedMalware (GET /v3.4/download/threat-feed/malware):
+//   - date (string, optional): Feed date (yyyy-MM-dd); defaults to latest available
+using System;
+using WhoisFreaks.Api;
+using WhoisFreaks.Client;
+
+class DownloadThreatFeedMalware {
+    static void Main() {
+        var config = new Configuration { BasePath = "https://api.whoisfreaks.com" };
+        config.AddApiKey("ApiKeyAuth", "YOUR_API_KEY");  // set once
+        var api = new DatabasesThreatFeedApi(config);
+        var result = api.DownloadThreatFeedMalware(DateTime.UtcNow.AddDays(-1).ToString("yyyy-MM-dd"));
+        Console.WriteLine(result);
+    }
+}
+
+```
+
+#### Download a sample of the malware threat feed (CSV)
+
+`GET /v3.4/download/threat-feed/malware/sample`
+
+```csharp
+// Runnable example: Download a sample of the malware threat feed (CSV) (GET /v3.4/download/threat-feed/malware/sample)
+// Parameters for downloadThreatFeedMalwareSample (GET /v3.4/download/threat-feed/malware/sample):
+//   (no parameters; the API key is set on the client)
+using System;
+using WhoisFreaks.Api;
+using WhoisFreaks.Client;
+
+class DownloadThreatFeedMalwareSample {
+    static void Main() {
+        var config = new Configuration { BasePath = "https://api.whoisfreaks.com" };
+        config.AddApiKey("ApiKeyAuth", "YOUR_API_KEY");  // set once
+        var api = new DatabasesThreatFeedApi(config);
+        var result = api.DownloadThreatFeedMalwareSample();
+        Console.WriteLine(result);
+    }
+}
+
+```
+
+#### Download the daily spam threat feed (CSV)
+
+`GET /v3.4/download/threat-feed/spam`
+
+```csharp
+// Runnable example: Download the daily spam threat feed (CSV) (GET /v3.4/download/threat-feed/spam)
+// Parameters for downloadThreatFeedSpam (GET /v3.4/download/threat-feed/spam):
+//   - date (string, optional): Feed date (yyyy-MM-dd); defaults to latest available
+using System;
+using WhoisFreaks.Api;
+using WhoisFreaks.Client;
+
+class DownloadThreatFeedSpam {
+    static void Main() {
+        var config = new Configuration { BasePath = "https://api.whoisfreaks.com" };
+        config.AddApiKey("ApiKeyAuth", "YOUR_API_KEY");  // set once
+        var api = new DatabasesThreatFeedApi(config);
+        var result = api.DownloadThreatFeedSpam(DateTime.UtcNow.AddDays(-1).ToString("yyyy-MM-dd"));
+        Console.WriteLine(result);
+    }
+}
+
+```
+
+#### Download a sample of the spam threat feed (CSV)
+
+`GET /v3.4/download/threat-feed/spam/sample`
+
+```csharp
+// Runnable example: Download a sample of the spam threat feed (CSV) (GET /v3.4/download/threat-feed/spam/sample)
+// Parameters for downloadThreatFeedSpamSample (GET /v3.4/download/threat-feed/spam/sample):
+//   (no parameters; the API key is set on the client)
+using System;
+using WhoisFreaks.Api;
+using WhoisFreaks.Client;
+
+class DownloadThreatFeedSpamSample {
+    static void Main() {
+        var config = new Configuration { BasePath = "https://api.whoisfreaks.com" };
+        config.AddApiKey("ApiKeyAuth", "YOUR_API_KEY");  // set once
+        var api = new DatabasesThreatFeedApi(config);
+        var result = api.DownloadThreatFeedSpamSample();
         Console.WriteLine(result);
     }
 }

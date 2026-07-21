@@ -76,7 +76,7 @@ print_r($result);
 
 ## Endpoints
 
-All 54 endpoints are shown below, grouped by category. Each includes its method, path, parameters, and a runnable example. See the [full endpoint reference](../endpoints/README.md) for response shapes and field details.
+All 60 endpoints are shown below, grouped by category. Each includes its method, path, parameters, and a runnable example. See the [full endpoint reference](../endpoints/README.md) for response shapes and field details.
 
 ### WHOIS
 
@@ -558,12 +558,12 @@ print_r($result);
 
 #### Database File Status (Public)
 
-`GET /v3.3/status`
+`GET /v3.4/status`
 
 ```php
 <?php
-// Runnable example: Database File Status (Public) (GET /v3.3/status)
-// Parameters for databaseFileStatus (GET /v3.3/status):
+// Runnable example: Database File Status (Public) (GET /v3.4/status)
+// Parameters for databaseFileStatus (GET /v3.4/status):
 //   (no parameters; the API key is set on the client)
 require 'vendor/autoload.php';
 
@@ -1188,6 +1188,122 @@ $config = WhoisFreaks\Configuration::getDefaultConfiguration()
     ->setApiKey("apiKey", "YOUR_API_KEY");  // set once
 $api = new WhoisFreaks\Api\DatabasesIPSecurityApi(new GuzzleHttp\Client(), $config);
 $result = $api->dbIpSecurityStatus();
+print_r($result);
+
+```
+
+### Databases - Threat Feed
+
+#### Download the daily phishing threat feed (CSV)
+
+`GET /v3.4/download/threat-feed/phishing`
+
+```php
+<?php
+// Runnable example: Download the daily phishing threat feed (CSV) (GET /v3.4/download/threat-feed/phishing)
+// Parameters for downloadThreatFeedPhishing (GET /v3.4/download/threat-feed/phishing):
+//   - date (string, optional): Feed date (yyyy-MM-dd); defaults to latest available
+require 'vendor/autoload.php';
+
+$config = WhoisFreaks\Configuration::getDefaultConfiguration()
+    ->setApiKey("apiKey", "YOUR_API_KEY");  // set once
+$api = new WhoisFreaks\Api\DatabasesThreatFeedApi(new GuzzleHttp\Client(), $config);
+$result = $api->downloadThreatFeedPhishing((new DateTime("yesterday"))->format("Y-m-d"));
+print_r($result);
+
+```
+
+#### Download a sample of the phishing threat feed (CSV)
+
+`GET /v3.4/download/threat-feed/phishing/sample`
+
+```php
+<?php
+// Runnable example: Download a sample of the phishing threat feed (CSV) (GET /v3.4/download/threat-feed/phishing/sample)
+// Parameters for downloadThreatFeedPhishingSample (GET /v3.4/download/threat-feed/phishing/sample):
+//   (no parameters; the API key is set on the client)
+require 'vendor/autoload.php';
+
+$config = WhoisFreaks\Configuration::getDefaultConfiguration()
+    ->setApiKey("apiKey", "YOUR_API_KEY");  // set once
+$api = new WhoisFreaks\Api\DatabasesThreatFeedApi(new GuzzleHttp\Client(), $config);
+$result = $api->downloadThreatFeedPhishingSample();
+print_r($result);
+
+```
+
+#### Download the daily malware threat feed (CSV)
+
+`GET /v3.4/download/threat-feed/malware`
+
+```php
+<?php
+// Runnable example: Download the daily malware threat feed (CSV) (GET /v3.4/download/threat-feed/malware)
+// Parameters for downloadThreatFeedMalware (GET /v3.4/download/threat-feed/malware):
+//   - date (string, optional): Feed date (yyyy-MM-dd); defaults to latest available
+require 'vendor/autoload.php';
+
+$config = WhoisFreaks\Configuration::getDefaultConfiguration()
+    ->setApiKey("apiKey", "YOUR_API_KEY");  // set once
+$api = new WhoisFreaks\Api\DatabasesThreatFeedApi(new GuzzleHttp\Client(), $config);
+$result = $api->downloadThreatFeedMalware((new DateTime("yesterday"))->format("Y-m-d"));
+print_r($result);
+
+```
+
+#### Download a sample of the malware threat feed (CSV)
+
+`GET /v3.4/download/threat-feed/malware/sample`
+
+```php
+<?php
+// Runnable example: Download a sample of the malware threat feed (CSV) (GET /v3.4/download/threat-feed/malware/sample)
+// Parameters for downloadThreatFeedMalwareSample (GET /v3.4/download/threat-feed/malware/sample):
+//   (no parameters; the API key is set on the client)
+require 'vendor/autoload.php';
+
+$config = WhoisFreaks\Configuration::getDefaultConfiguration()
+    ->setApiKey("apiKey", "YOUR_API_KEY");  // set once
+$api = new WhoisFreaks\Api\DatabasesThreatFeedApi(new GuzzleHttp\Client(), $config);
+$result = $api->downloadThreatFeedMalwareSample();
+print_r($result);
+
+```
+
+#### Download the daily spam threat feed (CSV)
+
+`GET /v3.4/download/threat-feed/spam`
+
+```php
+<?php
+// Runnable example: Download the daily spam threat feed (CSV) (GET /v3.4/download/threat-feed/spam)
+// Parameters for downloadThreatFeedSpam (GET /v3.4/download/threat-feed/spam):
+//   - date (string, optional): Feed date (yyyy-MM-dd); defaults to latest available
+require 'vendor/autoload.php';
+
+$config = WhoisFreaks\Configuration::getDefaultConfiguration()
+    ->setApiKey("apiKey", "YOUR_API_KEY");  // set once
+$api = new WhoisFreaks\Api\DatabasesThreatFeedApi(new GuzzleHttp\Client(), $config);
+$result = $api->downloadThreatFeedSpam((new DateTime("yesterday"))->format("Y-m-d"));
+print_r($result);
+
+```
+
+#### Download a sample of the spam threat feed (CSV)
+
+`GET /v3.4/download/threat-feed/spam/sample`
+
+```php
+<?php
+// Runnable example: Download a sample of the spam threat feed (CSV) (GET /v3.4/download/threat-feed/spam/sample)
+// Parameters for downloadThreatFeedSpamSample (GET /v3.4/download/threat-feed/spam/sample):
+//   (no parameters; the API key is set on the client)
+require 'vendor/autoload.php';
+
+$config = WhoisFreaks\Configuration::getDefaultConfiguration()
+    ->setApiKey("apiKey", "YOUR_API_KEY");  // set once
+$api = new WhoisFreaks\Api\DatabasesThreatFeedApi(new GuzzleHttp\Client(), $config);
+$result = $api->downloadThreatFeedSpamSample();
 print_r($result);
 
 ```

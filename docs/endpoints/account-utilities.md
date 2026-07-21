@@ -14,4 +14,4 @@ Account, API key, and usage utilities
 
 - **Rotate API Key** — `GET /v1.0/api-key/rotate`
 - **Account Usage** — `GET /v1.0/whoisapi/usage`
-- **Database File Status (Public)** — `GET /v3.3/status`
+- **Database File Status (Public)** — `GET /v3.4/status`

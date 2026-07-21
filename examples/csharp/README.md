@@ -47,7 +47,7 @@ Install: see the [C# / .NET guide](../../docs/languages/csharp.md). Set `YOUR_AP
 ## Account
 - [`RotateApiKey.cs`](RotateApiKey.cs) — Rotate API Key (`GET /v1.0/api-key/rotate`)
 - [`AccountUsage.cs`](AccountUsage.cs) — Account Usage (`GET /v1.0/whoisapi/usage`)
-- [`DatabaseFileStatus.cs`](DatabaseFileStatus.cs) — Database File Status (Public) (`GET /v3.3/status`)
+- [`DatabaseFileStatus.cs`](DatabaseFileStatus.cs) — Database File Status (Public) (`GET /v3.4/status`)
 
 ## Databases - Newly Registered
 - [`DbNewlyGtld.cs`](DbNewlyGtld.cs) — Newly Registered gTLD (CSV) (`GET /v3.1/download/domainer/gtld`)
@@ -97,3 +97,11 @@ Install: see the [C# / .NET guide](../../docs/languages/csharp.md). Set `YOUR_AP
 ## Databases - IP Security
 - [`DbIpSecurity.cs`](DbIpSecurity.cs) — IP Security Snapshot (`GET /v3.3/download/snapshot/ip/security`)
 - [`DbIpSecurityStatus.cs`](DbIpSecurityStatus.cs) — IP Security Snapshot Status (`GET /v3.3/status/snapshot/ip/security`)
+
+## Databases - Threat Feed
+- [`DownloadThreatFeedPhishing.cs`](DownloadThreatFeedPhishing.cs) — Download the daily phishing threat feed (CSV) (`GET /v3.4/download/threat-feed/phishing`)
+- [`DownloadThreatFeedPhishingSample.cs`](DownloadThreatFeedPhishingSample.cs) — Download a sample of the phishing threat feed (CSV) (`GET /v3.4/download/threat-feed/phishing/sample`)
+- [`DownloadThreatFeedMalware.cs`](DownloadThreatFeedMalware.cs) — Download the daily malware threat feed (CSV) (`GET /v3.4/download/threat-feed/malware`)
+- [`DownloadThreatFeedMalwareSample.cs`](DownloadThreatFeedMalwareSample.cs) — Download a sample of the malware threat feed (CSV) (`GET /v3.4/download/threat-feed/malware/sample`)
+- [`DownloadThreatFeedSpam.cs`](DownloadThreatFeedSpam.cs) — Download the daily spam threat feed (CSV) (`GET /v3.4/download/threat-feed/spam`)
+- [`DownloadThreatFeedSpamSample.cs`](DownloadThreatFeedSpamSample.cs) — Download a sample of the spam threat feed (CSV) (`GET /v3.4/download/threat-feed/spam/sample`)

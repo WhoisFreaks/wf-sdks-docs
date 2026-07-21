@@ -47,7 +47,7 @@ Install: see the [Swift guide](../../docs/languages/swift.md). Set `YOUR_API_KEY
 ## Account
 - [`RotateApiKey.swift`](RotateApiKey.swift) — Rotate API Key (`GET /v1.0/api-key/rotate`)
 - [`AccountUsage.swift`](AccountUsage.swift) — Account Usage (`GET /v1.0/whoisapi/usage`)
-- [`DatabaseFileStatus.swift`](DatabaseFileStatus.swift) — Database File Status (Public) (`GET /v3.3/status`)
+- [`DatabaseFileStatus.swift`](DatabaseFileStatus.swift) — Database File Status (Public) (`GET /v3.4/status`)
 
 ## Databases - Newly Registered
 - [`DbNewlyGtld.swift`](DbNewlyGtld.swift) — Newly Registered gTLD (CSV) (`GET /v3.1/download/domainer/gtld`)
@@ -97,3 +97,11 @@ Install: see the [Swift guide](../../docs/languages/swift.md). Set `YOUR_API_KEY
 ## Databases - IP Security
 - [`DbIpSecurity.swift`](DbIpSecurity.swift) — IP Security Snapshot (`GET /v3.3/download/snapshot/ip/security`)
 - [`DbIpSecurityStatus.swift`](DbIpSecurityStatus.swift) — IP Security Snapshot Status (`GET /v3.3/status/snapshot/ip/security`)
+
+## Databases - Threat Feed
+- [`DownloadThreatFeedPhishing.swift`](DownloadThreatFeedPhishing.swift) — Download the daily phishing threat feed (CSV) (`GET /v3.4/download/threat-feed/phishing`)
+- [`DownloadThreatFeedPhishingSample.swift`](DownloadThreatFeedPhishingSample.swift) — Download a sample of the phishing threat feed (CSV) (`GET /v3.4/download/threat-feed/phishing/sample`)
+- [`DownloadThreatFeedMalware.swift`](DownloadThreatFeedMalware.swift) — Download the daily malware threat feed (CSV) (`GET /v3.4/download/threat-feed/malware`)
+- [`DownloadThreatFeedMalwareSample.swift`](DownloadThreatFeedMalwareSample.swift) — Download a sample of the malware threat feed (CSV) (`GET /v3.4/download/threat-feed/malware/sample`)
+- [`DownloadThreatFeedSpam.swift`](DownloadThreatFeedSpam.swift) — Download the daily spam threat feed (CSV) (`GET /v3.4/download/threat-feed/spam`)
+- [`DownloadThreatFeedSpamSample.swift`](DownloadThreatFeedSpamSample.swift) — Download a sample of the spam threat feed (CSV) (`GET /v3.4/download/threat-feed/spam/sample`)

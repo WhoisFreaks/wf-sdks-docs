@@ -47,7 +47,7 @@ Install: see the [Go guide](../../docs/languages/go.md). Set `YOUR_API_KEY` and 
 ## Account
 - [`RotateApiKey.go`](RotateApiKey.go) — Rotate API Key (`GET /v1.0/api-key/rotate`)
 - [`AccountUsage.go`](AccountUsage.go) — Account Usage (`GET /v1.0/whoisapi/usage`)
-- [`DatabaseFileStatus.go`](DatabaseFileStatus.go) — Database File Status (Public) (`GET /v3.3/status`)
+- [`DatabaseFileStatus.go`](DatabaseFileStatus.go) — Database File Status (Public) (`GET /v3.4/status`)
 
 ## Databases - Newly Registered
 - [`DbNewlyGtld.go`](DbNewlyGtld.go) — Newly Registered gTLD (CSV) (`GET /v3.1/download/domainer/gtld`)
@@ -97,3 +97,11 @@ Install: see the [Go guide](../../docs/languages/go.md). Set `YOUR_API_KEY` and 
 ## Databases - IP Security
 - [`DbIpSecurity.go`](DbIpSecurity.go) — IP Security Snapshot (`GET /v3.3/download/snapshot/ip/security`)
 - [`DbIpSecurityStatus.go`](DbIpSecurityStatus.go) — IP Security Snapshot Status (`GET /v3.3/status/snapshot/ip/security`)
+
+## Databases - Threat Feed
+- [`DownloadThreatFeedPhishing.go`](DownloadThreatFeedPhishing.go) — Download the daily phishing threat feed (CSV) (`GET /v3.4/download/threat-feed/phishing`)
+- [`DownloadThreatFeedPhishingSample.go`](DownloadThreatFeedPhishingSample.go) — Download a sample of the phishing threat feed (CSV) (`GET /v3.4/download/threat-feed/phishing/sample`)
+- [`DownloadThreatFeedMalware.go`](DownloadThreatFeedMalware.go) — Download the daily malware threat feed (CSV) (`GET /v3.4/download/threat-feed/malware`)
+- [`DownloadThreatFeedMalwareSample.go`](DownloadThreatFeedMalwareSample.go) — Download a sample of the malware threat feed (CSV) (`GET /v3.4/download/threat-feed/malware/sample`)
+- [`DownloadThreatFeedSpam.go`](DownloadThreatFeedSpam.go) — Download the daily spam threat feed (CSV) (`GET /v3.4/download/threat-feed/spam`)
+- [`DownloadThreatFeedSpamSample.go`](DownloadThreatFeedSpamSample.go) — Download a sample of the spam threat feed (CSV) (`GET /v3.4/download/threat-feed/spam/sample`)

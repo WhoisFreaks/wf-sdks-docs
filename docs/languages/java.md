@@ -94,7 +94,7 @@ public class WhoisLive {
 
 ## Endpoints
 
-All 54 endpoints are shown below, grouped by category. Each includes its method, path, parameters, and a runnable example. See the [full endpoint reference](../endpoints/README.md) for response shapes and field details.
+All 60 endpoints are shown below, grouped by category. Each includes its method, path, parameters, and a runnable example. See the [full endpoint reference](../endpoints/README.md) for response shapes and field details.
 
 ### WHOIS
 
@@ -735,11 +735,11 @@ public class AccountUsage {
 
 #### Database File Status (Public)
 
-`GET /v3.3/status`
+`GET /v3.4/status`
 
 ```java
-// Runnable example: Database File Status (Public) (GET /v3.3/status)
-// Parameters for databaseFileStatus (GET /v3.3/status):
+// Runnable example: Database File Status (Public) (GET /v3.4/status)
+// Parameters for databaseFileStatus (GET /v3.4/status):
 //   (no parameters; the API key is set on the client)
 import com.whoisfreaks.client.ApiClient;
 import com.whoisfreaks.client.Configuration;
@@ -1587,6 +1587,164 @@ public class DbIpSecurityStatus {
         ((ApiKeyAuth) client.getAuthentication("ApiKeyAuth")).setApiKey("YOUR_API_KEY");  // set once
         DatabasesIpSecurityApi api = new DatabasesIpSecurityApi(client);
         var result = api.dbIpSecurityStatus();
+        System.out.println(result);
+    }
+}
+
+```
+
+### Databases - Threat Feed
+
+#### Download the daily phishing threat feed (CSV)
+
+`GET /v3.4/download/threat-feed/phishing`
+
+```java
+// Runnable example: Download the daily phishing threat feed (CSV) (GET /v3.4/download/threat-feed/phishing)
+// Parameters for downloadThreatFeedPhishing (GET /v3.4/download/threat-feed/phishing):
+//   - date (string, optional): Feed date (yyyy-MM-dd); defaults to latest available
+import com.whoisfreaks.client.ApiClient;
+import com.whoisfreaks.client.Configuration;
+import com.whoisfreaks.client.auth.ApiKeyAuth;
+import com.whoisfreaks.client.api.DatabasesThreatFeedApi;
+
+public class DownloadThreatFeedPhishing {
+    public static void main(String[] args) throws Exception {
+        ApiClient client = Configuration.getDefaultApiClient();
+        client.setBasePath("https://api.whoisfreaks.com");
+        ((ApiKeyAuth) client.getAuthentication("ApiKeyAuth")).setApiKey("YOUR_API_KEY");  // set once
+        DatabasesThreatFeedApi api = new DatabasesThreatFeedApi(client);
+        var result = api.downloadThreatFeedPhishing(java.time.LocalDate.now().minusDays(1).toString());
+        System.out.println(result);
+    }
+}
+
+```
+
+#### Download a sample of the phishing threat feed (CSV)
+
+`GET /v3.4/download/threat-feed/phishing/sample`
+
+```java
+// Runnable example: Download a sample of the phishing threat feed (CSV) (GET /v3.4/download/threat-feed/phishing/sample)
+// Parameters for downloadThreatFeedPhishingSample (GET /v3.4/download/threat-feed/phishing/sample):
+//   (no parameters; the API key is set on the client)
+import com.whoisfreaks.client.ApiClient;
+import com.whoisfreaks.client.Configuration;
+import com.whoisfreaks.client.auth.ApiKeyAuth;
+import com.whoisfreaks.client.api.DatabasesThreatFeedApi;
+
+public class DownloadThreatFeedPhishingSample {
+    public static void main(String[] args) throws Exception {
+        ApiClient client = Configuration.getDefaultApiClient();
+        client.setBasePath("https://api.whoisfreaks.com");
+        ((ApiKeyAuth) client.getAuthentication("ApiKeyAuth")).setApiKey("YOUR_API_KEY");  // set once
+        DatabasesThreatFeedApi api = new DatabasesThreatFeedApi(client);
+        var result = api.downloadThreatFeedPhishingSample();
+        System.out.println(result);
+    }
+}
+
+```
+
+#### Download the daily malware threat feed (CSV)
+
+`GET /v3.4/download/threat-feed/malware`
+
+```java
+// Runnable example: Download the daily malware threat feed (CSV) (GET /v3.4/download/threat-feed/malware)
+// Parameters for downloadThreatFeedMalware (GET /v3.4/download/threat-feed/malware):
+//   - date (string, optional): Feed date (yyyy-MM-dd); defaults to latest available
+import com.whoisfreaks.client.ApiClient;
+import com.whoisfreaks.client.Configuration;
+import com.whoisfreaks.client.auth.ApiKeyAuth;
+import com.whoisfreaks.client.api.DatabasesThreatFeedApi;
+
+public class DownloadThreatFeedMalware {
+    public static void main(String[] args) throws Exception {
+        ApiClient client = Configuration.getDefaultApiClient();
+        client.setBasePath("https://api.whoisfreaks.com");
+        ((ApiKeyAuth) client.getAuthentication("ApiKeyAuth")).setApiKey("YOUR_API_KEY");  // set once
+        DatabasesThreatFeedApi api = new DatabasesThreatFeedApi(client);
+        var result = api.downloadThreatFeedMalware(java.time.LocalDate.now().minusDays(1).toString());
+        System.out.println(result);
+    }
+}
+
+```
+
+#### Download a sample of the malware threat feed (CSV)
+
+`GET /v3.4/download/threat-feed/malware/sample`
+
+```java
+// Runnable example: Download a sample of the malware threat feed (CSV) (GET /v3.4/download/threat-feed/malware/sample)
+// Parameters for downloadThreatFeedMalwareSample (GET /v3.4/download/threat-feed/malware/sample):
+//   (no parameters; the API key is set on the client)
+import com.whoisfreaks.client.ApiClient;
+import com.whoisfreaks.client.Configuration;
+import com.whoisfreaks.client.auth.ApiKeyAuth;
+import com.whoisfreaks.client.api.DatabasesThreatFeedApi;
+
+public class DownloadThreatFeedMalwareSample {
+    public static void main(String[] args) throws Exception {
+        ApiClient client = Configuration.getDefaultApiClient();
+        client.setBasePath("https://api.whoisfreaks.com");
+        ((ApiKeyAuth) client.getAuthentication("ApiKeyAuth")).setApiKey("YOUR_API_KEY");  // set once
+        DatabasesThreatFeedApi api = new DatabasesThreatFeedApi(client);
+        var result = api.downloadThreatFeedMalwareSample();
+        System.out.println(result);
+    }
+}
+
+```
+
+#### Download the daily spam threat feed (CSV)
+
+`GET /v3.4/download/threat-feed/spam`
+
+```java
+// Runnable example: Download the daily spam threat feed (CSV) (GET /v3.4/download/threat-feed/spam)
+// Parameters for downloadThreatFeedSpam (GET /v3.4/download/threat-feed/spam):
+//   - date (string, optional): Feed date (yyyy-MM-dd); defaults to latest available
+import com.whoisfreaks.client.ApiClient;
+import com.whoisfreaks.client.Configuration;
+import com.whoisfreaks.client.auth.ApiKeyAuth;
+import com.whoisfreaks.client.api.DatabasesThreatFeedApi;
+
+public class DownloadThreatFeedSpam {
+    public static void main(String[] args) throws Exception {
+        ApiClient client = Configuration.getDefaultApiClient();
+        client.setBasePath("https://api.whoisfreaks.com");
+        ((ApiKeyAuth) client.getAuthentication("ApiKeyAuth")).setApiKey("YOUR_API_KEY");  // set once
+        DatabasesThreatFeedApi api = new DatabasesThreatFeedApi(client);
+        var result = api.downloadThreatFeedSpam(java.time.LocalDate.now().minusDays(1).toString());
+        System.out.println(result);
+    }
+}
+
+```
+
+#### Download a sample of the spam threat feed (CSV)
+
+`GET /v3.4/download/threat-feed/spam/sample`
+
+```java
+// Runnable example: Download a sample of the spam threat feed (CSV) (GET /v3.4/download/threat-feed/spam/sample)
+// Parameters for downloadThreatFeedSpamSample (GET /v3.4/download/threat-feed/spam/sample):
+//   (no parameters; the API key is set on the client)
+import com.whoisfreaks.client.ApiClient;
+import com.whoisfreaks.client.Configuration;
+import com.whoisfreaks.client.auth.ApiKeyAuth;
+import com.whoisfreaks.client.api.DatabasesThreatFeedApi;
+
+public class DownloadThreatFeedSpamSample {
+    public static void main(String[] args) throws Exception {
+        ApiClient client = Configuration.getDefaultApiClient();
+        client.setBasePath("https://api.whoisfreaks.com");
+        ((ApiKeyAuth) client.getAuthentication("ApiKeyAuth")).setApiKey("YOUR_API_KEY");  // set once
+        DatabasesThreatFeedApi api = new DatabasesThreatFeedApi(client);
+        var result = api.downloadThreatFeedSpamSample();
         System.out.println(result);
     }
 }

@@ -47,7 +47,7 @@ Install: see the [PHP guide](../../docs/languages/php.md). Set `YOUR_API_KEY` an
 ## Account
 - [`RotateApiKey.php`](RotateApiKey.php) — Rotate API Key (`GET /v1.0/api-key/rotate`)
 - [`AccountUsage.php`](AccountUsage.php) — Account Usage (`GET /v1.0/whoisapi/usage`)
-- [`DatabaseFileStatus.php`](DatabaseFileStatus.php) — Database File Status (Public) (`GET /v3.3/status`)
+- [`DatabaseFileStatus.php`](DatabaseFileStatus.php) — Database File Status (Public) (`GET /v3.4/status`)
 
 ## Databases - Newly Registered
 - [`DbNewlyGtld.php`](DbNewlyGtld.php) — Newly Registered gTLD (CSV) (`GET /v3.1/download/domainer/gtld`)
@@ -97,3 +97,11 @@ Install: see the [PHP guide](../../docs/languages/php.md). Set `YOUR_API_KEY` an
 ## Databases - IP Security
 - [`DbIpSecurity.php`](DbIpSecurity.php) — IP Security Snapshot (`GET /v3.3/download/snapshot/ip/security`)
 - [`DbIpSecurityStatus.php`](DbIpSecurityStatus.php) — IP Security Snapshot Status (`GET /v3.3/status/snapshot/ip/security`)
+
+## Databases - Threat Feed
+- [`DownloadThreatFeedPhishing.php`](DownloadThreatFeedPhishing.php) — Download the daily phishing threat feed (CSV) (`GET /v3.4/download/threat-feed/phishing`)
+- [`DownloadThreatFeedPhishingSample.php`](DownloadThreatFeedPhishingSample.php) — Download a sample of the phishing threat feed (CSV) (`GET /v3.4/download/threat-feed/phishing/sample`)
+- [`DownloadThreatFeedMalware.php`](DownloadThreatFeedMalware.php) — Download the daily malware threat feed (CSV) (`GET /v3.4/download/threat-feed/malware`)
+- [`DownloadThreatFeedMalwareSample.php`](DownloadThreatFeedMalwareSample.php) — Download a sample of the malware threat feed (CSV) (`GET /v3.4/download/threat-feed/malware/sample`)
+- [`DownloadThreatFeedSpam.php`](DownloadThreatFeedSpam.php) — Download the daily spam threat feed (CSV) (`GET /v3.4/download/threat-feed/spam`)
+- [`DownloadThreatFeedSpamSample.php`](DownloadThreatFeedSpamSample.php) — Download a sample of the spam threat feed (CSV) (`GET /v3.4/download/threat-feed/spam/sample`)

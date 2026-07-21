@@ -17,9 +17,9 @@ In short:
 
 ## Base URLs
 
-| Purpose                 | Base URL                        |
-| ----------------------- | ------------------------------- |
-| Live API lookups        | `https://api.whoisfreaks.com`   |
+| Purpose | Base URL |
+|---------|----------|
+| Live API lookups | `https://api.whoisfreaks.com` |
 | Database file downloads | `https://files.whoisfreaks.com` |
 
 ## Setting the key per language
@@ -56,12 +56,13 @@ const { ApiClient, WHOISApi } = pkg;
 // or:  const { ApiClient, WHOISApi } = require("whoisfreaks-js");
 
 const client = ApiClient.instance;
-client.authentications["ApiKeyAuth"].apiKey = "YOUR_API_KEY"; // set once
+client.authentications["ApiKeyAuth"].apiKey = "YOUR_API_KEY";  // set once
 const api = new WHOISApi(client);
 
 api.whoisLive("example.com")
-    .then((data) => console.log(data))
-    .catch((err) => console.error(err));
+  .then(data => console.log(data))
+  .catch(err => console.error(err));
+
 ```
 
 ### TypeScript
@@ -73,14 +74,15 @@ api.whoisLive("example.com")
 //   - format (string (one of: json, xml), optional)
 import { Configuration, WHOISApi } from "whoisfreaks";
 
-const config = new Configuration({ apiKey: "YOUR_API_KEY" }); // set once
+const config = new Configuration({ apiKey: "YOUR_API_KEY" });  // set once
 const api = new WHOISApi(config);
 
 async function main() {
-    const result = await api.whoisLive({ domainName: "example.com", format: undefined });
-    console.log(result);
+  const result = await api.whoisLive({ domainName: "example.com", format: undefined });
+  console.log(result);
 }
 main().catch(console.error);
+
 ```
 
 ### Java

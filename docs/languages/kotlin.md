@@ -77,7 +77,7 @@ fun main() {
 
 ## Endpoints
 
-All 54 endpoints are shown below, grouped by category. Each includes its method, path, parameters, and a runnable example. See the [full endpoint reference](../endpoints/README.md) for response shapes and field details.
+All 60 endpoints are shown below, grouped by category. Each includes its method, path, parameters, and a runnable example. See the [full endpoint reference](../endpoints/README.md) for response shapes and field details.
 
 ### WHOIS
 
@@ -586,11 +586,11 @@ fun main() {
 
 #### Database File Status (Public)
 
-`GET /v3.3/status`
+`GET /v3.4/status`
 
 ```kotlin
-// Runnable example: Database File Status (Public) (GET /v3.3/status)
-// Parameters for databaseFileStatus (GET /v3.3/status):
+// Runnable example: Database File Status (Public) (GET /v3.4/status)
+// Parameters for databaseFileStatus (GET /v3.4/status):
 //   (no parameters; the API key is set on the client)
 import com.whoisfreaks.client.apis.AccountApi
 import com.whoisfreaks.client.infrastructure.ApiClient
@@ -1247,6 +1247,128 @@ fun main() {
     ApiClient.apiKey["apiKey"] = "YOUR_API_KEY"  // set once
     val api = DatabasesIPSecurityApi()
     val result = api.dbIpSecurityStatus()
+    println(result)
+}
+
+```
+
+### Databases - Threat Feed
+
+#### Download the daily phishing threat feed (CSV)
+
+`GET /v3.4/download/threat-feed/phishing`
+
+```kotlin
+// Runnable example: Download the daily phishing threat feed (CSV) (GET /v3.4/download/threat-feed/phishing)
+// Parameters for downloadThreatFeedPhishing (GET /v3.4/download/threat-feed/phishing):
+//   - date (string, optional): Feed date (yyyy-MM-dd); defaults to latest available
+import com.whoisfreaks.client.apis.DatabasesThreatFeedApi
+import com.whoisfreaks.client.infrastructure.ApiClient
+
+fun main() {
+    ApiClient.apiKey["apiKey"] = "YOUR_API_KEY"  // set once
+    val api = DatabasesThreatFeedApi()
+    val result = api.downloadThreatFeedPhishing(java.time.LocalDate.now().minusDays(1).toString())
+    println(result)
+}
+
+```
+
+#### Download a sample of the phishing threat feed (CSV)
+
+`GET /v3.4/download/threat-feed/phishing/sample`
+
+```kotlin
+// Runnable example: Download a sample of the phishing threat feed (CSV) (GET /v3.4/download/threat-feed/phishing/sample)
+// Parameters for downloadThreatFeedPhishingSample (GET /v3.4/download/threat-feed/phishing/sample):
+//   (no parameters; the API key is set on the client)
+import com.whoisfreaks.client.apis.DatabasesThreatFeedApi
+import com.whoisfreaks.client.infrastructure.ApiClient
+
+fun main() {
+    ApiClient.apiKey["apiKey"] = "YOUR_API_KEY"  // set once
+    val api = DatabasesThreatFeedApi()
+    val result = api.downloadThreatFeedPhishingSample()
+    println(result)
+}
+
+```
+
+#### Download the daily malware threat feed (CSV)
+
+`GET /v3.4/download/threat-feed/malware`
+
+```kotlin
+// Runnable example: Download the daily malware threat feed (CSV) (GET /v3.4/download/threat-feed/malware)
+// Parameters for downloadThreatFeedMalware (GET /v3.4/download/threat-feed/malware):
+//   - date (string, optional): Feed date (yyyy-MM-dd); defaults to latest available
+import com.whoisfreaks.client.apis.DatabasesThreatFeedApi
+import com.whoisfreaks.client.infrastructure.ApiClient
+
+fun main() {
+    ApiClient.apiKey["apiKey"] = "YOUR_API_KEY"  // set once
+    val api = DatabasesThreatFeedApi()
+    val result = api.downloadThreatFeedMalware(java.time.LocalDate.now().minusDays(1).toString())
+    println(result)
+}
+
+```
+
+#### Download a sample of the malware threat feed (CSV)
+
+`GET /v3.4/download/threat-feed/malware/sample`
+
+```kotlin
+// Runnable example: Download a sample of the malware threat feed (CSV) (GET /v3.4/download/threat-feed/malware/sample)
+// Parameters for downloadThreatFeedMalwareSample (GET /v3.4/download/threat-feed/malware/sample):
+//   (no parameters; the API key is set on the client)
+import com.whoisfreaks.client.apis.DatabasesThreatFeedApi
+import com.whoisfreaks.client.infrastructure.ApiClient
+
+fun main() {
+    ApiClient.apiKey["apiKey"] = "YOUR_API_KEY"  // set once
+    val api = DatabasesThreatFeedApi()
+    val result = api.downloadThreatFeedMalwareSample()
+    println(result)
+}
+
+```
+
+#### Download the daily spam threat feed (CSV)
+
+`GET /v3.4/download/threat-feed/spam`
+
+```kotlin
+// Runnable example: Download the daily spam threat feed (CSV) (GET /v3.4/download/threat-feed/spam)
+// Parameters for downloadThreatFeedSpam (GET /v3.4/download/threat-feed/spam):
+//   - date (string, optional): Feed date (yyyy-MM-dd); defaults to latest available
+import com.whoisfreaks.client.apis.DatabasesThreatFeedApi
+import com.whoisfreaks.client.infrastructure.ApiClient
+
+fun main() {
+    ApiClient.apiKey["apiKey"] = "YOUR_API_KEY"  // set once
+    val api = DatabasesThreatFeedApi()
+    val result = api.downloadThreatFeedSpam(java.time.LocalDate.now().minusDays(1).toString())
+    println(result)
+}
+
+```
+
+#### Download a sample of the spam threat feed (CSV)
+
+`GET /v3.4/download/threat-feed/spam/sample`
+
+```kotlin
+// Runnable example: Download a sample of the spam threat feed (CSV) (GET /v3.4/download/threat-feed/spam/sample)
+// Parameters for downloadThreatFeedSpamSample (GET /v3.4/download/threat-feed/spam/sample):
+//   (no parameters; the API key is set on the client)
+import com.whoisfreaks.client.apis.DatabasesThreatFeedApi
+import com.whoisfreaks.client.infrastructure.ApiClient
+
+fun main() {
+    ApiClient.apiKey["apiKey"] = "YOUR_API_KEY"  // set once
+    val api = DatabasesThreatFeedApi()
+    val result = api.downloadThreatFeedSpamSample()
     println(result)
 }
 

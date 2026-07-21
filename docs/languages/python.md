@@ -79,7 +79,7 @@ print(result)
 
 ## Endpoints
 
-All 54 endpoints are shown below, grouped by category. Each includes its method, path, parameters, and a runnable example. See the [full endpoint reference](../endpoints/README.md) for response shapes and field details.
+All 60 endpoints are shown below, grouped by category. Each includes its method, path, parameters, and a runnable example. See the [full endpoint reference](../endpoints/README.md) for response shapes and field details.
 
 ### WHOIS
 
@@ -594,14 +594,14 @@ print(result)
 
 #### Database File Status (Public)
 
-`GET /v3.3/status`
+`GET /v3.4/status`
 
 ```python
-"""Runnable example: Database File Status (Public) (GET /v3.3/status)."""
+"""Runnable example: Database File Status (Public) (GET /v3.4/status)."""
 from whoisfreaks import Configuration, ApiClient
 from whoisfreaks.api.account_api import AccountApi
 
-# Parameters for databaseFileStatus (GET /v3.3/status):
+# Parameters for databaseFileStatus (GET /v3.4/status):
 #   (no parameters; the API key is set on the client)
 config = Configuration()
 config.api_key["ApiKeyAuth"] = "YOUR_API_KEY"   # set once
@@ -1352,5 +1352,148 @@ api = DatabasesIPSecurityApi(ApiClient(config))
 
 result = api.db_ip_security_status()
 print(result)
+
+```
+
+### Databases - Threat Feed
+
+#### Download the daily phishing threat feed (CSV)
+
+`GET /v3.4/download/threat-feed/phishing`
+
+```python
+"""Runnable example: Download the daily phishing threat feed (CSV) (GET /v3.4/download/threat-feed/phishing).
+Returns raw bytes (a compressed/binary file) -- write to disk, do not print."""
+from datetime import date, timedelta
+from whoisfreaks import Configuration, ApiClient
+from whoisfreaks.api.databases_threat_feed_api import DatabasesThreatFeedApi
+
+# Parameters for downloadThreatFeedPhishing (GET /v3.4/download/threat-feed/phishing):
+#   - date (string, optional): Feed date (yyyy-MM-dd); defaults to latest available
+config = Configuration()
+config.api_key["ApiKeyAuth"] = "YOUR_API_KEY"   # set once
+api = DatabasesThreatFeedApi(ApiClient(config))
+
+data = api.download_threat_feed_phishing(var_date=str(date.today() - timedelta(days=1)))   # bytes
+with open("downloadThreatFeedPhishing.gz", "wb") as f:
+    f.write(data)
+print(f"saved {len(data)} bytes to downloadThreatFeedPhishing.gz")
+
+```
+
+#### Download a sample of the phishing threat feed (CSV)
+
+`GET /v3.4/download/threat-feed/phishing/sample`
+
+```python
+"""Runnable example: Download a sample of the phishing threat feed (CSV) (GET /v3.4/download/threat-feed/phishing/sample).
+Returns raw bytes (a compressed/binary file) -- write to disk, do not print."""
+from whoisfreaks import Configuration, ApiClient
+from whoisfreaks.api.databases_threat_feed_api import DatabasesThreatFeedApi
+
+# Parameters for downloadThreatFeedPhishingSample (GET /v3.4/download/threat-feed/phishing/sample):
+#   (no parameters; the API key is set on the client)
+config = Configuration()
+config.api_key["ApiKeyAuth"] = "YOUR_API_KEY"   # set once
+api = DatabasesThreatFeedApi(ApiClient(config))
+
+data = api.download_threat_feed_phishing_sample()   # bytes
+with open("downloadThreatFeedPhishingSample.gz", "wb") as f:
+    f.write(data)
+print(f"saved {len(data)} bytes to downloadThreatFeedPhishingSample.gz")
+
+```
+
+#### Download the daily malware threat feed (CSV)
+
+`GET /v3.4/download/threat-feed/malware`
+
+```python
+"""Runnable example: Download the daily malware threat feed (CSV) (GET /v3.4/download/threat-feed/malware).
+Returns raw bytes (a compressed/binary file) -- write to disk, do not print."""
+from datetime import date, timedelta
+from whoisfreaks import Configuration, ApiClient
+from whoisfreaks.api.databases_threat_feed_api import DatabasesThreatFeedApi
+
+# Parameters for downloadThreatFeedMalware (GET /v3.4/download/threat-feed/malware):
+#   - date (string, optional): Feed date (yyyy-MM-dd); defaults to latest available
+config = Configuration()
+config.api_key["ApiKeyAuth"] = "YOUR_API_KEY"   # set once
+api = DatabasesThreatFeedApi(ApiClient(config))
+
+data = api.download_threat_feed_malware(var_date=str(date.today() - timedelta(days=1)))   # bytes
+with open("downloadThreatFeedMalware.gz", "wb") as f:
+    f.write(data)
+print(f"saved {len(data)} bytes to downloadThreatFeedMalware.gz")
+
+```
+
+#### Download a sample of the malware threat feed (CSV)
+
+`GET /v3.4/download/threat-feed/malware/sample`
+
+```python
+"""Runnable example: Download a sample of the malware threat feed (CSV) (GET /v3.4/download/threat-feed/malware/sample).
+Returns raw bytes (a compressed/binary file) -- write to disk, do not print."""
+from whoisfreaks import Configuration, ApiClient
+from whoisfreaks.api.databases_threat_feed_api import DatabasesThreatFeedApi
+
+# Parameters for downloadThreatFeedMalwareSample (GET /v3.4/download/threat-feed/malware/sample):
+#   (no parameters; the API key is set on the client)
+config = Configuration()
+config.api_key["ApiKeyAuth"] = "YOUR_API_KEY"   # set once
+api = DatabasesThreatFeedApi(ApiClient(config))
+
+data = api.download_threat_feed_malware_sample()   # bytes
+with open("downloadThreatFeedMalwareSample.gz", "wb") as f:
+    f.write(data)
+print(f"saved {len(data)} bytes to downloadThreatFeedMalwareSample.gz")
+
+```
+
+#### Download the daily spam threat feed (CSV)
+
+`GET /v3.4/download/threat-feed/spam`
+
+```python
+"""Runnable example: Download the daily spam threat feed (CSV) (GET /v3.4/download/threat-feed/spam).
+Returns raw bytes (a compressed/binary file) -- write to disk, do not print."""
+from datetime import date, timedelta
+from whoisfreaks import Configuration, ApiClient
+from whoisfreaks.api.databases_threat_feed_api import DatabasesThreatFeedApi
+
+# Parameters for downloadThreatFeedSpam (GET /v3.4/download/threat-feed/spam):
+#   - date (string, optional): Feed date (yyyy-MM-dd); defaults to latest available
+config = Configuration()
+config.api_key["ApiKeyAuth"] = "YOUR_API_KEY"   # set once
+api = DatabasesThreatFeedApi(ApiClient(config))
+
+data = api.download_threat_feed_spam(var_date=str(date.today() - timedelta(days=1)))   # bytes
+with open("downloadThreatFeedSpam.gz", "wb") as f:
+    f.write(data)
+print(f"saved {len(data)} bytes to downloadThreatFeedSpam.gz")
+
+```
+
+#### Download a sample of the spam threat feed (CSV)
+
+`GET /v3.4/download/threat-feed/spam/sample`
+
+```python
+"""Runnable example: Download a sample of the spam threat feed (CSV) (GET /v3.4/download/threat-feed/spam/sample).
+Returns raw bytes (a compressed/binary file) -- write to disk, do not print."""
+from whoisfreaks import Configuration, ApiClient
+from whoisfreaks.api.databases_threat_feed_api import DatabasesThreatFeedApi
+
+# Parameters for downloadThreatFeedSpamSample (GET /v3.4/download/threat-feed/spam/sample):
+#   (no parameters; the API key is set on the client)
+config = Configuration()
+config.api_key["ApiKeyAuth"] = "YOUR_API_KEY"   # set once
+api = DatabasesThreatFeedApi(ApiClient(config))
+
+data = api.download_threat_feed_spam_sample()   # bytes
+with open("downloadThreatFeedSpamSample.gz", "wb") as f:
+    f.write(data)
+print(f"saved {len(data)} bytes to downloadThreatFeedSpamSample.gz")
 
 ```

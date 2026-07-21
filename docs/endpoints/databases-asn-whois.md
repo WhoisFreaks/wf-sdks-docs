@@ -1,6 +1,6 @@
 # Databases - ASN WHOIS
 
-_Section: Databases_
+*Section: Databases*
 
 ASN WHOIS database snapshots
 
@@ -14,9 +14,9 @@ ASN WHOIS Snapshot. Returns the file/snapshot described by this operation.
 
 **Parameters**
 
-| Parameter | In    | Required | Type   | Description |
-| --------- | ----- | -------- | ------ | ----------- |
-| `date`    | query | yes      | string |             |
+| Parameter | In | Required | Type | Description |
+|-----------|----|----------|------|-------------|
+| `date` | query | yes | string |  |
 
 **Usage**
 
@@ -52,14 +52,15 @@ print(f"saved {len(data)} bytes to dbAsnWhois.gz")
 //   - date (string, required)
 import { Configuration, DatabasesASNWHOISApi } from "whoisfreaks";
 
-const config = new Configuration({ apiKey: "YOUR_API_KEY" }); // set once
+const config = new Configuration({ apiKey: "YOUR_API_KEY" });  // set once
 const api = new DatabasesASNWHOISApi(config);
 
 async function main() {
-    const result = await api.dbAsnWhois({ date: new Date(Date.now() - 86400000).toISOString().slice(0, 10) });
-    console.log(result);
+  const result = await api.dbAsnWhois({ date: new Date(Date.now()-86400000).toISOString().slice(0,10) });
+  console.log(result);
 }
 main().catch(console.error);
+
 ```
 
 </details>
@@ -107,18 +108,19 @@ ASN WHOIS Snapshot Status. Returns the file/snapshot described by this operation
 
 **Parameters**
 
-| Parameter | In  | Required | Type | Description |
-| --------- | --- | -------- | ---- | ----------- |
+| Parameter | In | Required | Type | Description |
+|-----------|----|----------|------|-------------|
 
 **Response** (`SnapshotStatus`)
 
-| Field                    | Type   | Description |
-| ------------------------ | ------ | ----------- |
-| `status`                 | string |             |
-| `snapshot_creation_date` | string |             |
-| `snapshot_name`          | string |             |
-| `snapshot_deletion_time` | string |             |
-| `message`                | string |             |
+| Field | Type | Description |
+|-------|------|-------------|
+| `status` | string |  |
+| `snapshot_creation_date` | string |  |
+| `snapshot_name` | string |  |
+| `snapshot_deletion_time` | string |  |
+| `message` | string |  |
+
 
 **Usage**
 
@@ -150,14 +152,15 @@ print(result)
 //   (no parameters; the API key is set on the client)
 import { Configuration, DatabasesASNWHOISApi } from "whoisfreaks";
 
-const config = new Configuration({ apiKey: "YOUR_API_KEY" }); // set once
+const config = new Configuration({ apiKey: "YOUR_API_KEY" });  // set once
 const api = new DatabasesASNWHOISApi(config);
 
 async function main() {
-    const result = await api.dbAsnWhoisStatus({});
-    console.log(result);
+  const result = await api.dbAsnWhoisStatus({  });
+  console.log(result);
 }
 main().catch(console.error);
+
 ```
 
 </details>

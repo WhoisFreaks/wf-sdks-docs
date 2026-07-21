@@ -47,7 +47,7 @@ Install: see the [JavaScript guide](../../docs/languages/javascript.md). Set `YO
 ## Account
 - [`RotateApiKey.js`](RotateApiKey.js) — Rotate API Key (`GET /v1.0/api-key/rotate`)
 - [`AccountUsage.js`](AccountUsage.js) — Account Usage (`GET /v1.0/whoisapi/usage`)
-- [`DatabaseFileStatus.js`](DatabaseFileStatus.js) — Database File Status (Public) (`GET /v3.3/status`)
+- [`DatabaseFileStatus.js`](DatabaseFileStatus.js) — Database File Status (Public) (`GET /v3.4/status`)
 
 ## Databases - Newly Registered
 - [`DbNewlyGtld.js`](DbNewlyGtld.js) — Newly Registered gTLD (CSV) (`GET /v3.1/download/domainer/gtld`)
@@ -97,3 +97,11 @@ Install: see the [JavaScript guide](../../docs/languages/javascript.md). Set `YO
 ## Databases - IP Security
 - [`DbIpSecurity.js`](DbIpSecurity.js) — IP Security Snapshot (`GET /v3.3/download/snapshot/ip/security`)
 - [`DbIpSecurityStatus.js`](DbIpSecurityStatus.js) — IP Security Snapshot Status (`GET /v3.3/status/snapshot/ip/security`)
+
+## Databases - Threat Feed
+- [`DownloadThreatFeedPhishing.js`](DownloadThreatFeedPhishing.js) — Download the daily phishing threat feed (CSV) (`GET /v3.4/download/threat-feed/phishing`)
+- [`DownloadThreatFeedPhishingSample.js`](DownloadThreatFeedPhishingSample.js) — Download a sample of the phishing threat feed (CSV) (`GET /v3.4/download/threat-feed/phishing/sample`)
+- [`DownloadThreatFeedMalware.js`](DownloadThreatFeedMalware.js) — Download the daily malware threat feed (CSV) (`GET /v3.4/download/threat-feed/malware`)
+- [`DownloadThreatFeedMalwareSample.js`](DownloadThreatFeedMalwareSample.js) — Download a sample of the malware threat feed (CSV) (`GET /v3.4/download/threat-feed/malware/sample`)
+- [`DownloadThreatFeedSpam.js`](DownloadThreatFeedSpam.js) — Download the daily spam threat feed (CSV) (`GET /v3.4/download/threat-feed/spam`)
+- [`DownloadThreatFeedSpamSample.js`](DownloadThreatFeedSpamSample.js) — Download a sample of the spam threat feed (CSV) (`GET /v3.4/download/threat-feed/spam/sample`)

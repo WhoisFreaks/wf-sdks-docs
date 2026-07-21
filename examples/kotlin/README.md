@@ -47,7 +47,7 @@ Install: see the [Kotlin guide](../../docs/languages/kotlin.md). Set `YOUR_API_K
 ## Account
 - [`RotateApiKey.kt`](RotateApiKey.kt) — Rotate API Key (`GET /v1.0/api-key/rotate`)
 - [`AccountUsage.kt`](AccountUsage.kt) — Account Usage (`GET /v1.0/whoisapi/usage`)
-- [`DatabaseFileStatus.kt`](DatabaseFileStatus.kt) — Database File Status (Public) (`GET /v3.3/status`)
+- [`DatabaseFileStatus.kt`](DatabaseFileStatus.kt) — Database File Status (Public) (`GET /v3.4/status`)
 
 ## Databases - Newly Registered
 - [`DbNewlyGtld.kt`](DbNewlyGtld.kt) — Newly Registered gTLD (CSV) (`GET /v3.1/download/domainer/gtld`)
@@ -97,3 +97,11 @@ Install: see the [Kotlin guide](../../docs/languages/kotlin.md). Set `YOUR_API_K
 ## Databases - IP Security
 - [`DbIpSecurity.kt`](DbIpSecurity.kt) — IP Security Snapshot (`GET /v3.3/download/snapshot/ip/security`)
 - [`DbIpSecurityStatus.kt`](DbIpSecurityStatus.kt) — IP Security Snapshot Status (`GET /v3.3/status/snapshot/ip/security`)
+
+## Databases - Threat Feed
+- [`DownloadThreatFeedPhishing.kt`](DownloadThreatFeedPhishing.kt) — Download the daily phishing threat feed (CSV) (`GET /v3.4/download/threat-feed/phishing`)
+- [`DownloadThreatFeedPhishingSample.kt`](DownloadThreatFeedPhishingSample.kt) — Download a sample of the phishing threat feed (CSV) (`GET /v3.4/download/threat-feed/phishing/sample`)
+- [`DownloadThreatFeedMalware.kt`](DownloadThreatFeedMalware.kt) — Download the daily malware threat feed (CSV) (`GET /v3.4/download/threat-feed/malware`)
+- [`DownloadThreatFeedMalwareSample.kt`](DownloadThreatFeedMalwareSample.kt) — Download a sample of the malware threat feed (CSV) (`GET /v3.4/download/threat-feed/malware/sample`)
+- [`DownloadThreatFeedSpam.kt`](DownloadThreatFeedSpam.kt) — Download the daily spam threat feed (CSV) (`GET /v3.4/download/threat-feed/spam`)
+- [`DownloadThreatFeedSpamSample.kt`](DownloadThreatFeedSpamSample.kt) — Download a sample of the spam threat feed (CSV) (`GET /v3.4/download/threat-feed/spam/sample`)
